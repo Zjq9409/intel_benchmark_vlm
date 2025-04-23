@@ -1,0 +1,1 @@
+python vlm_benchmark.py --image_path demo/datasets/shangmen/78830740274183/37_20240902175943_78830740274183.jpg --model /data/models/Qwen2-VL-7B-Instruct --port 8003
