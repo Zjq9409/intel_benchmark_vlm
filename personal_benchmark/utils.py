@@ -33,6 +33,7 @@ class RequestFuncOutput:
         default_factory=list)  # List of inter-token latencies
     tpot: float = 0.0  # avg next-token latencies
     prompt_len: int = 0
+    total_len: int = 0
     error: str = ""
     
 @dataclass
@@ -73,6 +74,7 @@ def calculate_metrics(
 ) -> Tuple[BenchmarkMetrics, List[int]]:
     actual_output_lens: List[int] = []
     total_input = 0
+    image_prompt_len = 0
     completed = 0
     good_completed = 0
     itls: List[float] = []
@@ -222,6 +224,8 @@ async def async_request_openai_chat_completions(
                             elif usage := data.get("usage"):
                                 output.output_tokens = usage.get(
                                     "completion_tokens")
+                                output.total_len = usage.get("prompt_tokens")
+                                print("image and prompt len: ", output.total_len)
 
                             most_recent_timestamp = timestamp
 
