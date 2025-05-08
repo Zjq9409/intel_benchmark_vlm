@@ -1,4 +1,4 @@
-首先启动服务端脚本：
+- 首先启动服务端脚本：
 ```
 python -m vllm.entrypoints.openai.api_server \
     --model /data/models/Qwen2-VL-7B-Instruct \
@@ -11,10 +11,10 @@ python -m vllm.entrypoints.openai.api_server \
     --host 127.0.0.1
 
 ```
-测试脚本
+- 准确率测试脚本:
 ```
 python vlm_benchmark.py \
---image_path ./image.jpg  \
+--image_path ./test.png  \
 --prompt "请描述图片"      \
 --model /data/models/Qwen2-VL-7B-Instruct \
 --batch_size 1 \
@@ -22,19 +22,7 @@ python vlm_benchmark.py \
 --host 127.0.0.1
 ```
 
-存在server_name的测试脚本
-```
-python vlm_benchmark.py  \
---image_path ./image.jpg  \
---prompt "请描述图片" \
---model /data/models/Qwen2-VL-7B-Instruct \
---served-model-name Qwen2-VL-7B-Instruct \
---batch_size 1 \
---port 8001 \
---host 127.0.0.1
-```
-
-输出结果
+准确率测试输出结果（仅供参考，以不同平台实际输出为准）
 ```
 image size:  (1080, 810)
 input prompt len:  3
@@ -60,4 +48,53 @@ Mean ITL (ms):                           11.22
 Median ITL (ms):                         9.60      
 P99 ITL (ms):                            49.37     
 ==================================================
+```
+
+- 性能测试脚本，强制输出指定的`output_len`长度，可以统一不同平台输出长度来对比性能
+```
+python vlm_benchmark.py \
+--image_path ./test.png  \
+--prompt "请描述图片"      \
+--model /data/models/Qwen2-VL-7B-Instruct \
+--batch_size 1 \
+--port 8003 \
+--ignore-eos \
+--output_len 512 \
+--host 127.0.0.1
+```
+性能测试结果输出，`Total generated tokens:`输出为指定的`--output_len`长度。（仅供参考，以不同平台实际输出为准）
+```
+============ Serving Benchmark Result ============
+Successful requests:                     1         
+Benchmark duration (s):                  5.23      
+Total input tokens:                      3         
+Total generated tokens:                  512       
+Request throughput (req/s):              0.19      
+Output token throughput (tok/s):         97.88     
+Total Token throughput (tok/s):          98.46     
+---------------Time to First Token----------------
+Mean TTFT (ms):                          209.90    
+Median TTFT (ms):                        209.90    
+P99 TTFT (ms):                           209.90    
+-----Time per Output Token (excl. 1st token)------
+Mean TPOT (ms):                          9.82      
+Median TPOT (ms):                        9.82      
+P99 TPOT (ms):                           9.82      
+---------------Inter-token Latency----------------
+Mean ITL (ms):                           9.79      
+Median ITL (ms):                         9.60      
+P99 ITL (ms):                            10.23     
+==================================================
+```
+
+- 存在server_name的测试脚本（可选）
+```
+python vlm_benchmark.py  \
+--image_path ./test.png  \
+--prompt "请描述图片" \
+--model /data/models/Qwen2-VL-7B-Instruct \
+--served-model-name Qwen2-VL-7B-Instruct \
+--batch_size 1 \
+--port 8001 \
+--host 127.0.0.1
 ```

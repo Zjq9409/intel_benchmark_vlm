@@ -34,6 +34,7 @@ async def benchmark(
     model_name: str,
     tokenizer: PreTrainedTokenizerBase,
     input_requests: List[Tuple[str, int, int]],
+    ignore_eos: bool,
 ):
     tasks: List[asyncio.Task] = []
     test_prompt, test_prompt_len,test_output_len, test_mm_content,  = (
@@ -46,7 +47,7 @@ async def benchmark(
         prompt_len=test_prompt_len,
         output_len=test_output_len,
         multi_modal_content=test_mm_content,
-        ignore_eos=False,
+        ignore_eos=ignore_eos,
     )
     test_output = await async_request_openai_chat_completions(request_func_input=test_input)
     print("输出结果：",test_output.generated_text)
@@ -60,7 +61,7 @@ async def benchmark(
                                               prompt_len=prompt_len,
                                               output_len=test_output_len,
                                               multi_modal_content=mm_content,
-                                              ignore_eos=False)
+                                              ignore_eos=ignore_eos)
         tasks.append(
             asyncio.create_task(
                 async_request_openai_chat_completions(request_func_input=request_func_input,
@@ -198,7 +199,8 @@ def main(args: argparse.Namespace):
             model_id=model_id,
             model_name=model_name,
             tokenizer=tokenizer,
-            input_requests=sampled_requests,)
+            input_requests=sampled_requests,
+            ignore_eos=args.ignore_eos,)
     )
 
 if __name__ == "__main__":
@@ -255,5 +257,10 @@ if __name__ == "__main__":
                         help="The model name used in the API. "
                         "If not specified, the model name will be the "
                         "same as the ``--model`` argument. ")
+    parser.add_argument(
+        "--ignore-eos",
+        action="store_true",
+        help="Set ignore_eos flag when sending the benchmark request."
+        "Warning: ignore_eos is not supported in deepspeed_mii and tgi.")
     args = parser.parse_args()
     main(args)
