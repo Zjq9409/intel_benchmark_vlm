@@ -26,27 +26,29 @@ python vlm_benchmark.py \
 ```
 image size:  (1080, 810)
 input prompt len:  3
+image and prompt len:  1145
 输出结果： 图中是一辆黄色的卡车，卡车的货箱正在倾倒，卡车的后面有一台黄色的机器，机器的后面有一个人穿着红色的工作服，戴着黄色的安全帽，站在黑色的柏油路上。卡车的后面有几栋红色的建筑，建筑的后面是一片绿色的树林。
+image and prompt len:  1145
 ============ Serving Benchmark Result ============
 Successful requests:                     1         
-Benchmark duration (s):                  0.94      
+Benchmark duration (s):                  0.95      
 Total input tokens:                      3         
 Total generated tokens:                  67        
 Request throughput (req/s):              1.06      
-Output token throughput (tok/s):         70.93     
-Total Token throughput (tok/s):          74.10     
+Output token throughput (tok/s):         70.81     
+Total Token throughput (tok/s):          73.98     
 ---------------Time to First Token----------------
-Mean TTFT (ms):                          180.99    
-Median TTFT (ms):                        180.99    
-P99 TTFT (ms):                           180.99    
+Mean TTFT (ms):                          195.25    
+Median TTFT (ms):                        195.25    
+P99 TTFT (ms):                           195.25    
 -----Time per Output Token (excl. 1st token)------
-Mean TPOT (ms):                          11.56     
-Median TPOT (ms):                        11.56     
-P99 TPOT (ms):                           11.56     
+Mean TPOT (ms):                          11.37     
+Median TPOT (ms):                        11.37     
+P99 TPOT (ms):                           11.37     
 ---------------Inter-token Latency----------------
-Mean ITL (ms):                           11.22     
-Median ITL (ms):                         9.60      
-P99 ITL (ms):                            49.37     
+Mean ITL (ms):                           11.04     
+Median ITL (ms):                         9.59      
+P99 ITL (ms):                            45.22     
 ==================================================
 ```
 
@@ -57,13 +59,16 @@ python vlm_benchmark.py \
 --prompt "请描述图片"      \
 --model /data/models/Qwen2-VL-7B-Instruct \
 --batch_size 1 \
---port 8003 \
+--port 8001 \
 --ignore-eos \
 --output_len 512 \
 --host 127.0.0.1
 ```
 性能测试结果输出，`Total generated tokens:`输出为指定的`--output_len`长度。（仅供参考，以不同平台实际输出为准）
 ```
+image size:  (1080, 810)
+input prompt len:  3
+image and prompt len:  1145
 ============ Serving Benchmark Result ============
 Successful requests:                     1         
 Benchmark duration (s):                  5.23      
