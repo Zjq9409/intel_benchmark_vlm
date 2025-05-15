@@ -50,10 +50,10 @@ async def benchmark(
         ignore_eos=ignore_eos,
     )
     test_output = await async_request_openai_chat_completions(request_func_input=test_input)
-    print("输出结果：",test_output.generated_text)
+    if not ignore_eos:
+       print("输出结果：",test_output.generated_text)
     benchmark_start_time = time.perf_counter()
     for request in input_requests:
-        # print(">>>>>>>>>>>>>")
         prompt, prompt_len, test_output_len, mm_content = request
         request_func_input = RequestFuncInput(model=model_id,
                                               model_name=model_name,
@@ -81,6 +81,7 @@ async def benchmark(
     print("{:<40} {:<10.2f}".format("Benchmark duration (s):",
                                     benchmark_duration))
     print("{:<40} {:<10}".format("Total input tokens:", metrics.total_input))
+    print("{:<40} {:<10}".format("Total image and input tokens:", metrics.image_prompt_input_lens))
     print("{:<40} {:<10}".format("Total generated tokens:",
                                  metrics.total_output))
     print("{:<40} {:<10.2f}".format("Request throughput (req/s):",
@@ -179,6 +180,7 @@ def main(args: argparse.Namespace):
     with open(image_path, 'rb') as file:
         image_data = file.read()
         base64_image = base64.b64encode(image_data).decode("utf-8")
+    sampled_requests: List[Tuple[str, int, int, dict]] = []
     for i in range(batch_size):
         mm_content = {
                 "type": "image_url",
@@ -186,13 +188,13 @@ def main(args: argparse.Namespace):
                     "url": f"data:image/jpeg;base64,{base64_image}"
                 },
             }
-    texts = args.prompt
-    prompt_token_ids = tokenizer(texts).input_ids
-    prompt_len = len(prompt_token_ids)
-    print("input prompt len: ", prompt_len)
-    output_len = args.output_len
-    sampled_requests: List[Tuple[str, int, int, dict]] = []
-    sampled_requests.append((texts, prompt_len, output_len, mm_content))
+        texts = args.prompt
+        prompt_token_ids = tokenizer(texts).input_ids
+        prompt_len = len(prompt_token_ids)
+        # print("input prompt len: ", prompt_len)
+        output_len = args.output_len
+        sampled_requests.append((texts, prompt_len, output_len, mm_content))
+
     benchmark_result = asyncio.run(
         benchmark(
             api_url=api_url,

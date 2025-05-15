@@ -33,13 +33,14 @@ class RequestFuncOutput:
         default_factory=list)  # List of inter-token latencies
     tpot: float = 0.0  # avg next-token latencies
     prompt_len: int = 0
-    total_len: int = 0
+    image_prompt_total_len: int = 0
     error: str = ""
     
 @dataclass
 class BenchmarkMetrics:
     completed: int
     total_input: int
+    image_prompt_input_lens: int
     total_output: int
     request_throughput: float
     request_goodput: float
@@ -74,7 +75,7 @@ def calculate_metrics(
 ) -> Tuple[BenchmarkMetrics, List[int]]:
     actual_output_lens: List[int] = []
     total_input = 0
-    image_prompt_len = 0
+    image_prompt_input_lens = 0
     completed = 0
     good_completed = 0
     itls: List[float] = []
@@ -82,6 +83,7 @@ def calculate_metrics(
     all_tpots: List[float] = []
     ttfts: List[float] = []
     e2els: List[float] = []
+    # print(outputs)
     for i in range(len(outputs)):
         if outputs[i].success:
             output_len = outputs[i].output_tokens
@@ -97,6 +99,7 @@ def calculate_metrics(
                               add_special_tokens=False).input_ids)
             actual_output_lens.append(output_len)
             total_input += input_requests[i][1]
+            image_prompt_input_lens += outputs[i].image_prompt_total_len
             tpot = 0
             if output_len > 1:
                 latency_minus_ttft = outputs[i].latency - outputs[i].ttft
@@ -115,6 +118,7 @@ def calculate_metrics(
     metrics = BenchmarkMetrics(
         completed=completed,
         total_input=total_input,
+        image_prompt_input_lens=image_prompt_input_lens,
         total_output=sum(actual_output_lens),
         request_throughput=completed / dur_s,
         request_goodput=good_completed / dur_s,
@@ -224,8 +228,8 @@ async def async_request_openai_chat_completions(
                             elif usage := data.get("usage"):
                                 output.output_tokens = usage.get(
                                     "completion_tokens")
-                                output.total_len = usage.get("prompt_tokens")
-                                print("image and prompt total len: ", output.total_len)
+                                output.image_prompt_total_len = usage.get("prompt_tokens")
+                                # print("image and prompt total len: ", output.total_len)
 
                             most_recent_timestamp = timestamp
 

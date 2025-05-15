@@ -46,24 +46,25 @@ Burstiness factor: 1.0 (Poisson process)
 Maximum request concurrency: 1
 100%|███████████████████████████████████████████████████████████| 1/1 [00:03<00:00,  3.59s/it]
 ============ Serving Benchmark Result ============
-Successful requests:                     1
-Benchmark duration (s):                  3.59
-Total input tokens:                      11
-Total generated tokens:                  100
-Request throughput (req/s):              0.28
-Output token throughput (tok/s):         27.86
-Total Token throughput (tok/s):          30.93
+Successful requests:                     1         
+Benchmark duration (s):                  2.12      
+Total input tokens:                      11        
+Total image and input tokens:            873       
+Total generated tokens:                  128       
+Request throughput (req/s):              0.47      
+Output token throughput (tok/s):         60.47     
+Total Token throughput (tok/s):          65.67     
 ---------------Time to First Token----------------
-Mean TTFT (ms):                          280.17
-Median TTFT (ms):                        280.17
-P99 TTFT (ms):                           280.17
+Mean TTFT (ms):                          36.83     
+Median TTFT (ms):                        36.83     
+P99 TTFT (ms):                           36.83     
 -----Time per Output Token (excl. 1st token)------
-Mean TPOT (ms):                          33.41
-Median TPOT (ms):                        33.41
-P99 TPOT (ms):                           33.41
+Mean TPOT (ms):                          16.37     
+Median TPOT (ms):                        16.37     
+P99 TPOT (ms):                           16.37     
 ---------------Inter-token Latency----------------
-Mean ITL (ms):                           33.07
-Median ITL (ms):                         33.38
-P99 ITL (ms):                            33.93
+Mean ITL (ms):                           16.24     
+Median ITL (ms):                         16.36     
+P99 ITL (ms):                            16.50     
 ==================================================
 ```

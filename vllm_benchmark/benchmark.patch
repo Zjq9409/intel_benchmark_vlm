@@ -1,26 +1,25 @@
 diff --git a/benchmarks/backend_request_func.py b/benchmarks/backend_request_func.py
-index 800d426c6..d6e1a756f 100644
+index 800d426c6..2733ffb1b 100644
 --- a/benchmarks/backend_request_func.py
 +++ b/benchmarks/backend_request_func.py
 @@ -45,6 +45,7 @@ class RequestFuncOutput:
      itl: list[float] = field(default_factory=list)  # list of inter-token latencies
      tpot: float = 0.0  # avg next-token latencies
      prompt_len: int = 0
-+    total_len: int = 0
++    image_prompt_total_len: int = 0
      error: str = ""
  
  
-@@ -416,6 +417,8 @@ async def async_request_openai_chat_completions(
+@@ -416,6 +417,7 @@ async def async_request_openai_chat_completions(
                                  generated_text += content or ""
                              elif usage := data.get("usage"):
                                  output.output_tokens = usage.get("completion_tokens")
-+                                output.total_len = usage.get("prompt_tokens")
-+                                print("image and prompt total len: ", output.total_len)
++                                output.image_prompt_total_len = usage.get("prompt_tokens")
  
                              most_recent_timestamp = timestamp
  
 diff --git a/benchmarks/benchmark_dataset.py b/benchmarks/benchmark_dataset.py
-index d8f48644c..85d419310 100644
+index d8f48644c..cd62d576b 100644
 --- a/benchmarks/benchmark_dataset.py
 +++ b/benchmarks/benchmark_dataset.py
 @@ -256,6 +256,7 @@ def process_image(image: Any) -> Mapping[str, Any]:
@@ -31,7 +30,7 @@ index d8f48644c..85d419310 100644
      if isinstance(image, Image.Image):
          image = image.convert("RGB")
          with io.BytesIO() as image_data:
-@@ -719,12 +720,14 @@ class VisionArenaDataset(HuggingFaceDataset):
+@@ -719,7 +720,8 @@ class VisionArenaDataset(HuggingFaceDataset):
          for item in self.data:
              if len(sampled_requests) >= num_requests:
                  break
@@ -41,17 +40,43 @@ index d8f48644c..85d419310 100644
              if parser_fn is None:
                  raise ValueError(f"Unsupported dataset path: {self.dataset_path}")
              prompt = parser_fn(item)
-             mm_content = process_image(item["images"][0])
-             prompt_len = len(tokenizer(prompt).input_ids)
-+            print("input prompt len: ", prompt_len)
-             if enable_multimodal_chat:
-                 # Note: when chat is enabled the request prompt_len is no longer
-                 # accurate and we will be using request output to count the
 diff --git a/benchmarks/benchmark_serving.py b/benchmarks/benchmark_serving.py
-index a887e7150..19317477f 100644
+index a887e7150..12e2cde3e 100644
 --- a/benchmarks/benchmark_serving.py
 +++ b/benchmarks/benchmark_serving.py
-@@ -346,6 +346,7 @@ async def benchmark(
+@@ -79,6 +79,7 @@ MILLISECONDS_TO_SECONDS_CONVERSION = 1000
+ class BenchmarkMetrics:
+     completed: int
+     total_input: int
++    image_prompt_input_lens: int
+     total_output: int
+     request_throughput: float
+     request_goodput: float
+@@ -161,6 +162,7 @@ def calculate_metrics(
+ ) -> tuple[BenchmarkMetrics, list[int]]:
+     actual_output_lens: list[int] = []
+     total_input = 0
++    image_prompt_input_lens = 0
+     completed = 0
+     good_completed = 0
+     itls: list[float] = []
+@@ -186,6 +188,7 @@ def calculate_metrics(
+             actual_output_lens.append(output_len)
+             total_input += input_requests[i].prompt_len
+             tpot = 0
++            image_prompt_input_lens += outputs[i].image_prompt_total_len
+             if output_len > 1:
+                 latency_minus_ttft = outputs[i].latency - outputs[i].ttft
+                 tpot = latency_minus_ttft / (output_len - 1)
+@@ -233,6 +236,7 @@ def calculate_metrics(
+     metrics = BenchmarkMetrics(
+         completed=completed,
+         total_input=total_input,
++        image_prompt_input_lens=image_prompt_input_lens,
+         total_output=sum(actual_output_lens),
+         request_throughput=completed / dur_s,
+         request_goodput=good_completed / dur_s,
+@@ -346,6 +350,7 @@ async def benchmark(
              extra_body=extra_body,
          )
          profile_output = await request_func(request_func_input=profile_input)
@@ -59,7 +84,23 @@ index a887e7150..19317477f 100644
          if profile_output.success:
              print("Profiler started")
  
-@@ -655,42 +656,45 @@ def main(args: argparse.Namespace):
+@@ -435,6 +440,7 @@ async def benchmark(
+     print("{:<40} {:<10}".format("Successful requests:", metrics.completed))
+     print("{:<40} {:<10.2f}".format("Benchmark duration (s):", benchmark_duration))
+     print("{:<40} {:<10}".format("Total input tokens:", metrics.total_input))
++    print("{:<40} {:<10}".format("Total image and input tokens:", metrics.image_prompt_input_lens))
+     print("{:<40} {:<10}".format("Total generated tokens:", metrics.total_output))
+     print(
+         "{:<40} {:<10.2f}".format(
+@@ -462,6 +468,7 @@ async def benchmark(
+         "duration": benchmark_duration,
+         "completed": metrics.completed,
+         "total_input_tokens": metrics.total_input,
++        "total_prompt_image_input_tokens": metrics.image_prompt_input_lens,
+         "total_output_tokens": metrics.total_output,
+         "request_throughput": metrics.request_throughput,
+         "request_goodput:": metrics.request_goodput if goodput_config_dict else None,
+@@ -655,42 +662,45 @@ def main(args: argparse.Namespace):
      elif args.dataset_name == "hf":
          # all following datasets are implemented from the
          # HuggingFaceDataset base class

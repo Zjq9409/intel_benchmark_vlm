@@ -25,30 +25,28 @@ python vlm_benchmark.py \
 准确率测试输出结果（仅供参考，以不同平台实际输出为准）
 ```
 image size:  (1080, 810)
-input prompt len:  3
-image and prompt len:  1145
-输出结果： 图中是一辆黄色的卡车，卡车的货箱正在倾倒，卡车的后面有一台黄色的机器，机器的后面有一个人穿着红色的工作服，戴着黄色的安全帽，站在黑色的柏油路上。卡车的后面有几栋红色的建筑，建筑的后面是一片绿色的树林。
-image and prompt len:  1145
+输出结果： 这张图片展示了一辆黄色的自卸卡车正在倾倒货物。卡车停在一条新铺好的柏油路上，背景中可以看到一些树木和建筑物。卡车的货箱已经打开，显示出里面装有碎石或沙子等建筑材料。在卡车旁边，有一个穿着橙色工作服和黄色安全帽的工人，他似乎在监督卡车的操作。天空晴朗，阳光明媚，整个场景看起来像是在一个建筑工地或道路施工现场。
 ============ Serving Benchmark Result ============
 Successful requests:                     1         
-Benchmark duration (s):                  0.95      
+Benchmark duration (s):                  1.66      
 Total input tokens:                      3         
-Total generated tokens:                  67        
-Request throughput (req/s):              1.06      
-Output token throughput (tok/s):         70.81     
-Total Token throughput (tok/s):          73.98     
+Total image and input tokens:            1145      
+Total generated tokens:                  97        
+Request throughput (req/s):              0.60      
+Output token throughput (tok/s):         58.49     
+Total Token throughput (tok/s):          60.30     
 ---------------Time to First Token----------------
-Mean TTFT (ms):                          195.25    
-Median TTFT (ms):                        195.25    
-P99 TTFT (ms):                           195.25    
+Mean TTFT (ms):                          81.17     
+Median TTFT (ms):                        81.17     
+P99 TTFT (ms):                           81.17     
 -----Time per Output Token (excl. 1st token)------
-Mean TPOT (ms):                          11.37     
-Median TPOT (ms):                        11.37     
-P99 TPOT (ms):                           11.37     
+Mean TPOT (ms):                          16.42     
+Median TPOT (ms):                        16.42     
+P99 TPOT (ms):                           16.42     
 ---------------Inter-token Latency----------------
-Mean ITL (ms):                           11.04     
-Median ITL (ms):                         9.59      
-P99 ITL (ms):                            45.22     
+Mean ITL (ms):                           16.25     
+Median ITL (ms):                         16.41     
+P99 ITL (ms):                            16.63     
 ==================================================
 ```
 
@@ -60,35 +58,34 @@ python vlm_benchmark.py \
 --model /data/models/Qwen2-VL-7B-Instruct \
 --batch_size 1 \
 --port 8001 \
+--host 127.0.0.1 \
 --ignore-eos \
---output_len 512 \
---host 127.0.0.1
+--output_len 512 
 ```
 性能测试结果输出，`Total generated tokens:`输出为指定的`--output_len`长度。（仅供参考，以不同平台实际输出为准）
 ```
 image size:  (1080, 810)
-input prompt len:  3
-image and prompt len:  1145
 ============ Serving Benchmark Result ============
 Successful requests:                     1         
-Benchmark duration (s):                  5.23      
+Benchmark duration (s):                  8.48      
 Total input tokens:                      3         
+Total image and input tokens:            1145      
 Total generated tokens:                  512       
-Request throughput (req/s):              0.19      
-Output token throughput (tok/s):         97.88     
-Total Token throughput (tok/s):          98.46     
+Request throughput (req/s):              0.12      
+Output token throughput (tok/s):         60.34     
+Total Token throughput (tok/s):          60.70     
 ---------------Time to First Token----------------
-Mean TTFT (ms):                          209.90    
-Median TTFT (ms):                        209.90    
-P99 TTFT (ms):                           209.90    
+Mean TTFT (ms):                          82.05     
+Median TTFT (ms):                        82.05     
+P99 TTFT (ms):                           82.05     
 -----Time per Output Token (excl. 1st token)------
-Mean TPOT (ms):                          9.82      
-Median TPOT (ms):                        9.82      
-P99 TPOT (ms):                           9.82      
+Mean TPOT (ms):                          16.44     
+Median TPOT (ms):                        16.44     
+P99 TPOT (ms):                           16.44     
 ---------------Inter-token Latency----------------
-Mean ITL (ms):                           9.79      
-Median ITL (ms):                         9.60      
-P99 ITL (ms):                            10.23     
+Mean ITL (ms):                           16.41     
+Median ITL (ms):                         16.44     
+P99 ITL (ms):                            16.59     
 ==================================================
 ```
 
