@@ -19,14 +19,23 @@ index 800d426c6..2733ffb1b 100644
                              most_recent_timestamp = timestamp
  
 diff --git a/benchmarks/benchmark_dataset.py b/benchmarks/benchmark_dataset.py
-index d8f48644c..cd62d576b 100644
+index d8f48644c..5ba15966c 100644
 --- a/benchmarks/benchmark_dataset.py
 +++ b/benchmarks/benchmark_dataset.py
+@@ -232,7 +232,7 @@ def lora_path_on_disk(lora_path: str) -> str:
+ 
+ # Global cache for LoRA tokenizers.
+ lora_tokenizer_cache: dict[int, AnyTokenizer] = {}
+-
++image_sizes = []
+ 
+ def process_image(image: Any) -> Mapping[str, Any]:
+     """
 @@ -256,6 +256,7 @@ def process_image(image: Any) -> Mapping[str, Any]:
      """
      if isinstance(image, dict) and "bytes" in image:
          image = Image.open(BytesIO(image["bytes"]))
-+        print("image size: ", image.size)
++        image_sizes.append(image.size)
      if isinstance(image, Image.Image):
          image = image.convert("RGB")
          with io.BytesIO() as image_data:
@@ -40,6 +49,14 @@ index d8f48644c..cd62d576b 100644
              if parser_fn is None:
                  raise ValueError(f"Unsupported dataset path: {self.dataset_path}")
              prompt = parser_fn(item)
+@@ -738,6 +740,7 @@ class VisionArenaDataset(HuggingFaceDataset):
+                     multi_modal_data=mm_content,
+                 )
+             )
++        print("image size: ", image_sizes)
+         self.maybe_oversample_requests(sampled_requests, num_requests)
+         return sampled_requests
+ 
 diff --git a/benchmarks/benchmark_serving.py b/benchmarks/benchmark_serving.py
 index a887e7150..12e2cde3e 100644
 --- a/benchmarks/benchmark_serving.py
