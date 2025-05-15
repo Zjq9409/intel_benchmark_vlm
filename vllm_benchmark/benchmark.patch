@@ -1,44 +1,65 @@
+diff --git a/benchmarks/backend_request_func.py b/benchmarks/backend_request_func.py
+index 800d426c6..d6e1a756f 100644
+--- a/benchmarks/backend_request_func.py
++++ b/benchmarks/backend_request_func.py
+@@ -45,6 +45,7 @@ class RequestFuncOutput:
+     itl: list[float] = field(default_factory=list)  # list of inter-token latencies
+     tpot: float = 0.0  # avg next-token latencies
+     prompt_len: int = 0
++    total_len: int = 0
+     error: str = ""
+ 
+ 
+@@ -416,6 +417,8 @@ async def async_request_openai_chat_completions(
+                                 generated_text += content or ""
+                             elif usage := data.get("usage"):
+                                 output.output_tokens = usage.get("completion_tokens")
++                                output.total_len = usage.get("prompt_tokens")
++                                print("image and prompt total len: ", output.total_len)
+ 
+                             most_recent_timestamp = timestamp
+ 
 diff --git a/benchmarks/benchmark_dataset.py b/benchmarks/benchmark_dataset.py
-index 63f174275..36624a13e 100644
+index d8f48644c..85d419310 100644
 --- a/benchmarks/benchmark_dataset.py
 +++ b/benchmarks/benchmark_dataset.py
-@@ -258,6 +258,7 @@ def process_image(image: Any) -> Mapping[str, Any]:
+@@ -256,6 +256,7 @@ def process_image(image: Any) -> Mapping[str, Any]:
      """
-     if isinstance(image, dict) and 'bytes' in image:
-         image = Image.open(BytesIO(image['bytes']))
-+        print("image: ", image.size)
+     if isinstance(image, dict) and "bytes" in image:
+         image = Image.open(BytesIO(image["bytes"]))
++        print("image size: ", image.size)
      if isinstance(image, Image.Image):
          image = image.convert("RGB")
          with io.BytesIO() as image_data:
-@@ -700,13 +701,14 @@ class VisionArenaDataset(HuggingFaceDataset):
+@@ -719,12 +720,14 @@ class VisionArenaDataset(HuggingFaceDataset):
          for item in self.data:
              if len(sampled_requests) >= num_requests:
                  break
 -            parser_fn = self.SUPPORTED_DATASET_PATHS.get(self.dataset_path)
++            # parser_fn = self.SUPPORTED_DATASET_PATHS.get(self.dataset_path)
 +            parser_fn = self.SUPPORTED_DATASET_PATHS.get("lmarena-ai/VisionArena-Chat")
              if parser_fn is None:
-                 raise ValueError(
-                     f"Unsupported dataset path: {self.dataset_path}")
+                 raise ValueError(f"Unsupported dataset path: {self.dataset_path}")
              prompt = parser_fn(item)
              mm_content = process_image(item["images"][0])
              prompt_len = len(tokenizer(prompt).input_ids)
-+            print("prompt_len: ", prompt_len)
++            print("input prompt len: ", prompt_len)
              if enable_multimodal_chat:
                  # Note: when chat is enabled the request prompt_len is no longer
                  # accurate and we will be using request output to count the
 diff --git a/benchmarks/benchmark_serving.py b/benchmarks/benchmark_serving.py
-index b5bd840d8..dbf5dc37f 100644
+index a887e7150..19317477f 100644
 --- a/benchmarks/benchmark_serving.py
 +++ b/benchmarks/benchmark_serving.py
-@@ -386,6 +386,7 @@ async def benchmark(
-             logprobs=logprobs,
+@@ -346,6 +346,7 @@ async def benchmark(
+             extra_body=extra_body,
          )
          profile_output = await request_func(request_func_input=profile_input)
 +        print(profile_output)
          if profile_output.success:
-             print("Profiler stopped")
+             print("Profiler started")
  
-@@ -592,29 +593,32 @@ def main(args: argparse.Namespace):
+@@ -655,42 +656,45 @@ def main(args: argparse.Namespace):
      elif args.dataset_name == "hf":
          # all following datasets are implemented from the
          # HuggingFaceDataset base class
@@ -49,56 +70,74 @@ index b5bd840d8..dbf5dc37f 100644
 -        elif args.dataset_path in InstructCoderDataset.SUPPORTED_DATASET_PATHS:
 -            dataset_class = InstructCoderDataset
 -            args.hf_split = "train"
+-        elif args.dataset_path in MTBenchDataset.SUPPORTED_DATASET_PATHS:
+-            dataset_class = MTBenchDataset
+-            args.hf_split = "train"
 -        elif args.dataset_path in ConversationDataset.SUPPORTED_DATASET_PATHS:
 -            dataset_class = ConversationDataset
 -        elif args.dataset_path in AIMODataset.SUPPORTED_DATASET_PATHS:
 -            dataset_class = AIMODataset
 -            args.hf_split = "train"
+-        elif args.dataset_path in NextEditPredictionDataset.SUPPORTED_DATASET_PATHS:  # noqa: E501
+-            dataset_class = NextEditPredictionDataset
+-            args.hf_split = "train"
+-        elif args.dataset_path in ASRDataset.SUPPORTED_DATASET_PATHS:
+-            dataset_class = ASRDataset
+-            args.hf_split = "train"
 -        else:
--            supported_datasets = set([
--                dataset_name for cls in HuggingFaceDataset.__subclasses__()
--                for dataset_name in cls.SUPPORTED_DATASET_PATHS
--            ])
+-            supported_datasets = set(
+-                [
+-                    dataset_name
+-                    for cls in HuggingFaceDataset.__subclasses__()
+-                    for dataset_name in cls.SUPPORTED_DATASET_PATHS
+-                ]
+-            )
 -            raise ValueError(
 -                f"Unsupported dataset path: {args.dataset_path}. "
 -                "Huggingface dataset only supports dataset_path"
 -                f" from one of following: {supported_datasets}. "
 -                "Please consider contributing if you would "
--                "like to add support for additional dataset formats.")
+-                "like to add support for additional dataset formats."
+-            )
 +        dataset_class = VisionArenaDataset
 +        args.hf_split = "train"
 +        args.hf_subset = None
-+       # if args.dataset_path in VisionArenaDataset.SUPPORTED_DATASET_PATHS:
-+       #     dataset_class = VisionArenaDataset
-+       #     args.hf_split = "train"
-+       #     args.hf_subset = None
-+       # elif args.dataset_path in InstructCoderDataset.SUPPORTED_DATASET_PATHS:
-+       #     dataset_class = InstructCoderDataset
-+       #     args.hf_split = "train"
-+       # elif args.dataset_path in ConversationDataset.SUPPORTED_DATASET_PATHS:
-+       #     dataset_class = ConversationDataset
-+       # elif args.dataset_path in AIMODataset.SUPPORTED_DATASET_PATHS:
-+       #     dataset_class = AIMODataset
-+       #     args.hf_split = "train"
-+       # else:
-+       #     supported_datasets = set([
-+       #         dataset_name for cls in HuggingFaceDataset.__subclasses__()
-+       #         for dataset_name in cls.SUPPORTED_DATASET_PATHS
-+       #     ])
-+       #     raise ValueError(
-+       #         f"Unsupported dataset path: {args.dataset_path}. "
-+       #         "Huggingface dataset only supports dataset_path"
-+       #         f" from one of following: {supported_datasets}. "
-+       #         "Please consider contributing if you would "
-+       #         "like to add support for additional dataset formats.")
-         input_requests = dataset_class(
-             dataset_path=args.dataset_path,
-             dataset_subset=args.hf_subset,
-@@ -680,7 +684,6 @@ def main(args: argparse.Namespace):
-     # Avoid GC processing "static" data - reduce pause times.
-     gc.collect()
-     gc.freeze()
--
-     benchmark_result = asyncio.run(
-         benchmark(
-             backend=backend,
++        # if args.dataset_path in VisionArenaDataset.SUPPORTED_DATASET_PATHS:
++        #     dataset_class = VisionArenaDataset
++        #     args.hf_split = "train"
++        #     args.hf_subset = None
++        # elif args.dataset_path in InstructCoderDataset.SUPPORTED_DATASET_PATHS:
++        #     dataset_class = InstructCoderDataset
++        #     args.hf_split = "train"
++        # elif args.dataset_path in MTBenchDataset.SUPPORTED_DATASET_PATHS:
++        #     dataset_class = MTBenchDataset
++        #     args.hf_split = "train"
++        # elif args.dataset_path in ConversationDataset.SUPPORTED_DATASET_PATHS:
++        #     dataset_class = ConversationDataset
++        # elif args.dataset_path in AIMODataset.SUPPORTED_DATASET_PATHS:
++        #     dataset_class = AIMODataset
++        #     args.hf_split = "train"
++        # elif args.dataset_path in NextEditPredictionDataset.SUPPORTED_DATASET_PATHS:  # noqa: E501
++        #     dataset_class = NextEditPredictionDataset
++        #     args.hf_split = "train"
++        # elif args.dataset_path in ASRDataset.SUPPORTED_DATASET_PATHS:
++        #     dataset_class = ASRDataset
++        #     args.hf_split = "train"
++        # else:
++        #     supported_datasets = set(
++        #         [
++        #             dataset_name
++        #             for cls in HuggingFaceDataset.__subclasses__()
++        #             for dataset_name in cls.SUPPORTED_DATASET_PATHS
++        #         ]
++        #     )
++        #     raise ValueError(
++        #         f"Unsupported dataset path: {args.dataset_path}. "
++        #         "Huggingface dataset only supports dataset_path"
++        #         f" from one of following: {supported_datasets}. "
++        #         "Please consider contributing if you would "
++        #         "like to add support for additional dataset formats."
++        #     )
+ 
+         if dataset_class.IS_MULTIMODAL and backend not in [
+             "openai-chat",

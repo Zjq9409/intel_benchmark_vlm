@@ -1,11 +1,11 @@
-- 首先启动服务端脚本：
+- 首先启动服务端脚本：(NV 上 添加export VLLM_USE_V1=1环境变量)
 ```
 python -m vllm.entrypoints.openai.api_server \
     --model /data/models/Qwen2-VL-7B-Instruct \
     --chat-template ./vllm/examples/template_chatml.jinja \
     --tokenizer /data/models/Qwen2-VL-7B-Instruct \
     --dtype bfloat16 \
-    --max_num_seqs 64 \
+    --max_num_seqs 256 \
     --max-model-len 16384 \
     --port 8001 \
     --host 127.0.0.1

@@ -225,7 +225,7 @@ async def async_request_openai_chat_completions(
                                 output.output_tokens = usage.get(
                                     "completion_tokens")
                                 output.total_len = usage.get("prompt_tokens")
-                                print("image and prompt len: ", output.total_len)
+                                print("image and prompt total len: ", output.total_len)
 
                             most_recent_timestamp = timestamp
 

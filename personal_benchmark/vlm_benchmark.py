@@ -53,6 +53,7 @@ async def benchmark(
     print("输出结果：",test_output.generated_text)
     benchmark_start_time = time.perf_counter()
     for request in input_requests:
+        # print(">>>>>>>>>>>>>")
         prompt, prompt_len, test_output_len, mm_content = request
         request_func_input = RequestFuncInput(model=model_id,
                                               model_name=model_name,
