@@ -13,7 +13,7 @@ docker run -itd  -v /llm:/llm \
 ```
 host上的/llm目录需要包含MMMU以及MMMMUPro的测试数据集，这两个数据集可从10.238.149.77的/DISK3/home/llm/multimodalLLM/MMMU_Test目录中下载。
 ## 2. 启动模型vllm服务
-参考vllm启动的脚本启动llm服务
+参考vllm启动的脚本启动llm服务，模型上下文最少设置为8K，推荐16K。
 
 ## MMMU/MMMU-Pro测试
 1. 启动镜像
