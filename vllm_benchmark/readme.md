@@ -13,7 +13,8 @@ python -m vllm.entrypoints.openai.api_server \
     --host 127.0.0.1
 ```
 
-多模态服务客户端测试脚本（避免每次执行服务都需要 下载`VisionArena-Chat` 数据集，建议使用离线的 `VisionArena-Chat` ，数据集存放在17层跳板机的 ```/DISK3/home/llm/multimodalLLM/ VisionArena-Chat 文件夹，同时将/DISK3/home/llm/multimodalLLM/benchmarks/benchmark_serving.py和/DISK3/home/llm/multimodalLLM/benchmarks/benchmark_dataset.py``` 替换vLLM中的`benchmark_serving.py`和 `benchmark_dataset.py`文件，以便实现本地加载 ）：
+多模态服务客户端测试脚本（避免每次执行服务都需要 下载`VisionArena-Chat` 数据集，建议使用离线的 `VisionArena-Chat` ，数据集存放在17层跳板机的 ```/DISK3/home/llm/multimodalLLM/ VisionArena-Chat 文件夹，
+ git apply benchmark.patch
 ```
 python3 vllm/benchmarks/benchmark_serving.py \
   --backend openai-chat \
