@@ -1,12 +1,12 @@
-python3 /root/jane/vllm/benchmarks/benchmark_serving.py \
+python3 ../vllm_benchmark/benchmark_serving.py \
   --backend openai-chat \
-  --model /root/jane/Qwen2-VL-7B-Instruct \
+  --model /root/jane/Qwen2-VL-7B-Instruct/ \
   --endpoint /v1/chat/completions \
   --dataset-name hf \
   --hf-split train \
   --num-prompts 2 \
   --max-concurrency 2 \
-  --port 8001 \
+  --port 8000 \
   --host 127.0.0.1 \
   --seed 0 \
   --hf-output-len 128 \

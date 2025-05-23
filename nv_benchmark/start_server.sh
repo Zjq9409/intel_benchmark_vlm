@@ -6,5 +6,5 @@ python -m vllm.entrypoints.openai.api_server \
     --chat-template /root/jane/vllm/examples/template_chatml.jinja \
     --max_num_seqs 256 \
     --max-model-len 16384 \
-    --port 8001 \
+    --port 8000 \
     --host 127.0.0.1
