@@ -14,7 +14,7 @@ https://github.com/Zjq9409/intel_benchmark_vlm/blob/master/accuracy/zto/shangmen
 1. 对于enable_prefix_caching为1的情况，如果TTFT不大于5秒，batch size最大为32.
 2. 对于enable_prefix_caching为0的情况，batch size从1，2，4，8，10，16，32，64增加，当TTFT大于5秒，测试结束。
    
-## 4. 测试代码
+## 4. 测试代码示例
 ```python
 python vlm_benchmark.py \
 --image_path ./test.jpg  \
