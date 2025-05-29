@@ -58,10 +58,14 @@ def extract_log_metrics(log_file, output_csv):
     print(f"成功提取并保存到: {output_csv}")
 
 if __name__ == "__main__":
+    import argparse
+    import os
     parser = argparse.ArgumentParser(description="提取日志指标并保存到CSV")
     parser.add_argument("log_file", type=str, help="日志文件名")
-    parser.add_argument("output_file", type=str, help="输出CSV文件名")
-
+    
     args = parser.parse_args()
 
-    extract_log_metrics(args.log_file, args.output_file)
+    base_name = os.path.basename(args.log_file)
+    output_file = f"{base_name}.csv"
+
+    extract_log_metrics(args.log_file, output_file)

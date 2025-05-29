@@ -1,1 +1,1 @@
-python parse_log.py nv_benchmark/personal_log_intel_2_no_prefix_caching ../log/output_metrics_no_caching.csv
+python parse_log.py nv_benchmark/personal_log_intel_2_no_prefix_caching 
