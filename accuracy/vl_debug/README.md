@@ -1,3 +1,8 @@
-输入主要包括两张图和一个instruction:
-两张图分别为 xxx-code.png 和 xxx-feedback.png, 分别是目标代码截图和运行报错反馈截图。
-instruction.txt 是共用的文本输入。
+1 选择一个图片作为image_path, 使用instruction.txt内容作为prompt，输入大模型
+2 收集结果，与以下参考答案比较，判断是否正确：
+  "llm_inference_issue-merged.png"
+    代码第11行将tokenizer解绑并赋值为None导致出错，删除即可
+  "numpy_computation_issue-merged.png"
+    代码第15行div为0，会导致警告
+  "torch_evaluation_issue-merged.png"
+    代码第8行fc2的输出通道数和fc3的相差一倍，建议吧*2去掉
