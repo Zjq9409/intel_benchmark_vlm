@@ -1,4 +1,4 @@
-1 选择一个图片作为image_path, 使用instruction.txt内容作为prompt，输入大模型
+1 选择一个图片作为image_path, 使用instruction.txt内容作为prompt，输入大模型  
 2 收集结果，与以下参考答案比较，判断是否正确：
   "llm_inference_issue-merged.png"
     代码第11行将tokenizer解绑并赋值为None导致出错，删除即可
