@@ -18,7 +18,7 @@ https://github.com/Zjq9409/intel_benchmark_vlm/blob/master/accuracy/zto/shangmen
 ```python
 python vlm_benchmark.py \
 --image_path ./40_20240903093021_78830772282673.jpg  \
---prompt `cat prompt_128.txt` \
+--prompt "$(cat prompt_128.txt)" \
 --model /llm/gemma3-12b \
 --served-model-name gemma3-12b \
 --batch_size 1 \
