@@ -1,0 +1,2 @@
+Emily celebrated her birthday on Thursday, and her sister Liepa 8 days earlier. Which weekday was that? Option:[ "Wednesday", "Thursday", "Friday", "Tuesday", "Sunday" ]
+
