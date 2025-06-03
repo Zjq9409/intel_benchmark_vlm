@@ -1,8 +1,8 @@
 #!/bin/bash
 
-ACCURACY_DIR="../../accuracy"
+ACCURACY_DIR="../accuracy"
 SCRIPT="python ../personal_benchmark/vlm_benchmark.py"
-MODEL_PATH="/root/jane/Qwen2-VL-7B-Instruct/"
+MODEL_PATH="/llm/models/Qwen2-VL-7B-Instruct/"
 BATCH_SIZE=1
 PORT=8000
 HOST="127.0.0.1"
@@ -26,7 +26,8 @@ find "$ACCURACY_DIR" -type d | while read -r DIR; do
     fi
 
     # 读取 prompt 内容并转义双引号
-    PROMPT_TEXT=$(cat "$PROMPT_FILE" | tr '\n' ' ' | sed 's/"/\\"/g')
+    #PROMPT_TEXT=$(cat "$PROMPT_FILE" | tr '\n' ' ' | sed 's/"/\\"/g')
+    PROMPT_TEXT=$(paste -sd' ' "$PROMPT_FILE" | sed 's/"/\\"/g')
 
     # 查找当前目录下的 .jpg 和 .png 图片
     find "$DIR" -maxdepth 1 -type f \( -iname "*.jpg" -o -iname "*.png" \) | while read -r IMAGE_PATH; do

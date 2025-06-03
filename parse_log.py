@@ -1,6 +1,36 @@
 import re
 import csv
 
+def extract_accuracy_log(log_file):
+
+    # 读取本地 log 文件
+    with open(log_file, 'r', encoding='utf-8') as file:
+        log = file.read()
+    
+    
+    import re
+    
+    # 按记录块拆分（每条记录以 "Processing:" 开头）
+    blocks = re.split(r'(?=Processing:)', log)
+    
+    # 存储提取结果
+    results = []
+    
+    # 遍历每条记录进行提取
+    for block in blocks:
+        image_match = re.search(r'Image\s*:\s*(\S+)', block)
+        output_match = re.search(r'输出结果：\s*(.+?)(?:={5,}|Processing:|$)', block, re.DOTALL)
+    
+        if image_match and output_match:
+            image_path = image_match.group(1).strip()
+            output_text = output_match.group(1).strip().replace('\n', ' ')
+            results.append((image_path, output_text))
+    
+    # 输出结果示例（可改为写入 CSV / JSON）
+    for i, (img, out) in enumerate(results, 1):
+        print(f"[{i}] Image Path: {img}")
+        print(f"    输出结果：{out}\n")
+
 def extract_log_metrics(log_file, output_csv):
     with open(log_file, 'r', encoding='utf-8') as f:
         content = f.read()
@@ -21,6 +51,11 @@ def extract_log_metrics(log_file, output_csv):
         metrics['Request throughput (req/s)'] = re.search(r'Request throughput \(req/s\):\s+([\d.]+)', result)
         metrics['Output token throughput (tok/s)'] = re.search(r'Output token throughput \(tok/s\):\s+([\d.]+)', result)
         metrics['Benchmark duration (s)'] = re.search(r'Benchmark duration \(s\):\s+([\d.]+)', result)
+       
+        # 获取 Mean TTFT 并判断是否超过5秒（5000毫秒）
+        mean_ttft = float(metrics['Mean TTFT (ms)'].group(1)) if metrics['Mean TTFT (ms)'] else None
+        if mean_ttft is not None and mean_ttft > 5000:
+            continue  # 跳过该结果
 
         # 按指定顺序提取数值
         ordered_values = [
@@ -62,10 +97,17 @@ if __name__ == "__main__":
     import os
     parser = argparse.ArgumentParser(description="提取日志指标并保存到CSV")
     parser.add_argument("log_file", type=str, help="日志文件名")
-    
+    parser.add_argument(
+       "--performance",
+       type=lambda x: x.lower() in ['true', '1', 'yes'],
+       default=True,
+       help="是否输出性能数据（默认：True）"
+    )
     args = parser.parse_args()
 
     base_name = os.path.basename(args.log_file)
     output_file = f"{base_name}.csv"
-
-    extract_log_metrics(args.log_file, output_file)
+    if args.performance: 
+       extract_log_metrics(args.log_file, output_file)
+    else:
+       extract_accuracy_log(args.log_file)
