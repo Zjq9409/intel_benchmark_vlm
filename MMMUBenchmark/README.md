@@ -27,7 +27,7 @@ cd /mmmu/MMMU/mmmu-pro/infer
 3. 运行测试
 ### MMMUPro测试
 ```bash
- python infer_gpt.py "gemma3-12b" "http://192.168.10.211:8000/v1" cot "standard (10 options)" "/llm/MMMUPro"
+ python infer_gpt.py "gemma3-12b" "http://192.168.10.211:8000/v1" cot "standard (10 options)" "/llm/MMMUPro/standard (10 options)"
  ```
 
 ###  MMMU测试
