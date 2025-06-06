@@ -2,7 +2,7 @@
 
 ACCURACY_DIR="../accuracy"
 SCRIPT="python ../personal_benchmark/vlm_benchmark.py"
-MODEL_PATH="/llm/models/Qwen2-VL-7B-Instruct/"
+MODEL_PATH="/llm/models/Qwen2-VL-72B-Instruct/"
 BATCH_SIZE=1
 PORT=8000
 HOST="127.0.0.1"

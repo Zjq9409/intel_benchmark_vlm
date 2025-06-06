@@ -36,12 +36,16 @@ export IPEX_LLM_LOWBIT=$LOAD_IN_LOW_BIT
 
 source /opt/intel/1ccl-wks/setvars.sh
 
+TIMESTAMP=$(date +"%Y%m%d_%H%M%S")
+MODEL_NAME=$(basename "$(realpath -m "$MODEL_PATH")")
+LOGFILE="server_${MODEL_NAME}_${TENSOR_PARALLEL_SIZE}_${LOAD_IN_LOW_BIT}_${TIMESTAMP}.log"
+
 python -m ipex_llm.vllm.xpu.entrypoints.openai.api_server \
   --port $PORT \
   --model $MODEL_PATH \
   --trust-remote-code \
   --block-size 8 \
-  --gpu-memory-utilization 0.8 \
+  --gpu-memory-utilization 0.95 \
   --device xpu \
   --dtype float16 \
   --enforce-eager \
@@ -52,4 +56,4 @@ python -m ipex_llm.vllm.xpu.entrypoints.openai.api_server \
   --max-num-seqs $MAX_NUM_SEQS \
   --tensor-parallel-size $TENSOR_PARALLEL_SIZE \
   --disable-async-output-proc \
-  --distributed-executor-backend ray
+  --distributed-executor-backend ray | tee ${LOGFILE}

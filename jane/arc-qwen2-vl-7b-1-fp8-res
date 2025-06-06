@@ -1,0 +1,607 @@
+Processing:
+  Image : ../accuracy/invoice/Apple-Stock-Price.png
+  Prompt: ../accuracy/invoice/prompt.txt
+
+Namespace(seed=0, batch_size=1, output_len=512, image_path='../accuracy/invoice/Apple-Stock-Price.png', prompt='请详细描述图像内容', model='/llm/models/Qwen2-VL-7B-Instruct/', base_url=None, host='127.0.0.1', port=8000, endpoint='/v1/chat/completions', served_model_name=None, ignore_eos=False)
+image size:  (1814, 1001)
+输出结果： 图中是一张苹果公司的股票价格图表，图中显示了苹果公司的股票价格在最近五天内的波动情况。图中显示，苹果公司的股票价格在最近五天内波动较大，从202.52美元下降到199.80美元，下降了2.72美元，下降幅度为1.34%。图中还显示了苹果公司的股票价格在最近五天内的最高价为203.51美元，最低价为199.80美元。图中还显示了苹果公司的股票价格在最近五天内的平均价格为201.85美元，平均价格为202.14美元。图中还显示了苹果公司的股票价格在最近五天内的成交量为50,304,417股，平均成交量为62,705,940股。图中还显示了苹果公司的股票价格在最近五天内的市盈率为32.03，市盈率为6.31。图中还显示了苹果公司的股票价格在最近五天内的市盈率为3.037T，市盈率为1.26。图中还显示了苹果公司的股票价格在最近五天内的市盈率为1.00，市盈率为0.49%。图中还显示了苹果公司的股票价格在最近五天内的市盈率为237.39。
+============ Serving Benchmark Result ============
+Successful requests:                     1         
+Benchmark duration (s):                  9.06      
+Total input tokens:                      5         
+Total image and input tokens:            2355      
+Total generated tokens:                  311       
+Request throughput (req/s):              0.11      
+Output token throughput (tok/s):         34.32     
+Total Token throughput (tok/s):          34.87     
+---------------Time to First Token----------------
+Mean TTFT (ms):                          1910.92   
+Median TTFT (ms):                        1910.92   
+P99 TTFT (ms):                           1910.92   
+-----Time per Output Token (excl. 1st token)------
+Mean TPOT (ms):                          23.07     
+Median TPOT (ms):                        23.07     
+P99 TPOT (ms):                           23.07     
+---------------Inter-token Latency----------------
+Mean ITL (ms):                           22.99     
+Median ITL (ms):                         22.98     
+P99 ITL (ms):                            25.12     
+==================================================
+Processing:
+  Image : ../accuracy/invoice/Invoice-Tianjin.png
+  Prompt: ../accuracy/invoice/prompt.txt
+
+Namespace(seed=0, batch_size=1, output_len=512, image_path='../accuracy/invoice/Invoice-Tianjin.png', prompt='请详细描述图像内容', model='/llm/models/Qwen2-VL-7B-Instruct/', base_url=None, host='127.0.0.1', port=8000, endpoint='/v1/chat/completions', served_model_name=None, ignore_eos=False)
+image size:  (980, 575)
+输出结果： 图中是一张增值税电子普通发票，发票抬头是“个人”，发票代码是“01200180311”，发票号码是“33207675”，开票日期是“2019年05月08日”，校验码是“76939 05688 34666 77916”。发票上的货物或应税劳务、服务名称是“*7//048893934-649-580>53+227268<07//400<+30>8+6-+-4>0885<+74-<4316/8/6/>3>772+08268<07//400<+3->9604”，单价是“46.62”，金额是“46.62”，税率为“13%”，税额是“6.08”，合计金额是“52.70”。发票的销售方是“天津瑞佳讯贸易有限公司”，纳税人识别号是“91120222079642398Y”，地址电话是“天津市武清区京津电子商务产业园宏达道北侧2号 57807000”，开户行及账号是“中国建设银行股份有限公司天津武清区支行 12001720800052531259”。发票的收款人是“京东商城”，复核人是“京东商城”，开票人是“京东商城”，销售方（章）是“发票专用章”。
+============ Serving Benchmark Result ============
+Successful requests:                     1         
+Benchmark duration (s):                  9.28      
+Total input tokens:                      5         
+Total image and input tokens:            750       
+Total generated tokens:                  381       
+Request throughput (req/s):              0.11      
+Output token throughput (tok/s):         41.07     
+Total Token throughput (tok/s):          41.61     
+---------------Time to First Token----------------
+Mean TTFT (ms):                          585.70    
+Median TTFT (ms):                        585.70    
+P99 TTFT (ms):                           585.70    
+-----Time per Output Token (excl. 1st token)------
+Mean TPOT (ms):                          22.87     
+Median TPOT (ms):                        22.87     
+P99 TPOT (ms):                           22.87     
+---------------Inter-token Latency----------------
+Mean ITL (ms):                           22.81     
+Median ITL (ms):                         22.72     
+P99 ITL (ms):                            25.35     
+==================================================
+Processing:
+  Image : ../accuracy/invoice/Invoice-Baidu.png
+  Prompt: ../accuracy/invoice/prompt.txt
+
+Namespace(seed=0, batch_size=1, output_len=512, image_path='../accuracy/invoice/Invoice-Baidu.png', prompt='请详细描述图像内容', model='/llm/models/Qwen2-VL-7B-Instruct/', base_url=None, host='127.0.0.1', port=8000, endpoint='/v1/chat/completions', served_model_name=None, ignore_eos=False)
+image size:  (2408, 1716)
+输出结果： 这是一张上海增值税专用发票，发票号码为14641426，发票联。发票的开票日期为2016年6月2日。发票的购买方是百度时代网络技术（北京）有限公司，纳税人识别号为110108787751579，地址为北京市海淀区东北旺西路8号中关村软件园17号楼二层A2，电话为010-59108001，开户行及账号为招商银行北京分行大屯路支行，账号为866182028510003。
+
+发票的销售方是上海易火广告传媒有限公司，纳税人识别号为913101140659591751，地址为嘉定区胜辛南路500号15幢1161室，电话为55033753，开户行及账号为中国银行南翔支行，账号为446863841354。
+
+发票上的货物或应税劳务、服务名称为“信息服费”，规格型号为“074/45781873408/6>8>65*887 676033/51+<5415>9/32--852>1 +29<65>641-5>66<500>87/<943359034>716905113*4242>”。
+
+发票的金额为94339.62元，税率为6%，税额为5660.38元，合计金额为100000.00元。
+
+发票的收款人是徐蓉，复核人是沈园园，开票人也是沈园园。发票上盖有“上海易火广告传媒有限公司”的发票专用章。
+============ Serving Benchmark Result ============
+Successful requests:                     1         
+Benchmark duration (s):                  14.78     
+Total input tokens:                      5         
+Total image and input tokens:            5261      
+Total generated tokens:                  439       
+Request throughput (req/s):              0.07      
+Output token throughput (tok/s):         29.70     
+Total Token throughput (tok/s):          30.04     
+---------------Time to First Token----------------
+Mean TTFT (ms):                          4360.96   
+Median TTFT (ms):                        4360.96   
+P99 TTFT (ms):                           4360.96   
+-----Time per Output Token (excl. 1st token)------
+Mean TPOT (ms):                          23.79     
+Median TPOT (ms):                        23.79     
+P99 TPOT (ms):                           23.79     
+---------------Inter-token Latency----------------
+Mean ITL (ms):                           23.74     
+Median ITL (ms):                         23.62     
+P99 ITL (ms):                            26.35     
+==================================================
+Processing:
+  Image : ../accuracy/invoice/Tencent-2023-Report.jpg
+  Prompt: ../accuracy/invoice/prompt.txt
+
+Namespace(seed=0, batch_size=1, output_len=512, image_path='../accuracy/invoice/Tencent-2023-Report.jpg', prompt='请详细描述图像内容', model='/llm/models/Qwen2-VL-7B-Instruct/', base_url=None, host='127.0.0.1', port=8000, endpoint='/v1/chat/completions', served_model_name=None, ignore_eos=False)
+image size:  (800, 1200)
+输出结果： 这张图片展示了腾讯2023年度的财务报告，主要内容包括以下几个方面：
+
+1. **V型复苏，高质增长**：
+   - 2023年第四季度（Q4）的净利润增长率为44%，毛利增长率为25%，营业收入增长率为7%。
+   - 金融科技及企业服务板块的年收入为2038亿元，连续两年营收贡献第一。
+
+2. **多点业务，全面开花**：
+   - 微信及WeChat月活用户数增至13.4亿。
+   - 视频号用户使用时长年比增长翻倍，Q4产生收入的创作者同比增长两倍多。
+   - 小游戏流水年增长超50%。
+   - 微信搜索日活用户数破1亿。
+   - 腾讯视频付费用户再破1.17亿。
+   - 腾讯音乐订阅用户数达1.07亿。
+
+3. **海外业务，再创新高**：
+   - 国际游戏业务年收入为532亿，占总收入的30%。
+   - 2023年Q1-Q4海外游戏收入占比为27.3%，2024年Q1-Q4海外游戏收入占比为28.5%，2024年Q4海外游戏收入占比为28.9%。
+   - PUBG Mobile、Goddess of Victory: NIKKE、Brawl Stars自2023年10月起收入大幅回升。
+   - Honor Of Kings扩展至57个国家及地区。
+
+4. **科技投入，成效显著**：
+   - 全年研发开支达641亿元，2018年至今累计研发投入超2696亿元。
+   - 截至2023年12月，专利申请公开总数超过75000件，专利授权数量超过37000件。
+   - 腾讯混元大模型能力位列国内第一梯队。
+   - 功能持续拓展，内部400+个业务接入混元内测。
+   - 已在腾讯会议和腾讯文档中推出AI助手服务。
+
+这张图片详细展示了腾讯在2023年度的业务增长情况，特别是在金融科技、游戏、海外业务和科技研发投入等方面取得了显著的成果。
+============ Serving Benchmark Result ============
+Successful requests:                     1         
+Benchmark duration (s):                  12.74     
+Total input tokens:                      5         
+Total image and input tokens:            1262      
+Total generated tokens:                  505       
+Request throughput (req/s):              0.08      
+Output token throughput (tok/s):         39.65     
+Total Token throughput (tok/s):          40.05     
+---------------Time to First Token----------------
+Mean TTFT (ms):                          1206.82   
+Median TTFT (ms):                        1206.82   
+P99 TTFT (ms):                           1206.82   
+-----Time per Output Token (excl. 1st token)------
+Mean TPOT (ms):                          22.87     
+Median TPOT (ms):                        22.87     
+P99 TPOT (ms):                           22.87     
+---------------Inter-token Latency----------------
+Mean ITL (ms):                           22.83     
+Median ITL (ms):                         22.75     
+P99 ITL (ms):                            25.21     
+==================================================
+Processing:
+  Image : ../accuracy/invoice/Apple-FY24-Q4.png
+  Prompt: ../accuracy/invoice/prompt.txt
+
+Namespace(seed=0, batch_size=1, output_len=512, image_path='../accuracy/invoice/Apple-FY24-Q4.png', prompt='请详细描述图像内容', model='/llm/models/Qwen2-VL-7B-Instruct/', base_url=None, host='127.0.0.1', port=8000, endpoint='/v1/chat/completions', served_model_name=None, ignore_eos=False)
+image size:  (1435, 1876)
+输出结果： 这是一张苹果公司的未经审计的合并利润表，显示了其在2024年9月28日和2023年9月30日的三个月以及2024年9月28日至2023年9月30日的十二个月的财务数据。以下是对表格内容的详细描述：
+
+### 1. 总销售
+- **产品**：2024年9月28日为69,958百万美元，2023年9月30日为67,184百万美元，2024年9月28日至2023年9月30日为294,866百万美元。
+- **服务**：2024年9月28日为24,972百万美元，2023年9月30日为22,314百万美元，2024年9月28日至2023年9月30日为96,169百万美元。
+- **总销售**：2024年9月28日为94,930百万美元，2023年9月30日为89,498百万美元，2024年9月28日至2023年9月30日为391,035百万美元。
+
+### 2. 成本销售
+- **产品**：2024年9月28日为44,566百万美元，2023年9月30日为42,586百万美元，2024年9月28日至2023年9月30日为185,233百万美元。
+- **服务**：2024年9月28日为6,485百万美元，2023年9月30日为6,485百万美元，2024年9月28日至2023年9月30日为25,119百万美元。
+- **总成本销售**：2024年9月28日为51,051百万美元，2023年9月30日为49,071
+============ Serving Benchmark Result ============
+Successful requests:                     1         
+Benchmark duration (s):                  14.50     
+Total input tokens:                      5         
+Total image and input tokens:            3432      
+Total generated tokens:                  512       
+Request throughput (req/s):              0.07      
+Output token throughput (tok/s):         35.31     
+Total Token throughput (tok/s):          35.66     
+---------------Time to First Token----------------
+Mean TTFT (ms):                          2584.82   
+Median TTFT (ms):                        2584.82   
+P99 TTFT (ms):                           2584.82   
+-----Time per Output Token (excl. 1st token)------
+Mean TPOT (ms):                          23.31     
+Median TPOT (ms):                        23.31     
+P99 TPOT (ms):                           23.31     
+---------------Inter-token Latency----------------
+Mean ITL (ms):                           23.27     
+Median ITL (ms):                         23.18     
+P99 ITL (ms):                            25.76     
+==================================================
+Processing:
+  Image : ../accuracy/invoice/Tencent-Stock-Price.png
+  Prompt: ../accuracy/invoice/prompt.txt
+
+Namespace(seed=0, batch_size=1, output_len=512, image_path='../accuracy/invoice/Tencent-Stock-Price.png', prompt='请详细描述图像内容', model='/llm/models/Qwen2-VL-7B-Instruct/', base_url=None, host='127.0.0.1', port=8000, endpoint='/v1/chat/completions', served_model_name=None, ignore_eos=False)
+image size:  (1228, 913)
+输出结果： 图中是一张腾讯股票的图表，显示了过去一年腾讯股票的价格走势。图中显示腾讯股票的价格从2024年8月开始，价格在40美元左右波动，然后在2024年12月达到最高点，价格为60美元左右。随后价格开始下跌，到2025年4月价格跌至38美元左右。图中还显示了腾讯股票的开盘价、最高价和最低价，以及腾讯股票的市值、市盈率和股息收益率。
+============ Serving Benchmark Result ============
+Successful requests:                     1         
+Benchmark duration (s):                  3.88      
+Total input tokens:                      5         
+Total image and input tokens:            1467      
+Total generated tokens:                  116       
+Request throughput (req/s):              0.26      
+Output token throughput (tok/s):         29.88     
+Total Token throughput (tok/s):          31.17     
+---------------Time to First Token----------------
+Mean TTFT (ms):                          1252.53   
+Median TTFT (ms):                        1252.53   
+P99 TTFT (ms):                           1252.53   
+-----Time per Output Token (excl. 1st token)------
+Mean TPOT (ms):                          22.86     
+Median TPOT (ms):                        22.86     
+P99 TPOT (ms):                           22.86     
+---------------Inter-token Latency----------------
+Mean ITL (ms):                           22.67     
+Median ITL (ms):                         22.71     
+P99 ITL (ms):                            24.83     
+==================================================
+Processing:
+  Image : ../accuracy/zto/37_20240903104631_78830622395633.jpg
+  Prompt: ../accuracy/zto/prompt.txt
+
+Namespace(seed=0, batch_size=1, output_len=512, image_path='../accuracy/zto/37_20240903104631_78830622395633.jpg', prompt='Please utilize the visual large model to analyze the image and determine the presence of the following elements: 1. Entrance door (Y/N), 2. Package (Y/N). Output the results concatenated by a comma, for example: Y,N.', model='/llm/models/Qwen2-VL-7B-Instruct/', base_url=None, host='127.0.0.1', port=8000, endpoint='/v1/chat/completions', served_model_name=None, ignore_eos=False)
+image size:  (1170, 1789)
+输出结果： N,Y
+============ Serving Benchmark Result ============
+Successful requests:                     1         
+Benchmark duration (s):                  2.19      
+Total input tokens:                      50        
+Total image and input tokens:            2748      
+Total generated tokens:                  3         
+Request throughput (req/s):              0.46      
+Output token throughput (tok/s):         1.37      
+Total Token throughput (tok/s):          24.24     
+---------------Time to First Token----------------
+Mean TTFT (ms):                          2138.31   
+Median TTFT (ms):                        2138.31   
+P99 TTFT (ms):                           2138.31   
+-----Time per Output Token (excl. 1st token)------
+Mean TPOT (ms):                          23.84     
+Median TPOT (ms):                        23.84     
+P99 TPOT (ms):                           23.84     
+---------------Inter-token Latency----------------
+Mean ITL (ms):                           15.89     
+Median ITL (ms):                         23.69     
+P99 ITL (ms):                            23.93     
+==================================================
+Processing:
+  Image : ../accuracy/zto/40_20240903093021_78830772282673.jpg
+  Prompt: ../accuracy/zto/prompt.txt
+
+Namespace(seed=0, batch_size=1, output_len=512, image_path='../accuracy/zto/40_20240903093021_78830772282673.jpg', prompt='Please utilize the visual large model to analyze the image and determine the presence of the following elements: 1. Entrance door (Y/N), 2. Package (Y/N). Output the results concatenated by a comma, for example: Y,N.', model='/llm/models/Qwen2-VL-7B-Instruct/', base_url=None, host='127.0.0.1', port=8000, endpoint='/v1/chat/completions', served_model_name=None, ignore_eos=False)
+image size:  (1080, 1440)
+输出结果： Y,Y
+============ Serving Benchmark Result ============
+Successful requests:                     1         
+Benchmark duration (s):                  1.57      
+Total input tokens:                      50        
+Total image and input tokens:            2049      
+Total generated tokens:                  3         
+Request throughput (req/s):              0.64      
+Output token throughput (tok/s):         1.91      
+Total Token throughput (tok/s):          33.66     
+---------------Time to First Token----------------
+Mean TTFT (ms):                          1528.04   
+Median TTFT (ms):                        1528.04   
+P99 TTFT (ms):                           1528.04   
+-----Time per Output Token (excl. 1st token)------
+Mean TPOT (ms):                          23.14     
+Median TPOT (ms):                        23.14     
+P99 TPOT (ms):                           23.14     
+---------------Inter-token Latency----------------
+Mean ITL (ms):                           15.42     
+Median ITL (ms):                         22.09     
+P99 ITL (ms):                            24.11     
+==================================================
+Processing:
+  Image : ../accuracy/zto/40_20240903102200_78830779335152.jpg
+  Prompt: ../accuracy/zto/prompt.txt
+
+Namespace(seed=0, batch_size=1, output_len=512, image_path='../accuracy/zto/40_20240903102200_78830779335152.jpg', prompt='Please utilize the visual large model to analyze the image and determine the presence of the following elements: 1. Entrance door (Y/N), 2. Package (Y/N). Output the results concatenated by a comma, for example: Y,N.', model='/llm/models/Qwen2-VL-7B-Instruct/', base_url=None, host='127.0.0.1', port=8000, endpoint='/v1/chat/completions', served_model_name=None, ignore_eos=False)
+image size:  (1080, 1440)
+输出结果： Y,N
+============ Serving Benchmark Result ============
+Successful requests:                     1         
+Benchmark duration (s):                  1.54      
+Total input tokens:                      50        
+Total image and input tokens:            2049      
+Total generated tokens:                  3         
+Request throughput (req/s):              0.65      
+Output token throughput (tok/s):         1.94      
+Total Token throughput (tok/s):          34.33     
+---------------Time to First Token----------------
+Mean TTFT (ms):                          1497.22   
+Median TTFT (ms):                        1497.22   
+P99 TTFT (ms):                           1497.22   
+-----Time per Output Token (excl. 1st token)------
+Mean TPOT (ms):                          23.26     
+Median TPOT (ms):                        23.26     
+P99 TPOT (ms):                           23.26     
+---------------Inter-token Latency----------------
+Mean ITL (ms):                           15.50     
+Median ITL (ms):                         22.68     
+P99 ITL (ms):                            23.76     
+==================================================
+Processing:
+  Image : ../accuracy/zto/37_20240902175912_78830632899074.jpg
+  Prompt: ../accuracy/zto/prompt.txt
+
+Namespace(seed=0, batch_size=1, output_len=512, image_path='../accuracy/zto/37_20240902175912_78830632899074.jpg', prompt='Please utilize the visual large model to analyze the image and determine the presence of the following elements: 1. Entrance door (Y/N), 2. Package (Y/N). Output the results concatenated by a comma, for example: Y,N.', model='/llm/models/Qwen2-VL-7B-Instruct/', base_url=None, host='127.0.0.1', port=8000, endpoint='/v1/chat/completions', served_model_name=None, ignore_eos=False)
+image size:  (768, 1024)
+输出结果： N,Y
+============ Serving Benchmark Result ============
+Successful requests:                     1         
+Benchmark duration (s):                  1.07      
+Total input tokens:                      50        
+Total image and input tokens:            1059      
+Total generated tokens:                  3         
+Request throughput (req/s):              0.94      
+Output token throughput (tok/s):         2.82      
+Total Token throughput (tok/s):          49.74     
+---------------Time to First Token----------------
+Mean TTFT (ms):                          1018.89   
+Median TTFT (ms):                        1018.89   
+P99 TTFT (ms):                           1018.89   
+-----Time per Output Token (excl. 1st token)------
+Mean TPOT (ms):                          23.15     
+Median TPOT (ms):                        23.15     
+P99 TPOT (ms):                           23.15     
+---------------Inter-token Latency----------------
+Mean ITL (ms):                           15.43     
+Median ITL (ms):                         22.71     
+P99 ITL (ms):                            23.53     
+==================================================
+Processing:
+  Image : ../accuracy/vl_debug/torch_evaluation_issue-merged.png
+  Prompt: ../accuracy/vl_debug/prompt.txt
+
+Namespace(seed=0, batch_size=1, output_len=512, image_path='../accuracy/vl_debug/torch_evaluation_issue-merged.png', prompt='目标代码详见图上半部分 snapshot-code，测试报错信息详见图下半部分 snapshot-feedback. 请尝试定位代码遇到的问题，并给出分析，如果可能，给出解决方案.', model='/llm/models/Qwen2-VL-7B-Instruct/', base_url=None, host='127.0.0.1', port=8000, endpoint='/v1/chat/completions', served_model_name=None, ignore_eos=False)
+image size:  (846, 1084)
+输出结果： 从图中可以看到，代码在运行时遇到了一个`RuntimeError`，错误信息指出在执行矩阵乘法时，输入矩阵的形状不匹配。具体来说，错误信息指出`mat1`和`mat2`的形状不能相乘，其中`mat1`的形状是`(1, 768)`，而`mat2`的形状是`(256, 768)`。
+
+问题分析：
+在图中的代码中，`net.eval()`之后，调用了`torch.randn(1, 768)`生成了一个形状为`(1, 768)`的张量`x`。然后在`forward`方法中，`x`被传递给`self.fc3`，即`x = self.fc3(x)`。在这个过程中，`self.fc3`是一个`torch.nn.Linear`层，其权重和偏置被初始化为`self.fc3.weight`和`self.fc3.bias`。在执行`self.fc3(x)`时，`x`被乘以`self.fc3.weight`，然后加上`self.fc3.bias`。然而，`self.fc3.weight`的形状是`(256, 768)`，而`x`的形状是`(1, 768)`，这导致了形状不匹配的错误。
+
+解决方案：
+为了解决这个问题，我们需要确保`x`的形状与`self.fc3.weight`的形状相匹配。在`forward`方法中，我们可以先将`x`的形状调整为与`self.fc3.weight`的形状相匹配。具体来说，我们可以使用`torch.unsqueeze`函数来增加一个维度，使`x`的形状变为`(1, 1, 768)`，这样就可以与`(256, 768)`形状的`self.fc3.weight`相乘了。
+
+修改后的代码如下：
+
+```python
+def forward(self, x):
+    x = self.fc1(x)
+    x = self.relu(x)
+    x = self.fc2(x)
+    x = self.relu(x)
+    x = self.fc3(x.unsqueeze(1))
+    return x
+```
+
+这样，`x`的形状就变成了`(1, 1, 768)`，可以与`(256, 768)`形状的`self.fc3.weight`相乘，从而避免了形状不匹配的错误。
+============ Serving Benchmark Result ============
+Successful requests:                     1         
+Benchmark duration (s):                  12.89     
+Total input tokens:                      38        
+Total image and input tokens:            1218      
+Total generated tokens:                  512       
+Request throughput (req/s):              0.08      
+Output token throughput (tok/s):         39.72     
+Total Token throughput (tok/s):          42.67     
+---------------Time to First Token----------------
+Mean TTFT (ms):                          1202.74   
+Median TTFT (ms):                        1202.74   
+P99 TTFT (ms):                           1202.74   
+-----Time per Output Token (excl. 1st token)------
+Mean TPOT (ms):                          22.87     
+Median TPOT (ms):                        22.87     
+P99 TPOT (ms):                           22.87     
+---------------Inter-token Latency----------------
+Mean ITL (ms):                           22.82     
+Median ITL (ms):                         22.80     
+P99 ITL (ms):                            24.93     
+==================================================
+Processing:
+  Image : ../accuracy/vl_debug/numpy_computation_issue-merged.png
+  Prompt: ../accuracy/vl_debug/prompt.txt
+
+Namespace(seed=0, batch_size=1, output_len=512, image_path='../accuracy/vl_debug/numpy_computation_issue-merged.png', prompt='目标代码详见图上半部分 snapshot-code，测试报错信息详见图下半部分 snapshot-feedback. 请尝试定位代码遇到的问题，并给出分析，如果可能，给出解决方案.', model='/llm/models/Qwen2-VL-7B-Instruct/', base_url=None, host='127.0.0.1', port=8000, endpoint='/v1/chat/completions', served_model_name=None, ignore_eos=False)
+image size:  (681, 630)
+输出结果： 从图中可以看到，代码在运行时遇到了一个`RuntimeWarning`，错误信息指出在除法运算中遇到了除以零的情况。具体来说，错误发生在第15行，代码试图执行除法运算 `result = val / div`。
+
+问题分析：
+1. 在第14行，代码尝试计算 `another_clone - parts` 的和，即 `div`。然而，由于 `parts` 是一个包含零的数组，计算 `another_clone - parts` 的结果将包含零。
+2. 在第15行，代码尝试将 `val` 除以 `div`。由于 `div` 包含零，这将导致除以零的错误。
+
+解决方案：
+为了避免除以零的错误，可以在计算 `div` 之前检查数组中是否存在零。如果存在零，可以使用其他方法来计算结果，例如使用 `np.nan`（代表“非数字”）来替换零，或者使用其他数学方法来处理零值。
+
+示例代码：
+```python
+import numpy as np
+
+def mydemo():
+    try:
+        val = np.array([[1, 2, 3]]*10)
+        print(val.shape)
+        
+        parts = val.copy() + 15
+        another_clone = parts.copy()
+        
+        div = np.sum(another_clone - parts)
+        
+        # 检查 div 是否包含零
+        if np.any(div == 0):
+            div = np.nan
+        
+        result = val / div
+        return result
+    except ZeroDivisionError as e:
+        print(f"Error: {e}")
+        return None
+```
+
+在这个解决方案中，我们首先检查 `div` 是否包含零。如果包含零，我们使用 `np.nan` 替换零，这样在除法运算中就不会出现除以零的错误。
+============ Serving Benchmark Result ============
+Successful requests:                     1         
+Benchmark duration (s):                  9.31      
+Total input tokens:                      38        
+Total image and input tokens:            576       
+Total generated tokens:                  386       
+Request throughput (req/s):              0.11      
+Output token throughput (tok/s):         41.45     
+Total Token throughput (tok/s):          45.53     
+---------------Time to First Token----------------
+Mean TTFT (ms):                          522.98    
+Median TTFT (ms):                        522.98    
+P99 TTFT (ms):                           522.98    
+-----Time per Output Token (excl. 1st token)------
+Mean TPOT (ms):                          22.83     
+Median TPOT (ms):                        22.83     
+P99 TPOT (ms):                           22.83     
+---------------Inter-token Latency----------------
+Mean ITL (ms):                           22.77     
+Median ITL (ms):                         22.76     
+P99 ITL (ms):                            24.76     
+==================================================
+Processing:
+  Image : ../accuracy/vl_debug/llm_inference_issue-merged.png
+  Prompt: ../accuracy/vl_debug/prompt.txt
+
+Namespace(seed=0, batch_size=1, output_len=512, image_path='../accuracy/vl_debug/llm_inference_issue-merged.png', prompt='目标代码详见图上半部分 snapshot-code，测试报错信息详见图下半部分 snapshot-feedback. 请尝试定位代码遇到的问题，并给出分析，如果可能，给出解决方案.', model='/llm/models/Qwen2-VL-7B-Instruct/', base_url=None, host='127.0.0.1', port=8000, endpoint='/v1/chat/completions', served_model_name=None, ignore_eos=False)
+image size:  (720, 741)
+输出结果： 从错误信息来看，问题出在第20行，代码试图使用 `tokenizer` 对文本进行编码，但 `tokenizer` 对象是 `None`，因此无法调用其 `encode` 方法。具体分析如下：
+
+1. **问题定位**：
+   - 错误信息指出错误发生在第20行，代码为 `inputs = tokenizer(text, return_tensors="pt")`。
+   - 错误类型为 `NoneType` object is not callable，表明 `tokenizer` 对象是 `None`，无法调用其方法。
+
+2. **原因分析**：
+   - 在第10行，代码尝试从 `os.path.join(root_weight, "deepseek-moe-16b-chat")` 获取模型名称，并使用 `AutoTokenizer.from_pretrained` 初始化 `tokenizer`。
+   - 如果模型名称不存在或加载失败，`tokenizer` 可能会保持为 `None`，导致在第20行尝试调用 `tokenizer` 的 `encode` 方法时抛出错误。
+
+3. **解决方案**：
+   - 确保模型名称正确无误，并且模型文件存在。
+   - 在加载模型之前，检查 `tokenizer` 是否已经被正确初始化。
+   - 如果模型加载失败，可以添加异常处理，例如捕获 `FileNotFoundError` 或其他相关异常，并提供适当的错误信息或重试逻辑。
+
+示例代码：
+```python
+try:
+    tokenizer = AutoTokenizer.from_pretrained(model_name)
+    model = AutoModelForCausalLM.from_pretrained(model_name)
+except FileNotFoundError:
+    print("Model file not found. Please check the path and try again.")
+    exit()
+```
+
+通过这种方式，可以在模型加载失败时提供错误信息，并避免在错误发生时直接抛出异常。
+============ Serving Benchmark Result ============
+Successful requests:                     1         
+Benchmark duration (s):                  9.04      
+Total input tokens:                      38        
+Total image and input tokens:            724       
+Total generated tokens:                  371       
+Request throughput (req/s):              0.11      
+Output token throughput (tok/s):         41.06     
+Total Token throughput (tok/s):          45.26     
+---------------Time to First Token----------------
+Mean TTFT (ms):                          586.05    
+Median TTFT (ms):                        586.05    
+P99 TTFT (ms):                           586.05    
+-----Time per Output Token (excl. 1st token)------
+Mean TPOT (ms):                          22.84     
+Median TPOT (ms):                        22.84     
+P99 TPOT (ms):                           22.84     
+---------------Inter-token Latency----------------
+Mean ITL (ms):                           22.78     
+Median ITL (ms):                         22.69     
+P99 ITL (ms):                            25.19     
+==================================================
+Processing:
+  Image : ../accuracy/edu/rope/rope_image.jpg
+  Prompt: ../accuracy/edu/rope/rope_prompt.txt
+
+Namespace(seed=0, batch_size=1, output_len=512, image_path='../accuracy/edu/rope/rope_image.jpg', prompt='How many ropes can you see in this picture?', model='/llm/models/Qwen2-VL-7B-Instruct/', base_url=None, host='127.0.0.1', port=8000, endpoint='/v1/chat/completions', served_model_name=None, ignore_eos=False)
+image size:  (401, 302)
+输出结果： 5
+============ Serving Benchmark Result ============
+Successful requests:                     1         
+Benchmark duration (s):                  0.38      
+Total input tokens:                      10        
+Total image and input tokens:            174       
+Total generated tokens:                  2         
+Request throughput (req/s):              2.65      
+Output token throughput (tok/s):         5.30      
+Total Token throughput (tok/s):          31.81     
+---------------Time to First Token----------------
+Mean TTFT (ms):                          353.95    
+Median TTFT (ms):                        353.95    
+P99 TTFT (ms):                           353.95    
+-----Time per Output Token (excl. 1st token)------
+Mean TPOT (ms):                          22.96     
+Median TPOT (ms):                        22.96     
+P99 TPOT (ms):                           22.96     
+---------------Inter-token Latency----------------
+Mean ITL (ms):                           11.47     
+Median ITL (ms):                         11.47     
+P99 ITL (ms):                            22.66     
+==================================================
+Processing:
+  Image : ../accuracy/edu/cake/cake_image.jpg
+  Prompt: ../accuracy/edu/cake/cake_prompt.txt
+
+Namespace(seed=0, batch_size=1, output_len=512, image_path='../accuracy/edu/cake/cake_image.jpg', prompt='Emily celebrated her birthday on Thursday, and her sister Liepa 8 days earlier. Which weekday was that? Option:[ \\"Wednesday\\", \\"Thursday\\", \\"Friday\\", \\"Tuesday\\", \\"Sunday\\" ]\r \r', model='/llm/models/Qwen2-VL-7B-Instruct/', base_url=None, host='127.0.0.1', port=8000, endpoint='/v1/chat/completions', served_model_name=None, ignore_eos=False)
+image size:  (422, 282)
+输出结果： To determine the weekday on which Liepa celebrated her birthday, we need to count 8 days backward from Thursday.
+
+1. Thursday
+2. Wednesday
+3. Tuesday
+4. Monday
+5. Sunday
+6. Saturday
+7. Friday
+8. Thursday
+
+Since we started from Thursday and counted 8 days backward, we end up on Thursday again. Therefore, Liepa celebrated her birthday on Thursday.
+============ Serving Benchmark Result ============
+Successful requests:                     1         
+Benchmark duration (s):                  2.27      
+Total input tokens:                      43        
+Total image and input tokens:            203       
+Total generated tokens:                  85        
+Request throughput (req/s):              0.44      
+Output token throughput (tok/s):         37.44     
+Total Token throughput (tok/s):          56.38     
+---------------Time to First Token----------------
+Mean TTFT (ms):                          357.06    
+Median TTFT (ms):                        357.06    
+P99 TTFT (ms):                           357.06    
+-----Time per Output Token (excl. 1st token)------
+Mean TPOT (ms):                          22.77     
+Median TPOT (ms):                        22.77     
+P99 TPOT (ms):                           22.77     
+---------------Inter-token Latency----------------
+Mean ITL (ms):                           22.50     
+Median ITL (ms):                         22.74     
+P99 ITL (ms):                            24.76     
+==================================================
+Processing:
+  Image : ../accuracy/edu/math/math_image.jpg
+  Prompt: ../accuracy/edu/math/math_prompt.txt
+
+Namespace(seed=0, batch_size=1, output_len=512, image_path='../accuracy/edu/math/math_image.jpg', prompt='Which number do you have to write in the last daisy?', model='/llm/models/Qwen2-VL-7B-Instruct/', base_url=None, host='127.0.0.1', port=8000, endpoint='/v1/chat/completions', served_model_name=None, ignore_eos=False)
+image size:  (1314, 276)
+输出结果： To find the number that needs to be written in the last daisy, we need to perform a series of operations on the starting number, 48.
+
+1. Start with 48.
+2. Subtract 20: \( 48 - 20 = 28 \)
+3. Add 9: \( 28 + 9 = 37 \)
+4. Subtract 6: \( 37 - 6 = 31 \)
+5. Add 30: \( 31 + 30 = 61 \)
+
+So, the number that needs to be written in the last daisy is 61.
+============ Serving Benchmark Result ============
+Successful requests:                     1         
+Benchmark duration (s):                  3.67      
+Total input tokens:                      13        
+Total image and input tokens:            493       
+Total generated tokens:                  140       
+Request throughput (req/s):              0.27      
+Output token throughput (tok/s):         38.18     
+Total Token throughput (tok/s):          41.72     
+---------------Time to First Token----------------
+Mean TTFT (ms):                          476.08    
+Median TTFT (ms):                        476.08    
+P99 TTFT (ms):                           476.08    
+-----Time per Output Token (excl. 1st token)------
+Mean TPOT (ms):                          22.96     
+Median TPOT (ms):                        22.96     
+P99 TPOT (ms):                           22.96     
+---------------Inter-token Latency----------------
+Mean ITL (ms):                           22.79     
+Median ITL (ms):                         23.03     
+P99 ITL (ms):                            24.58     
+==================================================
