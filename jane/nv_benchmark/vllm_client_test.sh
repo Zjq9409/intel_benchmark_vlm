@@ -1,6 +1,6 @@
 python3 ../../vllm_benchmark/benchmark_serving.py \
   --backend openai-chat \
-  --model /root/jane/Qwen2-VL-7B-Instruct/ \
+  --model /disk0/LLM/Qwen2-VL-72B-Instruct/ \
   --endpoint /v1/chat/completions \
   --dataset-name hf \
   --hf-split train \

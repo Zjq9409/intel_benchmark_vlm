@@ -1,0 +1,1950 @@
+Namespace(seed=0, batch_size=1, output_len=128, image_path='../../accuracy/zto/40_20240903093021_78830772282673.jpg', prompt='患者男，年龄29岁，血型O，因思维迟钝，易激怒，因发热伴牙龈出血14天，乏力、头晕5天就诊我院急诊科。快速完善检查，血常规显示患者三系血>细胞重度减低。快速完善检查，血常规显示患者三系血>细胞重度减低，凝血功能检查提示APTT明显延长，纤维蛋白原降低，血液科会诊后发现患者高热、牙龈持续出血，胸骨压痛阳性.凝血功能检查提示APTT明显延长.请描述图片.', model='/root/jane/Qwen2-VL-7B-Instruct/', base_url=None, profile=False, host='127.0.0.1', port=8000, endpoint='/v1/chat/completions', served_model_name=None, ignore_eos=True)
+image size:  (1080, 1440)
+Starting initial single prompt test run...
+============ Serving Benchmark Result ============
+Successful requests:                     1         
+Benchmark duration (s):                  2.56      
+Total input tokens:                      125       
+Total image and input tokens:            2125      
+Total generated tokens:                  128       
+Request throughput (req/s):              0.39      
+Output token throughput (tok/s):         49.92     
+Total Token throughput (tok/s):          98.68     
+---------------Time to First Token----------------
+Mean TTFT (ms):                          478.72    
+Median TTFT (ms):                        478.72    
+P99 TTFT (ms):                           478.72    
+-----Time per Output Token (excl. 1st token)------
+Mean TPOT (ms):                          16.42     
+Median TPOT (ms):                        16.42     
+P99 TPOT (ms):                           16.42     
+---------------Inter-token Latency----------------
+Mean ITL (ms):                           16.29     
+Median ITL (ms):                         16.41     
+P99 ITL (ms):                            16.76     
+==================================================
+Namespace(seed=0, batch_size=1, output_len=512, image_path='../../accuracy/zto/40_20240903093021_78830772282673.jpg', prompt='患者男，年龄29岁，血型O，因思维迟钝，易激怒，因发热伴牙龈出血14天，乏力、头晕5天就诊我院急诊科。快速完善检查，血常规显示患者三系血>细胞重度减低。快速完善检查，血常规显示患者三系血>细胞重度减低，凝血功能检查提示APTT明显延长，纤维蛋白原降低，血液科会诊后发现患者高热、牙龈持续出血，胸骨压痛阳性.凝血功能检查提示APTT明显延长.请描述图片.', model='/root/jane/Qwen2-VL-7B-Instruct/', base_url=None, profile=False, host='127.0.0.1', port=8000, endpoint='/v1/chat/completions', served_model_name=None, ignore_eos=True)
+image size:  (1080, 1440)
+Starting initial single prompt test run...
+============ Serving Benchmark Result ============
+Successful requests:                     1         
+Benchmark duration (s):                  8.87      
+Total input tokens:                      125       
+Total image and input tokens:            2125      
+Total generated tokens:                  512       
+Request throughput (req/s):              0.11      
+Output token throughput (tok/s):         57.73     
+Total Token throughput (tok/s):          71.82     
+---------------Time to First Token----------------
+Mean TTFT (ms):                          478.67    
+Median TTFT (ms):                        478.67    
+P99 TTFT (ms):                           478.67    
+-----Time per Output Token (excl. 1st token)------
+Mean TPOT (ms):                          16.42     
+Median TPOT (ms):                        16.42     
+P99 TPOT (ms):                           16.42     
+---------------Inter-token Latency----------------
+Mean ITL (ms):                           16.39     
+Median ITL (ms):                         16.42     
+P99 ITL (ms):                            16.66     
+==================================================
+Namespace(seed=0, batch_size=1, output_len=1024, image_path='../../accuracy/zto/40_20240903093021_78830772282673.jpg', prompt='患者男，年龄29岁，血型O，因思维迟钝，易激怒，因发热伴牙龈出血14天，乏力、头晕5天就诊我院急诊科。快速完善检查，血常规显示患者三系血>细胞重度减低。快速完善检查，血常规显示患者三系血>细胞重度减低，凝血功能检查提示APTT明显延长，纤维蛋白原降低，血液科会诊后发现患者高热、牙龈持续出血，胸骨压痛阳性.凝血功能检查提示APTT明显延长.请描述图片.', model='/root/jane/Qwen2-VL-7B-Instruct/', base_url=None, profile=False, host='127.0.0.1', port=8000, endpoint='/v1/chat/completions', served_model_name=None, ignore_eos=True)
+image size:  (1080, 1440)
+Starting initial single prompt test run...
+============ Serving Benchmark Result ============
+Successful requests:                     1         
+Benchmark duration (s):                  17.31     
+Total input tokens:                      125       
+Total image and input tokens:            2125      
+Total generated tokens:                  1024      
+Request throughput (req/s):              0.06      
+Output token throughput (tok/s):         59.15     
+Total Token throughput (tok/s):          66.37     
+---------------Time to First Token----------------
+Mean TTFT (ms):                          482.24    
+Median TTFT (ms):                        482.24    
+P99 TTFT (ms):                           482.24    
+-----Time per Output Token (excl. 1st token)------
+Mean TPOT (ms):                          16.45     
+Median TPOT (ms):                        16.45     
+P99 TPOT (ms):                           16.45     
+---------------Inter-token Latency----------------
+Mean ITL (ms):                           16.43     
+Median ITL (ms):                         16.46     
+P99 ITL (ms):                            16.75     
+==================================================
+Namespace(seed=0, batch_size=2, output_len=128, image_path='../../accuracy/zto/40_20240903093021_78830772282673.jpg', prompt='患者男，年龄29岁，血型O，因思维迟钝，易激怒，因发热伴牙龈出血14天，乏力、头晕5天就诊我院急诊科。快速完善检查，血常规显示患者三系血>细胞重度减低。快速完善检查，血常规显示患者三系血>细胞重度减低，凝血功能检查提示APTT明显延长，纤维蛋白原降低，血液科会诊后发现患者高热、牙龈持续出血，胸骨压痛阳性.凝血功能检查提示APTT明显延长.请描述图片.', model='/root/jane/Qwen2-VL-7B-Instruct/', base_url=None, profile=False, host='127.0.0.1', port=8000, endpoint='/v1/chat/completions', served_model_name=None, ignore_eos=True)
+image size:  (1080, 1440)
+Starting initial single prompt test run...
+============ Serving Benchmark Result ============
+Successful requests:                     2         
+Benchmark duration (s):                  3.17      
+Total input tokens:                      250       
+Total image and input tokens:            4250      
+Total generated tokens:                  256       
+Request throughput (req/s):              0.63      
+Output token throughput (tok/s):         80.66     
+Total Token throughput (tok/s):          159.43    
+---------------Time to First Token----------------
+Mean TTFT (ms):                          975.17    
+Median TTFT (ms):                        975.17    
+P99 TTFT (ms):                           987.50    
+-----Time per Output Token (excl. 1st token)------
+Mean TPOT (ms):                          17.24     
+Median TPOT (ms):                        17.24     
+P99 TPOT (ms):                           17.27     
+---------------Inter-token Latency----------------
+Mean ITL (ms):                           17.10     
+Median ITL (ms):                         17.21     
+P99 ITL (ms):                            17.65     
+==================================================
+Namespace(seed=0, batch_size=2, output_len=512, image_path='../../accuracy/zto/40_20240903093021_78830772282673.jpg', prompt='患者男，年龄29岁，血型O，因思维迟钝，易激怒，因发热伴牙龈出血14天，乏力、头晕5天就诊我院急诊科。快速完善检查，血常规显示患者三系血>细胞重度减低。快速完善检查，血常规显示患者三系血>细胞重度减低，凝血功能检查提示APTT明显延长，纤维蛋白原降低，血液科会诊后发现患者高热、牙龈持续出血，胸骨压痛阳性.凝血功能检查提示APTT明显延长.请描述图片.', model='/root/jane/Qwen2-VL-7B-Instruct/', base_url=None, profile=False, host='127.0.0.1', port=8000, endpoint='/v1/chat/completions', served_model_name=None, ignore_eos=True)
+image size:  (1080, 1440)
+Starting initial single prompt test run...
+============ Serving Benchmark Result ============
+Successful requests:                     2         
+Benchmark duration (s):                  9.75      
+Total input tokens:                      250       
+Total image and input tokens:            4250      
+Total generated tokens:                  1024      
+Request throughput (req/s):              0.21      
+Output token throughput (tok/s):         104.98    
+Total Token throughput (tok/s):          130.60    
+---------------Time to First Token----------------
+Mean TTFT (ms):                          925.02    
+Median TTFT (ms):                        925.02    
+P99 TTFT (ms):                           937.48    
+-----Time per Output Token (excl. 1st token)------
+Mean TPOT (ms):                          17.26     
+Median TPOT (ms):                        17.26     
+P99 TPOT (ms):                           17.27     
+---------------Inter-token Latency----------------
+Mean ITL (ms):                           17.23     
+Median ITL (ms):                         17.26     
+P99 ITL (ms):                            17.50     
+==================================================
+Namespace(seed=0, batch_size=2, output_len=1024, image_path='../../accuracy/zto/40_20240903093021_78830772282673.jpg', prompt='患者男，年龄29岁，血型O，因思维迟钝，易激怒，因发热伴牙龈出血14天，乏力、头晕5天就诊我院急诊科。快速完善检查，血常规显示患者三系血>细胞重度减低。快速完善检查，血常规显示患者三系血>细胞重度减低，凝血功能检查提示APTT明显延长，纤维蛋白原降低，血液科会诊后发现患者高热、牙龈持续出血，胸骨压痛阳性.凝血功能检查提示APTT明显延长.请描述图片.', model='/root/jane/Qwen2-VL-7B-Instruct/', base_url=None, profile=False, host='127.0.0.1', port=8000, endpoint='/v1/chat/completions', served_model_name=None, ignore_eos=True)
+image size:  (1080, 1440)
+Starting initial single prompt test run...
+============ Serving Benchmark Result ============
+Successful requests:                     2         
+Benchmark duration (s):                  18.64     
+Total input tokens:                      250       
+Total image and input tokens:            4250      
+Total generated tokens:                  2048      
+Request throughput (req/s):              0.11      
+Output token throughput (tok/s):         109.85    
+Total Token throughput (tok/s):          123.26    
+---------------Time to First Token----------------
+Mean TTFT (ms):                          927.27    
+Median TTFT (ms):                        927.27    
+P99 TTFT (ms):                           939.85    
+-----Time per Output Token (excl. 1st token)------
+Mean TPOT (ms):                          17.31     
+Median TPOT (ms):                        17.31     
+P99 TPOT (ms):                           17.31     
+---------------Inter-token Latency----------------
+Mean ITL (ms):                           17.29     
+Median ITL (ms):                         17.31     
+P99 ITL (ms):                            17.53     
+==================================================
+Namespace(seed=0, batch_size=4, output_len=128, image_path='../../accuracy/zto/40_20240903093021_78830772282673.jpg', prompt='患者男，年龄29岁，血型O，因思维迟钝，易激怒，因发热伴牙龈出血14天，乏力、头晕5天就诊我院急诊科。快速完善检查，血常规显示患者三系血>细胞重度减低。快速完善检查，血常规显示患者三系血>细胞重度减低，凝血功能检查提示APTT明显延长，纤维蛋白原降低，血液科会诊后发现患者高热、牙龈持续出血，胸骨压痛阳性.凝血功能检查提示APTT明显延长.请描述图片.', model='/root/jane/Qwen2-VL-7B-Instruct/', base_url=None, profile=False, host='127.0.0.1', port=8000, endpoint='/v1/chat/completions', served_model_name=None, ignore_eos=True)
+image size:  (1080, 1440)
+Starting initial single prompt test run...
+============ Serving Benchmark Result ============
+Successful requests:                     4         
+Benchmark duration (s):                  4.09      
+Total input tokens:                      500       
+Total image and input tokens:            8500      
+Total generated tokens:                  512       
+Request throughput (req/s):              0.98      
+Output token throughput (tok/s):         125.10    
+Total Token throughput (tok/s):          247.26    
+---------------Time to First Token----------------
+Mean TTFT (ms):                          1491.77   
+Median TTFT (ms):                        1592.41   
+P99 TTFT (ms):                           1848.01   
+-----Time per Output Token (excl. 1st token)------
+Mean TPOT (ms):                          20.26     
+Median TPOT (ms):                        19.47     
+P99 TPOT (ms):                           24.37     
+---------------Inter-token Latency----------------
+Mean ITL (ms):                           20.10     
+Median ITL (ms):                         17.63     
+P99 ITL (ms):                            35.96     
+==================================================
+Namespace(seed=0, batch_size=4, output_len=512, image_path='../../accuracy/zto/40_20240903093021_78830772282673.jpg', prompt='患者男，年龄29岁，血型O，因思维迟钝，易激怒，因发热伴牙龈出血14天，乏力、头晕5天就诊我院急诊科。快速完善检查，血常规显示患者三系血>细胞重度减低。快速完善检查，血常规显示患者三系血>细胞重度减低，凝血功能检查提示APTT明显延长，纤维蛋白原降低，血液科会诊后发现患者高热、牙龈持续出血，胸骨压痛阳性.凝血功能检查提示APTT明显延长.请描述图片.', model='/root/jane/Qwen2-VL-7B-Instruct/', base_url=None, profile=False, host='127.0.0.1', port=8000, endpoint='/v1/chat/completions', served_model_name=None, ignore_eos=True)
+image size:  (1080, 1440)
+Starting initial single prompt test run...
+============ Serving Benchmark Result ============
+Successful requests:                     4         
+Benchmark duration (s):                  10.88     
+Total input tokens:                      500       
+Total image and input tokens:            8500      
+Total generated tokens:                  2048      
+Request throughput (req/s):              0.37      
+Output token throughput (tok/s):         188.23    
+Total Token throughput (tok/s):          234.18    
+---------------Time to First Token----------------
+Mean TTFT (ms):                          1494.58   
+Median TTFT (ms):                        1595.17   
+P99 TTFT (ms):                           1850.89   
+-----Time per Output Token (excl. 1st token)------
+Mean TPOT (ms):                          18.31     
+Median TPOT (ms):                        18.12     
+P99 TPOT (ms):                           19.33     
+---------------Inter-token Latency----------------
+Mean ITL (ms):                           18.28     
+Median ITL (ms):                         17.66     
+P99 ITL (ms):                            17.91     
+==================================================
+Namespace(seed=0, batch_size=4, output_len=1024, image_path='../../accuracy/zto/40_20240903093021_78830772282673.jpg', prompt='患者男，年龄29岁，血型O，因思维迟钝，易激怒，因发热伴牙龈出血14天，乏力、头晕5天就诊我院急诊科。快速完善检查，血常规显示患者三系血>细胞重度减低。快速完善检查，血常规显示患者三系血>细胞重度减低，凝血功能检查提示APTT明显延长，纤维蛋白原降低，血液科会诊后发现患者高热、牙龈持续出血，胸骨压痛阳性.凝血功能检查提示APTT明显延长.请描述图片.', model='/root/jane/Qwen2-VL-7B-Instruct/', base_url=None, profile=False, host='127.0.0.1', port=8000, endpoint='/v1/chat/completions', served_model_name=None, ignore_eos=True)
+image size:  (1080, 1440)
+Starting initial single prompt test run...
+============ Serving Benchmark Result ============
+Successful requests:                     4         
+Benchmark duration (s):                  19.98     
+Total input tokens:                      500       
+Total image and input tokens:            8500      
+Total generated tokens:                  4096      
+Request throughput (req/s):              0.20      
+Output token throughput (tok/s):         205.03    
+Total Token throughput (tok/s):          230.06    
+---------------Time to First Token----------------
+Mean TTFT (ms):                          1497.77   
+Median TTFT (ms):                        1598.35   
+P99 TTFT (ms):                           1854.39   
+-----Time per Output Token (excl. 1st token)------
+Mean TPOT (ms):                          18.04     
+Median TPOT (ms):                        17.94     
+P99 TPOT (ms):                           18.55     
+---------------Inter-token Latency----------------
+Mean ITL (ms):                           18.02     
+Median ITL (ms):                         17.71     
+P99 ITL (ms):                            17.92     
+==================================================
+Namespace(seed=0, batch_size=6, output_len=128, image_path='../../accuracy/zto/40_20240903093021_78830772282673.jpg', prompt='患者男，年龄29岁，血型O，因思维迟钝，易激怒，因发热伴牙龈出血14天，乏力、头晕5天就诊我院急诊科。快速完善检查，血常规显示患者三系血>细胞重度减低。快速完善检查，血常规显示患者三系血>细胞重度减低，凝血功能检查提示APTT明显延长，纤维蛋白原降低，血液科会诊后发现患者高热、牙龈持续出血，胸骨压痛阳性.凝血功能检查提示APTT明显延长.请描述图片.', model='/root/jane/Qwen2-VL-7B-Instruct/', base_url=None, profile=False, host='127.0.0.1', port=8000, endpoint='/v1/chat/completions', served_model_name=None, ignore_eos=True)
+image size:  (1080, 1440)
+Starting initial single prompt test run...
+============ Serving Benchmark Result ============
+Successful requests:                     6         
+Benchmark duration (s):                  5.07      
+Total input tokens:                      750       
+Total image and input tokens:            12750     
+Total generated tokens:                  768       
+Request throughput (req/s):              1.18      
+Output token throughput (tok/s):         151.55    
+Total Token throughput (tok/s):          299.54    
+---------------Time to First Token----------------
+Mean TTFT (ms):                          1994.59   
+Median TTFT (ms):                        2056.88   
+P99 TTFT (ms):                           2776.38   
+-----Time per Output Token (excl. 1st token)------
+Mean TPOT (ms):                          23.83     
+Median TPOT (ms):                        23.33     
+P99 TPOT (ms):                           31.51     
+---------------Inter-token Latency----------------
+Mean ITL (ms):                           23.64     
+Median ITL (ms):                         17.99     
+P99 ITL (ms):                            441.74    
+==================================================
+Namespace(seed=0, batch_size=6, output_len=512, image_path='../../accuracy/zto/40_20240903093021_78830772282673.jpg', prompt='患者男，年龄29岁，血型O，因思维迟钝，易激怒，因发热伴牙龈出血14天，乏力、头晕5天就诊我院急诊科。快速完善检查，血常规显示患者三系血>细胞重度减低。快速完善检查，血常规显示患者三系血>细胞重度减低，凝血功能检查提示APTT明显延长，纤维蛋白原降低，血液科会诊后发现患者高热、牙龈持续出血，胸骨压痛阳性.凝血功能检查提示APTT明显延长.请描述图片.', model='/root/jane/Qwen2-VL-7B-Instruct/', base_url=None, profile=False, host='127.0.0.1', port=8000, endpoint='/v1/chat/completions', served_model_name=None, ignore_eos=True)
+image size:  (1080, 1440)
+Starting initial single prompt test run...
+============ Serving Benchmark Result ============
+Successful requests:                     6         
+Benchmark duration (s):                  12.04     
+Total input tokens:                      750       
+Total image and input tokens:            12750     
+Total generated tokens:                  3072      
+Request throughput (req/s):              0.50      
+Output token throughput (tok/s):         255.06    
+Total Token throughput (tok/s):          317.33    
+---------------Time to First Token----------------
+Mean TTFT (ms):                          1994.90   
+Median TTFT (ms):                        2056.76   
+P99 TTFT (ms):                           2780.43   
+-----Time per Output Token (excl. 1st token)------
+Mean TPOT (ms):                          19.57     
+Median TPOT (ms):                        19.45     
+P99 TPOT (ms):                           21.48     
+---------------Inter-token Latency----------------
+Mean ITL (ms):                           19.54     
+Median ITL (ms):                         18.11     
+P99 ITL (ms):                            18.64     
+==================================================
+Namespace(seed=0, batch_size=6, output_len=1024, image_path='../../accuracy/zto/40_20240903093021_78830772282673.jpg', prompt='患者男，年龄29岁，血型O，因思维迟钝，易激怒，因发热伴牙龈出血14天，乏力、头晕5天就诊我院急诊科。快速完善检查，血常规显示患者三系血>细胞重度减低。快速完善检查，血常规显示患者三系血>细胞重度减低，凝血功能检查提示APTT明显延长，纤维蛋白原降低，血液科会诊后发现患者高热、牙龈持续出血，胸骨压痛阳性.凝血功能检查提示APTT明显延长.请描述图片.', model='/root/jane/Qwen2-VL-7B-Instruct/', base_url=None, profile=False, host='127.0.0.1', port=8000, endpoint='/v1/chat/completions', served_model_name=None, ignore_eos=True)
+image size:  (1080, 1440)
+Starting initial single prompt test run...
+============ Serving Benchmark Result ============
+Successful requests:                     6         
+Benchmark duration (s):                  21.40     
+Total input tokens:                      750       
+Total image and input tokens:            12750     
+Total generated tokens:                  6144      
+Request throughput (req/s):              0.28      
+Output token throughput (tok/s):         287.09    
+Total Token throughput (tok/s):          322.14    
+---------------Time to First Token----------------
+Mean TTFT (ms):                          1999.15   
+Median TTFT (ms):                        2062.66   
+P99 TTFT (ms):                           2779.75   
+-----Time per Output Token (excl. 1st token)------
+Mean TPOT (ms):                          18.92     
+Median TPOT (ms):                        18.86     
+P99 TPOT (ms):                           19.87     
+---------------Inter-token Latency----------------
+Mean ITL (ms):                           18.90     
+Median ITL (ms):                         18.20     
+P99 ITL (ms):                            18.49     
+==================================================
+Namespace(seed=0, batch_size=8, output_len=128, image_path='../../accuracy/zto/40_20240903093021_78830772282673.jpg', prompt='患者男，年龄29岁，血型O，因思维迟钝，易激怒，因发热伴牙龈出血14天，乏力、头晕5天就诊我院急诊科。快速完善检查，血常规显示患者三系血>细胞重度减低。快速完善检查，血常规显示患者三系血>细胞重度减低，凝血功能检查提示APTT明显延长，纤维蛋白原降低，血液科会诊后发现患者高热、牙龈持续出血，胸骨压痛阳性.凝血功能检查提示APTT明显延长.请描述图片.', model='/root/jane/Qwen2-VL-7B-Instruct/', base_url=None, profile=False, host='127.0.0.1', port=8000, endpoint='/v1/chat/completions', served_model_name=None, ignore_eos=True)
+image size:  (1080, 1440)
+Starting initial single prompt test run...
+============ Serving Benchmark Result ============
+Successful requests:                     8         
+Benchmark duration (s):                  6.04      
+Total input tokens:                      1000      
+Total image and input tokens:            17000     
+Total generated tokens:                  1024      
+Request throughput (req/s):              1.33      
+Output token throughput (tok/s):         169.61    
+Total Token throughput (tok/s):          335.25    
+---------------Time to First Token----------------
+Mean TTFT (ms):                          2478.00   
+Median TTFT (ms):                        2521.59   
+P99 TTFT (ms):                           3704.53   
+-----Time per Output Token (excl. 1st token)------
+Mean TPOT (ms):                          27.50     
+Median TPOT (ms):                        27.16     
+P99 TPOT (ms):                           38.61     
+---------------Inter-token Latency----------------
+Mean ITL (ms):                           27.29     
+Median ITL (ms):                         18.30     
+P99 ITL (ms):                            443.57    
+==================================================
+Namespace(seed=0, batch_size=8, output_len=512, image_path='../../accuracy/zto/40_20240903093021_78830772282673.jpg', prompt='患者男，年龄29岁，血型O，因思维迟钝，易激怒，因发热伴牙龈出血14天，乏力、头晕5天就诊我院急诊科。快速完善检查，血常规显示患者三系血>细胞重度减低。快速完善检查，血常规显示患者三系血>细胞重度减低，凝血功能检查提示APTT明显延长，纤维蛋白原降低，血液科会诊后发现患者高热、牙龈持续出血，胸骨压痛阳性.凝血功能检查提示APTT明显延长.请描述图片.', model='/root/jane/Qwen2-VL-7B-Instruct/', base_url=None, profile=False, host='127.0.0.1', port=8000, endpoint='/v1/chat/completions', served_model_name=None, ignore_eos=True)
+image size:  (1080, 1440)
+Starting initial single prompt test run...
+============ Serving Benchmark Result ============
+Successful requests:                     8         
+Benchmark duration (s):                  13.12     
+Total input tokens:                      1000      
+Total image and input tokens:            17000     
+Total generated tokens:                  4096      
+Request throughput (req/s):              0.61      
+Output token throughput (tok/s):         312.16    
+Total Token throughput (tok/s):          388.38    
+---------------Time to First Token----------------
+Mean TTFT (ms):                          2479.37   
+Median TTFT (ms):                        2521.02   
+P99 TTFT (ms):                           3707.47   
+-----Time per Output Token (excl. 1st token)------
+Mean TPOT (ms):                          20.69     
+Median TPOT (ms):                        20.61     
+P99 TPOT (ms):                           23.46     
+---------------Inter-token Latency----------------
+Mean ITL (ms):                           20.65     
+Median ITL (ms):                         18.40     
+P99 ITL (ms):                            18.82     
+==================================================
+Namespace(seed=0, batch_size=8, output_len=1024, image_path='../../accuracy/zto/40_20240903093021_78830772282673.jpg', prompt='患者男，年龄29岁，血型O，因思维迟钝，易激怒，因发热伴牙龈出血14天，乏力、头晕5天就诊我院急诊科。快速完善检查，血常规显示患者三系血>细胞重度减低。快速完善检查，血常规显示患者三系血>细胞重度减低，凝血功能检查提示APTT明显延长，纤维蛋白原降低，血液科会诊后发现患者高热、牙龈持续出血，胸骨压痛阳性.凝血功能检查提示APTT明显延长.请描述图片.', model='/root/jane/Qwen2-VL-7B-Instruct/', base_url=None, profile=False, host='127.0.0.1', port=8000, endpoint='/v1/chat/completions', served_model_name=None, ignore_eos=True)
+image size:  (1080, 1440)
+Starting initial single prompt test run...
+============ Serving Benchmark Result ============
+Successful requests:                     8         
+Benchmark duration (s):                  22.68     
+Total input tokens:                      1000      
+Total image and input tokens:            17000     
+Total generated tokens:                  8192      
+Request throughput (req/s):              0.35      
+Output token throughput (tok/s):         361.27    
+Total Token throughput (tok/s):          405.37    
+---------------Time to First Token----------------
+Mean TTFT (ms):                          2478.23   
+Median TTFT (ms):                        2524.16   
+P99 TTFT (ms):                           3701.53   
+-----Time per Output Token (excl. 1st token)------
+Mean TPOT (ms):                          19.68     
+Median TPOT (ms):                        19.63     
+P99 TPOT (ms):                           21.05     
+---------------Inter-token Latency----------------
+Mean ITL (ms):                           19.66     
+Median ITL (ms):                         18.54     
+P99 ITL (ms):                            18.96     
+==================================================
+Namespace(seed=0, batch_size=10, output_len=128, image_path='../../accuracy/zto/40_20240903093021_78830772282673.jpg', prompt='患者男，年龄29岁，血型O，因思维迟钝，易激怒，因发热伴牙龈出血14天，乏力、头晕5天就诊我院急诊科。快速完善检查，血常规显示患者三系血>细胞重度减低。快速完善检查，血常规显示患者三系血>细胞重度减低，凝血功能检查提示APTT明显延长，纤维蛋白原降低，血液科会诊后发现患者高热、牙龈持续出血，胸骨压痛阳性.凝血功能检查提示APTT明显延长.请描述图片.', model='/root/jane/Qwen2-VL-7B-Instruct/', base_url=None, profile=False, host='127.0.0.1', port=8000, endpoint='/v1/chat/completions', served_model_name=None, ignore_eos=True)
+image size:  (1080, 1440)
+Starting initial single prompt test run...
+============ Serving Benchmark Result ============
+Successful requests:                     10        
+Benchmark duration (s):                  7.01      
+Total input tokens:                      1250      
+Total image and input tokens:            21250     
+Total generated tokens:                  1280      
+Request throughput (req/s):              1.43      
+Output token throughput (tok/s):         182.62    
+Total Token throughput (tok/s):          360.96    
+---------------Time to First Token----------------
+Mean TTFT (ms):                          2948.25   
+Median TTFT (ms):                        2978.97   
+P99 TTFT (ms):                           4620.11   
+-----Time per Output Token (excl. 1st token)------
+Mean TPOT (ms):                          31.30     
+Median TPOT (ms):                        31.04     
+P99 TPOT (ms):                           45.73     
+---------------Inter-token Latency----------------
+Mean ITL (ms):                           31.05     
+Median ITL (ms):                         18.75     
+P99 ITL (ms):                            443.18    
+==================================================
+Namespace(seed=0, batch_size=10, output_len=512, image_path='../../accuracy/zto/40_20240903093021_78830772282673.jpg', prompt='患者男，年龄29岁，血型O，因思维迟钝，易激怒，因发热伴牙龈出血14天，乏力、头晕5天就诊我院急诊科。快速完善检查，血常规显示患者三系血>细胞重度减低。快速完善检查，血常规显示患者三系血>细胞重度减低，凝血功能检查提示APTT明显延长，纤维蛋白原降低，血液科会诊后发现患者高热、牙龈持续出血，胸骨压痛阳性.凝血功能检查提示APTT明显延长.请描述图片.', model='/root/jane/Qwen2-VL-7B-Instruct/', base_url=None, profile=False, host='127.0.0.1', port=8000, endpoint='/v1/chat/completions', served_model_name=None, ignore_eos=True)
+image size:  (1080, 1440)
+Starting initial single prompt test run...
+============ Serving Benchmark Result ============
+Successful requests:                     10        
+Benchmark duration (s):                  27.12     
+Total input tokens:                      1250      
+Total image and input tokens:            21250     
+Total generated tokens:                  5120      
+Request throughput (req/s):              0.37      
+Output token throughput (tok/s):         188.77    
+Total Token throughput (tok/s):          234.86    
+---------------Time to First Token----------------
+Mean TTFT (ms):                          2951.20   
+Median TTFT (ms):                        2982.94   
+P99 TTFT (ms):                           4617.51   
+-----Time per Output Token (excl. 1st token)------
+Mean TPOT (ms):                          44.02     
+Median TPOT (ms):                        44.07     
+P99 TPOT (ms):                           46.54     
+---------------Inter-token Latency----------------
+Mean ITL (ms):                           43.93     
+Median ITL (ms):                         18.84     
+P99 ITL (ms):                            445.95    
+==================================================
+Namespace(seed=0, batch_size=10, output_len=1024, image_path='../../accuracy/zto/40_20240903093021_78830772282673.jpg', prompt='患者男，年龄29岁，血型O，因思维迟钝，易激怒，因发热伴牙龈出血14天，乏力、头晕5天就诊我院急诊科。快速完善检查，血常规显示患者三系血>细胞重度减低。快速完善检查，血常规显示患者三系血>细胞重度减低，凝血功能检查提示APTT明显延长，纤维蛋白原降低，血液科会诊后发现患者高热、牙龈持续出血，胸骨压痛阳性.凝血功能检查提示APTT明显延长.请描述图片.', model='/root/jane/Qwen2-VL-7B-Instruct/', base_url=None, profile=False, host='127.0.0.1', port=8000, endpoint='/v1/chat/completions', served_model_name=None, ignore_eos=True)
+image size:  (1080, 1440)
+Starting initial single prompt test run...
+============ Serving Benchmark Result ============
+Successful requests:                     10        
+Benchmark duration (s):                  66.57     
+Total input tokens:                      1250      
+Total image and input tokens:            21250     
+Total generated tokens:                  10240     
+Request throughput (req/s):              0.15      
+Output token throughput (tok/s):         153.83    
+Total Token throughput (tok/s):          172.61    
+---------------Time to First Token----------------
+Mean TTFT (ms):                          2950.73   
+Median TTFT (ms):                        2980.85   
+P99 TTFT (ms):                           4623.59   
+-----Time per Output Token (excl. 1st token)------
+Mean TPOT (ms):                          53.31     
+Median TPOT (ms):                        52.62     
+P99 TPOT (ms):                           60.13     
+---------------Inter-token Latency----------------
+Mean ITL (ms):                           53.26     
+Median ITL (ms):                         18.82     
+P99 ITL (ms):                            447.24    
+==================================================
+Namespace(seed=0, batch_size=12, output_len=128, image_path='../../accuracy/zto/40_20240903093021_78830772282673.jpg', prompt='患者男，年龄29岁，血型O，因思维迟钝，易激怒，因发热伴牙龈出血14天，乏力、头晕5天就诊我院急诊科。快速完善检查，血常规显示患者三系血>细胞重度减低。快速完善检查，血常规显示患者三系血>细胞重度减低，凝血功能检查提示APTT明显延长，纤维蛋白原降低，血液科会诊后发现患者高热、牙龈持续出血，胸骨压痛阳性.凝血功能检查提示APTT明显延长.请描述图片.', model='/root/jane/Qwen2-VL-7B-Instruct/', base_url=None, profile=False, host='127.0.0.1', port=8000, endpoint='/v1/chat/completions', served_model_name=None, ignore_eos=True)
+image size:  (1080, 1440)
+Starting initial single prompt test run...
+============ Serving Benchmark Result ============
+Successful requests:                     12        
+Benchmark duration (s):                  10.00     
+Total input tokens:                      1500      
+Total image and input tokens:            25500     
+Total generated tokens:                  1536      
+Request throughput (req/s):              1.20      
+Output token throughput (tok/s):         153.65    
+Total Token throughput (tok/s):          303.70    
+---------------Time to First Token----------------
+Mean TTFT (ms):                          3614.86   
+Median TTFT (ms):                        3444.52   
+P99 TTFT (ms):                           7613.24   
+-----Time per Output Token (excl. 1st token)------
+Mean TPOT (ms):                          35.30     
+Median TPOT (ms):                        35.51     
+P99 TPOT (ms):                           52.09     
+---------------Inter-token Latency----------------
+Mean ITL (ms):                           35.03     
+Median ITL (ms):                         18.88     
+P99 ITL (ms):                            444.54    
+==================================================
+Namespace(seed=0, batch_size=12, output_len=512, image_path='../../accuracy/zto/40_20240903093021_78830772282673.jpg', prompt='患者男，年龄29岁，血型O，因思维迟钝，易激怒，因发热伴牙龈出血14天，乏力、头晕5天就诊我院急诊科。快速完善检查，血常规显示患者三系血>细胞重度减低。快速完善检查，血常规显示患者三系血>细胞重度减低，凝血功能检查提示APTT明显延长，纤维蛋白原降低，血液科会诊后发现患者高热、牙龈持续出血，胸骨压痛阳性.凝血功能检查提示APTT明显延长.请描述图片.', model='/root/jane/Qwen2-VL-7B-Instruct/', base_url=None, profile=False, host='127.0.0.1', port=8000, endpoint='/v1/chat/completions', served_model_name=None, ignore_eos=True)
+image size:  (1080, 1440)
+Starting initial single prompt test run...
+============ Serving Benchmark Result ============
+Successful requests:                     12        
+Benchmark duration (s):                  40.24     
+Total input tokens:                      1500      
+Total image and input tokens:            25500     
+Total generated tokens:                  6144      
+Request throughput (req/s):              0.30      
+Output token throughput (tok/s):         152.67    
+Total Token throughput (tok/s):          189.95    
+---------------Time to First Token----------------
+Mean TTFT (ms):                          5589.00   
+Median TTFT (ms):                        3451.12   
+P99 TTFT (ms):                           28645.84  
+-----Time per Output Token (excl. 1st token)------
+Mean TPOT (ms):                          53.08     
+Median TPOT (ms):                        55.93     
+P99 TPOT (ms):                           61.96     
+---------------Inter-token Latency----------------
+Mean ITL (ms):                           52.98     
+Median ITL (ms):                         18.90     
+P99 ITL (ms):                            446.78    
+==================================================
+Namespace(seed=0, batch_size=12, output_len=1024, image_path='../../accuracy/zto/40_20240903093021_78830772282673.jpg', prompt='患者男，年龄29岁，血型O，因思维迟钝，易激怒，因发热伴牙龈出血14天，乏力、头晕5天就诊我院急诊科。快速完善检查，血常规显示患者三系血>细胞重度减低。快速完善检查，血常规显示患者三系血>细胞重度减低，凝血功能检查提示APTT明显延长，纤维蛋白原降低，血液科会诊后发现患者高热、牙龈持续出血，胸骨压痛阳性.凝血功能检查提示APTT明显延长.请描述图片.', model='/root/jane/Qwen2-VL-7B-Instruct/', base_url=None, profile=False, host='127.0.0.1', port=8000, endpoint='/v1/chat/completions', served_model_name=None, ignore_eos=True)
+image size:  (1080, 1440)
+Starting initial single prompt test run...
+============ Serving Benchmark Result ============
+Successful requests:                     12        
+Benchmark duration (s):                  80.06     
+Total input tokens:                      1500      
+Total image and input tokens:            25500     
+Total generated tokens:                  12288     
+Request throughput (req/s):              0.15      
+Output token throughput (tok/s):         153.48    
+Total Token throughput (tok/s):          172.21    
+---------------Time to First Token----------------
+Mean TTFT (ms):                          8146.69   
+Median TTFT (ms):                        3447.26   
+P99 TTFT (ms):                           55980.02  
+-----Time per Output Token (excl. 1st token)------
+Mean TPOT (ms):                          56.57     
+Median TPOT (ms):                        58.15     
+P99 TPOT (ms):                           69.77     
+---------------Inter-token Latency----------------
+Mean ITL (ms):                           56.51     
+Median ITL (ms):                         18.86     
+P99 ITL (ms):                            446.94    
+==================================================
+Namespace(seed=0, batch_size=14, output_len=128, image_path='../../accuracy/zto/40_20240903093021_78830772282673.jpg', prompt='患者男，年龄29岁，血型O，因思维迟钝，易激怒，因发热伴牙龈出血14天，乏力、头晕5天就诊我院急诊科。快速完善检查，血常规显示患者三系血>细胞重度减低。快速完善检查，血常规显示患者三系血>细胞重度减低，凝血功能检查提示APTT明显延长，纤维蛋白原降低，血液科会诊后发现患者高热、牙龈持续出血，胸骨压痛阳性.凝血功能检查提示APTT明显延长.请描述图片.', model='/root/jane/Qwen2-VL-7B-Instruct/', base_url=None, profile=False, host='127.0.0.1', port=8000, endpoint='/v1/chat/completions', served_model_name=None, ignore_eos=True)
+image size:  (1080, 1440)
+Starting initial single prompt test run...
+============ Serving Benchmark Result ============
+Successful requests:                     14        
+Benchmark duration (s):                  11.05     
+Total input tokens:                      1750      
+Total image and input tokens:            29750     
+Total generated tokens:                  1792      
+Request throughput (req/s):              1.27      
+Output token throughput (tok/s):         162.13    
+Total Token throughput (tok/s):          320.47    
+---------------Time to First Token----------------
+Mean TTFT (ms):                          4402.65   
+Median TTFT (ms):                        3911.61   
+P99 TTFT (ms):                           8805.81   
+-----Time per Output Token (excl. 1st token)------
+Mean TPOT (ms):                          37.26     
+Median TPOT (ms):                        39.04     
+P99 TPOT (ms):                           52.09     
+---------------Inter-token Latency----------------
+Mean ITL (ms):                           36.97     
+Median ITL (ms):                         18.89     
+P99 ITL (ms):                            444.95    
+==================================================
+Namespace(seed=0, batch_size=14, output_len=512, image_path='../../accuracy/zto/40_20240903093021_78830772282673.jpg', prompt='患者男，年龄29岁，血型O，因思维迟钝，易激怒，因发热伴牙龈出血14天，乏力、头晕5天就诊我院急诊科。快速完善检查，血常规显示患者三系血>细胞重度减低。快速完善检查，血常规显示患者三系血>细胞重度减低，凝血功能检查提示APTT明显延长，纤维蛋白原降低，血液科会诊后发现患者高热、牙龈持续出血，胸骨压痛阳性.凝血功能检查提示APTT明显延长.请描述图片.', model='/root/jane/Qwen2-VL-7B-Instruct/', base_url=None, profile=False, host='127.0.0.1', port=8000, endpoint='/v1/chat/completions', served_model_name=None, ignore_eos=True)
+image size:  (1080, 1440)
+Starting initial single prompt test run...
+============ Serving Benchmark Result ============
+Successful requests:                     14        
+Benchmark duration (s):                  41.50     
+Total input tokens:                      1750      
+Total image and input tokens:            29750     
+Total generated tokens:                  7168      
+Request throughput (req/s):              0.34      
+Output token throughput (tok/s):         172.74    
+Total Token throughput (tok/s):          214.91    
+---------------Time to First Token----------------
+Mean TTFT (ms):                          9456.94   
+Median TTFT (ms):                        3911.15   
+P99 TTFT (ms):                           32417.82  
+-----Time per Output Token (excl. 1st token)------
+Mean TPOT (ms):                          48.94     
+Median TPOT (ms):                        56.90     
+P99 TPOT (ms):                           63.56     
+---------------Inter-token Latency----------------
+Mean ITL (ms):                           48.85     
+Median ITL (ms):                         18.87     
+P99 ITL (ms):                            446.69    
+==================================================
+Namespace(seed=0, batch_size=14, output_len=1024, image_path='../../accuracy/zto/40_20240903093021_78830772282673.jpg', prompt='患者男，年龄29岁，血型O，因思维迟钝，易激怒，因发热伴牙龈出血14天，乏力、头晕5天就诊我院急诊科。快速完善检查，血常规显示患者三系血>细胞重度减低。快速完善检查，血常规显示患者三系血>细胞重度减低，凝血功能检查提示APTT明显延长，纤维蛋白原降低，血液科会诊后发现患者高热、牙龈持续出血，胸骨压痛阳性.凝血功能检查提示APTT明显延长.请描述图片.', model='/root/jane/Qwen2-VL-7B-Instruct/', base_url=None, profile=False, host='127.0.0.1', port=8000, endpoint='/v1/chat/completions', served_model_name=None, ignore_eos=True)
+image size:  (1080, 1440)
+Starting initial single prompt test run...
+============ Serving Benchmark Result ============
+Successful requests:                     14        
+Benchmark duration (s):                  81.62     
+Total input tokens:                      1750      
+Total image and input tokens:            29750     
+Total generated tokens:                  14336     
+Request throughput (req/s):              0.17      
+Output token throughput (tok/s):         175.64    
+Total Token throughput (tok/s):          197.08    
+---------------Time to First Token----------------
+Mean TTFT (ms):                          16045.13  
+Median TTFT (ms):                        3914.88   
+P99 TTFT (ms):                           63193.45  
+-----Time per Output Token (excl. 1st token)------
+Mean TPOT (ms):                          51.56     
+Median TPOT (ms):                        58.11     
+P99 TPOT (ms):                           70.96     
+---------------Inter-token Latency----------------
+Mean ITL (ms):                           51.51     
+Median ITL (ms):                         18.80     
+P99 ITL (ms):                            447.64    
+==================================================
+Namespace(seed=0, batch_size=16, output_len=128, image_path='../../accuracy/zto/40_20240903093021_78830772282673.jpg', prompt='患者男，年龄29岁，血型O，因思维迟钝，易激怒，因发热伴牙龈出血14天，乏力、头晕5天就诊我院急诊科。快速完善检查，血常规显示患者三系血>细胞重度减低。快速完善检查，血常规显示患者三系血>细胞重度减低，凝血功能检查提示APTT明显延长，纤维蛋白原降低，血液科会诊后发现患者高热、牙龈持续出血，胸骨压痛阳性.凝血功能检查提示APTT明显延长.请描述图片.', model='/root/jane/Qwen2-VL-7B-Instruct/', base_url=None, profile=False, host='127.0.0.1', port=8000, endpoint='/v1/chat/completions', served_model_name=None, ignore_eos=True)
+image size:  (1080, 1440)
+Starting initial single prompt test run...
+============ Serving Benchmark Result ============
+Successful requests:                     16        
+Benchmark duration (s):                  12.03     
+Total input tokens:                      2000      
+Total image and input tokens:            34000     
+Total generated tokens:                  2048      
+Request throughput (req/s):              1.33      
+Output token throughput (tok/s):         170.20    
+Total Token throughput (tok/s):          336.40    
+---------------Time to First Token----------------
+Mean TTFT (ms):                          5115.01   
+Median TTFT (ms):                        4385.98   
+P99 TTFT (ms):                           9740.91   
+-----Time per Output Token (excl. 1st token)------
+Mean TPOT (ms):                          38.78     
+Median TPOT (ms):                        42.58     
+P99 TPOT (ms):                           52.09     
+---------------Inter-token Latency----------------
+Mean ITL (ms):                           38.48     
+Median ITL (ms):                         18.87     
+P99 ITL (ms):                            446.64    
+==================================================
+Namespace(seed=0, batch_size=16, output_len=512, image_path='../../accuracy/zto/40_20240903093021_78830772282673.jpg', prompt='患者男，年龄29岁，血型O，因思维迟钝，易激怒，因发热伴牙龈出血14天，乏力、头晕5天就诊我院急诊科。快速完善检查，血常规显示患者三系血>细胞重度减低。快速完善检查，血常规显示患者三系血>细胞重度减低，凝血功能检查提示APTT明显延长，纤维蛋白原降低，血液科会诊后发现患者高热、牙龈持续出血，胸骨压痛阳性.凝血功能检查提示APTT明显延长.请描述图片.', model='/root/jane/Qwen2-VL-7B-Instruct/', base_url=None, profile=False, host='127.0.0.1', port=8000, endpoint='/v1/chat/completions', served_model_name=None, ignore_eos=True)
+image size:  (1080, 1440)
+Starting initial single prompt test run...
+============ Serving Benchmark Result ============
+Successful requests:                     16        
+Benchmark duration (s):                  42.67     
+Total input tokens:                      2000      
+Total image and input tokens:            34000     
+Total generated tokens:                  8192      
+Request throughput (req/s):              0.37      
+Output token throughput (tok/s):         191.99    
+Total Token throughput (tok/s):          238.86    
+---------------Time to First Token----------------
+Mean TTFT (ms):                          12488.65  
+Median TTFT (ms):                        4385.59   
+P99 TTFT (ms):                           33371.54  
+-----Time per Output Token (excl. 1st token)------
+Mean TPOT (ms):                          45.97     
+Median TPOT (ms):                        56.96     
+P99 TPOT (ms):                           65.45     
+---------------Inter-token Latency----------------
+Mean ITL (ms):                           45.88     
+Median ITL (ms):                         18.85     
+P99 ITL (ms):                            447.19    
+==================================================
+Namespace(seed=0, batch_size=16, output_len=1024, image_path='../../accuracy/zto/40_20240903093021_78830772282673.jpg', prompt='患者男，年龄29岁，血型O，因思维迟钝，易激怒，因发热伴牙龈出血14天，乏力、头晕5天就诊我院急诊科。快速完善检查，血常规显示患者三系血>细胞重度减低。快速完善检查，血常规显示患者三系血>细胞重度减低，凝血功能检查提示APTT明显延长，纤维蛋白原降低，血液科会诊后发现患者高热、牙龈持续出血，胸骨压痛阳性.凝血功能检查提示APTT明显延长.请描述图片.', model='/root/jane/Qwen2-VL-7B-Instruct/', base_url=None, profile=False, host='127.0.0.1', port=8000, endpoint='/v1/chat/completions', served_model_name=None, ignore_eos=True)
+image size:  (1080, 1440)
+Starting initial single prompt test run...
+============ Serving Benchmark Result ============
+Successful requests:                     16        
+Benchmark duration (s):                  82.90     
+Total input tokens:                      2000      
+Total image and input tokens:            34000     
+Total generated tokens:                  16384     
+Request throughput (req/s):              0.19      
+Output token throughput (tok/s):         197.63    
+Total Token throughput (tok/s):          221.76    
+---------------Time to First Token----------------
+Mean TTFT (ms):                          22073.26  
+Median TTFT (ms):                        4381.62   
+P99 TTFT (ms):                           64091.72  
+-----Time per Output Token (excl. 1st token)------
+Mean TPOT (ms):                          47.82     
+Median TPOT (ms):                        57.99     
+P99 TPOT (ms):                           71.98     
+---------------Inter-token Latency----------------
+Mean ITL (ms):                           47.78     
+Median ITL (ms):                         18.74     
+P99 ITL (ms):                            447.28    
+==================================================
+Namespace(seed=0, batch_size=18, output_len=128, image_path='../../accuracy/zto/40_20240903093021_78830772282673.jpg', prompt='患者男，年龄29岁，血型O，因思维迟钝，易激怒，因发热伴牙龈出血14天，乏力、头晕5天就诊我院急诊科。快速完善检查，血常规显示患者三系血>细胞重度减低。快速完善检查，血常规显示患者三系血>细胞重度减低，凝血功能检查提示APTT明显延长，纤维蛋白原降低，血液科会诊后发现患者高热、牙龈持续出血，胸骨压痛阳性.凝血功能检查提示APTT明显延长.请描述图片.', model='/root/jane/Qwen2-VL-7B-Instruct/', base_url=None, profile=False, host='127.0.0.1', port=8000, endpoint='/v1/chat/completions', served_model_name=None, ignore_eos=True)
+image size:  (1080, 1440)
+Starting initial single prompt test run...
+============ Serving Benchmark Result ============
+Successful requests:                     18        
+Benchmark duration (s):                  13.00     
+Total input tokens:                      2250      
+Total image and input tokens:            38250     
+Total generated tokens:                  2304      
+Request throughput (req/s):              1.38      
+Output token throughput (tok/s):         177.27    
+Total Token throughput (tok/s):          350.38    
+---------------Time to First Token----------------
+Mean TTFT (ms):                          5764.98   
+Median TTFT (ms):                        4848.88   
+P99 TTFT (ms):                           10673.39  
+-----Time per Output Token (excl. 1st token)------
+Mean TPOT (ms):                          39.99     
+Median TPOT (ms):                        46.05     
+P99 TPOT (ms):                           52.02     
+---------------Inter-token Latency----------------
+Mean ITL (ms):                           39.68     
+Median ITL (ms):                         18.85     
+P99 ITL (ms):                            445.55    
+==================================================
+Namespace(seed=0, batch_size=18, output_len=512, image_path='../../accuracy/zto/40_20240903093021_78830772282673.jpg', prompt='患者男，年龄29岁，血型O，因思维迟钝，易激怒，因发热伴牙龈出血14天，乏力、头晕5天就诊我院急诊科。快速完善检查，血常规显示患者三系血>细胞重度减低。快速完善检查，血常规显示患者三系血>细胞重度减低，凝血功能检查提示APTT明显延长，纤维蛋白原降低，血液科会诊后发现患者高热、牙龈持续出血，胸骨压痛阳性.凝血功能检查提示APTT明显延长.请描述图片.', model='/root/jane/Qwen2-VL-7B-Instruct/', base_url=None, profile=False, host='127.0.0.1', port=8000, endpoint='/v1/chat/completions', served_model_name=None, ignore_eos=True)
+image size:  (1080, 1440)
+Starting initial single prompt test run...
+============ Serving Benchmark Result ============
+Successful requests:                     18        
+Benchmark duration (s):                  43.78     
+Total input tokens:                      2250      
+Total image and input tokens:            38250     
+Total generated tokens:                  9216      
+Request throughput (req/s):              0.41      
+Output token throughput (tok/s):         210.49    
+Total Token throughput (tok/s):          261.88    
+---------------Time to First Token----------------
+Mean TTFT (ms):                          14951.01  
+Median TTFT (ms):                        4854.77   
+P99 TTFT (ms):                           34303.76  
+-----Time per Output Token (excl. 1st token)------
+Mean TPOT (ms):                          43.70     
+Median TPOT (ms):                        56.96     
+P99 TPOT (ms):                           67.18     
+---------------Inter-token Latency----------------
+Mean ITL (ms):                           43.62     
+Median ITL (ms):                         18.82     
+P99 ITL (ms):                            447.26    
+==================================================
+Namespace(seed=0, batch_size=18, output_len=1024, image_path='../../accuracy/zto/40_20240903093021_78830772282673.jpg', prompt='患者男，年龄29岁，血型O，因思维迟钝，易激怒，因发热伴牙龈出血14天，乏力、头晕5天就诊我院急诊科。快速完善检查，血常规显示患者三系血>细胞重度减低。快速完善检查，血常规显示患者三系血>细胞重度减低，凝血功能检查提示APTT明显延长，纤维蛋白原降低，血液科会诊后发现患者高热、牙龈持续出血，胸骨压痛阳性.凝血功能检查提示APTT明显延长.请描述图片.', model='/root/jane/Qwen2-VL-7B-Instruct/', base_url=None, profile=False, host='127.0.0.1', port=8000, endpoint='/v1/chat/completions', served_model_name=None, ignore_eos=True)
+image size:  (1080, 1440)
+Starting initial single prompt test run...
+============ Serving Benchmark Result ============
+Successful requests:                     18        
+Benchmark duration (s):                  95.15     
+Total input tokens:                      2250      
+Total image and input tokens:            38250     
+Total generated tokens:                  18432     
+Request throughput (req/s):              0.19      
+Output token throughput (tok/s):         193.71    
+Total Token throughput (tok/s):          217.35    
+---------------Time to First Token----------------
+Mean TTFT (ms):                          26878.56  
+Median TTFT (ms):                        4853.10   
+P99 TTFT (ms):                           65043.11  
+-----Time per Output Token (excl. 1st token)------
+Mean TPOT (ms):                          50.55     
+Median TPOT (ms):                        57.99     
+P99 TPOT (ms):                           82.80     
+---------------Inter-token Latency----------------
+Mean ITL (ms):                           50.50     
+Median ITL (ms):                         18.86     
+P99 ITL (ms):                            447.65    
+==================================================
+Namespace(seed=0, batch_size=20, output_len=128, image_path='../../accuracy/zto/40_20240903093021_78830772282673.jpg', prompt='患者男，年龄29岁，血型O，因思维迟钝，易激怒，因发热伴牙龈出血14天，乏力、头晕5天就诊我院急诊科。快速完善检查，血常规显示患者三系血>细胞重度减低。快速完善检查，血常规显示患者三系血>细胞重度减低，凝血功能检查提示APTT明显延长，纤维蛋白原降低，血液科会诊后发现患者高热、牙龈持续出血，胸骨压痛阳性.凝血功能检查提示APTT明显延长.请描述图片.', model='/root/jane/Qwen2-VL-7B-Instruct/', base_url=None, profile=False, host='127.0.0.1', port=8000, endpoint='/v1/chat/completions', served_model_name=None, ignore_eos=True)
+image size:  (1080, 1440)
+Starting initial single prompt test run...
+============ Serving Benchmark Result ============
+Successful requests:                     20        
+Benchmark duration (s):                  13.99     
+Total input tokens:                      2500      
+Total image and input tokens:            42500     
+Total generated tokens:                  2560      
+Request throughput (req/s):              1.43      
+Output token throughput (tok/s):         182.94    
+Total Token throughput (tok/s):          361.60    
+---------------Time to First Token----------------
+Mean TTFT (ms):                          6390.71   
+Median TTFT (ms):                        5311.38   
+P99 TTFT (ms):                           11591.80  
+-----Time per Output Token (excl. 1st token)------
+Mean TPOT (ms):                          41.11     
+Median TPOT (ms):                        49.23     
+P99 TPOT (ms):                           52.04     
+---------------Inter-token Latency----------------
+Mean ITL (ms):                           40.79     
+Median ITL (ms):                         18.83     
+P99 ITL (ms):                            446.31    
+==================================================
+Namespace(seed=0, batch_size=20, output_len=512, image_path='../../accuracy/zto/40_20240903093021_78830772282673.jpg', prompt='患者男，年龄29岁，血型O，因思维迟钝，易激怒，因发热伴牙龈出血14天，乏力、头晕5天就诊我院急诊科。快速完善检查，血常规显示患者三系血>细胞重度减低。快速完善检查，血常规显示患者三系血>细胞重度减低，凝血功能检查提示APTT明显延长，纤维蛋白原降低，血液科会诊后发现患者高热、牙龈持续出血，胸骨压痛阳性.凝血功能检查提示APTT明显延长.请描述图片.', model='/root/jane/Qwen2-VL-7B-Instruct/', base_url=None, profile=False, host='127.0.0.1', port=8000, endpoint='/v1/chat/completions', served_model_name=None, ignore_eos=True)
+image size:  (1080, 1440)
+Starting initial single prompt test run...
+============ Serving Benchmark Result ============
+Successful requests:                     20        
+Benchmark duration (s):                  44.90     
+Total input tokens:                      2500      
+Total image and input tokens:            42500     
+Total generated tokens:                  10240     
+Request throughput (req/s):              0.45      
+Output token throughput (tok/s):         228.07    
+Total Token throughput (tok/s):          283.75    
+---------------Time to First Token----------------
+Mean TTFT (ms):                          16999.65  
+Median TTFT (ms):                        5313.70   
+P99 TTFT (ms):                           35217.83  
+-----Time per Output Token (excl. 1st token)------
+Mean TPOT (ms):                          42.11     
+Median TPOT (ms):                        56.93     
+P99 TPOT (ms):                           68.95     
+---------------Inter-token Latency----------------
+Mean ITL (ms):                           42.03     
+Median ITL (ms):                         18.88     
+P99 ITL (ms):                            447.20    
+==================================================
+Namespace(seed=0, batch_size=20, output_len=1024, image_path='../../accuracy/zto/40_20240903093021_78830772282673.jpg', prompt='患者男，年龄29岁，血型O，因思维迟钝，易激怒，因发热伴牙龈出血14天，乏力、头晕5天就诊我院急诊科。快速完善检查，血常规显示患者三系血>细胞重度减低。快速完善检查，血常规显示患者三系血>细胞重度减低，凝血功能检查提示APTT明显延长，纤维蛋白原降低，血液科会诊后发现患者高热、牙龈持续出血，胸骨压痛阳性.凝血功能检查提示APTT明显延长.请描述图片.', model='/root/jane/Qwen2-VL-7B-Instruct/', base_url=None, profile=False, host='127.0.0.1', port=8000, endpoint='/v1/chat/completions', served_model_name=None, ignore_eos=True)
+image size:  (1080, 1440)
+Starting initial single prompt test run...
+============ Serving Benchmark Result ============
+Successful requests:                     20        
+Benchmark duration (s):                  131.36    
+Total input tokens:                      2500      
+Total image and input tokens:            42500     
+Total generated tokens:                  20480     
+Request throughput (req/s):              0.15      
+Output token throughput (tok/s):         155.91    
+Total Token throughput (tok/s):          174.94    
+---------------Time to First Token----------------
+Mean TTFT (ms):                          32887.11  
+Median TTFT (ms):                        5313.92   
+P99 TTFT (ms):                           99745.69  
+-----Time per Output Token (excl. 1st token)------
+Mean TPOT (ms):                          57.59     
+Median TPOT (ms):                        57.98     
+P99 TPOT (ms):                           96.70     
+---------------Inter-token Latency----------------
+Mean ITL (ms):                           57.54     
+Median ITL (ms):                         18.88     
+P99 ITL (ms):                            447.60    
+==================================================
+Namespace(seed=0, batch_size=22, output_len=128, image_path='../../accuracy/zto/40_20240903093021_78830772282673.jpg', prompt='患者男，年龄29岁，血型O，因思维迟钝，易激怒，因发热伴牙龈出血14天，乏力、头晕5天就诊我院急诊科。快速完善检查，血常规显示患者三系血>细胞重度减低。快速完善检查，血常规显示患者三系血>细胞重度减低，凝血功能检查提示APTT明显延长，纤维蛋白原降低，血液科会诊后发现患者高热、牙龈持续出血，胸骨压痛阳性.凝血功能检查提示APTT明显延长.请描述图片.', model='/root/jane/Qwen2-VL-7B-Instruct/', base_url=None, profile=False, host='127.0.0.1', port=8000, endpoint='/v1/chat/completions', served_model_name=None, ignore_eos=True)
+image size:  (1080, 1440)
+Starting initial single prompt test run...
+============ Serving Benchmark Result ============
+Successful requests:                     22        
+Benchmark duration (s):                  14.96     
+Total input tokens:                      2750      
+Total image and input tokens:            46750     
+Total generated tokens:                  2816      
+Request throughput (req/s):              1.47      
+Output token throughput (tok/s):         188.27    
+Total Token throughput (tok/s):          372.13    
+---------------Time to First Token----------------
+Mean TTFT (ms):                          6981.45   
+Median TTFT (ms):                        7006.08   
+P99 TTFT (ms):                           12534.63  
+-----Time per Output Token (excl. 1st token)------
+Mean TPOT (ms):                          42.03     
+Median TPOT (ms):                        50.20     
+P99 TPOT (ms):                           52.00     
+---------------Inter-token Latency----------------
+Mean ITL (ms):                           41.70     
+Median ITL (ms):                         18.91     
+P99 ITL (ms):                            446.05    
+==================================================
+Namespace(seed=0, batch_size=22, output_len=512, image_path='../../accuracy/zto/40_20240903093021_78830772282673.jpg', prompt='患者男，年龄29岁，血型O，因思维迟钝，易激怒，因发热伴牙龈出血14天，乏力、头晕5天就诊我院急诊科。快速完善检查，血常规显示患者三系血>细胞重度减低。快速完善检查，血常规显示患者三系血>细胞重度减低，凝血功能检查提示APTT明显延长，纤维蛋白原降低，血液科会诊后发现患者高热、牙龈持续出血，胸骨压痛阳性.凝血功能检查提示APTT明显延长.请描述图片.', model='/root/jane/Qwen2-VL-7B-Instruct/', base_url=None, profile=False, host='127.0.0.1', port=8000, endpoint='/v1/chat/completions', served_model_name=None, ignore_eos=True)
+image size:  (1080, 1440)
+Starting initial single prompt test run...
+============ Serving Benchmark Result ============
+Successful requests:                     22        
+Benchmark duration (s):                  63.12     
+Total input tokens:                      2750      
+Total image and input tokens:            46750     
+Total generated tokens:                  11264     
+Request throughput (req/s):              0.35      
+Output token throughput (tok/s):         178.47    
+Total Token throughput (tok/s):          222.04    
+---------------Time to First Token----------------
+Mean TTFT (ms):                          19676.32  
+Median TTFT (ms):                        18776.91  
+P99 TTFT (ms):                           50873.88  
+-----Time per Output Token (excl. 1st token)------
+Mean TPOT (ms):                          48.94     
+Median TPOT (ms):                        50.77     
+P99 TPOT (ms):                           74.33     
+---------------Inter-token Latency----------------
+Mean ITL (ms):                           48.84     
+Median ITL (ms):                         18.91     
+P99 ITL (ms):                            447.39    
+==================================================
+Namespace(seed=0, batch_size=22, output_len=1024, image_path='../../accuracy/zto/40_20240903093021_78830772282673.jpg', prompt='患者男，年龄29岁，血型O，因思维迟钝，易激怒，因发热伴牙龈出血14天，乏力、头晕5天就诊我院急诊科。快速完善检查，血常规显示患者三系血>细胞重度减低。快速完善检查，血常规显示患者三系血>细胞重度减低，凝血功能检查提示APTT明显延长，纤维蛋白原降低，血液科会诊后发现患者高热、牙龈持续出血，胸骨压痛阳性.凝血功能检查提示APTT明显延长.请描述图片.', model='/root/jane/Qwen2-VL-7B-Instruct/', base_url=None, profile=False, host='127.0.0.1', port=8000, endpoint='/v1/chat/completions', served_model_name=None, ignore_eos=True)
+image size:  (1080, 1440)
+Starting initial single prompt test run...
+============ Serving Benchmark Result ============
+Successful requests:                     22        
+Benchmark duration (s):                  133.06    
+Total input tokens:                      2750      
+Total image and input tokens:            46750     
+Total generated tokens:                  22528     
+Request throughput (req/s):              0.17      
+Output token throughput (tok/s):         169.30    
+Total Token throughput (tok/s):          189.97    
+---------------Time to First Token----------------
+Mean TTFT (ms):                          40368.12  
+Median TTFT (ms):                        34104.56  
+P99 TTFT (ms):                           114911.56 
+-----Time per Output Token (excl. 1st token)------
+Mean TPOT (ms):                          54.26     
+Median TPOT (ms):                        57.97     
+P99 TPOT (ms):                           96.46     
+---------------Inter-token Latency----------------
+Mean ITL (ms):                           54.21     
+Median ITL (ms):                         18.88     
+P99 ITL (ms):                            447.45    
+==================================================
+Namespace(seed=0, batch_size=24, output_len=128, image_path='../../accuracy/zto/40_20240903093021_78830772282673.jpg', prompt='患者男，年龄29岁，血型O，因思维迟钝，易激怒，因发热伴牙龈出血14天，乏力、头晕5天就诊我院急诊科。快速完善检查，血常规显示患者三系血>细胞重度减低。快速完善检查，血常规显示患者三系血>细胞重度减低，凝血功能检查提示APTT明显延长，纤维蛋白原降低，血液科会诊后发现患者高热、牙龈持续出血，胸骨压痛阳性.凝血功能检查提示APTT明显延长.请描述图片.', model='/root/jane/Qwen2-VL-7B-Instruct/', base_url=None, profile=False, host='127.0.0.1', port=8000, endpoint='/v1/chat/completions', served_model_name=None, ignore_eos=True)
+image size:  (1080, 1440)
+Starting initial single prompt test run...
+============ Serving Benchmark Result ============
+Successful requests:                     24        
+Benchmark duration (s):                  18.02     
+Total input tokens:                      3000      
+Total image and input tokens:            51000     
+Total generated tokens:                  3072      
+Request throughput (req/s):              1.33      
+Output token throughput (tok/s):         170.48    
+Total Token throughput (tok/s):          336.97    
+---------------Time to First Token----------------
+Mean TTFT (ms):                          7745.28   
+Median TTFT (ms):                        8664.32   
+P99 TTFT (ms):                           15780.06  
+-----Time per Output Token (excl. 1st token)------
+Mean TPOT (ms):                          43.01     
+Median TPOT (ms):                        50.55     
+P99 TPOT (ms):                           52.49     
+---------------Inter-token Latency----------------
+Mean ITL (ms):                           42.67     
+Median ITL (ms):                         18.90     
+P99 ITL (ms):                            446.31    
+==================================================
+Namespace(seed=0, batch_size=24, output_len=512, image_path='../../accuracy/zto/40_20240903093021_78830772282673.jpg', prompt='患者男，年龄29岁，血型O，因思维迟钝，易激怒，因发热伴牙龈出血14天，乏力、头晕5天就诊我院急诊科。快速完善检查，血常规显示患者三系血>细胞重度减低。快速完善检查，血常规显示患者三系血>细胞重度减低，凝血功能检查提示APTT明显延长，纤维蛋白原降低，血液科会诊后发现患者高热、牙龈持续出血，胸骨压痛阳性.凝血功能检查提示APTT明显延长.请描述图片.', model='/root/jane/Qwen2-VL-7B-Instruct/', base_url=None, profile=False, host='127.0.0.1', port=8000, endpoint='/v1/chat/completions', served_model_name=None, ignore_eos=True)
+image size:  (1080, 1440)
+Starting initial single prompt test run...
+============ Serving Benchmark Result ============
+Successful requests:                     24        
+Benchmark duration (s):                  64.34     
+Total input tokens:                      3000      
+Total image and input tokens:            51000     
+Total generated tokens:                  12288     
+Request throughput (req/s):              0.37      
+Output token throughput (tok/s):         190.99    
+Total Token throughput (tok/s):          237.62    
+---------------Time to First Token----------------
+Mean TTFT (ms):                          22672.87  
+Median TTFT (ms):                        32229.94  
+P99 TTFT (ms):                           55270.79  
+-----Time per Output Token (excl. 1st token)------
+Mean TPOT (ms):                          46.86     
+Median TPOT (ms):                        44.26     
+P99 TPOT (ms):                           74.05     
+---------------Inter-token Latency----------------
+Mean ITL (ms):                           46.76     
+Median ITL (ms):                         18.90     
+P99 ITL (ms):                            447.37    
+==================================================
+Namespace(seed=0, batch_size=24, output_len=1024, image_path='../../accuracy/zto/40_20240903093021_78830772282673.jpg', prompt='患者男，年龄29岁，血型O，因思维迟钝，易激怒，因发热伴牙龈出血14天，乏力、头晕5天就诊我院急诊科。快速完善检查，血常规显示患者三系血>细胞重度减低。快速完善检查，血常规显示患者三系血>细胞重度减低，凝血功能检查提示APTT明显延长，纤维蛋白原降低，血液科会诊后发现患者高热、牙龈持续出血，胸骨压痛阳性.凝血功能检查提示APTT明显延长.请描述图片.', model='/root/jane/Qwen2-VL-7B-Instruct/', base_url=None, profile=False, host='127.0.0.1', port=8000, endpoint='/v1/chat/completions', served_model_name=None, ignore_eos=True)
+image size:  (1080, 1440)
+Starting initial single prompt test run...
+============ Serving Benchmark Result ============
+Successful requests:                     24        
+Benchmark duration (s):                  134.44    
+Total input tokens:                      3000      
+Total image and input tokens:            51000     
+Total generated tokens:                  24576     
+Request throughput (req/s):              0.18      
+Output token throughput (tok/s):         182.80    
+Total Token throughput (tok/s):          205.12    
+---------------Time to First Token----------------
+Mean TTFT (ms):                          46697.82  
+Median TTFT (ms):                        62902.11  
+P99 TTFT (ms):                           115830.49 
+-----Time per Output Token (excl. 1st token)------
+Mean TPOT (ms):                          51.53     
+Median TPOT (ms):                        54.08     
+P99 TPOT (ms):                           96.22     
+---------------Inter-token Latency----------------
+Mean ITL (ms):                           51.48     
+Median ITL (ms):                         18.85     
+P99 ITL (ms):                            447.40    
+==================================================
+Namespace(seed=0, batch_size=26, output_len=128, image_path='../../accuracy/zto/40_20240903093021_78830772282673.jpg', prompt='患者男，年龄29岁，血型O，因思维迟钝，易激怒，因发热伴牙龈出血14天，乏力、头晕5天就诊我院急诊科。快速完善检查，血常规显示患者三系血>细胞重度减低。快速完善检查，血常规显示患者三系血>细胞重度减低，凝血功能检查提示APTT明显延长，纤维蛋白原降低，血液科会诊后发现患者高热、牙龈持续出血，胸骨压痛阳性.凝血功能检查提示APTT明显延长.请描述图片.', model='/root/jane/Qwen2-VL-7B-Instruct/', base_url=None, profile=False, host='127.0.0.1', port=8000, endpoint='/v1/chat/completions', served_model_name=None, ignore_eos=True)
+image size:  (1080, 1440)
+Starting initial single prompt test run...
+============ Serving Benchmark Result ============
+Successful requests:                     26        
+Benchmark duration (s):                  18.99     
+Total input tokens:                      3250      
+Total image and input tokens:            55250     
+Total generated tokens:                  3328      
+Request throughput (req/s):              1.37      
+Output token throughput (tok/s):         175.24    
+Total Token throughput (tok/s):          346.36    
+---------------Time to First Token----------------
+Mean TTFT (ms):                          8466.48   
+Median TTFT (ms):                        9128.98   
+P99 TTFT (ms):                           16700.08  
+-----Time per Output Token (excl. 1st token)------
+Mean TPOT (ms):                          43.46     
+Median TPOT (ms):                        50.57     
+P99 TPOT (ms):                           52.47     
+---------------Inter-token Latency----------------
+Mean ITL (ms):                           43.12     
+Median ITL (ms):                         18.89     
+P99 ITL (ms):                            446.10    
+==================================================
+Namespace(seed=0, batch_size=26, output_len=512, image_path='../../accuracy/zto/40_20240903093021_78830772282673.jpg', prompt='患者男，年龄29岁，血型O，因思维迟钝，易激怒，因发热伴牙龈出血14天，乏力、头晕5天就诊我院急诊科。快速完善检查，血常规显示患者三系血>细胞重度减低。快速完善检查，血常规显示患者三系血>细胞重度减低，凝血功能检查提示APTT明显延长，纤维蛋白原降低，血液科会诊后发现患者高热、牙龈持续出血，胸骨压痛阳性.凝血功能检查提示APTT明显延长.请描述图片.', model='/root/jane/Qwen2-VL-7B-Instruct/', base_url=None, profile=False, host='127.0.0.1', port=8000, endpoint='/v1/chat/completions', served_model_name=None, ignore_eos=True)
+image size:  (1080, 1440)
+Starting initial single prompt test run...
+============ Serving Benchmark Result ============
+Successful requests:                     26        
+Benchmark duration (s):                  65.49     
+Total input tokens:                      3250      
+Total image and input tokens:            55250     
+Total generated tokens:                  13312     
+Request throughput (req/s):              0.40      
+Output token throughput (tok/s):         203.26    
+Total Token throughput (tok/s):          252.88    
+---------------Time to First Token----------------
+Mean TTFT (ms):                          25283.53  
+Median TTFT (ms):                        32695.71  
+P99 TTFT (ms):                           56190.11  
+-----Time per Output Token (excl. 1st token)------
+Mean TPOT (ms):                          45.16     
+Median TPOT (ms):                        41.95     
+P99 TPOT (ms):                           73.75     
+---------------Inter-token Latency----------------
+Mean ITL (ms):                           45.07     
+Median ITL (ms):                         18.89     
+P99 ITL (ms):                            447.28    
+==================================================
+Namespace(seed=0, batch_size=26, output_len=1024, image_path='../../accuracy/zto/40_20240903093021_78830772282673.jpg', prompt='患者男，年龄29岁，血型O，因思维迟钝，易激怒，因发热伴牙龈出血14天，乏力、头晕5天就诊我院急诊科。快速完善检查，血常规显示患者三系血>细胞重度减低。快速完善检查，血常规显示患者三系血>细胞重度减低，凝血功能检查提示APTT明显延长，纤维蛋白原降低，血液科会诊后发现患者高热、牙龈持续出血，胸骨压痛阳性.凝血功能检查提示APTT明显延长.请描述图片.', model='/root/jane/Qwen2-VL-7B-Instruct/', base_url=None, profile=False, host='127.0.0.1', port=8000, endpoint='/v1/chat/completions', served_model_name=None, ignore_eos=True)
+image size:  (1080, 1440)
+Starting initial single prompt test run...
+============ Serving Benchmark Result ============
+Successful requests:                     26        
+Benchmark duration (s):                  135.69    
+Total input tokens:                      3250      
+Total image and input tokens:            55250     
+Total generated tokens:                  26624     
+Request throughput (req/s):              0.19      
+Output token throughput (tok/s):         196.22    
+Total Token throughput (tok/s):          220.17    
+---------------Time to First Token----------------
+Mean TTFT (ms):                          52101.42  
+Median TTFT (ms):                        63351.62  
+P99 TTFT (ms):                           116709.62 
+-----Time per Output Token (excl. 1st token)------
+Mean TPOT (ms):                          49.27     
+Median TPOT (ms):                        50.38     
+P99 TPOT (ms):                           95.93     
+---------------Inter-token Latency----------------
+Mean ITL (ms):                           49.22     
+Median ITL (ms):                         18.83     
+P99 ITL (ms):                            447.16    
+==================================================
+Namespace(seed=0, batch_size=28, output_len=128, image_path='../../accuracy/zto/40_20240903093021_78830772282673.jpg', prompt='患者男，年龄29岁，血型O，因思维迟钝，易激怒，因发热伴牙龈出血14天，乏力、头晕5天就诊我院急诊科。快速完善检查，血常规显示患者三系血>细胞重度减低。快速完善检查，血常规显示患者三系血>细胞重度减低，凝血功能检查提示APTT明显延长，纤维蛋白原降低，血液科会诊后发现患者高热、牙龈持续出血，胸骨压痛阳性.凝血功能检查提示APTT明显延长.请描述图片.', model='/root/jane/Qwen2-VL-7B-Instruct/', base_url=None, profile=False, host='127.0.0.1', port=8000, endpoint='/v1/chat/completions', served_model_name=None, ignore_eos=True)
+image size:  (1080, 1440)
+Starting initial single prompt test run...
+============ Serving Benchmark Result ============
+Successful requests:                     28        
+Benchmark duration (s):                  19.98     
+Total input tokens:                      3500      
+Total image and input tokens:            59500     
+Total generated tokens:                  3584      
+Request throughput (req/s):              1.40      
+Output token throughput (tok/s):         179.40    
+Total Token throughput (tok/s):          354.60    
+---------------Time to First Token----------------
+Mean TTFT (ms):                          9157.38   
+Median TTFT (ms):                        9597.38   
+P99 TTFT (ms):                           17635.50  
+-----Time per Output Token (excl. 1st token)------
+Mean TPOT (ms):                          43.93     
+Median TPOT (ms):                        50.61     
+P99 TPOT (ms):                           52.50     
+---------------Inter-token Latency----------------
+Mean ITL (ms):                           43.59     
+Median ITL (ms):                         18.89     
+P99 ITL (ms):                            446.79    
+==================================================
+Namespace(seed=0, batch_size=28, output_len=512, image_path='../../accuracy/zto/40_20240903093021_78830772282673.jpg', prompt='患者男，年龄29岁，血型O，因思维迟钝，易激怒，因发热伴牙龈出血14天，乏力、头晕5天就诊我院急诊科。快速完善检查，血常规显示患者三系血>细胞重度减低。快速完善检查，血常规显示患者三系血>细胞重度减低，凝血功能检查提示APTT明显延长，纤维蛋白原降低，血液科会诊后发现患者高热、牙龈持续出血，胸骨压痛阳性.凝血功能检查提示APTT明显延长.请描述图片.', model='/root/jane/Qwen2-VL-7B-Instruct/', base_url=None, profile=False, host='127.0.0.1', port=8000, endpoint='/v1/chat/completions', served_model_name=None, ignore_eos=True)
+image size:  (1080, 1440)
+Starting initial single prompt test run...
+============ Serving Benchmark Result ============
+Successful requests:                     28        
+Benchmark duration (s):                  66.52     
+Total input tokens:                      3500      
+Total image and input tokens:            59500     
+Total generated tokens:                  14336     
+Request throughput (req/s):              0.42      
+Output token throughput (tok/s):         215.52    
+Total Token throughput (tok/s):          268.13    
+---------------Time to First Token----------------
+Mean TTFT (ms):                          27563.32  
+Median TTFT (ms):                        33128.68  
+P99 TTFT (ms):                           57066.32  
+-----Time per Output Token (excl. 1st token)------
+Mean TPOT (ms):                          43.70     
+Median TPOT (ms):                        41.93     
+P99 TPOT (ms):                           73.41     
+---------------Inter-token Latency----------------
+Mean ITL (ms):                           43.61     
+Median ITL (ms):                         18.87     
+P99 ITL (ms):                            446.82    
+==================================================
+Namespace(seed=0, batch_size=28, output_len=1024, image_path='../../accuracy/zto/40_20240903093021_78830772282673.jpg', prompt='患者男，年龄29岁，血型O，因思维迟钝，易激怒，因发热伴牙龈出血14天，乏力、头晕5天就诊我院急诊科。快速完善检查，血常规显示患者三系血>细胞重度减低。快速完善检查，血常规显示患者三系血>细胞重度减低，凝血功能检查提示APTT明显延长，纤维蛋白原降低，血液科会诊后发现患者高热、牙龈持续出血，胸骨压痛阳性.凝血功能检查提示APTT明显延长.请描述图片.', model='/root/jane/Qwen2-VL-7B-Instruct/', base_url=None, profile=False, host='127.0.0.1', port=8000, endpoint='/v1/chat/completions', served_model_name=None, ignore_eos=True)
+image size:  (1080, 1440)
+Starting initial single prompt test run...
+============ Serving Benchmark Result ============
+Successful requests:                     28        
+Benchmark duration (s):                  174.05    
+Total input tokens:                      3500      
+Total image and input tokens:            59500     
+Total generated tokens:                  28672     
+Request throughput (req/s):              0.16      
+Output token throughput (tok/s):         164.73    
+Total Token throughput (tok/s):          184.84    
+---------------Time to First Token----------------
+Mean TTFT (ms):                          56824.75  
+Median TTFT (ms):                        63822.31  
+P99 TTFT (ms):                           117657.12 
+-----Time per Output Token (excl. 1st token)------
+Mean TPOT (ms):                          56.91     
+Median TPOT (ms):                        54.15     
+P99 TPOT (ms):                           95.70     
+---------------Inter-token Latency----------------
+Mean ITL (ms):                           56.85     
+Median ITL (ms):                         18.88     
+P99 ITL (ms):                            447.56    
+==================================================
+Namespace(seed=0, batch_size=30, output_len=128, image_path='../../accuracy/zto/40_20240903093021_78830772282673.jpg', prompt='患者男，年龄29岁，血型O，因思维迟钝，易激怒，因发热伴牙龈出血14天，乏力、头晕5天就诊我院急诊科。快速完善检查，血常规显示患者三系血>细胞重度减低。快速完善检查，血常规显示患者三系血>细胞重度减低，凝血功能检查提示APTT明显延长，纤维蛋白原降低，血液科会诊后发现患者高热、牙龈持续出血，胸骨压痛阳性.凝血功能检查提示APTT明显延长.请描述图片.', model='/root/jane/Qwen2-VL-7B-Instruct/', base_url=None, profile=False, host='127.0.0.1', port=8000, endpoint='/v1/chat/completions', served_model_name=None, ignore_eos=True)
+image size:  (1080, 1440)
+Starting initial single prompt test run...
+============ Serving Benchmark Result ============
+Successful requests:                     30        
+Benchmark duration (s):                  20.97     
+Total input tokens:                      3750      
+Total image and input tokens:            63750     
+Total generated tokens:                  3840      
+Request throughput (req/s):              1.43      
+Output token throughput (tok/s):         183.16    
+Total Token throughput (tok/s):          362.03    
+---------------Time to First Token----------------
+Mean TTFT (ms):                          9833.75   
+Median TTFT (ms):                        10084.54  
+P99 TTFT (ms):                           18575.23  
+-----Time per Output Token (excl. 1st token)------
+Mean TPOT (ms):                          44.35     
+Median TPOT (ms):                        50.69     
+P99 TPOT (ms):                           52.52     
+---------------Inter-token Latency----------------
+Mean ITL (ms):                           44.01     
+Median ITL (ms):                         18.88     
+P99 ITL (ms):                            446.97    
+==================================================
+Namespace(seed=0, batch_size=30, output_len=512, image_path='../../accuracy/zto/40_20240903093021_78830772282673.jpg', prompt='患者男，年龄29岁，血型O，因思维迟钝，易激怒，因发热伴牙龈出血14天，乏力、头晕5天就诊我院急诊科。快速完善检查，血常规显示患者三系血>细胞重度减低。快速完善检查，血常规显示患者三系血>细胞重度减低，凝血功能检查提示APTT明显延长，纤维蛋白原降低，血液科会诊后发现患者高热、牙龈持续出血，胸骨压痛阳性.凝血功能检查提示APTT明显延长.请描述图片.', model='/root/jane/Qwen2-VL-7B-Instruct/', base_url=None, profile=False, host='127.0.0.1', port=8000, endpoint='/v1/chat/completions', served_model_name=None, ignore_eos=True)
+image size:  (1080, 1440)
+Starting initial single prompt test run...
+============ Serving Benchmark Result ============
+Successful requests:                     30        
+Benchmark duration (s):                  67.75     
+Total input tokens:                      3750      
+Total image and input tokens:            63750     
+Total generated tokens:                  15360     
+Request throughput (req/s):              0.44      
+Output token throughput (tok/s):         226.71    
+Total Token throughput (tok/s):          282.06    
+---------------Time to First Token----------------
+Mean TTFT (ms):                          29678.09  
+Median TTFT (ms):                        33664.13  
+P99 TTFT (ms):                           58065.97  
+-----Time per Output Token (excl. 1st token)------
+Mean TPOT (ms):                          42.62     
+Median TPOT (ms):                        41.95     
+P99 TPOT (ms):                           73.21     
+---------------Inter-token Latency----------------
+Mean ITL (ms):                           42.54     
+Median ITL (ms):                         18.88     
+P99 ITL (ms):                            447.27    
+==================================================
+Namespace(seed=0, batch_size=30, output_len=1024, image_path='../../accuracy/zto/40_20240903093021_78830772282673.jpg', prompt='患者男，年龄29岁，血型O，因思维迟钝，易激怒，因发热伴牙龈出血14天，乏力、头晕5天就诊我院急诊科。快速完善检查，血常规显示患者三系血>细胞重度减低。快速完善检查，血常规显示患者三系血>细胞重度减低，凝血功能检查提示APTT明显延长，纤维蛋白原降低，血液科会诊后发现患者高热、牙龈持续出血，胸骨压痛阳性.凝血功能检查提示APTT明显延长.请描述图片.', model='/root/jane/Qwen2-VL-7B-Instruct/', base_url=None, profile=False, host='127.0.0.1', port=8000, endpoint='/v1/chat/completions', served_model_name=None, ignore_eos=True)
+image size:  (1080, 1440)
+Starting initial single prompt test run...
+============ Serving Benchmark Result ============
+Successful requests:                     30        
+Benchmark duration (s):                  187.24    
+Total input tokens:                      3750      
+Total image and input tokens:            63750     
+Total generated tokens:                  30720     
+Request throughput (req/s):              0.16      
+Output token throughput (tok/s):         164.07    
+Total Token throughput (tok/s):          184.09    
+---------------Time to First Token----------------
+Mean TTFT (ms):                          62791.46  
+Median TTFT (ms):                        64340.65  
+P99 TTFT (ms):                           155365.98 
+-----Time per Output Token (excl. 1st token)------
+Mean TPOT (ms):                          57.33     
+Median TPOT (ms):                        55.84     
+P99 TPOT (ms):                           95.56     
+---------------Inter-token Latency----------------
+Mean ITL (ms):                           57.27     
+Median ITL (ms):                         18.89     
+P99 ITL (ms):                            448.49    
+==================================================
+Namespace(seed=0, batch_size=32, output_len=128, image_path='../../accuracy/zto/40_20240903093021_78830772282673.jpg', prompt='患者男，年龄29岁，血型O，因思维迟钝，易激怒，因发热伴牙龈出血14天，乏力、头晕5天就诊我院急诊科。快速完善检查，血常规显示患者三系血>细胞重度减低。快速完善检查，血常规显示患者三系血>细胞重度减低，凝血功能检查提示APTT明显延长，纤维蛋白原降低，血液科会诊后发现患者高热、牙龈持续出血，胸骨压痛阳性.凝血功能检查提示APTT明显延长.请描述图片.', model='/root/jane/Qwen2-VL-7B-Instruct/', base_url=None, profile=False, host='127.0.0.1', port=8000, endpoint='/v1/chat/completions', served_model_name=None, ignore_eos=True)
+image size:  (1080, 1440)
+Starting initial single prompt test run...
+============ Serving Benchmark Result ============
+Successful requests:                     32        
+Benchmark duration (s):                  21.95     
+Total input tokens:                      4000      
+Total image and input tokens:            68000     
+Total generated tokens:                  4096      
+Request throughput (req/s):              1.46      
+Output token throughput (tok/s):         186.59    
+Total Token throughput (tok/s):          368.81    
+---------------Time to First Token----------------
+Mean TTFT (ms):                          10464.36  
+Median TTFT (ms):                        10546.30  
+P99 TTFT (ms):                           19496.65  
+-----Time per Output Token (excl. 1st token)------
+Mean TPOT (ms):                          44.80     
+Median TPOT (ms):                        50.70     
+P99 TPOT (ms):                           52.52     
+---------------Inter-token Latency----------------
+Mean ITL (ms):                           44.45     
+Median ITL (ms):                         18.89     
+P99 ITL (ms):                            447.04    
+==================================================
+Namespace(seed=0, batch_size=32, output_len=512, image_path='../../accuracy/zto/40_20240903093021_78830772282673.jpg', prompt='患者男，年龄29岁，血型O，因思维迟钝，易激怒，因发热伴牙龈出血14天，乏力、头晕5天就诊我院急诊科。快速完善检查，血常规显示患者三系血>细胞重度减低。快速完善检查，血常规显示患者三系血>细胞重度减低，凝血功能检查提示APTT明显延长，纤维蛋白原降低，血液科会诊后发现患者高热、牙龈持续出血，胸骨压痛阳性.凝血功能检查提示APTT明显延长.请描述图片.', model='/root/jane/Qwen2-VL-7B-Instruct/', base_url=None, profile=False, host='127.0.0.1', port=8000, endpoint='/v1/chat/completions', served_model_name=None, ignore_eos=True)
+image size:  (1080, 1440)
+Starting initial single prompt test run...
+============ Serving Benchmark Result ============
+Successful requests:                     32        
+Benchmark duration (s):                  89.37     
+Total input tokens:                      4000      
+Total image and input tokens:            68000     
+Total generated tokens:                  16384     
+Request throughput (req/s):              0.36      
+Output token throughput (tok/s):         183.34    
+Total Token throughput (tok/s):          228.10    
+---------------Time to First Token----------------
+Mean TTFT (ms):                          32201.24  
+Median TTFT (ms):                        34110.08  
+P99 TTFT (ms):                           73911.15  
+-----Time per Output Token (excl. 1st token)------
+Mean TPOT (ms):                          49.52     
+Median TPOT (ms):                        48.26     
+P99 TPOT (ms):                           72.91     
+---------------Inter-token Latency----------------
+Mean ITL (ms):                           49.43     
+Median ITL (ms):                         18.91     
+P99 ITL (ms):                            447.29    
+==================================================
+Namespace(seed=0, batch_size=32, output_len=1024, image_path='../../accuracy/zto/40_20240903093021_78830772282673.jpg', prompt='患者男，年龄29岁，血型O，因思维迟钝，易激怒，因发热伴牙龈出血14天，乏力、头晕5天就诊我院急诊科。快速完善检查，血常规显示患者三系血>细胞重度减低。快速完善检查，血常规显示患者三系血>细胞重度减低，凝血功能检查提示APTT明显延长，纤维蛋白原降低，血液科会诊后发现患者高热、牙龈持续出血，胸骨压痛阳性.凝血功能检查提示APTT明显延长.请描述图片.', model='/root/jane/Qwen2-VL-7B-Instruct/', base_url=None, profile=False, host='127.0.0.1', port=8000, endpoint='/v1/chat/completions', served_model_name=None, ignore_eos=True)
+image size:  (1080, 1440)
+Starting initial single prompt test run...
+============ Serving Benchmark Result ============
+Successful requests:                     32        
+Benchmark duration (s):                  188.46    
+Total input tokens:                      4000      
+Total image and input tokens:            68000     
+Total generated tokens:                  32768     
+Request throughput (req/s):              0.17      
+Output token throughput (tok/s):         173.88    
+Total Token throughput (tok/s):          195.10    
+---------------Time to First Token----------------
+Mean TTFT (ms):                          69466.44  
+Median TTFT (ms):                        64759.48  
+P99 TTFT (ms):                           170089.09 
+-----Time per Output Token (excl. 1st token)------
+Mean TPOT (ms):                          54.99     
+Median TPOT (ms):                        52.86     
+P99 TPOT (ms):                           95.19     
+---------------Inter-token Latency----------------
+Mean ITL (ms):                           54.94     
+Median ITL (ms):                         18.88     
+P99 ITL (ms):                            447.37    
+==================================================
+Namespace(seed=0, batch_size=1, output_len=512, image_path='../../accuracy/zto/40_20240903093021_78830772282673.jpg', prompt='患者男，年龄29岁，血型O，因思维迟钝，易激怒，因发热伴牙龈出血14天，乏力、头晕5天就诊我院急诊科。快速完善检查，血常规显示患者三系血>细胞重度减低，凝血功能检查提示APTT明显延长，纤维蛋白原降低，血液科会诊后发现患者高热、牙龈持续出血，胸骨压痛阳性.于3903年3月7日入院治疗，出现头痛、头晕、伴发热（最高体温42℃）症状，曾到其他医院就医。8日症状有所好转，9日仍有头痛、呕吐，四肢乏力伴发热。10日凌晨到本院就诊。患者5d前出现突发性思维迟钝，脾气暴躁，略有不顺心就出现攻击行为，在院外未行任何诊治。既往身体健康，平素性格内向。体格检查无>异常。血常规白细胞中单核细胞百分比升高。D-二聚体定量1412μg/L，骨髓穿刺示增生极度活跃，异常早幼粒细胞占94%.外周血涂片见大量早幼粒细>胞，并可在胞浆见到柴捆样细胞.以下是血常规详细信息：1.病人红细胞计数结果：3.2 x10^12/L. 附正常参考范围：新生儿:（6.0～7.0）×10^12/L>；婴儿：（5.2～7.0）×10^12/L; 儿童：（4.2～5.2）×10^12/L; 成人男：（4.0～5.5）×10^12/L; 成人女：（3.5～5.0）×10^12/L. 临床意义：生>理性红细胞和血红蛋白增多的原因：精神因素（冲动、兴奋、恐惧、冷水浴刺激等导致肾上腺素分泌增多的因素）、红细胞代偿性增生（长期低气压>、缺氧刺激，多次献血）；生理性红细胞和血红蛋白减少的原因：造血原料相对不足，多见于妊娠、6个月～2岁婴幼儿、某些老年性造血功能减退；>病理性增多：多见于频繁呕吐、出汗过多、大面积烧伤、血液浓缩，慢性肺心病、肺气肿、高原病、肿瘤以及真性红细胞增多症等；病理性减少：多>见于白血病等血液系统疾病；急性大出血、严重的组织损伤及血细胞的破坏等；合成障碍，见于缺铁、维生素B12缺乏等。2. 病人血红蛋白测量结果>：108g/L. 附血红蛋白正常参考范围：男性120～160g/L；女性110～150g/L；新生儿170～200g/L；临床意义：临床意义与红细胞计数相仿，但能更好地反映贫血程度，极重度贫血（Hb<30g/L）、重度贫血（31～60g/L）、中度贫血（61～90g/L）、男性轻度贫血（90~120g/L）、女性轻度贫血（90~110g/L）。3. 病人白细胞计数结果：13.6 x 10^9/L; 附白细胞计数正常参考范围：成人（4.0～10.0）×10^9/L；新生儿（11.0～12.0）×10^9/L。临>床意义：1）生理性白细胞计数增高见于剧烈运动、妊娠、新生儿；2）病理性白细胞增高见于急性化脓性感染、尿毒症、白血病、组织损伤、急性出>血等；3）病理性白细胞减少见于再生障碍性贫血、某些传染病、肝硬化、脾功能亢进、放疗化疗等。4. 病人白细胞分类技术结果(括号内是正常范围)：中性粒细胞50%(50%～70%)、嗜酸性粒细胞3.8%(1%～5%)、嗜碱性粒细胞0.2%(0～1%)、淋巴细胞45% (20%～40%)、单核细胞（M）请描述图片。', model='/root/jane/Qwen2-VL-7B-Instruct/', base_url=None, profile=False, host='127.0.0.1', port=8000, endpoint='/v1/chat/completions', served_model_name=None, ignore_eos=True)
+image size:  (1080, 1440)
+Starting initial single prompt test run...
+============ Serving Benchmark Result ============
+Successful requests:                     1         
+Benchmark duration (s):                  9.00      
+Total input tokens:                      979       
+Total image and input tokens:            2979      
+Total generated tokens:                  512       
+Request throughput (req/s):              0.11      
+Output token throughput (tok/s):         56.88     
+Total Token throughput (tok/s):          165.64    
+---------------Time to First Token----------------
+Mean TTFT (ms):                          566.12    
+Median TTFT (ms):                        566.12    
+P99 TTFT (ms):                           566.12    
+-----Time per Output Token (excl. 1st token)------
+Mean TPOT (ms):                          16.51     
+Median TPOT (ms):                        16.51     
+P99 TPOT (ms):                           16.51     
+---------------Inter-token Latency----------------
+Mean ITL (ms):                           16.47     
+Median ITL (ms):                         16.51     
+P99 ITL (ms):                            16.73     
+==================================================
+Namespace(seed=0, batch_size=1, output_len=1024, image_path='../../accuracy/zto/40_20240903093021_78830772282673.jpg', prompt='患者男，年龄29岁，血型O，因思维迟钝，易激怒，因发热伴牙龈出血14天，乏力、头晕5天就诊我院急诊科。快速完善检查，血常规显示患者三系血>细胞重度减低，凝血功能检查提示APTT明显延长，纤维蛋白原降低，血液科会诊后发现患者高热、牙龈持续出血，胸骨压痛阳性.于3903年3月7日入院治疗，出现头痛、头晕、伴发热（最高体温42℃）症状，曾到其他医院就医。8日症状有所好转，9日仍有头痛、呕吐，四肢乏力伴发热。10日凌晨到本院就诊。患者5d前出现突发性思维迟钝，脾气暴躁，略有不顺心就出现攻击行为，在院外未行任何诊治。既往身体健康，平素性格内向。体格检查无>异常。血常规白细胞中单核细胞百分比升高。D-二聚体定量1412μg/L，骨髓穿刺示增生极度活跃，异常早幼粒细胞占94%.外周血涂片见大量早幼粒细>胞，并可在胞浆见到柴捆样细胞.以下是血常规详细信息：1.病人红细胞计数结果：3.2 x10^12/L. 附正常参考范围：新生儿:（6.0～7.0）×10^12/L>；婴儿：（5.2～7.0）×10^12/L; 儿童：（4.2～5.2）×10^12/L; 成人男：（4.0～5.5）×10^12/L; 成人女：（3.5～5.0）×10^12/L. 临床意义：生>理性红细胞和血红蛋白增多的原因：精神因素（冲动、兴奋、恐惧、冷水浴刺激等导致肾上腺素分泌增多的因素）、红细胞代偿性增生（长期低气压>、缺氧刺激，多次献血）；生理性红细胞和血红蛋白减少的原因：造血原料相对不足，多见于妊娠、6个月～2岁婴幼儿、某些老年性造血功能减退；>病理性增多：多见于频繁呕吐、出汗过多、大面积烧伤、血液浓缩，慢性肺心病、肺气肿、高原病、肿瘤以及真性红细胞增多症等；病理性减少：多>见于白血病等血液系统疾病；急性大出血、严重的组织损伤及血细胞的破坏等；合成障碍，见于缺铁、维生素B12缺乏等。2. 病人血红蛋白测量结果>：108g/L. 附血红蛋白正常参考范围：男性120～160g/L；女性110～150g/L；新生儿170～200g/L；临床意义：临床意义与红细胞计数相仿，但能更好地反映贫血程度，极重度贫血（Hb<30g/L）、重度贫血（31～60g/L）、中度贫血（61～90g/L）、男性轻度贫血（90~120g/L）、女性轻度贫血（90~110g/L）。3. 病人白细胞计数结果：13.6 x 10^9/L; 附白细胞计数正常参考范围：成人（4.0～10.0）×10^9/L；新生儿（11.0～12.0）×10^9/L。临>床意义：1）生理性白细胞计数增高见于剧烈运动、妊娠、新生儿；2）病理性白细胞增高见于急性化脓性感染、尿毒症、白血病、组织损伤、急性出>血等；3）病理性白细胞减少见于再生障碍性贫血、某些传染病、肝硬化、脾功能亢进、放疗化疗等。4. 病人白细胞分类技术结果(括号内是正常范围)：中性粒细胞50%(50%～70%)、嗜酸性粒细胞3.8%(1%～5%)、嗜碱性粒细胞0.2%(0～1%)、淋巴细胞45% (20%～40%)、单核细胞（M）请描述图片。', model='/root/jane/Qwen2-VL-7B-Instruct/', base_url=None, profile=False, host='127.0.0.1', port=8000, endpoint='/v1/chat/completions', served_model_name=None, ignore_eos=True)
+image size:  (1080, 1440)
+Starting initial single prompt test run...
+============ Serving Benchmark Result ============
+Successful requests:                     1         
+Benchmark duration (s):                  17.50     
+Total input tokens:                      979       
+Total image and input tokens:            2979      
+Total generated tokens:                  1024      
+Request throughput (req/s):              0.06      
+Output token throughput (tok/s):         58.50     
+Total Token throughput (tok/s):          114.43    
+---------------Time to First Token----------------
+Mean TTFT (ms):                          567.25    
+Median TTFT (ms):                        567.25    
+P99 TTFT (ms):                           567.25    
+-----Time per Output Token (excl. 1st token)------
+Mean TPOT (ms):                          16.56     
+Median TPOT (ms):                        16.56     
+P99 TPOT (ms):                           16.56     
+---------------Inter-token Latency----------------
+Mean ITL (ms):                           16.54     
+Median ITL (ms):                         16.56     
+P99 ITL (ms):                            16.78     
+==================================================
+Namespace(seed=0, batch_size=2, output_len=512, image_path='../../accuracy/zto/40_20240903093021_78830772282673.jpg', prompt='患者男，年龄29岁，血型O，因思维迟钝，易激怒，因发热伴牙龈出血14天，乏力、头晕5天就诊我院急诊科。快速完善检查，血常规显示患者三系血>细胞重度减低，凝血功能检查提示APTT明显延长，纤维蛋白原降低，血液科会诊后发现患者高热、牙龈持续出血，胸骨压痛阳性.于3903年3月7日入院治疗，出现头痛、头晕、伴发热（最高体温42℃）症状，曾到其他医院就医。8日症状有所好转，9日仍有头痛、呕吐，四肢乏力伴发热。10日凌晨到本院就诊。患者5d前出现突发性思维迟钝，脾气暴躁，略有不顺心就出现攻击行为，在院外未行任何诊治。既往身体健康，平素性格内向。体格检查无>异常。血常规白细胞中单核细胞百分比升高。D-二聚体定量1412μg/L，骨髓穿刺示增生极度活跃，异常早幼粒细胞占94%.外周血涂片见大量早幼粒细>胞，并可在胞浆见到柴捆样细胞.以下是血常规详细信息：1.病人红细胞计数结果：3.2 x10^12/L. 附正常参考范围：新生儿:（6.0～7.0）×10^12/L>；婴儿：（5.2～7.0）×10^12/L; 儿童：（4.2～5.2）×10^12/L; 成人男：（4.0～5.5）×10^12/L; 成人女：（3.5～5.0）×10^12/L. 临床意义：生>理性红细胞和血红蛋白增多的原因：精神因素（冲动、兴奋、恐惧、冷水浴刺激等导致肾上腺素分泌增多的因素）、红细胞代偿性增生（长期低气压>、缺氧刺激，多次献血）；生理性红细胞和血红蛋白减少的原因：造血原料相对不足，多见于妊娠、6个月～2岁婴幼儿、某些老年性造血功能减退；>病理性增多：多见于频繁呕吐、出汗过多、大面积烧伤、血液浓缩，慢性肺心病、肺气肿、高原病、肿瘤以及真性红细胞增多症等；病理性减少：多>见于白血病等血液系统疾病；急性大出血、严重的组织损伤及血细胞的破坏等；合成障碍，见于缺铁、维生素B12缺乏等。2. 病人血红蛋白测量结果>：108g/L. 附血红蛋白正常参考范围：男性120～160g/L；女性110～150g/L；新生儿170～200g/L；临床意义：临床意义与红细胞计数相仿，但能更好地反映贫血程度，极重度贫血（Hb<30g/L）、重度贫血（31～60g/L）、中度贫血（61～90g/L）、男性轻度贫血（90~120g/L）、女性轻度贫血（90~110g/L）。3. 病人白细胞计数结果：13.6 x 10^9/L; 附白细胞计数正常参考范围：成人（4.0～10.0）×10^9/L；新生儿（11.0～12.0）×10^9/L。临>床意义：1）生理性白细胞计数增高见于剧烈运动、妊娠、新生儿；2）病理性白细胞增高见于急性化脓性感染、尿毒症、白血病、组织损伤、急性出>血等；3）病理性白细胞减少见于再生障碍性贫血、某些传染病、肝硬化、脾功能亢进、放疗化疗等。4. 病人白细胞分类技术结果(括号内是正常范围)：中性粒细胞50%(50%～70%)、嗜酸性粒细胞3.8%(1%～5%)、嗜碱性粒细胞0.2%(0～1%)、淋巴细胞45% (20%～40%)、单核细胞（M）请描述图片。', model='/root/jane/Qwen2-VL-7B-Instruct/', base_url=None, profile=False, host='127.0.0.1', port=8000, endpoint='/v1/chat/completions', served_model_name=None, ignore_eos=True)
+image size:  (1080, 1440)
+Starting initial single prompt test run...
+============ Serving Benchmark Result ============
+Successful requests:                     2         
+Benchmark duration (s):                  10.01     
+Total input tokens:                      1958      
+Total image and input tokens:            5958      
+Total generated tokens:                  1024      
+Request throughput (req/s):              0.20      
+Output token throughput (tok/s):         102.30    
+Total Token throughput (tok/s):          297.91    
+---------------Time to First Token----------------
+Mean TTFT (ms):                          1019.12   
+Median TTFT (ms):                        1019.12   
+P99 TTFT (ms):                           1117.26   
+-----Time per Output Token (excl. 1st token)------
+Mean TPOT (ms):                          17.58     
+Median TPOT (ms):                        17.58     
+P99 TPOT (ms):                           17.75     
+---------------Inter-token Latency----------------
+Mean ITL (ms):                           17.54     
+Median ITL (ms):                         17.41     
+P99 ITL (ms):                            17.57     
+==================================================
+Namespace(seed=0, batch_size=2, output_len=1024, image_path='../../accuracy/zto/40_20240903093021_78830772282673.jpg', prompt='患者男，年龄29岁，血型O，因思维迟钝，易激怒，因发热伴牙龈出血14天，乏力、头晕5天就诊我院急诊科。快速完善检查，血常规显示患者三系血>细胞重度减低，凝血功能检查提示APTT明显延长，纤维蛋白原降低，血液科会诊后发现患者高热、牙龈持续出血，胸骨压痛阳性.于3903年3月7日入院治疗，出现头痛、头晕、伴发热（最高体温42℃）症状，曾到其他医院就医。8日症状有所好转，9日仍有头痛、呕吐，四肢乏力伴发热。10日凌晨到本院就诊。患者5d前出现突发性思维迟钝，脾气暴躁，略有不顺心就出现攻击行为，在院外未行任何诊治。既往身体健康，平素性格内向。体格检查无>异常。血常规白细胞中单核细胞百分比升高。D-二聚体定量1412μg/L，骨髓穿刺示增生极度活跃，异常早幼粒细胞占94%.外周血涂片见大量早幼粒细>胞，并可在胞浆见到柴捆样细胞.以下是血常规详细信息：1.病人红细胞计数结果：3.2 x10^12/L. 附正常参考范围：新生儿:（6.0～7.0）×10^12/L>；婴儿：（5.2～7.0）×10^12/L; 儿童：（4.2～5.2）×10^12/L; 成人男：（4.0～5.5）×10^12/L; 成人女：（3.5～5.0）×10^12/L. 临床意义：生>理性红细胞和血红蛋白增多的原因：精神因素（冲动、兴奋、恐惧、冷水浴刺激等导致肾上腺素分泌增多的因素）、红细胞代偿性增生（长期低气压>、缺氧刺激，多次献血）；生理性红细胞和血红蛋白减少的原因：造血原料相对不足，多见于妊娠、6个月～2岁婴幼儿、某些老年性造血功能减退；>病理性增多：多见于频繁呕吐、出汗过多、大面积烧伤、血液浓缩，慢性肺心病、肺气肿、高原病、肿瘤以及真性红细胞增多症等；病理性减少：多>见于白血病等血液系统疾病；急性大出血、严重的组织损伤及血细胞的破坏等；合成障碍，见于缺铁、维生素B12缺乏等。2. 病人血红蛋白测量结果>：108g/L. 附血红蛋白正常参考范围：男性120～160g/L；女性110～150g/L；新生儿170～200g/L；临床意义：临床意义与红细胞计数相仿，但能更好地反映贫血程度，极重度贫血（Hb<30g/L）、重度贫血（31～60g/L）、中度贫血（61～90g/L）、男性轻度贫血（90~120g/L）、女性轻度贫血（90~110g/L）。3. 病人白细胞计数结果：13.6 x 10^9/L; 附白细胞计数正常参考范围：成人（4.0～10.0）×10^9/L；新生儿（11.0～12.0）×10^9/L。临>床意义：1）生理性白细胞计数增高见于剧烈运动、妊娠、新生儿；2）病理性白细胞增高见于急性化脓性感染、尿毒症、白血病、组织损伤、急性出>血等；3）病理性白细胞减少见于再生障碍性贫血、某些传染病、肝硬化、脾功能亢进、放疗化疗等。4. 病人白细胞分类技术结果(括号内是正常范围)：中性粒细胞50%(50%～70%)、嗜酸性粒细胞3.8%(1%～5%)、嗜碱性粒细胞0.2%(0～1%)、淋巴细胞45% (20%～40%)、单核细胞（M）请描述图片。', model='/root/jane/Qwen2-VL-7B-Instruct/', base_url=None, profile=False, host='127.0.0.1', port=8000, endpoint='/v1/chat/completions', served_model_name=None, ignore_eos=True)
+image size:  (1080, 1440)
+Starting initial single prompt test run...
+============ Serving Benchmark Result ============
+Successful requests:                     2         
+Benchmark duration (s):                  18.97     
+Total input tokens:                      1958      
+Total image and input tokens:            5958      
+Total generated tokens:                  2048      
+Request throughput (req/s):              0.11      
+Output token throughput (tok/s):         107.94    
+Total Token throughput (tok/s):          211.14    
+---------------Time to First Token----------------
+Mean TTFT (ms):                          1020.66   
+Median TTFT (ms):                        1020.66   
+P99 TTFT (ms):                           1117.16   
+-----Time per Output Token (excl. 1st token)------
+Mean TPOT (ms):                          17.54     
+Median TPOT (ms):                        17.54     
+P99 TPOT (ms):                           17.63     
+---------------Inter-token Latency----------------
+Mean ITL (ms):                           17.52     
+Median ITL (ms):                         17.45     
+P99 ITL (ms):                            17.63     
+==================================================
+Namespace(seed=0, batch_size=4, output_len=512, image_path='../../accuracy/zto/40_20240903093021_78830772282673.jpg', prompt='患者男，年龄29岁，血型O，因思维迟钝，易激怒，因发热伴牙龈出血14天，乏力、头晕5天就诊我院急诊科。快速完善检查，血常规显示患者三系血>细胞重度减低，凝血功能检查提示APTT明显延长，纤维蛋白原降低，血液科会诊后发现患者高热、牙龈持续出血，胸骨压痛阳性.于3903年3月7日入院治疗，出现头痛、头晕、伴发热（最高体温42℃）症状，曾到其他医院就医。8日症状有所好转，9日仍有头痛、呕吐，四肢乏力伴发热。10日凌晨到本院就诊。患者5d前出现突发性思维迟钝，脾气暴躁，略有不顺心就出现攻击行为，在院外未行任何诊治。既往身体健康，平素性格内向。体格检查无>异常。血常规白细胞中单核细胞百分比升高。D-二聚体定量1412μg/L，骨髓穿刺示增生极度活跃，异常早幼粒细胞占94%.外周血涂片见大量早幼粒细>胞，并可在胞浆见到柴捆样细胞.以下是血常规详细信息：1.病人红细胞计数结果：3.2 x10^12/L. 附正常参考范围：新生儿:（6.0～7.0）×10^12/L>；婴儿：（5.2～7.0）×10^12/L; 儿童：（4.2～5.2）×10^12/L; 成人男：（4.0～5.5）×10^12/L; 成人女：（3.5～5.0）×10^12/L. 临床意义：生>理性红细胞和血红蛋白增多的原因：精神因素（冲动、兴奋、恐惧、冷水浴刺激等导致肾上腺素分泌增多的因素）、红细胞代偿性增生（长期低气压>、缺氧刺激，多次献血）；生理性红细胞和血红蛋白减少的原因：造血原料相对不足，多见于妊娠、6个月～2岁婴幼儿、某些老年性造血功能减退；>病理性增多：多见于频繁呕吐、出汗过多、大面积烧伤、血液浓缩，慢性肺心病、肺气肿、高原病、肿瘤以及真性红细胞增多症等；病理性减少：多>见于白血病等血液系统疾病；急性大出血、严重的组织损伤及血细胞的破坏等；合成障碍，见于缺铁、维生素B12缺乏等。2. 病人血红蛋白测量结果>：108g/L. 附血红蛋白正常参考范围：男性120～160g/L；女性110～150g/L；新生儿170～200g/L；临床意义：临床意义与红细胞计数相仿，但能更好地反映贫血程度，极重度贫血（Hb<30g/L）、重度贫血（31～60g/L）、中度贫血（61～90g/L）、男性轻度贫血（90~120g/L）、女性轻度贫血（90~110g/L）。3. 病人白细胞计数结果：13.6 x 10^9/L; 附白细胞计数正常参考范围：成人（4.0～10.0）×10^9/L；新生儿（11.0～12.0）×10^9/L。临>床意义：1）生理性白细胞计数增高见于剧烈运动、妊娠、新生儿；2）病理性白细胞增高见于急性化脓性感染、尿毒症、白血病、组织损伤、急性出>血等；3）病理性白细胞减少见于再生障碍性贫血、某些传染病、肝硬化、脾功能亢进、放疗化疗等。4. 病人白细胞分类技术结果(括号内是正常范围)：中性粒细胞50%(50%～70%)、嗜酸性粒细胞3.8%(1%～5%)、嗜碱性粒细胞0.2%(0～1%)、淋巴细胞45% (20%～40%)、单核细胞（M）请描述图片。', model='/root/jane/Qwen2-VL-7B-Instruct/', base_url=None, profile=False, host='127.0.0.1', port=8000, endpoint='/v1/chat/completions', served_model_name=None, ignore_eos=True)
+image size:  (1080, 1440)
+Starting initial single prompt test run...
+============ Serving Benchmark Result ============
+Successful requests:                     4         
+Benchmark duration (s):                  11.34     
+Total input tokens:                      3916      
+Total image and input tokens:            11916     
+Total generated tokens:                  2048      
+Request throughput (req/s):              0.35      
+Output token throughput (tok/s):         180.61    
+Total Token throughput (tok/s):          525.95    
+---------------Time to First Token----------------
+Mean TTFT (ms):                          1646.08   
+Median TTFT (ms):                        1711.12   
+P99 TTFT (ms):                           2217.04   
+-----Time per Output Token (excl. 1st token)------
+Mean TPOT (ms):                          18.90     
+Median TPOT (ms):                        18.77     
+P99 TPOT (ms):                           20.19     
+---------------Inter-token Latency----------------
+Mean ITL (ms):                           18.86     
+Median ITL (ms):                         17.84     
+P99 ITL (ms):                            18.08     
+==================================================
+Namespace(seed=0, batch_size=4, output_len=1024, image_path='../../accuracy/zto/40_20240903093021_78830772282673.jpg', prompt='患者男，年龄29岁，血型O，因思维迟钝，易激怒，因发热伴牙龈出血14天，乏力、头晕5天就诊我院急诊科。快速完善检查，血常规显示患者三系血>细胞重度减低，凝血功能检查提示APTT明显延长，纤维蛋白原降低，血液科会诊后发现患者高热、牙龈持续出血，胸骨压痛阳性.于3903年3月7日入院治疗，出现头痛、头晕、伴发热（最高体温42℃）症状，曾到其他医院就医。8日症状有所好转，9日仍有头痛、呕吐，四肢乏力伴发热。10日凌晨到本院就诊。患者5d前出现突发性思维迟钝，脾气暴躁，略有不顺心就出现攻击行为，在院外未行任何诊治。既往身体健康，平素性格内向。体格检查无>异常。血常规白细胞中单核细胞百分比升高。D-二聚体定量1412μg/L，骨髓穿刺示增生极度活跃，异常早幼粒细胞占94%.外周血涂片见大量早幼粒细>胞，并可在胞浆见到柴捆样细胞.以下是血常规详细信息：1.病人红细胞计数结果：3.2 x10^12/L. 附正常参考范围：新生儿:（6.0～7.0）×10^12/L>；婴儿：（5.2～7.0）×10^12/L; 儿童：（4.2～5.2）×10^12/L; 成人男：（4.0～5.5）×10^12/L; 成人女：（3.5～5.0）×10^12/L. 临床意义：生>理性红细胞和血红蛋白增多的原因：精神因素（冲动、兴奋、恐惧、冷水浴刺激等导致肾上腺素分泌增多的因素）、红细胞代偿性增生（长期低气压>、缺氧刺激，多次献血）；生理性红细胞和血红蛋白减少的原因：造血原料相对不足，多见于妊娠、6个月～2岁婴幼儿、某些老年性造血功能减退；>病理性增多：多见于频繁呕吐、出汗过多、大面积烧伤、血液浓缩，慢性肺心病、肺气肿、高原病、肿瘤以及真性红细胞增多症等；病理性减少：多>见于白血病等血液系统疾病；急性大出血、严重的组织损伤及血细胞的破坏等；合成障碍，见于缺铁、维生素B12缺乏等。2. 病人血红蛋白测量结果>：108g/L. 附血红蛋白正常参考范围：男性120～160g/L；女性110～150g/L；新生儿170～200g/L；临床意义：临床意义与红细胞计数相仿，但能更好地反映贫血程度，极重度贫血（Hb<30g/L）、重度贫血（31～60g/L）、中度贫血（61～90g/L）、男性轻度贫血（90~120g/L）、女性轻度贫血（90~110g/L）。3. 病人白细胞计数结果：13.6 x 10^9/L; 附白细胞计数正常参考范围：成人（4.0～10.0）×10^9/L；新生儿（11.0～12.0）×10^9/L。临>床意义：1）生理性白细胞计数增高见于剧烈运动、妊娠、新生儿；2）病理性白细胞增高见于急性化脓性感染、尿毒症、白血病、组织损伤、急性出>血等；3）病理性白细胞减少见于再生障碍性贫血、某些传染病、肝硬化、脾功能亢进、放疗化疗等。4. 病人白细胞分类技术结果(括号内是正常范围)：中性粒细胞50%(50%～70%)、嗜酸性粒细胞3.8%(1%～5%)、嗜碱性粒细胞0.2%(0～1%)、淋巴细胞45% (20%～40%)、单核细胞（M）请描述图片。', model='/root/jane/Qwen2-VL-7B-Instruct/', base_url=None, profile=False, host='127.0.0.1', port=8000, endpoint='/v1/chat/completions', served_model_name=None, ignore_eos=True)
+image size:  (1080, 1440)
+Starting initial single prompt test run...
+============ Serving Benchmark Result ============
+Successful requests:                     4         
+Benchmark duration (s):                  20.56     
+Total input tokens:                      3916      
+Total image and input tokens:            11916     
+Total generated tokens:                  4096      
+Request throughput (req/s):              0.19      
+Output token throughput (tok/s):         199.21    
+Total Token throughput (tok/s):          389.66    
+---------------Time to First Token----------------
+Mean TTFT (ms):                          1647.43   
+Median TTFT (ms):                        1713.74   
+P99 TTFT (ms):                           2214.60   
+-----Time per Output Token (excl. 1st token)------
+Mean TPOT (ms):                          18.45     
+Median TPOT (ms):                        18.39     
+P99 TPOT (ms):                           19.10     
+---------------Inter-token Latency----------------
+Mean ITL (ms):                           18.43     
+Median ITL (ms):                         17.92     
+P99 ITL (ms):                            18.16     
+==================================================
+Namespace(seed=0, batch_size=6, output_len=512, image_path='../../accuracy/zto/40_20240903093021_78830772282673.jpg', prompt='患者男，年龄29岁，血型O，因思维迟钝，易激怒，因发热伴牙龈出血14天，乏力、头晕5天就诊我院急诊科。快速完善检查，血常规显示患者三系血>细胞重度减低，凝血功能检查提示APTT明显延长，纤维蛋白原降低，血液科会诊后发现患者高热、牙龈持续出血，胸骨压痛阳性.于3903年3月7日入院治疗，出现头痛、头晕、伴发热（最高体温42℃）症状，曾到其他医院就医。8日症状有所好转，9日仍有头痛、呕吐，四肢乏力伴发热。10日凌晨到本院就诊。患者5d前出现突发性思维迟钝，脾气暴躁，略有不顺心就出现攻击行为，在院外未行任何诊治。既往身体健康，平素性格内向。体格检查无>异常。血常规白细胞中单核细胞百分比升高。D-二聚体定量1412μg/L，骨髓穿刺示增生极度活跃，异常早幼粒细胞占94%.外周血涂片见大量早幼粒细>胞，并可在胞浆见到柴捆样细胞.以下是血常规详细信息：1.病人红细胞计数结果：3.2 x10^12/L. 附正常参考范围：新生儿:（6.0～7.0）×10^12/L>；婴儿：（5.2～7.0）×10^12/L; 儿童：（4.2～5.2）×10^12/L; 成人男：（4.0～5.5）×10^12/L; 成人女：（3.5～5.0）×10^12/L. 临床意义：生>理性红细胞和血红蛋白增多的原因：精神因素（冲动、兴奋、恐惧、冷水浴刺激等导致肾上腺素分泌增多的因素）、红细胞代偿性增生（长期低气压>、缺氧刺激，多次献血）；生理性红细胞和血红蛋白减少的原因：造血原料相对不足，多见于妊娠、6个月～2岁婴幼儿、某些老年性造血功能减退；>病理性增多：多见于频繁呕吐、出汗过多、大面积烧伤、血液浓缩，慢性肺心病、肺气肿、高原病、肿瘤以及真性红细胞增多症等；病理性减少：多>见于白血病等血液系统疾病；急性大出血、严重的组织损伤及血细胞的破坏等；合成障碍，见于缺铁、维生素B12缺乏等。2. 病人血红蛋白测量结果>：108g/L. 附血红蛋白正常参考范围：男性120～160g/L；女性110～150g/L；新生儿170～200g/L；临床意义：临床意义与红细胞计数相仿，但能更好地反映贫血程度，极重度贫血（Hb<30g/L）、重度贫血（31～60g/L）、中度贫血（61～90g/L）、男性轻度贫血（90~120g/L）、女性轻度贫血（90~110g/L）。3. 病人白细胞计数结果：13.6 x 10^9/L; 附白细胞计数正常参考范围：成人（4.0～10.0）×10^9/L；新生儿（11.0～12.0）×10^9/L。临>床意义：1）生理性白细胞计数增高见于剧烈运动、妊娠、新生儿；2）病理性白细胞增高见于急性化脓性感染、尿毒症、白血病、组织损伤、急性出>血等；3）病理性白细胞减少见于再生障碍性贫血、某些传染病、肝硬化、脾功能亢进、放疗化疗等。4. 病人白细胞分类技术结果(括号内是正常范围)：中性粒细胞50%(50%～70%)、嗜酸性粒细胞3.8%(1%～5%)、嗜碱性粒细胞0.2%(0～1%)、淋巴细胞45% (20%～40%)、单核细胞（M）请描述图片。', model='/root/jane/Qwen2-VL-7B-Instruct/', base_url=None, profile=False, host='127.0.0.1', port=8000, endpoint='/v1/chat/completions', served_model_name=None, ignore_eos=True)
+image size:  (1080, 1440)
+Starting initial single prompt test run...
+============ Serving Benchmark Result ============
+Successful requests:                     6         
+Benchmark duration (s):                  12.72     
+Total input tokens:                      5874      
+Total image and input tokens:            17874     
+Total generated tokens:                  3072      
+Request throughput (req/s):              0.47      
+Output token throughput (tok/s):         241.56    
+Total Token throughput (tok/s):          703.44    
+---------------Time to First Token----------------
+Mean TTFT (ms):                          2236.58   
+Median TTFT (ms):                        2281.16   
+P99 TTFT (ms):                           3316.76   
+-----Time per Output Token (excl. 1st token)------
+Mean TPOT (ms):                          20.38     
+Median TPOT (ms):                        20.29     
+P99 TPOT (ms):                           22.72     
+---------------Inter-token Latency----------------
+Mean ITL (ms):                           20.34     
+Median ITL (ms):                         18.37     
+P99 ITL (ms):                            18.68     
+==================================================
+Namespace(seed=0, batch_size=6, output_len=1024, image_path='../../accuracy/zto/40_20240903093021_78830772282673.jpg', prompt='患者男，年龄29岁，血型O，因思维迟钝，易激怒，因发热伴牙龈出血14天，乏力、头晕5天就诊我院急诊科。快速完善检查，血常规显示患者三系血>细胞重度减低，凝血功能检查提示APTT明显延长，纤维蛋白原降低，血液科会诊后发现患者高热、牙龈持续出血，胸骨压痛阳性.于3903年3月7日入院治疗，出现头痛、头晕、伴发热（最高体温42℃）症状，曾到其他医院就医。8日症状有所好转，9日仍有头痛、呕吐，四肢乏力伴发热。10日凌晨到本院就诊。患者5d前出现突发性思维迟钝，脾气暴躁，略有不顺心就出现攻击行为，在院外未行任何诊治。既往身体健康，平素性格内向。体格检查无>异常。血常规白细胞中单核细胞百分比升高。D-二聚体定量1412μg/L，骨髓穿刺示增生极度活跃，异常早幼粒细胞占94%.外周血涂片见大量早幼粒细>胞，并可在胞浆见到柴捆样细胞.以下是血常规详细信息：1.病人红细胞计数结果：3.2 x10^12/L. 附正常参考范围：新生儿:（6.0～7.0）×10^12/L>；婴儿：（5.2～7.0）×10^12/L; 儿童：（4.2～5.2）×10^12/L; 成人男：（4.0～5.5）×10^12/L; 成人女：（3.5～5.0）×10^12/L. 临床意义：生>理性红细胞和血红蛋白增多的原因：精神因素（冲动、兴奋、恐惧、冷水浴刺激等导致肾上腺素分泌增多的因素）、红细胞代偿性增生（长期低气压>、缺氧刺激，多次献血）；生理性红细胞和血红蛋白减少的原因：造血原料相对不足，多见于妊娠、6个月～2岁婴幼儿、某些老年性造血功能减退；>病理性增多：多见于频繁呕吐、出汗过多、大面积烧伤、血液浓缩，慢性肺心病、肺气肿、高原病、肿瘤以及真性红细胞增多症等；病理性减少：多>见于白血病等血液系统疾病；急性大出血、严重的组织损伤及血细胞的破坏等；合成障碍，见于缺铁、维生素B12缺乏等。2. 病人血红蛋白测量结果>：108g/L. 附血红蛋白正常参考范围：男性120～160g/L；女性110～150g/L；新生儿170～200g/L；临床意义：临床意义与红细胞计数相仿，但能更好地反映贫血程度，极重度贫血（Hb<30g/L）、重度贫血（31～60g/L）、中度贫血（61～90g/L）、男性轻度贫血（90~120g/L）、女性轻度贫血（90~110g/L）。3. 病人白细胞计数结果：13.6 x 10^9/L; 附白细胞计数正常参考范围：成人（4.0～10.0）×10^9/L；新生儿（11.0～12.0）×10^9/L。临>床意义：1）生理性白细胞计数增高见于剧烈运动、妊娠、新生儿；2）病理性白细胞增高见于急性化脓性感染、尿毒症、白血病、组织损伤、急性出>血等；3）病理性白细胞减少见于再生障碍性贫血、某些传染病、肝硬化、脾功能亢进、放疗化疗等。4. 病人白细胞分类技术结果(括号内是正常范围)：中性粒细胞50%(50%～70%)、嗜酸性粒细胞3.8%(1%～5%)、嗜碱性粒细胞0.2%(0～1%)、淋巴细胞45% (20%～40%)、单核细胞（M）请描述图片。', model='/root/jane/Qwen2-VL-7B-Instruct/', base_url=None, profile=False, host='127.0.0.1', port=8000, endpoint='/v1/chat/completions', served_model_name=None, ignore_eos=True)
+image size:  (1080, 1440)
+Starting initial single prompt test run...
+============ Serving Benchmark Result ============
+Successful requests:                     6         
+Benchmark duration (s):                  22.28     
+Total input tokens:                      5874      
+Total image and input tokens:            17874     
+Total generated tokens:                  6144      
+Request throughput (req/s):              0.27      
+Output token throughput (tok/s):         275.82    
+Total Token throughput (tok/s):          539.51    
+---------------Time to First Token----------------
+Mean TTFT (ms):                          2245.20   
+Median TTFT (ms):                        2289.71   
+P99 TTFT (ms):                           3331.69   
+-----Time per Output Token (excl. 1st token)------
+Mean TPOT (ms):                          19.52     
+Median TPOT (ms):                        19.47     
+P99 TPOT (ms):                           20.69     
+---------------Inter-token Latency----------------
+Mean ITL (ms):                           19.50     
+Median ITL (ms):                         18.51     
+P99 ITL (ms):                            18.86     
+==================================================
+Namespace(seed=0, batch_size=8, output_len=512, image_path='../../accuracy/zto/40_20240903093021_78830772282673.jpg', prompt='患者男，年龄29岁，血型O，因思维迟钝，易激怒，因发热伴牙龈出血14天，乏力、头晕5天就诊我院急诊科。快速完善检查，血常规显示患者三系血>细胞重度减低，凝血功能检查提示APTT明显延长，纤维蛋白原降低，血液科会诊后发现患者高热、牙龈持续出血，胸骨压痛阳性.于3903年3月7日入院治疗，出现头痛、头晕、伴发热（最高体温42℃）症状，曾到其他医院就医。8日症状有所好转，9日仍有头痛、呕吐，四肢乏力伴发热。10日凌晨到本院就诊。患者5d前出现突发性思维迟钝，脾气暴躁，略有不顺心就出现攻击行为，在院外未行任何诊治。既往身体健康，平素性格内向。体格检查无>异常。血常规白细胞中单核细胞百分比升高。D-二聚体定量1412μg/L，骨髓穿刺示增生极度活跃，异常早幼粒细胞占94%.外周血涂片见大量早幼粒细>胞，并可在胞浆见到柴捆样细胞.以下是血常规详细信息：1.病人红细胞计数结果：3.2 x10^12/L. 附正常参考范围：新生儿:（6.0～7.0）×10^12/L>；婴儿：（5.2～7.0）×10^12/L; 儿童：（4.2～5.2）×10^12/L; 成人男：（4.0～5.5）×10^12/L; 成人女：（3.5～5.0）×10^12/L. 临床意义：生>理性红细胞和血红蛋白增多的原因：精神因素（冲动、兴奋、恐惧、冷水浴刺激等导致肾上腺素分泌增多的因素）、红细胞代偿性增生（长期低气压>、缺氧刺激，多次献血）；生理性红细胞和血红蛋白减少的原因：造血原料相对不足，多见于妊娠、6个月～2岁婴幼儿、某些老年性造血功能减退；>病理性增多：多见于频繁呕吐、出汗过多、大面积烧伤、血液浓缩，慢性肺心病、肺气肿、高原病、肿瘤以及真性红细胞增多症等；病理性减少：多>见于白血病等血液系统疾病；急性大出血、严重的组织损伤及血细胞的破坏等；合成障碍，见于缺铁、维生素B12缺乏等。2. 病人血红蛋白测量结果>：108g/L. 附血红蛋白正常参考范围：男性120～160g/L；女性110～150g/L；新生儿170～200g/L；临床意义：临床意义与红细胞计数相仿，但能更好地反映贫血程度，极重度贫血（Hb<30g/L）、重度贫血（31～60g/L）、中度贫血（61～90g/L）、男性轻度贫血（90~120g/L）、女性轻度贫血（90~110g/L）。3. 病人白细胞计数结果：13.6 x 10^9/L; 附白细胞计数正常参考范围：成人（4.0～10.0）×10^9/L；新生儿（11.0～12.0）×10^9/L。临>床意义：1）生理性白细胞计数增高见于剧烈运动、妊娠、新生儿；2）病理性白细胞增高见于急性化脓性感染、尿毒症、白血病、组织损伤、急性出>血等；3）病理性白细胞减少见于再生障碍性贫血、某些传染病、肝硬化、脾功能亢进、放疗化疗等。4. 病人白细胞分类技术结果(括号内是正常范围)：中性粒细胞50%(50%～70%)、嗜酸性粒细胞3.8%(1%～5%)、嗜碱性粒细胞0.2%(0～1%)、淋巴细胞45% (20%～40%)、单核细胞（M）请描述图片。', model='/root/jane/Qwen2-VL-7B-Instruct/', base_url=None, profile=False, host='127.0.0.1', port=8000, endpoint='/v1/chat/completions', served_model_name=None, ignore_eos=True)
+image size:  (1080, 1440)
+Starting initial single prompt test run...
+============ Serving Benchmark Result ============
+Successful requests:                     8         
+Benchmark duration (s):                  54.18     
+Total input tokens:                      7832      
+Total image and input tokens:            23832     
+Total generated tokens:                  4096      
+Request throughput (req/s):              0.15      
+Output token throughput (tok/s):         75.61     
+Total Token throughput (tok/s):          220.17    
+---------------Time to First Token----------------
+Mean TTFT (ms):                          2821.87   
+Median TTFT (ms):                        2858.44   
+P99 TTFT (ms):                           4429.20   
+-----Time per Output Token (excl. 1st token)------
+Mean TPOT (ms):                          91.05     
+Median TPOT (ms):                        90.87     
+P99 TPOT (ms):                           96.96     
+---------------Inter-token Latency----------------
+Mean ITL (ms):                           90.87     
+Median ITL (ms):                         18.80     
+P99 ITL (ms):                            447.79    
+==================================================
+Namespace(seed=0, batch_size=8, output_len=1024, image_path='../../accuracy/zto/40_20240903093021_78830772282673.jpg', prompt='患者男，年龄29岁，血型O，因思维迟钝，易激怒，因发热伴牙龈出血14天，乏力、头晕5天就诊我院急诊科。快速完善检查，血常规显示患者三系血>细胞重度减低，凝血功能检查提示APTT明显延长，纤维蛋白原降低，血液科会诊后发现患者高热、牙龈持续出血，胸骨压痛阳性.于3903年3月7日入院治疗，出现头痛、头晕、伴发热（最高体温42℃）症状，曾到其他医院就医。8日症状有所好转，9日仍有头痛、呕吐，四肢乏力伴发热。10日凌晨到本院就诊。患者5d前出现突发性思维迟钝，脾气暴躁，略有不顺心就出现攻击行为，在院外未行任何诊治。既往身体健康，平素性格内向。体格检查无>异常。血常规白细胞中单核细胞百分比升高。D-二聚体定量1412μg/L，骨髓穿刺示增生极度活跃，异常早幼粒细胞占94%.外周血涂片见大量早幼粒细>胞，并可在胞浆见到柴捆样细胞.以下是血常规详细信息：1.病人红细胞计数结果：3.2 x10^12/L. 附正常参考范围：新生儿:（6.0～7.0）×10^12/L>；婴儿：（5.2～7.0）×10^12/L; 儿童：（4.2～5.2）×10^12/L; 成人男：（4.0～5.5）×10^12/L; 成人女：（3.5～5.0）×10^12/L. 临床意义：生>理性红细胞和血红蛋白增多的原因：精神因素（冲动、兴奋、恐惧、冷水浴刺激等导致肾上腺素分泌增多的因素）、红细胞代偿性增生（长期低气压>、缺氧刺激，多次献血）；生理性红细胞和血红蛋白减少的原因：造血原料相对不足，多见于妊娠、6个月～2岁婴幼儿、某些老年性造血功能减退；>病理性增多：多见于频繁呕吐、出汗过多、大面积烧伤、血液浓缩，慢性肺心病、肺气肿、高原病、肿瘤以及真性红细胞增多症等；病理性减少：多>见于白血病等血液系统疾病；急性大出血、严重的组织损伤及血细胞的破坏等；合成障碍，见于缺铁、维生素B12缺乏等。2. 病人血红蛋白测量结果>：108g/L. 附血红蛋白正常参考范围：男性120～160g/L；女性110～150g/L；新生儿170～200g/L；临床意义：临床意义与红细胞计数相仿，但能更好地反映贫血程度，极重度贫血（Hb<30g/L）、重度贫血（31～60g/L）、中度贫血（61～90g/L）、男性轻度贫血（90~120g/L）、女性轻度贫血（90~110g/L）。3. 病人白细胞计数结果：13.6 x 10^9/L; 附白细胞计数正常参考范围：成人（4.0～10.0）×10^9/L；新生儿（11.0～12.0）×10^9/L。临>床意义：1）生理性白细胞计数增高见于剧烈运动、妊娠、新生儿；2）病理性白细胞增高见于急性化脓性感染、尿毒症、白血病、组织损伤、急性出>血等；3）病理性白细胞减少见于再生障碍性贫血、某些传染病、肝硬化、脾功能亢进、放疗化疗等。4. 病人白细胞分类技术结果(括号内是正常范围)：中性粒细胞50%(50%～70%)、嗜酸性粒细胞3.8%(1%～5%)、嗜碱性粒细胞0.2%(0～1%)、淋巴细胞45% (20%～40%)、单核细胞（M）请描述图片。', model='/root/jane/Qwen2-VL-7B-Instruct/', base_url=None, profile=False, host='127.0.0.1', port=8000, endpoint='/v1/chat/completions', served_model_name=None, ignore_eos=True)
+image size:  (1080, 1440)
+Starting initial single prompt test run...
+============ Serving Benchmark Result ============
+Successful requests:                     8         
+Benchmark duration (s):                  128.60    
+Total input tokens:                      7832      
+Total image and input tokens:            23832     
+Total generated tokens:                  8192      
+Request throughput (req/s):              0.06      
+Output token throughput (tok/s):         63.70     
+Total Token throughput (tok/s):          124.60    
+---------------Time to First Token----------------
+Mean TTFT (ms):                          2826.77   
+Median TTFT (ms):                        2861.27   
+P99 TTFT (ms):                           4435.73   
+-----Time per Output Token (excl. 1st token)------
+Mean TPOT (ms):                          111.29    
+Median TPOT (ms):                        109.58    
+P99 TPOT (ms):                           120.85    
+---------------Inter-token Latency----------------
+Mean ITL (ms):                           111.18    
+Median ITL (ms):                         18.81     
+P99 ITL (ms):                            447.98    
+==================================================
+Namespace(seed=0, batch_size=10, output_len=512, image_path='../../accuracy/zto/40_20240903093021_78830772282673.jpg', prompt='患者男，年龄29岁，血型O，因思维迟钝，易激怒，因发热伴牙龈出血14天，乏力、头晕5天就诊我院急诊科。快速完善检查，血常规显示患者三系血>细胞重度减低，凝血功能检查提示APTT明显延长，纤维蛋白原降低，血液科会诊后发现患者高热、牙龈持续出血，胸骨压痛阳性.于3903年3月7日入院治疗，出现头痛、头晕、伴发热（最高体温42℃）症状，曾到其他医院就医。8日症状有所好转，9日仍有头痛、呕吐，四肢乏力伴发热。10日凌晨到本院就诊。患者5d前出现突发性思维迟钝，脾气暴躁，略有不顺心就出现攻击行为，在院外未行任何诊治。既往身体健康，平素性格内向。体格检查无>异常。血常规白细胞中单核细胞百分比升高。D-二聚体定量1412μg/L，骨髓穿刺示增生极度活跃，异常早幼粒细胞占94%.外周血涂片见大量早幼粒细>胞，并可在胞浆见到柴捆样细胞.以下是血常规详细信息：1.病人红细胞计数结果：3.2 x10^12/L. 附正常参考范围：新生儿:（6.0～7.0）×10^12/L>；婴儿：（5.2～7.0）×10^12/L; 儿童：（4.2～5.2）×10^12/L; 成人男：（4.0～5.5）×10^12/L; 成人女：（3.5～5.0）×10^12/L. 临床意义：生>理性红细胞和血红蛋白增多的原因：精神因素（冲动、兴奋、恐惧、冷水浴刺激等导致肾上腺素分泌增多的因素）、红细胞代偿性增生（长期低气压>、缺氧刺激，多次献血）；生理性红细胞和血红蛋白减少的原因：造血原料相对不足，多见于妊娠、6个月～2岁婴幼儿、某些老年性造血功能减退；>病理性增多：多见于频繁呕吐、出汗过多、大面积烧伤、血液浓缩，慢性肺心病、肺气肿、高原病、肿瘤以及真性红细胞增多症等；病理性减少：多>见于白血病等血液系统疾病；急性大出血、严重的组织损伤及血细胞的破坏等；合成障碍，见于缺铁、维生素B12缺乏等。2. 病人血红蛋白测量结果>：108g/L. 附血红蛋白正常参考范围：男性120～160g/L；女性110～150g/L；新生儿170～200g/L；临床意义：临床意义与红细胞计数相仿，但能更好地反映贫血程度，极重度贫血（Hb<30g/L）、重度贫血（31～60g/L）、中度贫血（61～90g/L）、男性轻度贫血（90~120g/L）、女性轻度贫血（90~110g/L）。3. 病人白细胞计数结果：13.6 x 10^9/L; 附白细胞计数正常参考范围：成人（4.0～10.0）×10^9/L；新生儿（11.0～12.0）×10^9/L。临>床意义：1）生理性白细胞计数增高见于剧烈运动、妊娠、新生儿；2）病理性白细胞增高见于急性化脓性感染、尿毒症、白血病、组织损伤、急性出>血等；3）病理性白细胞减少见于再生障碍性贫血、某些传染病、肝硬化、脾功能亢进、放疗化疗等。4. 病人白细胞分类技术结果(括号内是正常范围)：中性粒细胞50%(50%～70%)、嗜酸性粒细胞3.8%(1%～5%)、嗜碱性粒细胞0.2%(0～1%)、淋巴细胞45% (20%～40%)、单核细胞（M）请描述图片。', model='/root/jane/Qwen2-VL-7B-Instruct/', base_url=None, profile=False, host='127.0.0.1', port=8000, endpoint='/v1/chat/completions', served_model_name=None, ignore_eos=True)
+image size:  (1080, 1440)
+Starting initial single prompt test run...
+============ Serving Benchmark Result ============
+Successful requests:                     10        
+Benchmark duration (s):                  58.85     
+Total input tokens:                      9790      
+Total image and input tokens:            29790     
+Total generated tokens:                  5120      
+Request throughput (req/s):              0.17      
+Output token throughput (tok/s):         87.00     
+Total Token throughput (tok/s):          253.35    
+---------------Time to First Token----------------
+Mean TTFT (ms):                          12261.16  
+Median TTFT (ms):                        3422.25   
+P99 TTFT (ms):                           49851.57  
+-----Time per Output Token (excl. 1st token)------
+Mean TPOT (ms):                          77.64     
+Median TPOT (ms):                        91.86     
+P99 TPOT (ms):                           98.95     
+---------------Inter-token Latency----------------
+Mean ITL (ms):                           77.49     
+Median ITL (ms):                         18.76     
+P99 ITL (ms):                            447.52    
+==================================================
+Namespace(seed=0, batch_size=10, output_len=1024, image_path='../../accuracy/zto/40_20240903093021_78830772282673.jpg', prompt='患者男，年龄29岁，血型O，因思维迟钝，易激怒，因发热伴牙龈出血14天，乏力、头晕5天就诊我院急诊科。快速完善检查，血常规显示患者三系血>细胞重度减低，凝血功能检查提示APTT明显延长，纤维蛋白原降低，血液科会诊后发现患者高热、牙龈持续出血，胸骨压痛阳性.于3903年3月7日入院治疗，出现头痛、头晕、伴发热（最高体温42℃）症状，曾到其他医院就医。8日症状有所好转，9日仍有头痛、呕吐，四肢乏力伴发热。10日凌晨到本院就诊。患者5d前出现突发性思维迟钝，脾气暴躁，略有不顺心就出现攻击行为，在院外未行任何诊治。既往身体健康，平素性格内向。体格检查无>异常。血常规白细胞中单核细胞百分比升高。D-二聚体定量1412μg/L，骨髓穿刺示增生极度活跃，异常早幼粒细胞占94%.外周血涂片见大量早幼粒细>胞，并可在胞浆见到柴捆样细胞.以下是血常规详细信息：1.病人红细胞计数结果：3.2 x10^12/L. 附正常参考范围：新生儿:（6.0～7.0）×10^12/L>；婴儿：（5.2～7.0）×10^12/L; 儿童：（4.2～5.2）×10^12/L; 成人男：（4.0～5.5）×10^12/L; 成人女：（3.5～5.0）×10^12/L. 临床意义：生>理性红细胞和血红蛋白增多的原因：精神因素（冲动、兴奋、恐惧、冷水浴刺激等导致肾上腺素分泌增多的因素）、红细胞代偿性增生（长期低气压>、缺氧刺激，多次献血）；生理性红细胞和血红蛋白减少的原因：造血原料相对不足，多见于妊娠、6个月～2岁婴幼儿、某些老年性造血功能减退；>病理性增多：多见于频繁呕吐、出汗过多、大面积烧伤、血液浓缩，慢性肺心病、肺气肿、高原病、肿瘤以及真性红细胞增多症等；病理性减少：多>见于白血病等血液系统疾病；急性大出血、严重的组织损伤及血细胞的破坏等；合成障碍，见于缺铁、维生素B12缺乏等。2. 病人血红蛋白测量结果>：108g/L. 附血红蛋白正常参考范围：男性120～160g/L；女性110～150g/L；新生儿170～200g/L；临床意义：临床意义与红细胞计数相仿，但能更好地反映贫血程度，极重度贫血（Hb<30g/L）、重度贫血（31～60g/L）、中度贫血（61～90g/L）、男性轻度贫血（90~120g/L）、女性轻度贫血（90~110g/L）。3. 病人白细胞计数结果：13.6 x 10^9/L; 附白细胞计数正常参考范围：成人（4.0～10.0）×10^9/L；新生儿（11.0～12.0）×10^9/L。临>床意义：1）生理性白细胞计数增高见于剧烈运动、妊娠、新生儿；2）病理性白细胞增高见于急性化脓性感染、尿毒症、白血病、组织损伤、急性出>血等；3）病理性白细胞减少见于再生障碍性贫血、某些传染病、肝硬化、脾功能亢进、放疗化疗等。4. 病人白细胞分类技术结果(括号内是正常范围)：中性粒细胞50%(50%～70%)、嗜酸性粒细胞3.8%(1%～5%)、嗜碱性粒细胞0.2%(0～1%)、淋巴细胞45% (20%～40%)、单核细胞（M）请描述图片。', model='/root/jane/Qwen2-VL-7B-Instruct/', base_url=None, profile=False, host='127.0.0.1', port=8000, endpoint='/v1/chat/completions', served_model_name=None, ignore_eos=True)
+image size:  (1080, 1440)
+Starting initial single prompt test run...
+============ Serving Benchmark Result ============
+Successful requests:                     10        
+Benchmark duration (s):                  133.65    
+Total input tokens:                      9790      
+Total image and input tokens:            29790     
+Total generated tokens:                  10240     
+Request throughput (req/s):              0.07      
+Output token throughput (tok/s):         76.62     
+Total Token throughput (tok/s):          149.87    
+---------------Time to First Token----------------
+Mean TTFT (ms):                          25372.20  
+Median TTFT (ms):                        3439.96   
+P99 TTFT (ms):                           115413.59 
+-----Time per Output Token (excl. 1st token)------
+Mean TPOT (ms):                          93.21     
+Median TPOT (ms):                        109.74    
+P99 TPOT (ms):                           122.14    
+---------------Inter-token Latency----------------
+Mean ITL (ms):                           93.12     
+Median ITL (ms):                         18.76     
+P99 ITL (ms):                            447.68    
+==================================================
+Namespace(seed=0, batch_size=12, output_len=512, image_path='../../accuracy/zto/40_20240903093021_78830772282673.jpg', prompt='患者男，年龄29岁，血型O，因思维迟钝，易激怒，因发热伴牙龈出血14天，乏力、头晕5天就诊我院急诊科。快速完善检查，血常规显示患者三系血>细胞重度减低，凝血功能检查提示APTT明显延长，纤维蛋白原降低，血液科会诊后发现患者高热、牙龈持续出血，胸骨压痛阳性.于3903年3月7日入院治疗，出现头痛、头晕、伴发热（最高体温42℃）症状，曾到其他医院就医。8日症状有所好转，9日仍有头痛、呕吐，四肢乏力伴发热。10日凌晨到本院就诊。患者5d前出现突发性思维迟钝，脾气暴躁，略有不顺心就出现攻击行为，在院外未行任何诊治。既往身体健康，平素性格内向。体格检查无>异常。血常规白细胞中单核细胞百分比升高。D-二聚体定量1412μg/L，骨髓穿刺示增生极度活跃，异常早幼粒细胞占94%.外周血涂片见大量早幼粒细>胞，并可在胞浆见到柴捆样细胞.以下是血常规详细信息：1.病人红细胞计数结果：3.2 x10^12/L. 附正常参考范围：新生儿:（6.0～7.0）×10^12/L>；婴儿：（5.2～7.0）×10^12/L; 儿童：（4.2～5.2）×10^12/L; 成人男：（4.0～5.5）×10^12/L; 成人女：（3.5～5.0）×10^12/L. 临床意义：生>理性红细胞和血红蛋白增多的原因：精神因素（冲动、兴奋、恐惧、冷水浴刺激等导致肾上腺素分泌增多的因素）、红细胞代偿性增生（长期低气压>、缺氧刺激，多次献血）；生理性红细胞和血红蛋白减少的原因：造血原料相对不足，多见于妊娠、6个月～2岁婴幼儿、某些老年性造血功能减退；>病理性增多：多见于频繁呕吐、出汗过多、大面积烧伤、血液浓缩，慢性肺心病、肺气肿、高原病、肿瘤以及真性红细胞增多症等；病理性减少：多>见于白血病等血液系统疾病；急性大出血、严重的组织损伤及血细胞的破坏等；合成障碍，见于缺铁、维生素B12缺乏等。2. 病人血红蛋白测量结果>：108g/L. 附血红蛋白正常参考范围：男性120～160g/L；女性110～150g/L；新生儿170～200g/L；临床意义：临床意义与红细胞计数相仿，但能更好地反映贫血程度，极重度贫血（Hb<30g/L）、重度贫血（31～60g/L）、中度贫血（61～90g/L）、男性轻度贫血（90~120g/L）、女性轻度贫血（90~110g/L）。3. 病人白细胞计数结果：13.6 x 10^9/L; 附白细胞计数正常参考范围：成人（4.0～10.0）×10^9/L；新生儿（11.0～12.0）×10^9/L。临>床意义：1）生理性白细胞计数增高见于剧烈运动、妊娠、新生儿；2）病理性白细胞增高见于急性化脓性感染、尿毒症、白血病、组织损伤、急性出>血等；3）病理性白细胞减少见于再生障碍性贫血、某些传染病、肝硬化、脾功能亢进、放疗化疗等。4. 病人白细胞分类技术结果(括号内是正常范围)：中性粒细胞50%(50%～70%)、嗜酸性粒细胞3.8%(1%～5%)、嗜碱性粒细胞0.2%(0～1%)、淋巴细胞45% (20%～40%)、单核细胞（M）请描述图片。', model='/root/jane/Qwen2-VL-7B-Instruct/', base_url=None, profile=False, host='127.0.0.1', port=8000, endpoint='/v1/chat/completions', served_model_name=None, ignore_eos=True)
+image size:  (1080, 1440)
+Starting initial single prompt test run...
+============ Serving Benchmark Result ============
+Successful requests:                     12        
+Benchmark duration (s):                  60.23     
+Total input tokens:                      11748     
+Total image and input tokens:            35748     
+Total generated tokens:                  6144      
+Request throughput (req/s):              0.20      
+Output token throughput (tok/s):         102.01    
+Total Token throughput (tok/s):          297.05    
+---------------Time to First Token----------------
+Mean TTFT (ms):                          18747.87  
+Median TTFT (ms):                        4013.42   
+P99 TTFT (ms):                           50958.83  
+-----Time per Output Token (excl. 1st token)------
+Mean TPOT (ms):                          68.77     
+Median TPOT (ms):                        92.38     
+P99 TPOT (ms):                           100.94    
+---------------Inter-token Latency----------------
+Mean ITL (ms):                           68.64     
+Median ITL (ms):                         18.72     
+P99 ITL (ms):                            447.24    
+==================================================
+Namespace(seed=0, batch_size=12, output_len=1024, image_path='../../accuracy/zto/40_20240903093021_78830772282673.jpg', prompt='患者男，年龄29岁，血型O，因思维迟钝，易激怒，因发热伴牙龈出血14天，乏力、头晕5天就诊我院急诊科。快速完善检查，血常规显示患者三系血>细胞重度减低，凝血功能检查提示APTT明显延长，纤维蛋白原降低，血液科会诊后发现患者高热、牙龈持续出血，胸骨压痛阳性.于3903年3月7日入院治疗，出现头痛、头晕、伴发热（最高体温42℃）症状，曾到其他医院就医。8日症状有所好转，9日仍有头痛、呕吐，四肢乏力伴发热。10日凌晨到本院就诊。患者5d前出现突发性思维迟钝，脾气暴躁，略有不顺心就出现攻击行为，在院外未行任何诊治。既往身体健康，平素性格内向。体格检查无>异常。血常规白细胞中单核细胞百分比升高。D-二聚体定量1412μg/L，骨髓穿刺示增生极度活跃，异常早幼粒细胞占94%.外周血涂片见大量早幼粒细>胞，并可在胞浆见到柴捆样细胞.以下是血常规详细信息：1.病人红细胞计数结果：3.2 x10^12/L. 附正常参考范围：新生儿:（6.0～7.0）×10^12/L>；婴儿：（5.2～7.0）×10^12/L; 儿童：（4.2～5.2）×10^12/L; 成人男：（4.0～5.5）×10^12/L; 成人女：（3.5～5.0）×10^12/L. 临床意义：生>理性红细胞和血红蛋白增多的原因：精神因素（冲动、兴奋、恐惧、冷水浴刺激等导致肾上腺素分泌增多的因素）、红细胞代偿性增生（长期低气压>、缺氧刺激，多次献血）；生理性红细胞和血红蛋白减少的原因：造血原料相对不足，多见于妊娠、6个月～2岁婴幼儿、某些老年性造血功能减退；>病理性增多：多见于频繁呕吐、出汗过多、大面积烧伤、血液浓缩，慢性肺心病、肺气肿、高原病、肿瘤以及真性红细胞增多症等；病理性减少：多>见于白血病等血液系统疾病；急性大出血、严重的组织损伤及血细胞的破坏等；合成障碍，见于缺铁、维生素B12缺乏等。2. 病人血红蛋白测量结果>：108g/L. 附血红蛋白正常参考范围：男性120～160g/L；女性110～150g/L；新生儿170～200g/L；临床意义：临床意义与红细胞计数相仿，但能更好地反映贫血程度，极重度贫血（Hb<30g/L）、重度贫血（31～60g/L）、中度贫血（61～90g/L）、男性轻度贫血（90~120g/L）、女性轻度贫血（90~110g/L）。3. 病人白细胞计数结果：13.6 x 10^9/L; 附白细胞计数正常参考范围：成人（4.0～10.0）×10^9/L；新生儿（11.0～12.0）×10^9/L。临>床意义：1）生理性白细胞计数增高见于剧烈运动、妊娠、新生儿；2）病理性白细胞增高见于急性化脓性感染、尿毒症、白血病、组织损伤、急性出>血等；3）病理性白细胞减少见于再生障碍性贫血、某些传染病、肝硬化、脾功能亢进、放疗化疗等。4. 病人白细胞分类技术结果(括号内是正常范围)：中性粒细胞50%(50%～70%)、嗜酸性粒细胞3.8%(1%～5%)、嗜碱性粒细胞0.2%(0～1%)、淋巴细胞45% (20%～40%)、单核细胞（M）请描述图片。', model='/root/jane/Qwen2-VL-7B-Instruct/', base_url=None, profile=False, host='127.0.0.1', port=8000, endpoint='/v1/chat/completions', served_model_name=None, ignore_eos=True)
+image size:  (1080, 1440)
+Starting initial single prompt test run...
+============ Serving Benchmark Result ============
+Successful requests:                     12        
+Benchmark duration (s):                  135.33    
+Total input tokens:                      11748     
+Total image and input tokens:            35748     
+Total generated tokens:                  12288     
+Request throughput (req/s):              0.09      
+Output token throughput (tok/s):         90.80     
+Total Token throughput (tok/s):          177.61    
+---------------Time to First Token----------------
+Mean TTFT (ms):                          40611.95  
+Median TTFT (ms):                        4017.63   
+P99 TTFT (ms):                           116565.30 
+-----Time per Output Token (excl. 1st token)------
+Mean TPOT (ms):                          81.24     
+Median TPOT (ms):                        109.68    
+P99 TPOT (ms):                           123.45    
+---------------Inter-token Latency----------------
+Mean ITL (ms):                           81.17     
+Median ITL (ms):                         18.71     
+P99 ITL (ms):                            448.13    
+==================================================
+Namespace(seed=0, batch_size=14, output_len=512, image_path='../../accuracy/zto/40_20240903093021_78830772282673.jpg', prompt='患者男，年龄29岁，血型O，因思维迟钝，易激怒，因发热伴牙龈出血14天，乏力、头晕5天就诊我院急诊科。快速完善检查，血常规显示患者三系血>细胞重度减低，凝血功能检查提示APTT明显延长，纤维蛋白原降低，血液科会诊后发现患者高热、牙龈持续出血，胸骨压痛阳性.于3903年3月7日入院治疗，出现头痛、头晕、伴发热（最高体温42℃）症状，曾到其他医院就医。8日症状有所好转，9日仍有头痛、呕吐，四肢乏力伴发热。10日凌晨到本院就诊。患者5d前出现突发性思维迟钝，脾气暴躁，略有不顺心就出现攻击行为，在院外未行任何诊治。既往身体健康，平素性格内向。体格检查无>异常。血常规白细胞中单核细胞百分比升高。D-二聚体定量1412μg/L，骨髓穿刺示增生极度活跃，异常早幼粒细胞占94%.外周血涂片见大量早幼粒细>胞，并可在胞浆见到柴捆样细胞.以下是血常规详细信息：1.病人红细胞计数结果：3.2 x10^12/L. 附正常参考范围：新生儿:（6.0～7.0）×10^12/L>；婴儿：（5.2～7.0）×10^12/L; 儿童：（4.2～5.2）×10^12/L; 成人男：（4.0～5.5）×10^12/L; 成人女：（3.5～5.0）×10^12/L. 临床意义：生>理性红细胞和血红蛋白增多的原因：精神因素（冲动、兴奋、恐惧、冷水浴刺激等导致肾上腺素分泌增多的因素）、红细胞代偿性增生（长期低气压>、缺氧刺激，多次献血）；生理性红细胞和血红蛋白减少的原因：造血原料相对不足，多见于妊娠、6个月～2岁婴幼儿、某些老年性造血功能减退；>病理性增多：多见于频繁呕吐、出汗过多、大面积烧伤、血液浓缩，慢性肺心病、肺气肿、高原病、肿瘤以及真性红细胞增多症等；病理性减少：多>见于白血病等血液系统疾病；急性大出血、严重的组织损伤及血细胞的破坏等；合成障碍，见于缺铁、维生素B12缺乏等。2. 病人血红蛋白测量结果>：108g/L. 附血红蛋白正常参考范围：男性120～160g/L；女性110～150g/L；新生儿170～200g/L；临床意义：临床意义与红细胞计数相仿，但能更好地反映贫血程度，极重度贫血（Hb<30g/L）、重度贫血（31～60g/L）、中度贫血（61～90g/L）、男性轻度贫血（90~120g/L）、女性轻度贫血（90~110g/L）。3. 病人白细胞计数结果：13.6 x 10^9/L; 附白细胞计数正常参考范围：成人（4.0～10.0）×10^9/L；新生儿（11.0～12.0）×10^9/L。临>床意义：1）生理性白细胞计数增高见于剧烈运动、妊娠、新生儿；2）病理性白细胞增高见于急性化脓性感染、尿毒症、白血病、组织损伤、急性出>血等；3）病理性白细胞减少见于再生障碍性贫血、某些传染病、肝硬化、脾功能亢进、放疗化疗等。4. 病人白细胞分类技术结果(括号内是正常范围)：中性粒细胞50%(50%～70%)、嗜酸性粒细胞3.8%(1%～5%)、嗜碱性粒细胞0.2%(0～1%)、淋巴细胞45% (20%～40%)、单核细胞（M）请描述图片。', model='/root/jane/Qwen2-VL-7B-Instruct/', base_url=None, profile=False, host='127.0.0.1', port=8000, endpoint='/v1/chat/completions', served_model_name=None, ignore_eos=True)
+image size:  (1080, 1440)
+Starting initial single prompt test run...
+============ Serving Benchmark Result ============
+Successful requests:                     14        
+Benchmark duration (s):                  61.64     
+Total input tokens:                      13706     
+Total image and input tokens:            41706     
+Total generated tokens:                  7168      
+Request throughput (req/s):              0.23      
+Output token throughput (tok/s):         116.29    
+Total Token throughput (tok/s):          338.65    
+---------------Time to First Token----------------
+Mean TTFT (ms):                          23537.55  
+Median TTFT (ms):                        4597.02   
+P99 TTFT (ms):                           52073.76  
+-----Time per Output Token (excl. 1st token)------
+Mean TPOT (ms):                          62.62     
+Median TPOT (ms):                        92.38     
+P99 TPOT (ms):                           102.84    
+---------------Inter-token Latency----------------
+Mean ITL (ms):                           62.50     
+Median ITL (ms):                         18.76     
+P99 ITL (ms):                            447.78    
+==================================================
+Namespace(seed=0, batch_size=14, output_len=1024, image_path='../../accuracy/zto/40_20240903093021_78830772282673.jpg', prompt='患者男，年龄29岁，血型O，因思维迟钝，易激怒，因发热伴牙龈出血14天，乏力、头晕5天就诊我院急诊科。快速完善检查，血常规显示患者三系血>细胞重度减低，凝血功能检查提示APTT明显延长，纤维蛋白原降低，血液科会诊后发现患者高热、牙龈持续出血，胸骨压痛阳性.于3903年3月7日入院治疗，出现头痛、头晕、伴发热（最高体温42℃）症状，曾到其他医院就医。8日症状有所好转，9日仍有头痛、呕吐，四肢乏力伴发热。10日凌晨到本院就诊。患者5d前出现突发性思维迟钝，脾气暴躁，略有不顺心就出现攻击行为，在院外未行任何诊治。既往身体健康，平素性格内向。体格检查无>异常。血常规白细胞中单核细胞百分比升高。D-二聚体定量1412μg/L，骨髓穿刺示增生极度活跃，异常早幼粒细胞占94%.外周血涂片见大量早幼粒细>胞，并可在胞浆见到柴捆样细胞.以下是血常规详细信息：1.病人红细胞计数结果：3.2 x10^12/L. 附正常参考范围：新生儿:（6.0～7.0）×10^12/L>；婴儿：（5.2～7.0）×10^12/L; 儿童：（4.2～5.2）×10^12/L; 成人男：（4.0～5.5）×10^12/L; 成人女：（3.5～5.0）×10^12/L. 临床意义：生>理性红细胞和血红蛋白增多的原因：精神因素（冲动、兴奋、恐惧、冷水浴刺激等导致肾上腺素分泌增多的因素）、红细胞代偿性增生（长期低气压>、缺氧刺激，多次献血）；生理性红细胞和血红蛋白减少的原因：造血原料相对不足，多见于妊娠、6个月～2岁婴幼儿、某些老年性造血功能减退；>病理性增多：多见于频繁呕吐、出汗过多、大面积烧伤、血液浓缩，慢性肺心病、肺气肿、高原病、肿瘤以及真性红细胞增多症等；病理性减少：多>见于白血病等血液系统疾病；急性大出血、严重的组织损伤及血细胞的破坏等；合成障碍，见于缺铁、维生素B12缺乏等。2. 病人血红蛋白测量结果>：108g/L. 附血红蛋白正常参考范围：男性120～160g/L；女性110～150g/L；新生儿170～200g/L；临床意义：临床意义与红细胞计数相仿，但能更好地反映贫血程度，极重度贫血（Hb<30g/L）、重度贫血（31～60g/L）、中度贫血（61～90g/L）、男性轻度贫血（90~120g/L）、女性轻度贫血（90~110g/L）。3. 病人白细胞计数结果：13.6 x 10^9/L; 附白细胞计数正常参考范围：成人（4.0～10.0）×10^9/L；新生儿（11.0～12.0）×10^9/L。临>床意义：1）生理性白细胞计数增高见于剧烈运动、妊娠、新生儿；2）病理性白细胞增高见于急性化脓性感染、尿毒症、白血病、组织损伤、急性出>血等；3）病理性白细胞减少见于再生障碍性贫血、某些传染病、肝硬化、脾功能亢进、放疗化疗等。4. 病人白细胞分类技术结果(括号内是正常范围)：中性粒细胞50%(50%～70%)、嗜酸性粒细胞3.8%(1%～5%)、嗜碱性粒细胞0.2%(0～1%)、淋巴细胞45% (20%～40%)、单核细胞（M）请描述图片。', model='/root/jane/Qwen2-VL-7B-Instruct/', base_url=None, profile=False, host='127.0.0.1', port=8000, endpoint='/v1/chat/completions', served_model_name=None, ignore_eos=True)
+image size:  (1080, 1440)
+Starting initial single prompt test run...
+============ Serving Benchmark Result ============
+Successful requests:                     14        
+Benchmark duration (s):                  216.08    
+Total input tokens:                      13706     
+Total image and input tokens:            41706     
+Total generated tokens:                  14336     
+Request throughput (req/s):              0.06      
+Output token throughput (tok/s):         66.35     
+Total Token throughput (tok/s):          129.78    
+---------------Time to First Token----------------
+Mean TTFT (ms):                          51656.75  
+Median TTFT (ms):                        4591.79   
+P99 TTFT (ms):                           117689.15 
+-----Time per Output Token (excl. 1st token)------
+Mean TPOT (ms):                          110.31    
+Median TPOT (ms):                        109.68    
+P99 TPOT (ms):                           188.48    
+---------------Inter-token Latency----------------
+Mean ITL (ms):                           110.20    
+Median ITL (ms):                         18.80     
+P99 ITL (ms):                            448.36    
+==================================================
+Namespace(seed=0, batch_size=16, output_len=512, image_path='../../accuracy/zto/40_20240903093021_78830772282673.jpg', prompt='患者男，年龄29岁，血型O，因思维迟钝，易激怒，因发热伴牙龈出血14天，乏力、头晕5天就诊我院急诊科。快速完善检查，血常规显示患者三系血>细胞重度减低，凝血功能检查提示APTT明显延长，纤维蛋白原降低，血液科会诊后发现患者高热、牙龈持续出血，胸骨压痛阳性.于3903年3月7日入院治疗，出现头痛、头晕、伴发热（最高体温42℃）症状，曾到其他医院就医。8日症状有所好转，9日仍有头痛、呕吐，四肢乏力伴发热。10日凌晨到本院就诊。患者5d前出现突发性思维迟钝，脾气暴躁，略有不顺心就出现攻击行为，在院外未行任何诊治。既往身体健康，平素性格内向。体格检查无>异常。血常规白细胞中单核细胞百分比升高。D-二聚体定量1412μg/L，骨髓穿刺示增生极度活跃，异常早幼粒细胞占94%.外周血涂片见大量早幼粒细>胞，并可在胞浆见到柴捆样细胞.以下是血常规详细信息：1.病人红细胞计数结果：3.2 x10^12/L. 附正常参考范围：新生儿:（6.0～7.0）×10^12/L>；婴儿：（5.2～7.0）×10^12/L; 儿童：（4.2～5.2）×10^12/L; 成人男：（4.0～5.5）×10^12/L; 成人女：（3.5～5.0）×10^12/L. 临床意义：生>理性红细胞和血红蛋白增多的原因：精神因素（冲动、兴奋、恐惧、冷水浴刺激等导致肾上腺素分泌增多的因素）、红细胞代偿性增生（长期低气压>、缺氧刺激，多次献血）；生理性红细胞和血红蛋白减少的原因：造血原料相对不足，多见于妊娠、6个月～2岁婴幼儿、某些老年性造血功能减退；>病理性增多：多见于频繁呕吐、出汗过多、大面积烧伤、血液浓缩，慢性肺心病、肺气肿、高原病、肿瘤以及真性红细胞增多症等；病理性减少：多>见于白血病等血液系统疾病；急性大出血、严重的组织损伤及血细胞的破坏等；合成障碍，见于缺铁、维生素B12缺乏等。2. 病人血红蛋白测量结果>：108g/L. 附血红蛋白正常参考范围：男性120～160g/L；女性110～150g/L；新生儿170～200g/L；临床意义：临床意义与红细胞计数相仿，但能更好地反映贫血程度，极重度贫血（Hb<30g/L）、重度贫血（31～60g/L）、中度贫血（61～90g/L）、男性轻度贫血（90~120g/L）、女性轻度贫血（90~110g/L）。3. 病人白细胞计数结果：13.6 x 10^9/L; 附白细胞计数正常参考范围：成人（4.0～10.0）×10^9/L；新生儿（11.0～12.0）×10^9/L。临>床意义：1）生理性白细胞计数增高见于剧烈运动、妊娠、新生儿；2）病理性白细胞增高见于急性化脓性感染、尿毒症、白血病、组织损伤、急性出>血等；3）病理性白细胞减少见于再生障碍性贫血、某些传染病、肝硬化、脾功能亢进、放疗化疗等。4. 病人白细胞分类技术结果(括号内是正常范围)：中性粒细胞50%(50%～70%)、嗜酸性粒细胞3.8%(1%～5%)、嗜碱性粒细胞0.2%(0～1%)、淋巴细胞45% (20%～40%)、单核细胞（M）请描述图片。', model='/root/jane/Qwen2-VL-7B-Instruct/', base_url=None, profile=False, host='127.0.0.1', port=8000, endpoint='/v1/chat/completions', served_model_name=None, ignore_eos=True)
+image size:  (1080, 1440)
+Starting initial single prompt test run...
+============ Serving Benchmark Result ============
+Successful requests:                     16        
+Benchmark duration (s):                  114.06    
+Total input tokens:                      15664     
+Total image and input tokens:            47664     
+Total generated tokens:                  8192      
+Request throughput (req/s):              0.14      
+Output token throughput (tok/s):         71.82     
+Total Token throughput (tok/s):          209.16    
+---------------Time to First Token----------------
+Mean TTFT (ms):                          30550.70  
+Median TTFT (ms):                        27349.24  
+P99 TTFT (ms):                           97570.10  
+-----Time per Output Token (excl. 1st token)------
+Mean TPOT (ms):                          98.92     
+Median TPOT (ms):                        98.33     
+P99 TPOT (ms):                           162.06    
+---------------Inter-token Latency----------------
+Mean ITL (ms):                           98.72     
+Median ITL (ms):                         18.81     
+P99 ITL (ms):                            448.19    
+==================================================
+Namespace(seed=0, batch_size=16, output_len=1024, image_path='../../accuracy/zto/40_20240903093021_78830772282673.jpg', prompt='患者男，年龄29岁，血型O，因思维迟钝，易激怒，因发热伴牙龈出血14天，乏力、头晕5天就诊我院急诊科。快速完善检查，血常规显示患者三系血>细胞重度减低，凝血功能检查提示APTT明显延长，纤维蛋白原降低，血液科会诊后发现患者高热、牙龈持续出血，胸骨压痛阳性.于3903年3月7日入院治疗，出现头痛、头晕、伴发热（最高体温42℃）症状，曾到其他医院就医。8日症状有所好转，9日仍有头痛、呕吐，四肢乏力伴发热。10日凌晨到本院就诊。患者5d前出现突发性思维迟钝，脾气暴躁，略有不顺心就出现攻击行为，在院外未行任何诊治。既往身体健康，平素性格内向。体格检查无>异常。血常规白细胞中单核细胞百分比升高。D-二聚体定量1412μg/L，骨髓穿刺示增生极度活跃，异常早幼粒细胞占94%.外周血涂片见大量早幼粒细>胞，并可在胞浆见到柴捆样细胞.以下是血常规详细信息：1.病人红细胞计数结果：3.2 x10^12/L. 附正常参考范围：新生儿:（6.0～7.0）×10^12/L>；婴儿：（5.2～7.0）×10^12/L; 儿童：（4.2～5.2）×10^12/L; 成人男：（4.0～5.5）×10^12/L; 成人女：（3.5～5.0）×10^12/L. 临床意义：生>理性红细胞和血红蛋白增多的原因：精神因素（冲动、兴奋、恐惧、冷水浴刺激等导致肾上腺素分泌增多的因素）、红细胞代偿性增生（长期低气压>、缺氧刺激，多次献血）；生理性红细胞和血红蛋白减少的原因：造血原料相对不足，多见于妊娠、6个月～2岁婴幼儿、某些老年性造血功能减退；>病理性增多：多见于频繁呕吐、出汗过多、大面积烧伤、血液浓缩，慢性肺心病、肺气肿、高原病、肿瘤以及真性红细胞增多症等；病理性减少：多>见于白血病等血液系统疾病；急性大出血、严重的组织损伤及血细胞的破坏等；合成障碍，见于缺铁、维生素B12缺乏等。2. 病人血红蛋白测量结果>：108g/L. 附血红蛋白正常参考范围：男性120～160g/L；女性110～150g/L；新生儿170～200g/L；临床意义：临床意义与红细胞计数相仿，但能更好地反映贫血程度，极重度贫血（Hb<30g/L）、重度贫血（31～60g/L）、中度贫血（61～90g/L）、男性轻度贫血（90~120g/L）、女性轻度贫血（90~110g/L）。3. 病人白细胞计数结果：13.6 x 10^9/L; 附白细胞计数正常参考范围：成人（4.0～10.0）×10^9/L；新生儿（11.0～12.0）×10^9/L。临>床意义：1）生理性白细胞计数增高见于剧烈运动、妊娠、新生儿；2）病理性白细胞增高见于急性化脓性感染、尿毒症、白血病、组织损伤、急性出>血等；3）病理性白细胞减少见于再生障碍性贫血、某些传染病、肝硬化、脾功能亢进、放疗化疗等。4. 病人白细胞分类技术结果(括号内是正常范围)：中性粒细胞50%(50%～70%)、嗜酸性粒细胞3.8%(1%～5%)、嗜碱性粒细胞0.2%(0～1%)、淋巴细胞45% (20%～40%)、单核细胞（M）请描述图片。', model='/root/jane/Qwen2-VL-7B-Instruct/', base_url=None, profile=False, host='127.0.0.1', port=8000, endpoint='/v1/chat/completions', served_model_name=None, ignore_eos=True)
+image size:  (1080, 1440)
+Starting initial single prompt test run...
+============ Serving Benchmark Result ============
+Successful requests:                     16        
+Benchmark duration (s):                  258.63    
+Total input tokens:                      15664     
+Total image and input tokens:            47664     
+Total generated tokens:                  16384     
+Request throughput (req/s):              0.06      
+Output token throughput (tok/s):         63.35     
+Total Token throughput (tok/s):          123.91    
+---------------Time to First Token----------------
+Mean TTFT (ms):                          75301.08  
+Median TTFT (ms):                        60080.63  
+P99 TTFT (ms):                           240572.60 
+-----Time per Output Token (excl. 1st token)------
+Mean TPOT (ms):                          110.72    
+Median TPOT (ms):                        115.15    
+P99 TPOT (ms):                           187.96    
+---------------Inter-token Latency----------------
+Mean ITL (ms):                           110.62    
+Median ITL (ms):                         18.78     
+P99 ITL (ms):                            448.90    
+==================================================
+Namespace(seed=0, batch_size=18, output_len=512, image_path='../../accuracy/zto/40_20240903093021_78830772282673.jpg', prompt='患者男，年龄29岁，血型O，因思维迟钝，易激怒，因发热伴牙龈出血14天，乏力、头晕5天就诊我院急诊科。快速完善检查，血常规显示患者三系血>细胞重度减低，凝血功能检查提示APTT明显延长，纤维蛋白原降低，血液科会诊后发现患者高热、牙龈持续出血，胸骨压痛阳性.于3903年3月7日入院治疗，出现头痛、头晕、伴发热（最高体温42℃）症状，曾到其他医院就医。8日症状有所好转，9日仍有头痛、呕吐，四肢乏力伴发热。10日凌晨到本院就诊。患者5d前出现突发性思维迟钝，脾气暴躁，略有不顺心就出现攻击行为，在院外未行任何诊治。既往身体健康，平素性格内向。体格检查无>异常。血常规白细胞中单核细胞百分比升高。D-二聚体定量1412μg/L，骨髓穿刺示增生极度活跃，异常早幼粒细胞占94%.外周血涂片见大量早幼粒细>胞，并可在胞浆见到柴捆样细胞.以下是血常规详细信息：1.病人红细胞计数结果：3.2 x10^12/L. 附正常参考范围：新生儿:（6.0～7.0）×10^12/L>；婴儿：（5.2～7.0）×10^12/L; 儿童：（4.2～5.2）×10^12/L; 成人男：（4.0～5.5）×10^12/L; 成人女：（3.5～5.0）×10^12/L. 临床意义：生>理性红细胞和血红蛋白增多的原因：精神因素（冲动、兴奋、恐惧、冷水浴刺激等导致肾上腺素分泌增多的因素）、红细胞代偿性增生（长期低气压>、缺氧刺激，多次献血）；生理性红细胞和血红蛋白减少的原因：造血原料相对不足，多见于妊娠、6个月～2岁婴幼儿、某些老年性造血功能减退；>病理性增多：多见于频繁呕吐、出汗过多、大面积烧伤、血液浓缩，慢性肺心病、肺气肿、高原病、肿瘤以及真性红细胞增多症等；病理性减少：多>见于白血病等血液系统疾病；急性大出血、严重的组织损伤及血细胞的破坏等；合成障碍，见于缺铁、维生素B12缺乏等。2. 病人血红蛋白测量结果>：108g/L. 附血红蛋白正常参考范围：男性120～160g/L；女性110～150g/L；新生儿170～200g/L；临床意义：临床意义与红细胞计数相仿，但能更好地反映贫血程度，极重度贫血（Hb<30g/L）、重度贫血（31～60g/L）、中度贫血（61～90g/L）、男性轻度贫血（90~120g/L）、女性轻度贫血（90~110g/L）。3. 病人白细胞计数结果：13.6 x 10^9/L; 附白细胞计数正常参考范围：成人（4.0～10.0）×10^9/L；新生儿（11.0～12.0）×10^9/L。临>床意义：1）生理性白细胞计数增高见于剧烈运动、妊娠、新生儿；2）病理性白细胞增高见于急性化脓性感染、尿毒症、白血病、组织损伤、急性出>血等；3）病理性白细胞减少见于再生障碍性贫血、某些传染病、肝硬化、脾功能亢进、放疗化疗等。4. 病人白细胞分类技术结果(括号内是正常范围)：中性粒细胞50%(50%～70%)、嗜酸性粒细胞3.8%(1%～5%)、嗜碱性粒细胞0.2%(0～1%)、淋巴细胞45% (20%～40%)、单核细胞（M）请描述图片。', model='/root/jane/Qwen2-VL-7B-Instruct/', base_url=None, profile=False, host='127.0.0.1', port=8000, endpoint='/v1/chat/completions', served_model_name=None, ignore_eos=True)
+image size:  (1080, 1440)
+Starting initial single prompt test run...
+============ Serving Benchmark Result ============
+Successful requests:                     18        
+Benchmark duration (s):                  115.63    
+Total input tokens:                      17622     
+Total image and input tokens:            53622     
+Total generated tokens:                  9216      
+Request throughput (req/s):              0.16      
+Output token throughput (tok/s):         79.70     
+Total Token throughput (tok/s):          232.11    
+---------------Time to First Token----------------
+Mean TTFT (ms):                          39020.11  
+Median TTFT (ms):                        50111.93  
+P99 TTFT (ms):                           106489.99 
+-----Time per Output Token (excl. 1st token)------
+Mean TPOT (ms):                          90.53     
+Median TPOT (ms):                        92.96     
+P99 TPOT (ms):                           161.13    
+---------------Inter-token Latency----------------
+Mean ITL (ms):                           90.35     
+Median ITL (ms):                         18.80     
+P99 ITL (ms):                            448.19    
+==================================================
+Namespace(seed=0, batch_size=18, output_len=1024, image_path='../../accuracy/zto/40_20240903093021_78830772282673.jpg', prompt='患者男，年龄29岁，血型O，因思维迟钝，易激怒，因发热伴牙龈出血14天，乏力、头晕5天就诊我院急诊科。快速完善检查，血常规显示患者三系血>细胞重度减低，凝血功能检查提示APTT明显延长，纤维蛋白原降低，血液科会诊后发现患者高热、牙龈持续出血，胸骨压痛阳性.于3903年3月7日入院治疗，出现头痛、头晕、伴发热（最高体温42℃）症状，曾到其他医院就医。8日症状有所好转，9日仍有头痛、呕吐，四肢乏力伴发热。10日凌晨到本院就诊。患者5d前出现突发性思维迟钝，脾气暴躁，略有不顺心就出现攻击行为，在院外未行任何诊治。既往身体健康，平素性格内向。体格检查无>异常。血常规白细胞中单核细胞百分比升高。D-二聚体定量1412μg/L，骨髓穿刺示增生极度活跃，异常早幼粒细胞占94%.外周血涂片见大量早幼粒细>胞，并可在胞浆见到柴捆样细胞.以下是血常规详细信息：1.病人红细胞计数结果：3.2 x10^12/L. 附正常参考范围：新生儿:（6.0～7.0）×10^12/L>；婴儿：（5.2～7.0）×10^12/L; 儿童：（4.2～5.2）×10^12/L; 成人男：（4.0～5.5）×10^12/L; 成人女：（3.5～5.0）×10^12/L. 临床意义：生>理性红细胞和血红蛋白增多的原因：精神因素（冲动、兴奋、恐惧、冷水浴刺激等导致肾上腺素分泌增多的因素）、红细胞代偿性增生（长期低气压>、缺氧刺激，多次献血）；生理性红细胞和血红蛋白减少的原因：造血原料相对不足，多见于妊娠、6个月～2岁婴幼儿、某些老年性造血功能减退；>病理性增多：多见于频繁呕吐、出汗过多、大面积烧伤、血液浓缩，慢性肺心病、肺气肿、高原病、肿瘤以及真性红细胞增多症等；病理性减少：多>见于白血病等血液系统疾病；急性大出血、严重的组织损伤及血细胞的破坏等；合成障碍，见于缺铁、维生素B12缺乏等。2. 病人血红蛋白测量结果>：108g/L. 附血红蛋白正常参考范围：男性120～160g/L；女性110～150g/L；新生儿170～200g/L；临床意义：临床意义与红细胞计数相仿，但能更好地反映贫血程度，极重度贫血（Hb<30g/L）、重度贫血（31～60g/L）、中度贫血（61～90g/L）、男性轻度贫血（90~120g/L）、女性轻度贫血（90~110g/L）。3. 病人白细胞计数结果：13.6 x 10^9/L; 附白细胞计数正常参考范围：成人（4.0～10.0）×10^9/L；新生儿（11.0～12.0）×10^9/L。临>床意义：1）生理性白细胞计数增高见于剧烈运动、妊娠、新生儿；2）病理性白细胞增高见于急性化脓性感染、尿毒症、白血病、组织损伤、急性出>血等；3）病理性白细胞减少见于再生障碍性贫血、某些传染病、肝硬化、脾功能亢进、放疗化疗等。4. 病人白细胞分类技术结果(括号内是正常范围)：中性粒细胞50%(50%～70%)、嗜酸性粒细胞3.8%(1%～5%)、嗜碱性粒细胞0.2%(0～1%)、淋巴细胞45% (20%～40%)、单核细胞（M）请描述图片。', model='/root/jane/Qwen2-VL-7B-Instruct/', base_url=None, profile=False, host='127.0.0.1', port=8000, endpoint='/v1/chat/completions', served_model_name=None, ignore_eos=True)
+image size:  (1080, 1440)
+Starting initial single prompt test run...
+============ Serving Benchmark Result ============
+Successful requests:                     18        
+Benchmark duration (s):                  260.12    
+Total input tokens:                      17622     
+Total image and input tokens:            53622     
+Total generated tokens:                  18432     
+Request throughput (req/s):              0.07      
+Output token throughput (tok/s):         70.86     
+Total Token throughput (tok/s):          138.60    
+---------------Time to First Token----------------
+Mean TTFT (ms):                          93771.91  
+Median TTFT (ms):                        115626.57 
+P99 TTFT (ms):                           241544.15 
+-----Time per Output Token (excl. 1st token)------
+Mean TPOT (ms):                          100.72    
+Median TPOT (ms):                        109.89    
+P99 TPOT (ms):                           186.87    
+---------------Inter-token Latency----------------
+Mean ITL (ms):                           100.62    
+Median ITL (ms):                         18.76     
+P99 ITL (ms):                            448.51    
+==================================================
+Namespace(seed=0, batch_size=20, output_len=512, image_path='../../accuracy/zto/40_20240903093021_78830772282673.jpg', prompt='患者男，年龄29岁，血型O，因思维迟钝，易激怒，因发热伴牙龈出血14天，乏力、头晕5天就诊我院急诊科。快速完善检查，血常规显示患者三系血>细胞重度减低，凝血功能检查提示APTT明显延长，纤维蛋白原降低，血液科会诊后发现患者高热、牙龈持续出血，胸骨压痛阳性.于3903年3月7日入院治疗，出现头痛、头晕、伴发热（最高体温42℃）症状，曾到其他医院就医。8日症状有所好转，9日仍有头痛、呕吐，四肢乏力伴发热。10日凌晨到本院就诊。患者5d前出现突发性思维迟钝，脾气暴躁，略有不顺心就出现攻击行为，在院外未行任何诊治。既往身体健康，平素性格内向。体格检查无>异常。血常规白细胞中单核细胞百分比升高。D-二聚体定量1412μg/L，骨髓穿刺示增生极度活跃，异常早幼粒细胞占94%.外周血涂片见大量早幼粒细>胞，并可在胞浆见到柴捆样细胞.以下是血常规详细信息：1.病人红细胞计数结果：3.2 x10^12/L. 附正常参考范围：新生儿:（6.0～7.0）×10^12/L>；婴儿：（5.2～7.0）×10^12/L; 儿童：（4.2～5.2）×10^12/L; 成人男：（4.0～5.5）×10^12/L; 成人女：（3.5～5.0）×10^12/L. 临床意义：生>理性红细胞和血红蛋白增多的原因：精神因素（冲动、兴奋、恐惧、冷水浴刺激等导致肾上腺素分泌增多的因素）、红细胞代偿性增生（长期低气压>、缺氧刺激，多次献血）；生理性红细胞和血红蛋白减少的原因：造血原料相对不足，多见于妊娠、6个月～2岁婴幼儿、某些老年性造血功能减退；>病理性增多：多见于频繁呕吐、出汗过多、大面积烧伤、血液浓缩，慢性肺心病、肺气肿、高原病、肿瘤以及真性红细胞增多症等；病理性减少：多>见于白血病等血液系统疾病；急性大出血、严重的组织损伤及血细胞的破坏等；合成障碍，见于缺铁、维生素B12缺乏等。2. 病人血红蛋白测量结果>：108g/L. 附血红蛋白正常参考范围：男性120～160g/L；女性110～150g/L；新生儿170～200g/L；临床意义：临床意义与红细胞计数相仿，但能更好地反映贫血程度，极重度贫血（Hb<30g/L）、重度贫血（31～60g/L）、中度贫血（61～90g/L）、男性轻度贫血（90~120g/L）、女性轻度贫血（90~110g/L）。3. 病人白细胞计数结果：13.6 x 10^9/L; 附白细胞计数正常参考范围：成人（4.0～10.0）×10^9/L；新生儿（11.0～12.0）×10^9/L。临>床意义：1）生理性白细胞计数增高见于剧烈运动、妊娠、新生儿；2）病理性白细胞增高见于急性化脓性感染、尿毒症、白血病、组织损伤、急性出>血等；3）病理性白细胞减少见于再生障碍性贫血、某些传染病、肝硬化、脾功能亢进、放疗化疗等。4. 病人白细胞分类技术结果(括号内是正常范围)：中性粒细胞50%(50%～70%)、嗜酸性粒细胞3.8%(1%～5%)、嗜碱性粒细胞0.2%(0～1%)、淋巴细胞45% (20%～40%)、单核细胞（M）请描述图片。', model='/root/jane/Qwen2-VL-7B-Instruct/', base_url=None, profile=False, host='127.0.0.1', port=8000, endpoint='/v1/chat/completions', served_model_name=None, ignore_eos=True)
+image size:  (1080, 1440)
+Starting initial single prompt test run...
+============ Serving Benchmark Result ============
+Successful requests:                     20        
+Benchmark duration (s):                  117.07    
+Total input tokens:                      19580     
+Total image and input tokens:            59580     
+Total generated tokens:                  10240     
+Request throughput (req/s):              0.17      
+Output token throughput (tok/s):         87.47     
+Total Token throughput (tok/s):          254.73    
+---------------Time to First Token----------------
+Mean TTFT (ms):                          45924.80  
+Median TTFT (ms):                        50614.23  
+P99 TTFT (ms):                           107661.88 
+-----Time per Output Token (excl. 1st token)------
+Mean TPOT (ms):                          83.96     
+Median TPOT (ms):                        92.95     
+P99 TPOT (ms):                           160.43    
+---------------Inter-token Latency----------------
+Mean ITL (ms):                           83.79     
+Median ITL (ms):                         18.78     
+P99 ITL (ms):                            448.38    
+==================================================
+Namespace(seed=0, batch_size=20, output_len=1024, image_path='../../accuracy/zto/40_20240903093021_78830772282673.jpg', prompt='患者男，年龄29岁，血型O，因思维迟钝，易激怒，因发热伴牙龈出血14天，乏力、头晕5天就诊我院急诊科。快速完善检查，血常规显示患者三系血>细胞重度减低，凝血功能检查提示APTT明显延长，纤维蛋白原降低，血液科会诊后发现患者高热、牙龈持续出血，胸骨压痛阳性.于3903年3月7日入院治疗，出现头痛、头晕、伴发热（最高体温42℃）症状，曾到其他医院就医。8日症状有所好转，9日仍有头痛、呕吐，四肢乏力伴发热。10日凌晨到本院就诊。患者5d前出现突发性思维迟钝，脾气暴躁，略有不顺心就出现攻击行为，在院外未行任何诊治。既往身体健康，平素性格内向。体格检查无>异常。血常规白细胞中单核细胞百分比升高。D-二聚体定量1412μg/L，骨髓穿刺示增生极度活跃，异常早幼粒细胞占94%.外周血涂片见大量早幼粒细>胞，并可在胞浆见到柴捆样细胞.以下是血常规详细信息：1.病人红细胞计数结果：3.2 x10^12/L. 附正常参考范围：新生儿:（6.0～7.0）×10^12/L>；婴儿：（5.2～7.0）×10^12/L; 儿童：（4.2～5.2）×10^12/L; 成人男：（4.0～5.5）×10^12/L; 成人女：（3.5～5.0）×10^12/L. 临床意义：生>理性红细胞和血红蛋白增多的原因：精神因素（冲动、兴奋、恐惧、冷水浴刺激等导致肾上腺素分泌增多的因素）、红细胞代偿性增生（长期低气压>、缺氧刺激，多次献血）；生理性红细胞和血红蛋白减少的原因：造血原料相对不足，多见于妊娠、6个月～2岁婴幼儿、某些老年性造血功能减退；>病理性增多：多见于频繁呕吐、出汗过多、大面积烧伤、血液浓缩，慢性肺心病、肺气肿、高原病、肿瘤以及真性红细胞增多症等；病理性减少：多>见于白血病等血液系统疾病；急性大出血、严重的组织损伤及血细胞的破坏等；合成障碍，见于缺铁、维生素B12缺乏等。2. 病人血红蛋白测量结果>：108g/L. 附血红蛋白正常参考范围：男性120～160g/L；女性110～150g/L；新生儿170～200g/L；临床意义：临床意义与红细胞计数相仿，但能更好地反映贫血程度，极重度贫血（Hb<30g/L）、重度贫血（31～60g/L）、中度贫血（61～90g/L）、男性轻度贫血（90~120g/L）、女性轻度贫血（90~110g/L）。3. 病人白细胞计数结果：13.6 x 10^9/L; 附白细胞计数正常参考范围：成人（4.0～10.0）×10^9/L；新生儿（11.0～12.0）×10^9/L。临>床意义：1）生理性白细胞计数增高见于剧烈运动、妊娠、新生儿；2）病理性白细胞增高见于急性化脓性感染、尿毒症、白血病、组织损伤、急性出>血等；3）病理性白细胞减少见于再生障碍性贫血、某些传染病、肝硬化、脾功能亢进、放疗化疗等。4. 病人白细胞分类技术结果(括号内是正常范围)：中性粒细胞50%(50%～70%)、嗜酸性粒细胞3.8%(1%～5%)、嗜碱性粒细胞0.2%(0～1%)、淋巴细胞45% (20%～40%)、单核细胞（M）请描述图片。', model='/root/jane/Qwen2-VL-7B-Instruct/', base_url=None, profile=False, host='127.0.0.1', port=8000, endpoint='/v1/chat/completions', served_model_name=None, ignore_eos=True)
+image size:  (1080, 1440)
+Starting initial single prompt test run...
+============ Serving Benchmark Result ============
+Successful requests:                     20        
+Benchmark duration (s):                  261.76    
+Total input tokens:                      19580     
+Total image and input tokens:            59580     
+Total generated tokens:                  20480     
+Request throughput (req/s):              0.08      
+Output token throughput (tok/s):         78.24     
+Total Token throughput (tok/s):          153.04    
+---------------Time to First Token----------------
+Mean TTFT (ms):                          108679.52 
+Median TTFT (ms):                        116203.51 
+P99 TTFT (ms):                           242643.99 
+-----Time per Output Token (excl. 1st token)------
+Mean TPOT (ms):                          92.89     
+Median TPOT (ms):                        109.87    
+P99 TPOT (ms):                           185.94    
+---------------Inter-token Latency----------------
+Mean ITL (ms):                           92.80     
+Median ITL (ms):                         18.77     
+P99 ITL (ms):                            448.31    
+==================================================
+Namespace(seed=0, batch_size=22, output_len=512, image_path='../../accuracy/zto/40_20240903093021_78830772282673.jpg', prompt='患者男，年龄29岁，血型O，因思维迟钝，易激怒，因发热伴牙龈出血14天，乏力、头晕5天就诊我院急诊科。快速完善检查，血常规显示患者三系血>细胞重度减低，凝血功能检查提示APTT明显延长，纤维蛋白原降低，血液科会诊后发现患者高热、牙龈持续出血，胸骨压痛阳性.于3903年3月7日入院治疗，出现头痛、头晕、伴发热（最高体温42℃）症状，曾到其他医院就医。8日症状有所好转，9日仍有头痛、呕吐，四肢乏力伴发热。10日凌晨到本院就诊。患者5d前出现突发性思维迟钝，脾气暴躁，略有不顺心就出现攻击行为，在院外未行任何诊治。既往身体健康，平素性格内向。体格检查无>异常。血常规白细胞中单核细胞百分比升高。D-二聚体定量1412μg/L，骨髓穿刺示增生极度活跃，异常早幼粒细胞占94%.外周血涂片见大量早幼粒细>胞，并可在胞浆见到柴捆样细胞.以下是血常规详细信息：1.病人红细胞计数结果：3.2 x10^12/L. 附正常参考范围：新生儿:（6.0～7.0）×10^12/L>；婴儿：（5.2～7.0）×10^12/L; 儿童：（4.2～5.2）×10^12/L; 成人男：（4.0～5.5）×10^12/L; 成人女：（3.5～5.0）×10^12/L. 临床意义：生>理性红细胞和血红蛋白增多的原因：精神因素（冲动、兴奋、恐惧、冷水浴刺激等导致肾上腺素分泌增多的因素）、红细胞代偿性增生（长期低气压>、缺氧刺激，多次献血）；生理性红细胞和血红蛋白减少的原因：造血原料相对不足，多见于妊娠、6个月～2岁婴幼儿、某些老年性造血功能减退；>病理性增多：多见于频繁呕吐、出汗过多、大面积烧伤、血液浓缩，慢性肺心病、肺气肿、高原病、肿瘤以及真性红细胞增多症等；病理性减少：多>见于白血病等血液系统疾病；急性大出血、严重的组织损伤及血细胞的破坏等；合成障碍，见于缺铁、维生素B12缺乏等。2. 病人血红蛋白测量结果>：108g/L. 附血红蛋白正常参考范围：男性120～160g/L；女性110～150g/L；新生儿170～200g/L；临床意义：临床意义与红细胞计数相仿，但能更好地反映贫血程度，极重度贫血（Hb<30g/L）、重度贫血（31～60g/L）、中度贫血（61～90g/L）、男性轻度贫血（90~120g/L）、女性轻度贫血（90~110g/L）。3. 病人白细胞计数结果：13.6 x 10^9/L; 附白细胞计数正常参考范围：成人（4.0～10.0）×10^9/L；新生儿（11.0～12.0）×10^9/L。临>床意义：1）生理性白细胞计数增高见于剧烈运动、妊娠、新生儿；2）病理性白细胞增高见于急性化脓性感染、尿毒症、白血病、组织损伤、急性出>血等；3）病理性白细胞减少见于再生障碍性贫血、某些传染病、肝硬化、脾功能亢进、放疗化疗等。4. 病人白细胞分类技术结果(括号内是正常范围)：中性粒细胞50%(50%～70%)、嗜酸性粒细胞3.8%(1%～5%)、嗜碱性粒细胞0.2%(0～1%)、淋巴细胞45% (20%～40%)、单核细胞（M）请描述图片。', model='/root/jane/Qwen2-VL-7B-Instruct/', base_url=None, profile=False, host='127.0.0.1', port=8000, endpoint='/v1/chat/completions', served_model_name=None, ignore_eos=True)
+image size:  (1080, 1440)
+Starting initial single prompt test run...
+============ Serving Benchmark Result ============
+Successful requests:                     22        
+Benchmark duration (s):                  124.56    
+Total input tokens:                      21538     
+Total image and input tokens:            65538     
+Total generated tokens:                  11264     
+Request throughput (req/s):              0.18      
+Output token throughput (tok/s):         90.43     
+Total Token throughput (tok/s):          263.34    
+---------------Time to First Token----------------
+Mean TTFT (ms):                          51664.98  
+Median TTFT (ms):                        51171.48  
+P99 TTFT (ms):                           108773.64 
+-----Time per Output Token (excl. 1st token)------
+Mean TPOT (ms):                          82.77     
+Median TPOT (ms):                        92.89     
+P99 TPOT (ms):                           161.98    
+---------------Inter-token Latency----------------
+Mean ITL (ms):                           82.61     
+Median ITL (ms):                         18.81     
+P99 ITL (ms):                            448.28    
+==================================================
+Namespace(seed=0, batch_size=22, output_len=1024, image_path='../../accuracy/zto/40_20240903093021_78830772282673.jpg', prompt='患者男，年龄29岁，血型O，因思维迟钝，易激怒，因发热伴牙龈出血14天，乏力、头晕5天就诊我院急诊科。快速完善检查，血常规显示患者三系血>细胞重度减低，凝血功能检查提示APTT明显延长，纤维蛋白原降低，血液科会诊后发现患者高热、牙龈持续出血，胸骨压痛阳性.于3903年3月7日入院治疗，出现头痛、头晕、伴发热（最高体温42℃）症状，曾到其他医院就医。8日症状有所好转，9日仍有头痛、呕吐，四肢乏力伴发热。10日凌晨到本院就诊。患者5d前出现突发性思维迟钝，脾气暴躁，略有不顺心就出现攻击行为，在院外未行任何诊治。既往身体健康，平素性格内向。体格检查无>异常。血常规白细胞中单核细胞百分比升高。D-二聚体定量1412μg/L，骨髓穿刺示增生极度活跃，异常早幼粒细胞占94%.外周血涂片见大量早幼粒细>胞，并可在胞浆见到柴捆样细胞.以下是血常规详细信息：1.病人红细胞计数结果：3.2 x10^12/L. 附正常参考范围：新生儿:（6.0～7.0）×10^12/L>；婴儿：（5.2～7.0）×10^12/L; 儿童：（4.2～5.2）×10^12/L; 成人男：（4.0～5.5）×10^12/L; 成人女：（3.5～5.0）×10^12/L. 临床意义：生>理性红细胞和血红蛋白增多的原因：精神因素（冲动、兴奋、恐惧、冷水浴刺激等导致肾上腺素分泌增多的因素）、红细胞代偿性增生（长期低气压>、缺氧刺激，多次献血）；生理性红细胞和血红蛋白减少的原因：造血原料相对不足，多见于妊娠、6个月～2岁婴幼儿、某些老年性造血功能减退；>病理性增多：多见于频繁呕吐、出汗过多、大面积烧伤、血液浓缩，慢性肺心病、肺气肿、高原病、肿瘤以及真性红细胞增多症等；病理性减少：多>见于白血病等血液系统疾病；急性大出血、严重的组织损伤及血细胞的破坏等；合成障碍，见于缺铁、维生素B12缺乏等。2. 病人血红蛋白测量结果>：108g/L. 附血红蛋白正常参考范围：男性120～160g/L；女性110～150g/L；新生儿170～200g/L；临床意义：临床意义与红细胞计数相仿，但能更好地反映贫血程度，极重度贫血（Hb<30g/L）、重度贫血（31～60g/L）、中度贫血（61～90g/L）、男性轻度贫血（90~120g/L）、女性轻度贫血（90~110g/L）。3. 病人白细胞计数结果：13.6 x 10^9/L; 附白细胞计数正常参考范围：成人（4.0～10.0）×10^9/L；新生儿（11.0～12.0）×10^9/L。临>床意义：1）生理性白细胞计数增高见于剧烈运动、妊娠、新生儿；2）病理性白细胞增高见于急性化脓性感染、尿毒症、白血病、组织损伤、急性出>血等；3）病理性白细胞减少见于再生障碍性贫血、某些传染病、肝硬化、脾功能亢进、放疗化疗等。4. 病人白细胞分类技术结果(括号内是正常范围)：中性粒细胞50%(50%～70%)、嗜酸性粒细胞3.8%(1%～5%)、嗜碱性粒细胞0.2%(0～1%)、淋巴细胞45% (20%～40%)、单核细胞（M）请描述图片。', model='/root/jane/Qwen2-VL-7B-Instruct/', base_url=None, profile=False, host='127.0.0.1', port=8000, endpoint='/v1/chat/completions', served_model_name=None, ignore_eos=True)
+image size:  (1080, 1440)
+Starting initial single prompt test run...
+============ Serving Benchmark Result ============
+Successful requests:                     22        
+Benchmark duration (s):                  357.79    
+Total input tokens:                      21538     
+Total image and input tokens:            65538     
+Total generated tokens:                  22528     
+Request throughput (req/s):              0.06      
+Output token throughput (tok/s):         62.97     
+Total Token throughput (tok/s):          123.16    
+---------------Time to First Token----------------
+Mean TTFT (ms):                          125390.33 
+Median TTFT (ms):                        116849.90 
+P99 TTFT (ms):                           319823.76 
+-----Time per Output Token (excl. 1st token)------
+Mean TPOT (ms):                          112.35    
+Median TPOT (ms):                        109.84    
+P99 TPOT (ms):                           188.05    
+---------------Inter-token Latency----------------
+Mean ITL (ms):                           112.24    
+Median ITL (ms):                         18.80     
+P99 ITL (ms):                            448.99    
+==================================================
+Namespace(seed=0, batch_size=24, output_len=512, image_path='../../accuracy/zto/40_20240903093021_78830772282673.jpg', prompt='患者男，年龄29岁，血型O，因思维迟钝，易激怒，因发热伴牙龈出血14天，乏力、头晕5天就诊我院急诊科。快速完善检查，血常规显示患者三系血>细胞重度减低，凝血功能检查提示APTT明显延长，纤维蛋白原降低，血液科会诊后发现患者高热、牙龈持续出血，胸骨压痛阳性.于3903年3月7日入院治疗，出现头痛、头晕、伴发热（最高体温42℃）症状，曾到其他医院就医。8日症状有所好转，9日仍有头痛、呕吐，四肢乏力伴发热。10日凌晨到本院就诊。患者5d前出现突发性思维迟钝，脾气暴躁，略有不顺心就出现攻击行为，在院外未行任何诊治。既往身体健康，平素性格内向。体格检查无>异常。血常规白细胞中单核细胞百分比升高。D-二聚体定量1412μg/L，骨髓穿刺示增生极度活跃，异常早幼粒细胞占94%.外周血涂片见大量早幼粒细>胞，并可在胞浆见到柴捆样细胞.以下是血常规详细信息：1.病人红细胞计数结果：3.2 x10^12/L. 附正常参考范围：新生儿:（6.0～7.0）×10^12/L>；婴儿：（5.2～7.0）×10^12/L; 儿童：（4.2～5.2）×10^12/L; 成人男：（4.0～5.5）×10^12/L; 成人女：（3.5～5.0）×10^12/L. 临床意义：生>理性红细胞和血红蛋白增多的原因：精神因素（冲动、兴奋、恐惧、冷水浴刺激等导致肾上腺素分泌增多的因素）、红细胞代偿性增生（长期低气压>、缺氧刺激，多次献血）；生理性红细胞和血红蛋白减少的原因：造血原料相对不足，多见于妊娠、6个月～2岁婴幼儿、某些老年性造血功能减退；>病理性增多：多见于频繁呕吐、出汗过多、大面积烧伤、血液浓缩，慢性肺心病、肺气肿、高原病、肿瘤以及真性红细胞增多症等；病理性减少：多>见于白血病等血液系统疾病；急性大出血、严重的组织损伤及血细胞的破坏等；合成障碍，见于缺铁、维生素B12缺乏等。2. 病人血红蛋白测量结果>：108g/L. 附血红蛋白正常参考范围：男性120～160g/L；女性110～150g/L；新生儿170～200g/L；临床意义：临床意义与红细胞计数相仿，但能更好地反映贫血程度，极重度贫血（Hb<30g/L）、重度贫血（31～60g/L）、中度贫血（61～90g/L）、男性轻度贫血（90~120g/L）、女性轻度贫血（90~110g/L）。3. 病人白细胞计数结果：13.6 x 10^9/L; 附白细胞计数正常参考范围：成人（4.0～10.0）×10^9/L；新生儿（11.0～12.0）×10^9/L。临>床意义：1）生理性白细胞计数增高见于剧烈运动、妊娠、新生儿；2）病理性白细胞增高见于急性化脓性感染、尿毒症、白血病、组织损伤、急性出>血等；3）病理性白细胞减少见于再生障碍性贫血、某些传染病、肝硬化、脾功能亢进、放疗化疗等。4. 病人白细胞分类技术结果(括号内是正常范围)：中性粒细胞50%(50%～70%)、嗜酸性粒细胞3.8%(1%～5%)、嗜碱性粒细胞0.2%(0～1%)、淋巴细胞45% (20%～40%)、单核细胞（M）请描述图片。', model='/root/jane/Qwen2-VL-7B-Instruct/', base_url=None, profile=False, host='127.0.0.1', port=8000, endpoint='/v1/chat/completions', served_model_name=None, ignore_eos=True)
+image size:  (1080, 1440)
+Starting initial single prompt test run...
+============ Serving Benchmark Result ============
+Successful requests:                     24        
+Benchmark duration (s):                  164.71    
+Total input tokens:                      23496     
+Total image and input tokens:            71496     
+Total generated tokens:                  12288     
+Request throughput (req/s):              0.15      
+Output token throughput (tok/s):         74.60     
+Total Token throughput (tok/s):          217.25    
+---------------Time to First Token----------------
+Mean TTFT (ms):                          58845.55  
+Median TTFT (ms):                        51769.76  
+P99 TTFT (ms):                           147221.86 
+-----Time per Output Token (excl. 1st token)------
+Mean TPOT (ms):                          98.36     
+Median TPOT (ms):                        93.82     
+P99 TPOT (ms):                           161.23    
+---------------Inter-token Latency----------------
+Mean ITL (ms):                           98.17     
+Median ITL (ms):                         18.82     
+P99 ITL (ms):                            449.16    
+==================================================
+Namespace(seed=0, batch_size=24, output_len=1024, image_path='../../accuracy/zto/40_20240903093021_78830772282673.jpg', prompt='患者男，年龄29岁，血型O，因思维迟钝，易激怒，因发热伴牙龈出血14天，乏力、头晕5天就诊我院急诊科。快速完善检查，血常规显示患者三系血>细胞重度减低，凝血功能检查提示APTT明显延长，纤维蛋白原降低，血液科会诊后发现患者高热、牙龈持续出血，胸骨压痛阳性.于3903年3月7日入院治疗，出现头痛、头晕、伴发热（最高体温42℃）症状，曾到其他医院就医。8日症状有所好转，9日仍有头痛、呕吐，四肢乏力伴发热。10日凌晨到本院就诊。患者5d前出现突发性思维迟钝，脾气暴躁，略有不顺心就出现攻击行为，在院外未行任何诊治。既往身体健康，平素性格内向。体格检查无>异常。血常规白细胞中单核细胞百分比升高。D-二聚体定量1412μg/L，骨髓穿刺示增生极度活跃，异常早幼粒细胞占94%.外周血涂片见大量早幼粒细>胞，并可在胞浆见到柴捆样细胞.以下是血常规详细信息：1.病人红细胞计数结果：3.2 x10^12/L. 附正常参考范围：新生儿:（6.0～7.0）×10^12/L>；婴儿：（5.2～7.0）×10^12/L; 儿童：（4.2～5.2）×10^12/L; 成人男：（4.0～5.5）×10^12/L; 成人女：（3.5～5.0）×10^12/L. 临床意义：生>理性红细胞和血红蛋白增多的原因：精神因素（冲动、兴奋、恐惧、冷水浴刺激等导致肾上腺素分泌增多的因素）、红细胞代偿性增生（长期低气压>、缺氧刺激，多次献血）；生理性红细胞和血红蛋白减少的原因：造血原料相对不足，多见于妊娠、6个月～2岁婴幼儿、某些老年性造血功能减退；>病理性增多：多见于频繁呕吐、出汗过多、大面积烧伤、血液浓缩，慢性肺心病、肺气肿、高原病、肿瘤以及真性红细胞增多症等；病理性减少：多>见于白血病等血液系统疾病；急性大出血、严重的组织损伤及血细胞的破坏等；合成障碍，见于缺铁、维生素B12缺乏等。2. 病人血红蛋白测量结果>：108g/L. 附血红蛋白正常参考范围：男性120～160g/L；女性110～150g/L；新生儿170～200g/L；临床意义：临床意义与红细胞计数相仿，但能更好地反映贫血程度，极重度贫血（Hb<30g/L）、重度贫血（31～60g/L）、中度贫血（61～90g/L）、男性轻度贫血（90~120g/L）、女性轻度贫血（90~110g/L）。3. 病人白细胞计数结果：13.6 x 10^9/L; 附白细胞计数正常参考范围：成人（4.0～10.0）×10^9/L；新生儿（11.0～12.0）×10^9/L。临>床意义：1）生理性白细胞计数增高见于剧烈运动、妊娠、新生儿；2）病理性白细胞增高见于急性化脓性感染、尿毒症、白血病、组织损伤、急性出>血等；3）病理性白细胞减少见于再生障碍性贫血、某些传染病、肝硬化、脾功能亢进、放疗化疗等。4. 病人白细胞分类技术结果(括号内是正常范围)：中性粒细胞50%(50%～70%)、嗜酸性粒细胞3.8%(1%～5%)、嗜碱性粒细胞0.2%(0～1%)、淋巴细胞45% (20%～40%)、单核细胞（M）请描述图片。', model='/root/jane/Qwen2-VL-7B-Instruct/', base_url=None, profile=False, host='127.0.0.1', port=8000, endpoint='/v1/chat/completions', served_model_name=None, ignore_eos=True)
+image size:  (1080, 1440)
+Starting initial single prompt test run...
+============ Serving Benchmark Result ============
+Successful requests:                     24        
+Benchmark duration (s):                  359.58    
+Total input tokens:                      23496     
+Total image and input tokens:            71496     
+Total generated tokens:                  24576     
+Request throughput (req/s):              0.07      
+Output token throughput (tok/s):         68.35     
+Total Token throughput (tok/s):          133.69    
+---------------Time to First Token----------------
+Mean TTFT (ms):                          143404.89 
+Median TTFT (ms):                        117422.16 
+P99 TTFT (ms):                           341198.21 
+-----Time per Output Token (excl. 1st token)------
+Mean TPOT (ms):                          104.69    
+Median TPOT (ms):                        109.74    
+P99 TPOT (ms):                           187.38    
+---------------Inter-token Latency----------------
+Mean ITL (ms):                           104.59    
+Median ITL (ms):                         18.78     
+P99 ITL (ms):                            448.76    
+==================================================
+Namespace(seed=0, batch_size=26, output_len=512, image_path='../../accuracy/zto/40_20240903093021_78830772282673.jpg', prompt='患者男，年龄29岁，血型O，因思维迟钝，易激怒，因发热伴牙龈出血14天，乏力、头晕5天就诊我院急诊科。快速完善检查，血常规显示患者三系血>细胞重度减低，凝血功能检查提示APTT明显延长，纤维蛋白原降低，血液科会诊后发现患者高热、牙龈持续出血，胸骨压痛阳性.于3903年3月7日入院治疗，出现头痛、头晕、伴发热（最高体温42℃）症状，曾到其他医院就医。8日症状有所好转，9日仍有头痛、呕吐，四肢乏力伴发热。10日凌晨到本院就诊。患者5d前出现突发性思维迟钝，脾气暴躁，略有不顺心就出现攻击行为，在院外未行任何诊治。既往身体健康，平素性格内向。体格检查无>异常。血常规白细胞中单核细胞百分比升高。D-二聚体定量1412μg/L，骨髓穿刺示增生极度活跃，异常早幼粒细胞占94%.外周血涂片见大量早幼粒细>胞，并可在胞浆见到柴捆样细胞.以下是血常规详细信息：1.病人红细胞计数结果：3.2 x10^12/L. 附正常参考范围：新生儿:（6.0～7.0）×10^12/L>；婴儿：（5.2～7.0）×10^12/L; 儿童：（4.2～5.2）×10^12/L; 成人男：（4.0～5.5）×10^12/L; 成人女：（3.5～5.0）×10^12/L. 临床意义：生>理性红细胞和血红蛋白增多的原因：精神因素（冲动、兴奋、恐惧、冷水浴刺激等导致肾上腺素分泌增多的因素）、红细胞代偿性增生（长期低气压>、缺氧刺激，多次献血）；生理性红细胞和血红蛋白减少的原因：造血原料相对不足，多见于妊娠、6个月～2岁婴幼儿、某些老年性造血功能减退；>病理性增多：多见于频繁呕吐、出汗过多、大面积烧伤、血液浓缩，慢性肺心病、肺气肿、高原病、肿瘤以及真性红细胞增多症等；病理性减少：多>见于白血病等血液系统疾病；急性大出血、严重的组织损伤及血细胞的破坏等；合成障碍，见于缺铁、维生素B12缺乏等。2. 病人血红蛋白测量结果>：108g/L. 附血红蛋白正常参考范围：男性120～160g/L；女性110～150g/L；新生儿170～200g/L；临床意义：临床意义与红细胞计数相仿，但能更好地反映贫血程度，极重度贫血（Hb<30g/L）、重度贫血（31～60g/L）、中度贫血（61～90g/L）、男性轻度贫血（90~120g/L）、女性轻度贫血（90~110g/L）。3. 病人白细胞计数结果：13.6 x 10^9/L; 附白细胞计数正常参考范围：成人（4.0～10.0）×10^9/L；新生儿（11.0～12.0）×10^9/L。临>床意义：1）生理性白细胞计数增高见于剧烈运动、妊娠、新生儿；2）病理性白细胞增高见于急性化脓性感染、尿毒症、白血病、组织损伤、急性出>血等；3）病理性白细胞减少见于再生障碍性贫血、某些传染病、肝硬化、脾功能亢进、放疗化疗等。4. 病人白细胞分类技术结果(括号内是正常范围)：中性粒细胞50%(50%～70%)、嗜酸性粒细胞3.8%(1%～5%)、嗜碱性粒细胞0.2%(0～1%)、淋巴细胞45% (20%～40%)、单核细胞（M）请描述图片。', model='/root/jane/Qwen2-VL-7B-Instruct/', base_url=None, profile=False, host='127.0.0.1', port=8000, endpoint='/v1/chat/completions', served_model_name=None, ignore_eos=True)
+image size:  (1080, 1440)
+Starting initial single prompt test run...
+============ Serving Benchmark Result ============
+Successful requests:                     26        
+Benchmark duration (s):                  165.83    
+Total input tokens:                      25454     
+Total image and input tokens:            77454     
+Total generated tokens:                  13312     
+Request throughput (req/s):              0.16      
+Output token throughput (tok/s):         80.28     
+Total Token throughput (tok/s):          233.77    
+---------------Time to First Token----------------
+Mean TTFT (ms):                          66326.00  
+Median TTFT (ms):                        52333.95  
+P99 TTFT (ms):                           156619.82 
+-----Time per Output Token (excl. 1st token)------
+Mean TPOT (ms):                          92.49     
+Median TPOT (ms):                        94.88     
+P99 TPOT (ms):                           160.06    
+---------------Inter-token Latency----------------
+Mean ITL (ms):                           92.31     
+Median ITL (ms):                         18.80     
+P99 ITL (ms):                            447.96    
+==================================================
