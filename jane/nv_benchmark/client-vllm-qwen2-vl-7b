@@ -1,0 +1,31 @@
+INFO 06-06 06:00:48 [importing.py:53] Triton module has been replaced with a placeholder.
+INFO 06-06 06:00:48 [__init__.py:239] Automatically detected platform cuda.
+Namespace(backend='openai-chat', base_url=None, host='127.0.0.1', port=8000, endpoint='/v1/chat/completions', dataset_name='hf', dataset_path='/root/jane/VisionArena-Chat', max_concurrency=1, model='/root/jane/Qwen2-VL-72B-Instruct/', tokenizer=None, use_beam_search=False, num_prompts=1, logprobs=None, request_rate=inf, burstiness=1.0, seed=0, trust_remote_code=False, disable_tqdm=False, profile=False, save_result=False, save_detailed=False, append_result=False, metadata=None, result_dir=None, result_filename=None, ignore_eos=True, percentile_metrics='ttft,tpot,itl', metric_percentiles='99', goodput=None, sonnet_input_len=550, sonnet_output_len=150, sonnet_prefix_len=200, sharegpt_output_len=None, random_input_len=1024, random_output_len=128, random_range_ratio=0.0, random_prefix_len=0, hf_subset=None, hf_split='train', hf_output_len=128, top_p=None, top_k=None, min_p=None, temperature=None, tokenizer_mode='auto', served_model_name=None, lora_modules=None)
+image size:  [(1024, 640)]
+Starting initial single prompt test run...
+Initial test run completed. Starting main benchmark run...
+Traffic request rate: inf
+Burstiness factor: 1.0 (Poisson process)
+Maximum request concurrency: 1
+============ Serving Benchmark Result ============
+Successful requests:                     1         
+Benchmark duration (s):                  3.53      
+Total input tokens:                      11        
+Total image and input tokens:            873       
+Total generated tokens:                  128       
+Request throughput (req/s):              0.28      
+Output token throughput (tok/s):         36.27     
+Total Token throughput (tok/s):          39.39     
+---------------Time to First Token----------------
+Mean TTFT (ms):                          107.69    
+Median TTFT (ms):                        107.69    
+P99 TTFT (ms):                           107.69    
+-----Time per Output Token (excl. 1st token)------
+Mean TPOT (ms):                          26.94     
+Median TPOT (ms):                        26.94     
+P99 TPOT (ms):                           26.94     
+---------------Inter-token Latency----------------
+Mean ITL (ms):                           26.73     
+Median ITL (ms):                         26.93     
+P99 ITL (ms):                            27.36     
+==================================================

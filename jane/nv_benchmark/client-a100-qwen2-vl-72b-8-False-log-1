@@ -1,0 +1,960 @@
+Namespace(seed=0, batch_size=1, output_len=128, image_path='../../accuracy/zto/40_20240903093021_78830772282673.jpg', prompt='患者男，年龄29岁，血型O，因思维迟钝，易激怒，因发热伴牙龈出血14天，乏力、头晕5天就诊我院急诊科。快速完善检查，血常规显示患者三系血>细胞重度减低。快速完善检查，血常规显示患者三系血>细胞重度减低，凝血功能检查提示APTT明显延长，纤维蛋白原降低，血液科会诊后发现患者高热、牙龈持续出血，胸骨压痛阳性.凝血功能检查提示APTT明显延长.请描述图片.', model='/root/jane/Qwen2-VL-72B-Instruct/', base_url=None, host='127.0.0.1', port=8000, endpoint='/v1/chat/completions', served_model_name=None, ignore_eos=True)
+image size:  (1080, 1440)
+============ Serving Benchmark Result ============
+Successful requests:                     1         
+Benchmark duration (s):                  4.76      
+Total input tokens:                      125       
+Total image and input tokens:            2125      
+Total generated tokens:                  128       
+Request throughput (req/s):              0.21      
+Output token throughput (tok/s):         26.90     
+Total Token throughput (tok/s):          53.17     
+---------------Time to First Token----------------
+Mean TTFT (ms):                          1295.29   
+Median TTFT (ms):                        1295.29   
+P99 TTFT (ms):                           1295.29   
+-----Time per Output Token (excl. 1st token)------
+Mean TPOT (ms):                          27.27     
+Median TPOT (ms):                        27.27     
+P99 TPOT (ms):                           27.27     
+---------------Inter-token Latency----------------
+Mean ITL (ms):                           27.05     
+Median ITL (ms):                         27.25     
+P99 ITL (ms):                            27.76     
+==================================================
+Namespace(seed=0, batch_size=1, output_len=512, image_path='../../accuracy/zto/40_20240903093021_78830772282673.jpg', prompt='患者男，年龄29岁，血型O，因思维迟钝，易激怒，因发热伴牙龈出血14天，乏力、头晕5天就诊我院急诊科。快速完善检查，血常规显示患者三系血>细胞重度减低。快速完善检查，血常规显示患者三系血>细胞重度减低，凝血功能检查提示APTT明显延长，纤维蛋白原降低，血液科会诊后发现患者高热、牙龈持续出血，胸骨压痛阳性.凝血功能检查提示APTT明显延长.请描述图片.', model='/root/jane/Qwen2-VL-72B-Instruct/', base_url=None, host='127.0.0.1', port=8000, endpoint='/v1/chat/completions', served_model_name=None, ignore_eos=True)
+image size:  (1080, 1440)
+============ Serving Benchmark Result ============
+Successful requests:                     1         
+Benchmark duration (s):                  15.25     
+Total input tokens:                      125       
+Total image and input tokens:            2125      
+Total generated tokens:                  512       
+Request throughput (req/s):              0.07      
+Output token throughput (tok/s):         33.58     
+Total Token throughput (tok/s):          41.78     
+---------------Time to First Token----------------
+Mean TTFT (ms):                          1298.59   
+Median TTFT (ms):                        1298.59   
+P99 TTFT (ms):                           1298.59   
+-----Time per Output Token (excl. 1st token)------
+Mean TPOT (ms):                          27.29     
+Median TPOT (ms):                        27.29     
+P99 TPOT (ms):                           27.29     
+---------------Inter-token Latency----------------
+Mean ITL (ms):                           27.24     
+Median ITL (ms):                         27.26     
+P99 ITL (ms):                            27.96     
+==================================================
+Namespace(seed=0, batch_size=1, output_len=1024, image_path='../../accuracy/zto/40_20240903093021_78830772282673.jpg', prompt='患者男，年龄29岁，血型O，因思维迟钝，易激怒，因发热伴牙龈出血14天，乏力、头晕5天就诊我院急诊科。快速完善检查，血常规显示患者三系血>细胞重度减低。快速完善检查，血常规显示患者三系血>细胞重度减低，凝血功能检查提示APTT明显延长，纤维蛋白原降低，血液科会诊后发现患者高热、牙龈持续出血，胸骨压痛阳性.凝血功能检查提示APTT明显延长.请描述图片.', model='/root/jane/Qwen2-VL-72B-Instruct/', base_url=None, host='127.0.0.1', port=8000, endpoint='/v1/chat/completions', served_model_name=None, ignore_eos=True)
+image size:  (1080, 1440)
+============ Serving Benchmark Result ============
+Successful requests:                     1         
+Benchmark duration (s):                  29.22     
+Total input tokens:                      125       
+Total image and input tokens:            2125      
+Total generated tokens:                  1024      
+Request throughput (req/s):              0.03      
+Output token throughput (tok/s):         35.05     
+Total Token throughput (tok/s):          39.32     
+---------------Time to First Token----------------
+Mean TTFT (ms):                          1306.78   
+Median TTFT (ms):                        1306.78   
+P99 TTFT (ms):                           1306.78   
+-----Time per Output Token (excl. 1st token)------
+Mean TPOT (ms):                          27.28     
+Median TPOT (ms):                        27.28     
+P99 TPOT (ms):                           27.28     
+---------------Inter-token Latency----------------
+Mean ITL (ms):                           27.26     
+Median ITL (ms):                         27.27     
+P99 ITL (ms):                            27.95     
+==================================================
+Namespace(seed=0, batch_size=2, output_len=128, image_path='../../accuracy/zto/40_20240903093021_78830772282673.jpg', prompt='患者男，年龄29岁，血型O，因思维迟钝，易激怒，因发热伴牙龈出血14天，乏力、头晕5天就诊我院急诊科。快速完善检查，血常规显示患者三系血>细胞重度减低。快速完善检查，血常规显示患者三系血>细胞重度减低，凝血功能检查提示APTT明显延长，纤维蛋白原降低，血液科会诊后发现患者高热、牙龈持续出血，胸骨压痛阳性.凝血功能检查提示APTT明显延长.请描述图片.', model='/root/jane/Qwen2-VL-72B-Instruct/', base_url=None, host='127.0.0.1', port=8000, endpoint='/v1/chat/completions', served_model_name=None, ignore_eos=True)
+image size:  (1080, 1440)
+============ Serving Benchmark Result ============
+Successful requests:                     2         
+Benchmark duration (s):                  6.16      
+Total input tokens:                      250       
+Total image and input tokens:            4250      
+Total generated tokens:                  256       
+Request throughput (req/s):              0.32      
+Output token throughput (tok/s):         41.55     
+Total Token throughput (tok/s):          82.12     
+---------------Time to First Token----------------
+Mean TTFT (ms):                          2484.87   
+Median TTFT (ms):                        2484.87   
+P99 TTFT (ms):                           2533.59   
+-----Time per Output Token (excl. 1st token)------
+Mean TPOT (ms):                          28.83     
+Median TPOT (ms):                        28.83     
+P99 TPOT (ms):                           29.10     
+---------------Inter-token Latency----------------
+Mean ITL (ms):                           28.60     
+Median ITL (ms):                         28.53     
+P99 ITL (ms):                            29.26     
+==================================================
+Namespace(seed=0, batch_size=2, output_len=512, image_path='../../accuracy/zto/40_20240903093021_78830772282673.jpg', prompt='患者男，年龄29岁，血型O，因思维迟钝，易激怒，因发热伴牙龈出血14天，乏力、头晕5天就诊我院急诊科。快速完善检查，血常规显示患者三系血>细胞重度减低。快速完善检查，血常规显示患者三系血>细胞重度减低，凝血功能检查提示APTT明显延长，纤维蛋白原降低，血液科会诊后发现患者高热、牙龈持续出血，胸骨压痛阳性.凝血功能检查提示APTT明显延长.请描述图片.', model='/root/jane/Qwen2-VL-72B-Instruct/', base_url=None, host='127.0.0.1', port=8000, endpoint='/v1/chat/completions', served_model_name=None, ignore_eos=True)
+image size:  (1080, 1440)
+============ Serving Benchmark Result ============
+Successful requests:                     2         
+Benchmark duration (s):                  17.12     
+Total input tokens:                      250       
+Total image and input tokens:            4250      
+Total generated tokens:                  1024      
+Request throughput (req/s):              0.12      
+Output token throughput (tok/s):         59.82     
+Total Token throughput (tok/s):          74.43     
+---------------Time to First Token----------------
+Mean TTFT (ms):                          2477.89   
+Median TTFT (ms):                        2477.89   
+P99 TTFT (ms):                           2526.62   
+-----Time per Output Token (excl. 1st token)------
+Mean TPOT (ms):                          28.62     
+Median TPOT (ms):                        28.62     
+P99 TPOT (ms):                           28.68     
+---------------Inter-token Latency----------------
+Mean ITL (ms):                           28.56     
+Median ITL (ms):                         28.54     
+P99 ITL (ms):                            29.00     
+==================================================
+Namespace(seed=0, batch_size=2, output_len=1024, image_path='../../accuracy/zto/40_20240903093021_78830772282673.jpg', prompt='患者男，年龄29岁，血型O，因思维迟钝，易激怒，因发热伴牙龈出血14天，乏力、头晕5天就诊我院急诊科。快速完善检查，血常规显示患者三系血>细胞重度减低。快速完善检查，血常规显示患者三系血>细胞重度减低，凝血功能检查提示APTT明显延长，纤维蛋白原降低，血液科会诊后发现患者高热、牙龈持续出血，胸骨压痛阳性.凝血功能检查提示APTT明显延长.请描述图片.', model='/root/jane/Qwen2-VL-72B-Instruct/', base_url=None, host='127.0.0.1', port=8000, endpoint='/v1/chat/completions', served_model_name=None, ignore_eos=True)
+image size:  (1080, 1440)
+============ Serving Benchmark Result ============
+Successful requests:                     2         
+Benchmark duration (s):                  31.81     
+Total input tokens:                      250       
+Total image and input tokens:            4250      
+Total generated tokens:                  2048      
+Request throughput (req/s):              0.06      
+Output token throughput (tok/s):         64.38     
+Total Token throughput (tok/s):          72.24     
+---------------Time to First Token----------------
+Mean TTFT (ms):                          2499.59   
+Median TTFT (ms):                        2499.59   
+P99 TTFT (ms):                           2548.31   
+-----Time per Output Token (excl. 1st token)------
+Mean TPOT (ms):                          28.64     
+Median TPOT (ms):                        28.64     
+P99 TPOT (ms):                           28.67     
+---------------Inter-token Latency----------------
+Mean ITL (ms):                           28.61     
+Median ITL (ms):                         28.59     
+P99 ITL (ms):                            29.24     
+==================================================
+Namespace(seed=0, batch_size=4, output_len=128, image_path='../../accuracy/zto/40_20240903093021_78830772282673.jpg', prompt='患者男，年龄29岁，血型O，因思维迟钝，易激怒，因发热伴牙龈出血14天，乏力、头晕5天就诊我院急诊科。快速完善检查，血常规显示患者三系血>细胞重度减低。快速完善检查，血常规显示患者三系血>细胞重度减低，凝血功能检查提示APTT明显延长，纤维蛋白原降低，血液科会诊后发现患者高热、牙龈持续出血，胸骨压痛阳性.凝血功能检查提示APTT明显延长.请描述图片.', model='/root/jane/Qwen2-VL-72B-Instruct/', base_url=None, host='127.0.0.1', port=8000, endpoint='/v1/chat/completions', served_model_name=None, ignore_eos=True)
+image size:  (1080, 1440)
+============ Serving Benchmark Result ============
+Successful requests:                     4         
+Benchmark duration (s):                  8.72      
+Total input tokens:                      500       
+Total image and input tokens:            8500      
+Total generated tokens:                  512       
+Request throughput (req/s):              0.46      
+Output token throughput (tok/s):         58.71     
+Total Token throughput (tok/s):          116.05    
+---------------Time to First Token----------------
+Mean TTFT (ms):                          3997.06   
+Median TTFT (ms):                        4258.64   
+P99 TTFT (ms):                           4995.80   
+-----Time per Output Token (excl. 1st token)------
+Mean TPOT (ms):                          36.81     
+Median TPOT (ms):                        34.76     
+P99 TPOT (ms):                           48.21     
+---------------Inter-token Latency----------------
+Mean ITL (ms):                           36.52     
+Median ITL (ms):                         29.20     
+P99 ITL (ms):                            139.69    
+==================================================
+Namespace(seed=0, batch_size=4, output_len=512, image_path='../../accuracy/zto/40_20240903093021_78830772282673.jpg', prompt='患者男，年龄29岁，血型O，因思维迟钝，易激怒，因发热伴牙龈出血14天，乏力、头晕5天就诊我院急诊科。快速完善检查，血常规显示患者三系血>细胞重度减低。快速完善检查，血常规显示患者三系血>细胞重度减低，凝血功能检查提示APTT明显延长，纤维蛋白原降低，血液科会诊后发现患者高热、牙龈持续出血，胸骨压痛阳性.凝血功能检查提示APTT明显延长.请描述图片.', model='/root/jane/Qwen2-VL-72B-Instruct/', base_url=None, host='127.0.0.1', port=8000, endpoint='/v1/chat/completions', served_model_name=None, ignore_eos=True)
+image size:  (1080, 1440)
+============ Serving Benchmark Result ============
+Successful requests:                     4         
+Benchmark duration (s):                  19.94     
+Total input tokens:                      500       
+Total image and input tokens:            8500      
+Total generated tokens:                  2048      
+Request throughput (req/s):              0.20      
+Output token throughput (tok/s):         102.73    
+Total Token throughput (tok/s):          127.81    
+---------------Time to First Token----------------
+Mean TTFT (ms):                          3988.93   
+Median TTFT (ms):                        4248.98   
+P99 TTFT (ms):                           4984.60   
+-----Time per Output Token (excl. 1st token)------
+Mean TPOT (ms):                          31.11     
+Median TPOT (ms):                        30.60     
+P99 TPOT (ms):                           33.93     
+---------------Inter-token Latency----------------
+Mean ITL (ms):                           31.05     
+Median ITL (ms):                         29.22     
+P99 ITL (ms):                            29.94     
+==================================================
+Namespace(seed=0, batch_size=4, output_len=1024, image_path='../../accuracy/zto/40_20240903093021_78830772282673.jpg', prompt='患者男，年龄29岁，血型O，因思维迟钝，易激怒，因发热伴牙龈出血14天，乏力、头晕5天就诊我院急诊科。快速完善检查，血常规显示患者三系血>细胞重度减低。快速完善检查，血常规显示患者三系血>细胞重度减低，凝血功能检查提示APTT明显延长，纤维蛋白原降低，血液科会诊后发现患者高热、牙龈持续出血，胸骨压痛阳性.凝血功能检查提示APTT明显延长.请描述图片.', model='/root/jane/Qwen2-VL-72B-Instruct/', base_url=None, host='127.0.0.1', port=8000, endpoint='/v1/chat/completions', served_model_name=None, ignore_eos=True)
+image size:  (1080, 1440)
+============ Serving Benchmark Result ============
+Successful requests:                     4         
+Benchmark duration (s):                  34.99     
+Total input tokens:                      500       
+Total image and input tokens:            8500      
+Total generated tokens:                  4096      
+Request throughput (req/s):              0.11      
+Output token throughput (tok/s):         117.05    
+Total Token throughput (tok/s):          131.34    
+---------------Time to First Token----------------
+Mean TTFT (ms):                          4011.87   
+Median TTFT (ms):                        4271.69   
+P99 TTFT (ms):                           5015.83   
+-----Time per Output Token (excl. 1st token)------
+Mean TPOT (ms):                          30.24     
+Median TPOT (ms):                        29.98     
+P99 TPOT (ms):                           31.65     
+---------------Inter-token Latency----------------
+Mean ITL (ms):                           30.21     
+Median ITL (ms):                         29.29     
+P99 ITL (ms):                            29.60     
+==================================================
+Namespace(seed=0, batch_size=6, output_len=128, image_path='../../accuracy/zto/40_20240903093021_78830772282673.jpg', prompt='患者男，年龄29岁，血型O，因思维迟钝，易激怒，因发热伴牙龈出血14天，乏力、头晕5天就诊我院急诊科。快速完善检查，血常规显示患者三系血>细胞重度减低。快速完善检查，血常规显示患者三系血>细胞重度减低，凝血功能检查提示APTT明显延长，纤维蛋白原降低，血液科会诊后发现患者高热、牙龈持续出血，胸骨压痛阳性.凝血功能检查提示APTT明显延长.请描述图片.', model='/root/jane/Qwen2-VL-72B-Instruct/', base_url=None, host='127.0.0.1', port=8000, endpoint='/v1/chat/completions', served_model_name=None, ignore_eos=True)
+image size:  (1080, 1440)
+============ Serving Benchmark Result ============
+Successful requests:                     6         
+Benchmark duration (s):                  11.85     
+Total input tokens:                      750       
+Total image and input tokens:            12750     
+Total generated tokens:                  768       
+Request throughput (req/s):              0.51      
+Output token throughput (tok/s):         64.78     
+Total Token throughput (tok/s):          128.05    
+---------------Time to First Token----------------
+Mean TTFT (ms):                          5334.66   
+Median TTFT (ms):                        5501.32   
+P99 TTFT (ms):                           7496.54   
+-----Time per Output Token (excl. 1st token)------
+Mean TPOT (ms):                          50.70     
+Median TPOT (ms):                        49.38     
+P99 TPOT (ms):                           71.87     
+---------------Inter-token Latency----------------
+Mean ITL (ms):                           50.30     
+Median ITL (ms):                         34.29     
+P99 ITL (ms):                            1181.95   
+==================================================
+Namespace(seed=0, batch_size=6, output_len=512, image_path='../../accuracy/zto/40_20240903093021_78830772282673.jpg', prompt='患者男，年龄29岁，血型O，因思维迟钝，易激怒，因发热伴牙龈出血14天，乏力、头晕5天就诊我院急诊科。快速完善检查，血常规显示患者三系血>细胞重度减低。快速完善检查，血常规显示患者三系血>细胞重度减低，凝血功能检查提示APTT明显延长，纤维蛋白原降低，血液科会诊后发现患者高热、牙龈持续出血，胸骨压痛阳性.凝血功能检查提示APTT明显延长.请描述图片.', model='/root/jane/Qwen2-VL-72B-Instruct/', base_url=None, host='127.0.0.1', port=8000, endpoint='/v1/chat/completions', served_model_name=None, ignore_eos=True)
+image size:  (1080, 1440)
+============ Serving Benchmark Result ============
+Successful requests:                     6         
+Benchmark duration (s):                  25.06     
+Total input tokens:                      750       
+Total image and input tokens:            12750     
+Total generated tokens:                  3072      
+Request throughput (req/s):              0.24      
+Output token throughput (tok/s):         122.60    
+Total Token throughput (tok/s):          152.54    
+---------------Time to First Token----------------
+Mean TTFT (ms):                          5302.38   
+Median TTFT (ms):                        5468.35   
+P99 TTFT (ms):                           7455.84   
+-----Time per Output Token (excl. 1st token)------
+Mean TPOT (ms):                          38.50     
+Median TPOT (ms):                        38.17     
+P99 TPOT (ms):                           43.74     
+---------------Inter-token Latency----------------
+Mean ITL (ms):                           38.42     
+Median ITL (ms):                         34.44     
+P99 ITL (ms):                            35.29     
+==================================================
+Namespace(seed=0, batch_size=6, output_len=1024, image_path='../../accuracy/zto/40_20240903093021_78830772282673.jpg', prompt='患者男，年龄29岁，血型O，因思维迟钝，易激怒，因发热伴牙龈出血14天，乏力、头晕5天就诊我院急诊科。快速完善检查，血常规显示患者三系血>细胞重度减低。快速完善检查，血常规显示患者三系血>细胞重度减低，凝血功能检查提示APTT明显延长，纤维蛋白原降低，血液科会诊后发现患者高热、牙龈持续出血，胸骨压痛阳性.凝血功能检查提示APTT明显延长.请描述图片.', model='/root/jane/Qwen2-VL-72B-Instruct/', base_url=None, host='127.0.0.1', port=8000, endpoint='/v1/chat/completions', served_model_name=None, ignore_eos=True)
+image size:  (1080, 1440)
+============ Serving Benchmark Result ============
+Successful requests:                     6         
+Benchmark duration (s):                  42.81     
+Total input tokens:                      750       
+Total image and input tokens:            12750     
+Total generated tokens:                  6144      
+Request throughput (req/s):              0.14      
+Output token throughput (tok/s):         143.51    
+Total Token throughput (tok/s):          161.03    
+---------------Time to First Token----------------
+Mean TTFT (ms):                          5344.50   
+Median TTFT (ms):                        5512.68   
+P99 TTFT (ms):                           7507.99   
+-----Time per Output Token (excl. 1st token)------
+Mean TPOT (ms):                          36.54     
+Median TPOT (ms):                        36.38     
+P99 TPOT (ms):                           39.18     
+---------------Inter-token Latency----------------
+Mean ITL (ms):                           36.51     
+Median ITL (ms):                         34.51     
+P99 ITL (ms):                            35.27     
+==================================================
+Namespace(seed=0, batch_size=8, output_len=128, image_path='../../accuracy/zto/40_20240903093021_78830772282673.jpg', prompt='患者男，年龄29岁，血型O，因思维迟钝，易激怒，因发热伴牙龈出血14天，乏力、头晕5天就诊我院急诊科。快速完善检查，血常规显示患者三系血>细胞重度减低。快速完善检查，血常规显示患者三系血>细胞重度减低，凝血功能检查提示APTT明显延长，纤维蛋白原降低，血液科会诊后发现患者高热、牙龈持续出血，胸骨压痛阳性.凝血功能检查提示APTT明显延长.请描述图片.', model='/root/jane/Qwen2-VL-72B-Instruct/', base_url=None, host='127.0.0.1', port=8000, endpoint='/v1/chat/completions', served_model_name=None, ignore_eos=True)
+image size:  (1080, 1440)
+============ Serving Benchmark Result ============
+Successful requests:                     8         
+Benchmark duration (s):                  14.32     
+Total input tokens:                      1000      
+Total image and input tokens:            17000     
+Total generated tokens:                  1024      
+Request throughput (req/s):              0.56      
+Output token throughput (tok/s):         71.53     
+Total Token throughput (tok/s):          141.38    
+---------------Time to First Token----------------
+Mean TTFT (ms):                          6550.43   
+Median TTFT (ms):                        6665.72   
+P99 TTFT (ms):                           9894.05   
+-----Time per Output Token (excl. 1st token)------
+Mean TPOT (ms):                          60.22     
+Median TPOT (ms):                        59.31     
+P99 TPOT (ms):                           90.57     
+---------------Inter-token Latency----------------
+Mean ITL (ms):                           59.75     
+Median ITL (ms):                         34.68     
+P99 ITL (ms):                            1190.13   
+==================================================
+Namespace(seed=0, batch_size=8, output_len=512, image_path='../../accuracy/zto/40_20240903093021_78830772282673.jpg', prompt='患者男，年龄29岁，血型O，因思维迟钝，易激怒，因发热伴牙龈出血14天，乏力、头晕5天就诊我院急诊科。快速完善检查，血常规显示患者三系血>细胞重度减低。快速完善检查，血常规显示患者三系血>细胞重度减低，凝血功能检查提示APTT明显延长，纤维蛋白原降低，血液科会诊后发现患者高热、牙龈持续出血，胸骨压痛阳性.凝血功能检查提示APTT明显延长.请描述图片.', model='/root/jane/Qwen2-VL-72B-Instruct/', base_url=None, host='127.0.0.1', port=8000, endpoint='/v1/chat/completions', served_model_name=None, ignore_eos=True)
+image size:  (1080, 1440)
+============ Serving Benchmark Result ============
+Successful requests:                     8         
+Benchmark duration (s):                  27.73     
+Total input tokens:                      1000      
+Total image and input tokens:            17000     
+Total generated tokens:                  4096      
+Request throughput (req/s):              0.29      
+Output token throughput (tok/s):         147.72    
+Total Token throughput (tok/s):          183.78    
+---------------Time to First Token----------------
+Mean TTFT (ms):                          6603.24   
+Median TTFT (ms):                        6721.04   
+P99 TTFT (ms):                           9967.02   
+-----Time per Output Token (excl. 1st token)------
+Mean TPOT (ms):                          41.11     
+Median TPOT (ms):                        40.89     
+P99 TPOT (ms):                           48.71     
+---------------Inter-token Latency----------------
+Mean ITL (ms):                           41.03     
+Median ITL (ms):                         34.72     
+P99 ITL (ms):                            36.42     
+==================================================
+Namespace(seed=0, batch_size=8, output_len=1024, image_path='../../accuracy/zto/40_20240903093021_78830772282673.jpg', prompt='患者男，年龄29岁，血型O，因思维迟钝，易激怒，因发热伴牙龈出血14天，乏力、头晕5天就诊我院急诊科。快速完善检查，血常规显示患者三系血>细胞重度减低。快速完善检查，血常规显示患者三系血>细胞重度减低，凝血功能检查提示APTT明显延长，纤维蛋白原降低，血液科会诊后发现患者高热、牙龈持续出血，胸骨压痛阳性.凝血功能检查提示APTT明显延长.请描述图片.', model='/root/jane/Qwen2-VL-72B-Instruct/', base_url=None, host='127.0.0.1', port=8000, endpoint='/v1/chat/completions', served_model_name=None, ignore_eos=True)
+image size:  (1080, 1440)
+============ Serving Benchmark Result ============
+Successful requests:                     8         
+Benchmark duration (s):                  45.55     
+Total input tokens:                      1000      
+Total image and input tokens:            17000     
+Total generated tokens:                  8192      
+Request throughput (req/s):              0.18      
+Output token throughput (tok/s):         179.85    
+Total Token throughput (tok/s):          201.81    
+---------------Time to First Token----------------
+Mean TTFT (ms):                          6609.33   
+Median TTFT (ms):                        6726.48   
+P99 TTFT (ms):                           9967.04   
+-----Time per Output Token (excl. 1st token)------
+Mean TPOT (ms):                          37.95     
+Median TPOT (ms):                        37.84     
+P99 TPOT (ms):                           41.73     
+---------------Inter-token Latency----------------
+Mean ITL (ms):                           37.91     
+Median ITL (ms):                         34.75     
+P99 ITL (ms):                            35.86     
+==================================================
+Namespace(seed=0, batch_size=1, output_len=512, image_path='../../accuracy/zto/40_20240903093021_78830772282673.jpg', prompt='患者男，年龄29岁，血型O，因思维迟钝，易激怒，因发热伴牙龈出血14天，乏力、头晕5天就诊我院急诊科。快速完善检查，血常规显示患者三系血>细胞重度减低，凝血功能检查提示APTT明显延长，纤维蛋白原降低，血液科会诊后发现患者高热、牙龈持续出血，胸骨压痛阳性.于3903年3月7日入院治疗，出现头痛、头晕、伴发热（最高体温42℃）症状，曾到其他医院就医。8日症状有所好转，9日仍有头痛、呕吐，四肢乏力伴发热。10日凌晨到本院就诊。患者5d前出现突发性思维迟钝，脾气暴躁，略有不顺心就出现攻击行为，在院外未行任何诊治。既往身体健康，平素性格内向。体格检查无>异常。血常规白细胞中单核细胞百分比升高。D-二聚体定量1412μg/L，骨髓穿刺示增生极度活跃，异常早幼粒细胞占94%.外周血涂片见大量早幼粒细>胞，并可在胞浆见到柴捆样细胞.以下是血常规详细信息：1.病人红细胞计数结果：3.2 x10^12/L. 附正常参考范围：新生儿:（6.0～7.0）×10^12/L>；婴儿：（5.2～7.0）×10^12/L; 儿童：（4.2～5.2）×10^12/L; 成人男：（4.0～5.5）×10^12/L; 成人女：（3.5～5.0）×10^12/L. 临床意义：生>理性红细胞和血红蛋白增多的原因：精神因素（冲动、兴奋、恐惧、冷水浴刺激等导致肾上腺素分泌增多的因素）、红细胞代偿性增生（长期低气压>、缺氧刺激，多次献血）；生理性红细胞和血红蛋白减少的原因：造血原料相对不足，多见于妊娠、6个月～2岁婴幼儿、某些老年性造血功能减退；>病理性增多：多见于频繁呕吐、出汗过多、大面积烧伤、血液浓缩，慢性肺心病、肺气肿、高原病、肿瘤以及真性红细胞增多症等；病理性减少：多>见于白血病等血液系统疾病；急性大出血、严重的组织损伤及血细胞的破坏等；合成障碍，见于缺铁、维生素B12缺乏等。2. 病人血红蛋白测量结果>：108g/L. 附血红蛋白正常参考范围：男性120～160g/L；女性110～150g/L；新生儿170～200g/L；临床意义：临床意义与红细胞计数相仿，但能更好地反映贫血程度，极重度贫血（Hb<30g/L）、重度贫血（31～60g/L）、中度贫血（61～90g/L）、男性轻度贫血（90~120g/L）、女性轻度贫血（90~110g/L）。3. 病人白细胞计数结果：13.6 x 10^9/L; 附白细胞计数正常参考范围：成人（4.0～10.0）×10^9/L；新生儿（11.0～12.0）×10^9/L。临>床意义：1）生理性白细胞计数增高见于剧烈运动、妊娠、新生儿；2）病理性白细胞增高见于急性化脓性感染、尿毒症、白血病、组织损伤、急性出>血等；3）病理性白细胞减少见于再生障碍性贫血、某些传染病、肝硬化、脾功能亢进、放疗化疗等。4. 病人白细胞分类技术结果(括号内是正常范围)：中性粒细胞50%(50%～70%)、嗜酸性粒细胞3.8%(1%～5%)、嗜碱性粒细胞0.2%(0～1%)、淋巴细胞45% (20%～40%)、单核细胞（M）请描述图片。', model='/root/jane/Qwen2-VL-72B-Instruct/', base_url=None, host='127.0.0.1', port=8000, endpoint='/v1/chat/completions', served_model_name=None, ignore_eos=True)
+image size:  (1080, 1440)
+============ Serving Benchmark Result ============
+Successful requests:                     1         
+Benchmark duration (s):                  15.64     
+Total input tokens:                      979       
+Total image and input tokens:            2979      
+Total generated tokens:                  512       
+Request throughput (req/s):              0.06      
+Output token throughput (tok/s):         32.75     
+Total Token throughput (tok/s):          95.36     
+---------------Time to First Token----------------
+Mean TTFT (ms):                          1623.10   
+Median TTFT (ms):                        1623.10   
+P99 TTFT (ms):                           1623.10   
+-----Time per Output Token (excl. 1st token)------
+Mean TPOT (ms):                          27.42     
+Median TPOT (ms):                        27.42     
+P99 TPOT (ms):                           27.42     
+---------------Inter-token Latency----------------
+Mean ITL (ms):                           27.37     
+Median ITL (ms):                         27.41     
+P99 ITL (ms):                            27.89     
+==================================================
+Namespace(seed=0, batch_size=1, output_len=1024, image_path='../../accuracy/zto/40_20240903093021_78830772282673.jpg', prompt='患者男，年龄29岁，血型O，因思维迟钝，易激怒，因发热伴牙龈出血14天，乏力、头晕5天就诊我院急诊科。快速完善检查，血常规显示患者三系血>细胞重度减低，凝血功能检查提示APTT明显延长，纤维蛋白原降低，血液科会诊后发现患者高热、牙龈持续出血，胸骨压痛阳性.于3903年3月7日入院治疗，出现头痛、头晕、伴发热（最高体温42℃）症状，曾到其他医院就医。8日症状有所好转，9日仍有头痛、呕吐，四肢乏力伴发热。10日凌晨到本院就诊。患者5d前出现突发性思维迟钝，脾气暴躁，略有不顺心就出现攻击行为，在院外未行任何诊治。既往身体健康，平素性格内向。体格检查无>异常。血常规白细胞中单核细胞百分比升高。D-二聚体定量1412μg/L，骨髓穿刺示增生极度活跃，异常早幼粒细胞占94%.外周血涂片见大量早幼粒细>胞，并可在胞浆见到柴捆样细胞.以下是血常规详细信息：1.病人红细胞计数结果：3.2 x10^12/L. 附正常参考范围：新生儿:（6.0～7.0）×10^12/L>；婴儿：（5.2～7.0）×10^12/L; 儿童：（4.2～5.2）×10^12/L; 成人男：（4.0～5.5）×10^12/L; 成人女：（3.5～5.0）×10^12/L. 临床意义：生>理性红细胞和血红蛋白增多的原因：精神因素（冲动、兴奋、恐惧、冷水浴刺激等导致肾上腺素分泌增多的因素）、红细胞代偿性增生（长期低气压>、缺氧刺激，多次献血）；生理性红细胞和血红蛋白减少的原因：造血原料相对不足，多见于妊娠、6个月～2岁婴幼儿、某些老年性造血功能减退；>病理性增多：多见于频繁呕吐、出汗过多、大面积烧伤、血液浓缩，慢性肺心病、肺气肿、高原病、肿瘤以及真性红细胞增多症等；病理性减少：多>见于白血病等血液系统疾病；急性大出血、严重的组织损伤及血细胞的破坏等；合成障碍，见于缺铁、维生素B12缺乏等。2. 病人血红蛋白测量结果>：108g/L. 附血红蛋白正常参考范围：男性120～160g/L；女性110～150g/L；新生儿170～200g/L；临床意义：临床意义与红细胞计数相仿，但能更好地反映贫血程度，极重度贫血（Hb<30g/L）、重度贫血（31～60g/L）、中度贫血（61～90g/L）、男性轻度贫血（90~120g/L）、女性轻度贫血（90~110g/L）。3. 病人白细胞计数结果：13.6 x 10^9/L; 附白细胞计数正常参考范围：成人（4.0～10.0）×10^9/L；新生儿（11.0～12.0）×10^9/L。临>床意义：1）生理性白细胞计数增高见于剧烈运动、妊娠、新生儿；2）病理性白细胞增高见于急性化脓性感染、尿毒症、白血病、组织损伤、急性出>血等；3）病理性白细胞减少见于再生障碍性贫血、某些传染病、肝硬化、脾功能亢进、放疗化疗等。4. 病人白细胞分类技术结果(括号内是正常范围)：中性粒细胞50%(50%～70%)、嗜酸性粒细胞3.8%(1%～5%)、嗜碱性粒细胞0.2%(0～1%)、淋巴细胞45% (20%～40%)、单核细胞（M）请描述图片。', model='/root/jane/Qwen2-VL-72B-Instruct/', base_url=None, host='127.0.0.1', port=8000, endpoint='/v1/chat/completions', served_model_name=None, ignore_eos=True)
+image size:  (1080, 1440)
+============ Serving Benchmark Result ============
+Successful requests:                     1         
+Benchmark duration (s):                  29.72     
+Total input tokens:                      979       
+Total image and input tokens:            2979      
+Total generated tokens:                  1024      
+Request throughput (req/s):              0.03      
+Output token throughput (tok/s):         34.46     
+Total Token throughput (tok/s):          67.41     
+---------------Time to First Token----------------
+Mean TTFT (ms):                          1619.72   
+Median TTFT (ms):                        1619.72   
+P99 TTFT (ms):                           1619.72   
+-----Time per Output Token (excl. 1st token)------
+Mean TPOT (ms):                          27.46     
+Median TPOT (ms):                        27.46     
+P99 TPOT (ms):                           27.46     
+---------------Inter-token Latency----------------
+Mean ITL (ms):                           27.44     
+Median ITL (ms):                         27.45     
+P99 ITL (ms):                            28.02     
+==================================================
+Namespace(seed=0, batch_size=2, output_len=512, image_path='../../accuracy/zto/40_20240903093021_78830772282673.jpg', prompt='患者男，年龄29岁，血型O，因思维迟钝，易激怒，因发热伴牙龈出血14天，乏力、头晕5天就诊我院急诊科。快速完善检查，血常规显示患者三系血>细胞重度减低，凝血功能检查提示APTT明显延长，纤维蛋白原降低，血液科会诊后发现患者高热、牙龈持续出血，胸骨压痛阳性.于3903年3月7日入院治疗，出现头痛、头晕、伴发热（最高体温42℃）症状，曾到其他医院就医。8日症状有所好转，9日仍有头痛、呕吐，四肢乏力伴发热。10日凌晨到本院就诊。患者5d前出现突发性思维迟钝，脾气暴躁，略有不顺心就出现攻击行为，在院外未行任何诊治。既往身体健康，平素性格内向。体格检查无>异常。血常规白细胞中单核细胞百分比升高。D-二聚体定量1412μg/L，骨髓穿刺示增生极度活跃，异常早幼粒细胞占94%.外周血涂片见大量早幼粒细>胞，并可在胞浆见到柴捆样细胞.以下是血常规详细信息：1.病人红细胞计数结果：3.2 x10^12/L. 附正常参考范围：新生儿:（6.0～7.0）×10^12/L>；婴儿：（5.2～7.0）×10^12/L; 儿童：（4.2～5.2）×10^12/L; 成人男：（4.0～5.5）×10^12/L; 成人女：（3.5～5.0）×10^12/L. 临床意义：生>理性红细胞和血红蛋白增多的原因：精神因素（冲动、兴奋、恐惧、冷水浴刺激等导致肾上腺素分泌增多的因素）、红细胞代偿性增生（长期低气压>、缺氧刺激，多次献血）；生理性红细胞和血红蛋白减少的原因：造血原料相对不足，多见于妊娠、6个月～2岁婴幼儿、某些老年性造血功能减退；>病理性增多：多见于频繁呕吐、出汗过多、大面积烧伤、血液浓缩，慢性肺心病、肺气肿、高原病、肿瘤以及真性红细胞增多症等；病理性减少：多>见于白血病等血液系统疾病；急性大出血、严重的组织损伤及血细胞的破坏等；合成障碍，见于缺铁、维生素B12缺乏等。2. 病人血红蛋白测量结果>：108g/L. 附血红蛋白正常参考范围：男性120～160g/L；女性110～150g/L；新生儿170～200g/L；临床意义：临床意义与红细胞计数相仿，但能更好地反映贫血程度，极重度贫血（Hb<30g/L）、重度贫血（31～60g/L）、中度贫血（61～90g/L）、男性轻度贫血（90~120g/L）、女性轻度贫血（90~110g/L）。3. 病人白细胞计数结果：13.6 x 10^9/L; 附白细胞计数正常参考范围：成人（4.0～10.0）×10^9/L；新生儿（11.0～12.0）×10^9/L。临>床意义：1）生理性白细胞计数增高见于剧烈运动、妊娠、新生儿；2）病理性白细胞增高见于急性化脓性感染、尿毒症、白血病、组织损伤、急性出>血等；3）病理性白细胞减少见于再生障碍性贫血、某些传染病、肝硬化、脾功能亢进、放疗化疗等。4. 病人白细胞分类技术结果(括号内是正常范围)：中性粒细胞50%(50%～70%)、嗜酸性粒细胞3.8%(1%～5%)、嗜碱性粒细胞0.2%(0～1%)、淋巴细胞45% (20%～40%)、单核细胞（M）请描述图片。', model='/root/jane/Qwen2-VL-72B-Instruct/', base_url=None, host='127.0.0.1', port=8000, endpoint='/v1/chat/completions', served_model_name=None, ignore_eos=True)
+image size:  (1080, 1440)
+============ Serving Benchmark Result ============
+Successful requests:                     2         
+Benchmark duration (s):                  17.85     
+Total input tokens:                      1958      
+Total image and input tokens:            5958      
+Total generated tokens:                  1024      
+Request throughput (req/s):              0.11      
+Output token throughput (tok/s):         57.38     
+Total Token throughput (tok/s):          167.09    
+---------------Time to First Token----------------
+Mean TTFT (ms):                          2810.97   
+Median TTFT (ms):                        2810.97   
+P99 TTFT (ms):                           3176.36   
+-----Time per Output Token (excl. 1st token)------
+Mean TPOT (ms):                          29.39     
+Median TPOT (ms):                        29.39     
+P99 TPOT (ms):                           30.08     
+---------------Inter-token Latency----------------
+Mean ITL (ms):                           29.34     
+Median ITL (ms):                         28.68     
+P99 ITL (ms):                            29.26     
+==================================================
+Namespace(seed=0, batch_size=2, output_len=1024, image_path='../../accuracy/zto/40_20240903093021_78830772282673.jpg', prompt='患者男，年龄29岁，血型O，因思维迟钝，易激怒，因发热伴牙龈出血14天，乏力、头晕5天就诊我院急诊科。快速完善检查，血常规显示患者三系血>细胞重度减低，凝血功能检查提示APTT明显延长，纤维蛋白原降低，血液科会诊后发现患者高热、牙龈持续出血，胸骨压痛阳性.于3903年3月7日入院治疗，出现头痛、头晕、伴发热（最高体温42℃）症状，曾到其他医院就医。8日症状有所好转，9日仍有头痛、呕吐，四肢乏力伴发热。10日凌晨到本院就诊。患者5d前出现突发性思维迟钝，脾气暴躁，略有不顺心就出现攻击行为，在院外未行任何诊治。既往身体健康，平素性格内向。体格检查无>异常。血常规白细胞中单核细胞百分比升高。D-二聚体定量1412μg/L，骨髓穿刺示增生极度活跃，异常早幼粒细胞占94%.外周血涂片见大量早幼粒细>胞，并可在胞浆见到柴捆样细胞.以下是血常规详细信息：1.病人红细胞计数结果：3.2 x10^12/L. 附正常参考范围：新生儿:（6.0～7.0）×10^12/L>；婴儿：（5.2～7.0）×10^12/L; 儿童：（4.2～5.2）×10^12/L; 成人男：（4.0～5.5）×10^12/L; 成人女：（3.5～5.0）×10^12/L. 临床意义：生>理性红细胞和血红蛋白增多的原因：精神因素（冲动、兴奋、恐惧、冷水浴刺激等导致肾上腺素分泌增多的因素）、红细胞代偿性增生（长期低气压>、缺氧刺激，多次献血）；生理性红细胞和血红蛋白减少的原因：造血原料相对不足，多见于妊娠、6个月～2岁婴幼儿、某些老年性造血功能减退；>病理性增多：多见于频繁呕吐、出汗过多、大面积烧伤、血液浓缩，慢性肺心病、肺气肿、高原病、肿瘤以及真性红细胞增多症等；病理性减少：多>见于白血病等血液系统疾病；急性大出血、严重的组织损伤及血细胞的破坏等；合成障碍，见于缺铁、维生素B12缺乏等。2. 病人血红蛋白测量结果>：108g/L. 附血红蛋白正常参考范围：男性120～160g/L；女性110～150g/L；新生儿170～200g/L；临床意义：临床意义与红细胞计数相仿，但能更好地反映贫血程度，极重度贫血（Hb<30g/L）、重度贫血（31～60g/L）、中度贫血（61～90g/L）、男性轻度贫血（90~120g/L）、女性轻度贫血（90~110g/L）。3. 病人白细胞计数结果：13.6 x 10^9/L; 附白细胞计数正常参考范围：成人（4.0～10.0）×10^9/L；新生儿（11.0～12.0）×10^9/L。临>床意义：1）生理性白细胞计数增高见于剧烈运动、妊娠、新生儿；2）病理性白细胞增高见于急性化脓性感染、尿毒症、白血病、组织损伤、急性出>血等；3）病理性白细胞减少见于再生障碍性贫血、某些传染病、肝硬化、脾功能亢进、放疗化疗等。4. 病人白细胞分类技术结果(括号内是正常范围)：中性粒细胞50%(50%～70%)、嗜酸性粒细胞3.8%(1%～5%)、嗜碱性粒细胞0.2%(0～1%)、淋巴细胞45% (20%～40%)、单核细胞（M）请描述图片。', model='/root/jane/Qwen2-VL-72B-Instruct/', base_url=None, host='127.0.0.1', port=8000, endpoint='/v1/chat/completions', served_model_name=None, ignore_eos=True)
+image size:  (1080, 1440)
+============ Serving Benchmark Result ============
+Successful requests:                     2         
+Benchmark duration (s):                  32.84     
+Total input tokens:                      1958      
+Total image and input tokens:            5958      
+Total generated tokens:                  2048      
+Request throughput (req/s):              0.06      
+Output token throughput (tok/s):         62.36     
+Total Token throughput (tok/s):          121.98    
+---------------Time to First Token----------------
+Mean TTFT (ms):                          2822.29   
+Median TTFT (ms):                        2822.29   
+P99 TTFT (ms):                           3187.52   
+-----Time per Output Token (excl. 1st token)------
+Mean TPOT (ms):                          29.33     
+Median TPOT (ms):                        29.33     
+P99 TPOT (ms):                           29.67     
+---------------Inter-token Latency----------------
+Mean ITL (ms):                           29.30     
+Median ITL (ms):                         28.75     
+P99 ITL (ms):                            29.52     
+==================================================
+Namespace(seed=0, batch_size=4, output_len=512, image_path='../../accuracy/zto/40_20240903093021_78830772282673.jpg', prompt='患者男，年龄29岁，血型O，因思维迟钝，易激怒，因发热伴牙龈出血14天，乏力、头晕5天就诊我院急诊科。快速完善检查，血常规显示患者三系血>细胞重度减低，凝血功能检查提示APTT明显延长，纤维蛋白原降低，血液科会诊后发现患者高热、牙龈持续出血，胸骨压痛阳性.于3903年3月7日入院治疗，出现头痛、头晕、伴发热（最高体温42℃）症状，曾到其他医院就医。8日症状有所好转，9日仍有头痛、呕吐，四肢乏力伴发热。10日凌晨到本院就诊。患者5d前出现突发性思维迟钝，脾气暴躁，略有不顺心就出现攻击行为，在院外未行任何诊治。既往身体健康，平素性格内向。体格检查无>异常。血常规白细胞中单核细胞百分比升高。D-二聚体定量1412μg/L，骨髓穿刺示增生极度活跃，异常早幼粒细胞占94%.外周血涂片见大量早幼粒细>胞，并可在胞浆见到柴捆样细胞.以下是血常规详细信息：1.病人红细胞计数结果：3.2 x10^12/L. 附正常参考范围：新生儿:（6.0～7.0）×10^12/L>；婴儿：（5.2～7.0）×10^12/L; 儿童：（4.2～5.2）×10^12/L; 成人男：（4.0～5.5）×10^12/L; 成人女：（3.5～5.0）×10^12/L. 临床意义：生>理性红细胞和血红蛋白增多的原因：精神因素（冲动、兴奋、恐惧、冷水浴刺激等导致肾上腺素分泌增多的因素）、红细胞代偿性增生（长期低气压>、缺氧刺激，多次献血）；生理性红细胞和血红蛋白减少的原因：造血原料相对不足，多见于妊娠、6个月～2岁婴幼儿、某些老年性造血功能减退；>病理性增多：多见于频繁呕吐、出汗过多、大面积烧伤、血液浓缩，慢性肺心病、肺气肿、高原病、肿瘤以及真性红细胞增多症等；病理性减少：多>见于白血病等血液系统疾病；急性大出血、严重的组织损伤及血细胞的破坏等；合成障碍，见于缺铁、维生素B12缺乏等。2. 病人血红蛋白测量结果>：108g/L. 附血红蛋白正常参考范围：男性120～160g/L；女性110～150g/L；新生儿170～200g/L；临床意义：临床意义与红细胞计数相仿，但能更好地反映贫血程度，极重度贫血（Hb<30g/L）、重度贫血（31～60g/L）、中度贫血（61～90g/L）、男性轻度贫血（90~120g/L）、女性轻度贫血（90~110g/L）。3. 病人白细胞计数结果：13.6 x 10^9/L; 附白细胞计数正常参考范围：成人（4.0～10.0）×10^9/L；新生儿（11.0～12.0）×10^9/L。临>床意义：1）生理性白细胞计数增高见于剧烈运动、妊娠、新生儿；2）病理性白细胞增高见于急性化脓性感染、尿毒症、白血病、组织损伤、急性出>血等；3）病理性白细胞减少见于再生障碍性贫血、某些传染病、肝硬化、脾功能亢进、放疗化疗等。4. 病人白细胞分类技术结果(括号内是正常范围)：中性粒细胞50%(50%～70%)、嗜酸性粒细胞3.8%(1%～5%)、嗜碱性粒细胞0.2%(0～1%)、淋巴细胞45% (20%～40%)、单核细胞（M）请描述图片。', model='/root/jane/Qwen2-VL-72B-Instruct/', base_url=None, host='127.0.0.1', port=8000, endpoint='/v1/chat/completions', served_model_name=None, ignore_eos=True)
+image size:  (1080, 1440)
+============ Serving Benchmark Result ============
+Successful requests:                     4         
+Benchmark duration (s):                  21.44     
+Total input tokens:                      3916      
+Total image and input tokens:            11916     
+Total generated tokens:                  2048      
+Request throughput (req/s):              0.19      
+Output token throughput (tok/s):         95.51     
+Total Token throughput (tok/s):          278.14    
+---------------Time to First Token----------------
+Mean TTFT (ms):                          4556.71   
+Median TTFT (ms):                        4685.96   
+P99 TTFT (ms):                           6331.74   
+-----Time per Output Token (excl. 1st token)------
+Mean TPOT (ms):                          32.92     
+Median TPOT (ms):                        32.67     
+P99 TPOT (ms):                           36.76     
+---------------Inter-token Latency----------------
+Mean ITL (ms):                           32.86     
+Median ITL (ms):                         29.50     
+P99 ITL (ms):                            30.38     
+==================================================
+Namespace(seed=0, batch_size=4, output_len=1024, image_path='../../accuracy/zto/40_20240903093021_78830772282673.jpg', prompt='患者男，年龄29岁，血型O，因思维迟钝，易激怒，因发热伴牙龈出血14天，乏力、头晕5天就诊我院急诊科。快速完善检查，血常规显示患者三系血>细胞重度减低，凝血功能检查提示APTT明显延长，纤维蛋白原降低，血液科会诊后发现患者高热、牙龈持续出血，胸骨压痛阳性.于3903年3月7日入院治疗，出现头痛、头晕、伴发热（最高体温42℃）症状，曾到其他医院就医。8日症状有所好转，9日仍有头痛、呕吐，四肢乏力伴发热。10日凌晨到本院就诊。患者5d前出现突发性思维迟钝，脾气暴躁，略有不顺心就出现攻击行为，在院外未行任何诊治。既往身体健康，平素性格内向。体格检查无>异常。血常规白细胞中单核细胞百分比升高。D-二聚体定量1412μg/L，骨髓穿刺示增生极度活跃，异常早幼粒细胞占94%.外周血涂片见大量早幼粒细>胞，并可在胞浆见到柴捆样细胞.以下是血常规详细信息：1.病人红细胞计数结果：3.2 x10^12/L. 附正常参考范围：新生儿:（6.0～7.0）×10^12/L>；婴儿：（5.2～7.0）×10^12/L; 儿童：（4.2～5.2）×10^12/L; 成人男：（4.0～5.5）×10^12/L; 成人女：（3.5～5.0）×10^12/L. 临床意义：生>理性红细胞和血红蛋白增多的原因：精神因素（冲动、兴奋、恐惧、冷水浴刺激等导致肾上腺素分泌增多的因素）、红细胞代偿性增生（长期低气压>、缺氧刺激，多次献血）；生理性红细胞和血红蛋白减少的原因：造血原料相对不足，多见于妊娠、6个月～2岁婴幼儿、某些老年性造血功能减退；>病理性增多：多见于频繁呕吐、出汗过多、大面积烧伤、血液浓缩，慢性肺心病、肺气肿、高原病、肿瘤以及真性红细胞增多症等；病理性减少：多>见于白血病等血液系统疾病；急性大出血、严重的组织损伤及血细胞的破坏等；合成障碍，见于缺铁、维生素B12缺乏等。2. 病人血红蛋白测量结果>：108g/L. 附血红蛋白正常参考范围：男性120～160g/L；女性110～150g/L；新生儿170～200g/L；临床意义：临床意义与红细胞计数相仿，但能更好地反映贫血程度，极重度贫血（Hb<30g/L）、重度贫血（31～60g/L）、中度贫血（61～90g/L）、男性轻度贫血（90~120g/L）、女性轻度贫血（90~110g/L）。3. 病人白细胞计数结果：13.6 x 10^9/L; 附白细胞计数正常参考范围：成人（4.0～10.0）×10^9/L；新生儿（11.0～12.0）×10^9/L。临>床意义：1）生理性白细胞计数增高见于剧烈运动、妊娠、新生儿；2）病理性白细胞增高见于急性化脓性感染、尿毒症、白血病、组织损伤、急性出>血等；3）病理性白细胞减少见于再生障碍性贫血、某些传染病、肝硬化、脾功能亢进、放疗化疗等。4. 病人白细胞分类技术结果(括号内是正常范围)：中性粒细胞50%(50%～70%)、嗜酸性粒细胞3.8%(1%～5%)、嗜碱性粒细胞0.2%(0～1%)、淋巴细胞45% (20%～40%)、单核细胞（M）请描述图片。', model='/root/jane/Qwen2-VL-72B-Instruct/', base_url=None, host='127.0.0.1', port=8000, endpoint='/v1/chat/completions', served_model_name=None, ignore_eos=True)
+image size:  (1080, 1440)
+============ Serving Benchmark Result ============
+Successful requests:                     4         
+Benchmark duration (s):                  36.63     
+Total input tokens:                      3916      
+Total image and input tokens:            11916     
+Total generated tokens:                  4096      
+Request throughput (req/s):              0.11      
+Output token throughput (tok/s):         111.81    
+Total Token throughput (tok/s):          218.71    
+---------------Time to First Token----------------
+Mean TTFT (ms):                          4521.16   
+Median TTFT (ms):                        4649.91   
+P99 TTFT (ms):                           6293.77   
+-----Time per Output Token (excl. 1st token)------
+Mean TPOT (ms):                          31.33     
+Median TPOT (ms):                        31.20     
+P99 TPOT (ms):                           33.24     
+---------------Inter-token Latency----------------
+Mean ITL (ms):                           31.30     
+Median ITL (ms):                         29.64     
+P99 ITL (ms):                            30.40     
+==================================================
+Namespace(seed=0, batch_size=6, output_len=512, image_path='../../accuracy/zto/40_20240903093021_78830772282673.jpg', prompt='患者男，年龄29岁，血型O，因思维迟钝，易激怒，因发热伴牙龈出血14天，乏力、头晕5天就诊我院急诊科。快速完善检查，血常规显示患者三系血>细胞重度减低，凝血功能检查提示APTT明显延长，纤维蛋白原降低，血液科会诊后发现患者高热、牙龈持续出血，胸骨压痛阳性.于3903年3月7日入院治疗，出现头痛、头晕、伴发热（最高体温42℃）症状，曾到其他医院就医。8日症状有所好转，9日仍有头痛、呕吐，四肢乏力伴发热。10日凌晨到本院就诊。患者5d前出现突发性思维迟钝，脾气暴躁，略有不顺心就出现攻击行为，在院外未行任何诊治。既往身体健康，平素性格内向。体格检查无>异常。血常规白细胞中单核细胞百分比升高。D-二聚体定量1412μg/L，骨髓穿刺示增生极度活跃，异常早幼粒细胞占94%.外周血涂片见大量早幼粒细>胞，并可在胞浆见到柴捆样细胞.以下是血常规详细信息：1.病人红细胞计数结果：3.2 x10^12/L. 附正常参考范围：新生儿:（6.0～7.0）×10^12/L>；婴儿：（5.2～7.0）×10^12/L; 儿童：（4.2～5.2）×10^12/L; 成人男：（4.0～5.5）×10^12/L; 成人女：（3.5～5.0）×10^12/L. 临床意义：生>理性红细胞和血红蛋白增多的原因：精神因素（冲动、兴奋、恐惧、冷水浴刺激等导致肾上腺素分泌增多的因素）、红细胞代偿性增生（长期低气压>、缺氧刺激，多次献血）；生理性红细胞和血红蛋白减少的原因：造血原料相对不足，多见于妊娠、6个月～2岁婴幼儿、某些老年性造血功能减退；>病理性增多：多见于频繁呕吐、出汗过多、大面积烧伤、血液浓缩，慢性肺心病、肺气肿、高原病、肿瘤以及真性红细胞增多症等；病理性减少：多>见于白血病等血液系统疾病；急性大出血、严重的组织损伤及血细胞的破坏等；合成障碍，见于缺铁、维生素B12缺乏等。2. 病人血红蛋白测量结果>：108g/L. 附血红蛋白正常参考范围：男性120～160g/L；女性110～150g/L；新生儿170～200g/L；临床意义：临床意义与红细胞计数相仿，但能更好地反映贫血程度，极重度贫血（Hb<30g/L）、重度贫血（31～60g/L）、中度贫血（61～90g/L）、男性轻度贫血（90~120g/L）、女性轻度贫血（90~110g/L）。3. 病人白细胞计数结果：13.6 x 10^9/L; 附白细胞计数正常参考范围：成人（4.0～10.0）×10^9/L；新生儿（11.0～12.0）×10^9/L。临>床意义：1）生理性白细胞计数增高见于剧烈运动、妊娠、新生儿；2）病理性白细胞增高见于急性化脓性感染、尿毒症、白血病、组织损伤、急性出>血等；3）病理性白细胞减少见于再生障碍性贫血、某些传染病、肝硬化、脾功能亢进、放疗化疗等。4. 病人白细胞分类技术结果(括号内是正常范围)：中性粒细胞50%(50%～70%)、嗜酸性粒细胞3.8%(1%～5%)、嗜碱性粒细胞0.2%(0～1%)、淋巴细胞45% (20%～40%)、单核细胞（M）请描述图片。', model='/root/jane/Qwen2-VL-72B-Instruct/', base_url=None, host='127.0.0.1', port=8000, endpoint='/v1/chat/completions', served_model_name=None, ignore_eos=True)
+image size:  (1080, 1440)
+============ Serving Benchmark Result ============
+Successful requests:                     6         
+Benchmark duration (s):                  27.24     
+Total input tokens:                      5874      
+Total image and input tokens:            17874     
+Total generated tokens:                  3072      
+Request throughput (req/s):              0.22      
+Output token throughput (tok/s):         112.79    
+Total Token throughput (tok/s):          328.46    
+---------------Time to First Token----------------
+Mean TTFT (ms):                          6212.09   
+Median TTFT (ms):                        6309.46   
+P99 TTFT (ms):                           9471.98   
+-----Time per Output Token (excl. 1st token)------
+Mean TPOT (ms):                          40.92     
+Median TPOT (ms):                        40.73     
+P99 TPOT (ms):                           47.78     
+---------------Inter-token Latency----------------
+Mean ITL (ms):                           40.84     
+Median ITL (ms):                         34.73     
+P99 ITL (ms):                            35.71     
+==================================================
+Namespace(seed=0, batch_size=6, output_len=1024, image_path='../../accuracy/zto/40_20240903093021_78830772282673.jpg', prompt='患者男，年龄29岁，血型O，因思维迟钝，易激怒，因发热伴牙龈出血14天，乏力、头晕5天就诊我院急诊科。快速完善检查，血常规显示患者三系血>细胞重度减低，凝血功能检查提示APTT明显延长，纤维蛋白原降低，血液科会诊后发现患者高热、牙龈持续出血，胸骨压痛阳性.于3903年3月7日入院治疗，出现头痛、头晕、伴发热（最高体温42℃）症状，曾到其他医院就医。8日症状有所好转，9日仍有头痛、呕吐，四肢乏力伴发热。10日凌晨到本院就诊。患者5d前出现突发性思维迟钝，脾气暴躁，略有不顺心就出现攻击行为，在院外未行任何诊治。既往身体健康，平素性格内向。体格检查无>异常。血常规白细胞中单核细胞百分比升高。D-二聚体定量1412μg/L，骨髓穿刺示增生极度活跃，异常早幼粒细胞占94%.外周血涂片见大量早幼粒细>胞，并可在胞浆见到柴捆样细胞.以下是血常规详细信息：1.病人红细胞计数结果：3.2 x10^12/L. 附正常参考范围：新生儿:（6.0～7.0）×10^12/L>；婴儿：（5.2～7.0）×10^12/L; 儿童：（4.2～5.2）×10^12/L; 成人男：（4.0～5.5）×10^12/L; 成人女：（3.5～5.0）×10^12/L. 临床意义：生>理性红细胞和血红蛋白增多的原因：精神因素（冲动、兴奋、恐惧、冷水浴刺激等导致肾上腺素分泌增多的因素）、红细胞代偿性增生（长期低气压>、缺氧刺激，多次献血）；生理性红细胞和血红蛋白减少的原因：造血原料相对不足，多见于妊娠、6个月～2岁婴幼儿、某些老年性造血功能减退；>病理性增多：多见于频繁呕吐、出汗过多、大面积烧伤、血液浓缩，慢性肺心病、肺气肿、高原病、肿瘤以及真性红细胞增多症等；病理性减少：多>见于白血病等血液系统疾病；急性大出血、严重的组织损伤及血细胞的破坏等；合成障碍，见于缺铁、维生素B12缺乏等。2. 病人血红蛋白测量结果>：108g/L. 附血红蛋白正常参考范围：男性120～160g/L；女性110～150g/L；新生儿170～200g/L；临床意义：临床意义与红细胞计数相仿，但能更好地反映贫血程度，极重度贫血（Hb<30g/L）、重度贫血（31～60g/L）、中度贫血（61～90g/L）、男性轻度贫血（90~120g/L）、女性轻度贫血（90~110g/L）。3. 病人白细胞计数结果：13.6 x 10^9/L; 附白细胞计数正常参考范围：成人（4.0～10.0）×10^9/L；新生儿（11.0～12.0）×10^9/L。临>床意义：1）生理性白细胞计数增高见于剧烈运动、妊娠、新生儿；2）病理性白细胞增高见于急性化脓性感染、尿毒症、白血病、组织损伤、急性出>血等；3）病理性白细胞减少见于再生障碍性贫血、某些传染病、肝硬化、脾功能亢进、放疗化疗等。4. 病人白细胞分类技术结果(括号内是正常范围)：中性粒细胞50%(50%～70%)、嗜酸性粒细胞3.8%(1%～5%)、嗜碱性粒细胞0.2%(0～1%)、淋巴细胞45% (20%～40%)、单核细胞（M）请描述图片。', model='/root/jane/Qwen2-VL-72B-Instruct/', base_url=None, host='127.0.0.1', port=8000, endpoint='/v1/chat/completions', served_model_name=None, ignore_eos=True)
+image size:  (1080, 1440)
+============ Serving Benchmark Result ============
+Successful requests:                     6         
+Benchmark duration (s):                  45.11     
+Total input tokens:                      5874      
+Total image and input tokens:            17874     
+Total generated tokens:                  6144      
+Request throughput (req/s):              0.13      
+Output token throughput (tok/s):         136.20    
+Total Token throughput (tok/s):          266.41    
+---------------Time to First Token----------------
+Mean TTFT (ms):                          6229.94   
+Median TTFT (ms):                        6333.71   
+P99 TTFT (ms):                           9489.60   
+-----Time per Output Token (excl. 1st token)------
+Mean TPOT (ms):                          37.90     
+Median TPOT (ms):                        37.80     
+P99 TPOT (ms):                           41.33     
+---------------Inter-token Latency----------------
+Mean ITL (ms):                           37.86     
+Median ITL (ms):                         34.79     
+P99 ITL (ms):                            35.62     
+==================================================
+Namespace(seed=0, batch_size=8, output_len=512, image_path='../../accuracy/zto/40_20240903093021_78830772282673.jpg', prompt='患者男，年龄29岁，血型O，因思维迟钝，易激怒，因发热伴牙龈出血14天，乏力、头晕5天就诊我院急诊科。快速完善检查，血常规显示患者三系血>细胞重度减低，凝血功能检查提示APTT明显延长，纤维蛋白原降低，血液科会诊后发现患者高热、牙龈持续出血，胸骨压痛阳性.于3903年3月7日入院治疗，出现头痛、头晕、伴发热（最高体温42℃）症状，曾到其他医院就医。8日症状有所好转，9日仍有头痛、呕吐，四肢乏力伴发热。10日凌晨到本院就诊。患者5d前出现突发性思维迟钝，脾气暴躁，略有不顺心就出现攻击行为，在院外未行任何诊治。既往身体健康，平素性格内向。体格检查无>异常。血常规白细胞中单核细胞百分比升高。D-二聚体定量1412μg/L，骨髓穿刺示增生极度活跃，异常早幼粒细胞占94%.外周血涂片见大量早幼粒细>胞，并可在胞浆见到柴捆样细胞.以下是血常规详细信息：1.病人红细胞计数结果：3.2 x10^12/L. 附正常参考范围：新生儿:（6.0～7.0）×10^12/L>；婴儿：（5.2～7.0）×10^12/L; 儿童：（4.2～5.2）×10^12/L; 成人男：（4.0～5.5）×10^12/L; 成人女：（3.5～5.0）×10^12/L. 临床意义：生>理性红细胞和血红蛋白增多的原因：精神因素（冲动、兴奋、恐惧、冷水浴刺激等导致肾上腺素分泌增多的因素）、红细胞代偿性增生（长期低气压>、缺氧刺激，多次献血）；生理性红细胞和血红蛋白减少的原因：造血原料相对不足，多见于妊娠、6个月～2岁婴幼儿、某些老年性造血功能减退；>病理性增多：多见于频繁呕吐、出汗过多、大面积烧伤、血液浓缩，慢性肺心病、肺气肿、高原病、肿瘤以及真性红细胞增多症等；病理性减少：多>见于白血病等血液系统疾病；急性大出血、严重的组织损伤及血细胞的破坏等；合成障碍，见于缺铁、维生素B12缺乏等。2. 病人血红蛋白测量结果>：108g/L. 附血红蛋白正常参考范围：男性120～160g/L；女性110～150g/L；新生儿170～200g/L；临床意义：临床意义与红细胞计数相仿，但能更好地反映贫血程度，极重度贫血（Hb<30g/L）、重度贫血（31～60g/L）、中度贫血（61～90g/L）、男性轻度贫血（90~120g/L）、女性轻度贫血（90~110g/L）。3. 病人白细胞计数结果：13.6 x 10^9/L; 附白细胞计数正常参考范围：成人（4.0～10.0）×10^9/L；新生儿（11.0～12.0）×10^9/L。临>床意义：1）生理性白细胞计数增高见于剧烈运动、妊娠、新生儿；2）病理性白细胞增高见于急性化脓性感染、尿毒症、白血病、组织损伤、急性出>血等；3）病理性白细胞减少见于再生障碍性贫血、某些传染病、肝硬化、脾功能亢进、放疗化疗等。4. 病人白细胞分类技术结果(括号内是正常范围)：中性粒细胞50%(50%～70%)、嗜酸性粒细胞3.8%(1%～5%)、嗜碱性粒细胞0.2%(0～1%)、淋巴细胞45% (20%～40%)、单核细胞（M）请描述图片。', model='/root/jane/Qwen2-VL-72B-Instruct/', base_url=None, host='127.0.0.1', port=8000, endpoint='/v1/chat/completions', served_model_name=None, ignore_eos=True)
+image size:  (1080, 1440)
+============ Serving Benchmark Result ============
+Successful requests:                     8         
+Benchmark duration (s):                  30.50     
+Total input tokens:                      7832      
+Total image and input tokens:            23832     
+Total generated tokens:                  4096      
+Request throughput (req/s):              0.26      
+Output token throughput (tok/s):         134.30    
+Total Token throughput (tok/s):          391.10    
+---------------Time to First Token----------------
+Mean TTFT (ms):                          7809.10   
+Median TTFT (ms):                        7895.30   
+P99 TTFT (ms):                           12569.54  
+-----Time per Output Token (excl. 1st token)------
+Mean TPOT (ms):                          44.08     
+Median TPOT (ms):                        43.92     
+P99 TPOT (ms):                           53.95     
+---------------Inter-token Latency----------------
+Mean ITL (ms):                           43.99     
+Median ITL (ms):                         35.02     
+P99 ITL (ms):                            37.53     
+==================================================
+Namespace(seed=0, batch_size=8, output_len=1024, image_path='../../accuracy/zto/40_20240903093021_78830772282673.jpg', prompt='患者男，年龄29岁，血型O，因思维迟钝，易激怒，因发热伴牙龈出血14天，乏力、头晕5天就诊我院急诊科。快速完善检查，血常规显示患者三系血>细胞重度减低，凝血功能检查提示APTT明显延长，纤维蛋白原降低，血液科会诊后发现患者高热、牙龈持续出血，胸骨压痛阳性.于3903年3月7日入院治疗，出现头痛、头晕、伴发热（最高体温42℃）症状，曾到其他医院就医。8日症状有所好转，9日仍有头痛、呕吐，四肢乏力伴发热。10日凌晨到本院就诊。患者5d前出现突发性思维迟钝，脾气暴躁，略有不顺心就出现攻击行为，在院外未行任何诊治。既往身体健康，平素性格内向。体格检查无>异常。血常规白细胞中单核细胞百分比升高。D-二聚体定量1412μg/L，骨髓穿刺示增生极度活跃，异常早幼粒细胞占94%.外周血涂片见大量早幼粒细>胞，并可在胞浆见到柴捆样细胞.以下是血常规详细信息：1.病人红细胞计数结果：3.2 x10^12/L. 附正常参考范围：新生儿:（6.0～7.0）×10^12/L>；婴儿：（5.2～7.0）×10^12/L; 儿童：（4.2～5.2）×10^12/L; 成人男：（4.0～5.5）×10^12/L; 成人女：（3.5～5.0）×10^12/L. 临床意义：生>理性红细胞和血红蛋白增多的原因：精神因素（冲动、兴奋、恐惧、冷水浴刺激等导致肾上腺素分泌增多的因素）、红细胞代偿性增生（长期低气压>、缺氧刺激，多次献血）；生理性红细胞和血红蛋白减少的原因：造血原料相对不足，多见于妊娠、6个月～2岁婴幼儿、某些老年性造血功能减退；>病理性增多：多见于频繁呕吐、出汗过多、大面积烧伤、血液浓缩，慢性肺心病、肺气肿、高原病、肿瘤以及真性红细胞增多症等；病理性减少：多>见于白血病等血液系统疾病；急性大出血、严重的组织损伤及血细胞的破坏等；合成障碍，见于缺铁、维生素B12缺乏等。2. 病人血红蛋白测量结果>：108g/L. 附血红蛋白正常参考范围：男性120～160g/L；女性110～150g/L；新生儿170～200g/L；临床意义：临床意义与红细胞计数相仿，但能更好地反映贫血程度，极重度贫血（Hb<30g/L）、重度贫血（31～60g/L）、中度贫血（61～90g/L）、男性轻度贫血（90~120g/L）、女性轻度贫血（90~110g/L）。3. 病人白细胞计数结果：13.6 x 10^9/L; 附白细胞计数正常参考范围：成人（4.0～10.0）×10^9/L；新生儿（11.0～12.0）×10^9/L。临>床意义：1）生理性白细胞计数增高见于剧烈运动、妊娠、新生儿；2）病理性白细胞增高见于急性化脓性感染、尿毒症、白血病、组织损伤、急性出>血等；3）病理性白细胞减少见于再生障碍性贫血、某些传染病、肝硬化、脾功能亢进、放疗化疗等。4. 病人白细胞分类技术结果(括号内是正常范围)：中性粒细胞50%(50%～70%)、嗜酸性粒细胞3.8%(1%～5%)、嗜碱性粒细胞0.2%(0～1%)、淋巴细胞45% (20%～40%)、单核细胞（M）请描述图片。', model='/root/jane/Qwen2-VL-72B-Instruct/', base_url=None, host='127.0.0.1', port=8000, endpoint='/v1/chat/completions', served_model_name=None, ignore_eos=True)
+image size:  (1080, 1440)
+============ Serving Benchmark Result ============
+Successful requests:                     8         
+Benchmark duration (s):                  48.45     
+Total input tokens:                      7832      
+Total image and input tokens:            23832     
+Total generated tokens:                  8192      
+Request throughput (req/s):              0.17      
+Output token throughput (tok/s):         169.10    
+Total Token throughput (tok/s):          330.76    
+---------------Time to First Token----------------
+Mean TTFT (ms):                          7819.31   
+Median TTFT (ms):                        7902.35   
+P99 TTFT (ms):                           12584.44  
+-----Time per Output Token (excl. 1st token)------
+Mean TPOT (ms):                          39.55     
+Median TPOT (ms):                        39.48     
+P99 TPOT (ms):                           44.49     
+---------------Inter-token Latency----------------
+Mean ITL (ms):                           39.51     
+Median ITL (ms):                         35.02     
+P99 ITL (ms):                            35.90     
+==================================================
+Namespace(seed=0, batch_size=1, output_len=512, image_path='../../accuracy/zto/40_20240903093021_78830772282673.jpg', prompt='患者男，年龄29岁，血型O，因思维迟钝，易激怒，因发热伴牙龈出血14天，乏力、头晕5天就诊我院急诊科。快速完善检查，血常规显示患者三系血>细胞重度减低，凝血功能检查提示APTT明显延长，纤维蛋白原降低，血液科会诊后发现患者高热、牙龈持续出血，胸骨压痛阳性.于3903年3月7日入院治疗，出现头痛、头晕、伴发热（最高体温42℃）症状，曾到其他医院就医。8日症状有所好转，9日仍有头痛、呕吐，四肢乏力伴发热。10日凌晨到本院就诊。患者5d前出现突发性思维迟钝，脾气暴躁，略有不顺心就出现攻击行为，在院外未行任何诊治。既往身体健康，平素性格内向。体格检查无>异常。血常规白细胞中单核细胞百分比升高。D-二聚体定量1412μg/L，骨髓穿刺示增生极度活跃，异常早幼粒细胞占94%.外周血涂片见大量早幼粒细>胞，并可在胞浆见到柴捆样细胞.以下是血常规详细信息：1.病人红细胞计数结果：3.2 x10^12/L. 附正常参考范围：新生儿:（6.0～7.0）×10^12/L>；婴儿：（5.2～7.0）×10^12/L; 儿童：（4.2～5.2）×10^12/L; 成人男：（4.0～5.5）×10^12/L; 成人女：（3.5～5.0）×10^12/L. 临床意义：生>理性红细胞和血红蛋白增多的原因：精神因素（冲动、兴奋、恐惧、冷水浴刺激等导致肾上腺素分泌增多的因素）、红细胞代偿性增生（长期低气压>、缺氧刺激，多次献血）；生理性红细胞和血红蛋白减少的原因：造血原料相对不足，多见于妊娠、6个月～2岁婴幼儿、某些老年性造血功能减退；>病理性增多：多见于频繁呕吐、出汗过多、大面积烧伤、血液浓缩，慢性肺心病、肺气肿、高原病、肿瘤以及真性红细胞增多症等；病理性减少：多>见于白血病等血液系统疾病；急性大出血、严重的组织损伤及血细胞的破坏等；合成障碍，见于缺铁、维生素B12缺乏等。2. 病人血红蛋白测量结果>：108g/L. 附血红蛋白正常参考范围：男性120～160g/L；女性110～150g/L；新生儿170～200g/L；临床意义：临床意义与红细胞计数相仿，但能更好地反映贫血程度，极重度贫血（Hb<30g/L）、重度贫血（31～60g/L）、中度贫血（61～90g/L）、男性轻度贫血（90~120g/L）、女性轻度贫血（90~110g/L）。3. 病人白细胞计数结果：13.6 x 10^9/L; 附白细胞计数正常参考范围：成人（4.0～10.0）×10^9/L；新生儿（11.0～12.0）×10^9/L。临>床意义：1）生理性白细胞计数增高见于剧烈运动、妊娠、新生儿；2）病理性白细胞增高见于急性化脓性感染、尿毒症、白血病、组织损伤、急性出>血等；3）病理性白细胞减少见于再生障碍性贫血、某些传染病、肝硬化、脾功能亢进、放疗化疗等。4. 病人白细胞分类技术结果(括号内是正常范围)：中性粒细胞50%(50%～70%)、嗜酸性粒细胞3.8%(1%～5%)、嗜碱性粒细胞0.2%(0～1%)、淋巴细胞45% (20%～40%)、单核细胞患者男，年龄29岁，血型O，因思维迟钝，易激怒，因发热伴牙龈出血14天，乏力、头晕5天就诊我院急诊科。快速完善检查，血常规显示患者三系血>细胞重度减低，凝血功能检查提示APTT明显延长，纤维蛋白原降低，血液科会诊后发现患者高热、牙龈持续出血，胸骨压痛阳性.于3903年3月7日入院治疗，出现头痛、头晕、伴发热（最高体温42℃）症状，曾到其他医院就医。8日症状有所好转，9日仍有头痛、呕吐，四肢乏力伴发热。10日凌晨到本院就诊。患者5d前出现突发性思维迟钝，脾气暴躁，略有不顺心就出现攻击行为，在院外未行任何诊治。既往身体健康，平素性格内向。体格检查无>异常。血常规白细胞中单核细胞百分比升高。D-二聚体定量1412μg/L，骨髓穿刺示增生极度活跃，异常早幼粒细胞占94%.外周血涂片见大量早幼粒细>胞，并可在胞浆见到柴捆样细胞.以下是血常规详细信息：1.病人红细胞计数结果：3.2 x10^12/L. 附正常参考范围：新生儿:（6.0～7.0）×10^12/L>；婴儿：（5.2～7.0）×10^12/L; 儿童：（4.2～5.2）×10^12/L; 成人男：（4.0～5.5）×10^12/L; 成人女：（3.5～5.0）×10^12/L. 临床意义：生>理性红细胞和血红蛋白增多的原因：精神因素（冲动、兴奋、恐惧、冷水浴刺激等导致肾上腺素分泌增多的因素）、红细胞代偿性增生（长期低气压>、缺氧刺激，多次献血）；生理性红细胞和血红蛋白减少的原因：造血原料相对不足，多见于妊娠、6个月～2岁婴幼儿、某些老年性造血功能减退；>病理性增多：多见于频繁呕吐、出汗过多、大面积烧伤、血液浓缩，慢性肺心病、肺气肿、高原病、肿瘤以及真性红细胞增多症等；病理性减少：多>见于白血病等血液系统疾病；急性大出血、严重的组织损伤及血细胞的破坏等；合成障碍，见于缺铁、维生素B12缺乏等。2. 病人血红蛋白测量结果>：108g/L. 附血红蛋白正常参考范围：男性120～160g/L；女性110～150g/L；新生儿170～200g/L；临床意义：临床意义与红细胞计数相仿，但能更好地反映贫血程度，极重度贫血（Hb<30g/L）、重度贫血（31～60g/L）、中度贫血（61～90g/L）、男性轻度贫血（90~120g/L）、女性轻度贫血（90~110g/L）。3. 病人白细胞计数结果：13.6 x 10^9/L; 附白细胞计数正常参考范围：成人（4.0～10.0）×10^9/L；新生儿（11.0～12.0）×10^9/L。临>床意义：1）生理性白细胞计数增高见于剧烈运动、妊娠、新生儿；2）病理性白细胞增高见于急性化脓性感染、尿毒症、白血病、组织损伤、急性出>血等；3）病理性白细胞减少见于再生障碍性贫血、某些传染病、肝硬化、脾功能亢进、放疗化疗等。4. 病人白细胞分类技术结果(括号内是正常范围)：中性粒细胞50%(50%～70%)、嗜酸性粒细胞3.8%(1%～5%)、嗜碱性粒细胞0.2%(0～1%)、淋巴细胞45% (20%～40%)、单核细胞（M）。请描述图片', model='/root/jane/Qwen2-VL-72B-Instruct/', base_url=None, host='127.0.0.1', port=8000, endpoint='/v1/chat/completions', served_model_name=None, ignore_eos=True)
+image size:  (1080, 1440)
+============ Serving Benchmark Result ============
+Successful requests:                     1         
+Benchmark duration (s):                  16.06     
+Total input tokens:                      1950      
+Total image and input tokens:            3950      
+Total generated tokens:                  512       
+Request throughput (req/s):              0.06      
+Output token throughput (tok/s):         31.89     
+Total Token throughput (tok/s):          153.34    
+---------------Time to First Token----------------
+Mean TTFT (ms):                          1991.47   
+Median TTFT (ms):                        1991.47   
+P99 TTFT (ms):                           1991.47   
+-----Time per Output Token (excl. 1st token)------
+Mean TPOT (ms):                          27.52     
+Median TPOT (ms):                        27.52     
+P99 TPOT (ms):                           27.52     
+---------------Inter-token Latency----------------
+Mean ITL (ms):                           27.47     
+Median ITL (ms):                         27.51     
+P99 ITL (ms):                            28.22     
+==================================================
+Namespace(seed=0, batch_size=1, output_len=1024, image_path='../../accuracy/zto/40_20240903093021_78830772282673.jpg', prompt='患者男，年龄29岁，血型O，因思维迟钝，易激怒，因发热伴牙龈出血14天，乏力、头晕5天就诊我院急诊科。快速完善检查，血常规显示患者三系血>细胞重度减低，凝血功能检查提示APTT明显延长，纤维蛋白原降低，血液科会诊后发现患者高热、牙龈持续出血，胸骨压痛阳性.于3903年3月7日入院治疗，出现头痛、头晕、伴发热（最高体温42℃）症状，曾到其他医院就医。8日症状有所好转，9日仍有头痛、呕吐，四肢乏力伴发热。10日凌晨到本院就诊。患者5d前出现突发性思维迟钝，脾气暴躁，略有不顺心就出现攻击行为，在院外未行任何诊治。既往身体健康，平素性格内向。体格检查无>异常。血常规白细胞中单核细胞百分比升高。D-二聚体定量1412μg/L，骨髓穿刺示增生极度活跃，异常早幼粒细胞占94%.外周血涂片见大量早幼粒细>胞，并可在胞浆见到柴捆样细胞.以下是血常规详细信息：1.病人红细胞计数结果：3.2 x10^12/L. 附正常参考范围：新生儿:（6.0～7.0）×10^12/L>；婴儿：（5.2～7.0）×10^12/L; 儿童：（4.2～5.2）×10^12/L; 成人男：（4.0～5.5）×10^12/L; 成人女：（3.5～5.0）×10^12/L. 临床意义：生>理性红细胞和血红蛋白增多的原因：精神因素（冲动、兴奋、恐惧、冷水浴刺激等导致肾上腺素分泌增多的因素）、红细胞代偿性增生（长期低气压>、缺氧刺激，多次献血）；生理性红细胞和血红蛋白减少的原因：造血原料相对不足，多见于妊娠、6个月～2岁婴幼儿、某些老年性造血功能减退；>病理性增多：多见于频繁呕吐、出汗过多、大面积烧伤、血液浓缩，慢性肺心病、肺气肿、高原病、肿瘤以及真性红细胞增多症等；病理性减少：多>见于白血病等血液系统疾病；急性大出血、严重的组织损伤及血细胞的破坏等；合成障碍，见于缺铁、维生素B12缺乏等。2. 病人血红蛋白测量结果>：108g/L. 附血红蛋白正常参考范围：男性120～160g/L；女性110～150g/L；新生儿170～200g/L；临床意义：临床意义与红细胞计数相仿，但能更好地反映贫血程度，极重度贫血（Hb<30g/L）、重度贫血（31～60g/L）、中度贫血（61～90g/L）、男性轻度贫血（90~120g/L）、女性轻度贫血（90~110g/L）。3. 病人白细胞计数结果：13.6 x 10^9/L; 附白细胞计数正常参考范围：成人（4.0～10.0）×10^9/L；新生儿（11.0～12.0）×10^9/L。临>床意义：1）生理性白细胞计数增高见于剧烈运动、妊娠、新生儿；2）病理性白细胞增高见于急性化脓性感染、尿毒症、白血病、组织损伤、急性出>血等；3）病理性白细胞减少见于再生障碍性贫血、某些传染病、肝硬化、脾功能亢进、放疗化疗等。4. 病人白细胞分类技术结果(括号内是正常范围)：中性粒细胞50%(50%～70%)、嗜酸性粒细胞3.8%(1%～5%)、嗜碱性粒细胞0.2%(0～1%)、淋巴细胞45% (20%～40%)、单核细胞患者男，年龄29岁，血型O，因思维迟钝，易激怒，因发热伴牙龈出血14天，乏力、头晕5天就诊我院急诊科。快速完善检查，血常规显示患者三系血>细胞重度减低，凝血功能检查提示APTT明显延长，纤维蛋白原降低，血液科会诊后发现患者高热、牙龈持续出血，胸骨压痛阳性.于3903年3月7日入院治疗，出现头痛、头晕、伴发热（最高体温42℃）症状，曾到其他医院就医。8日症状有所好转，9日仍有头痛、呕吐，四肢乏力伴发热。10日凌晨到本院就诊。患者5d前出现突发性思维迟钝，脾气暴躁，略有不顺心就出现攻击行为，在院外未行任何诊治。既往身体健康，平素性格内向。体格检查无>异常。血常规白细胞中单核细胞百分比升高。D-二聚体定量1412μg/L，骨髓穿刺示增生极度活跃，异常早幼粒细胞占94%.外周血涂片见大量早幼粒细>胞，并可在胞浆见到柴捆样细胞.以下是血常规详细信息：1.病人红细胞计数结果：3.2 x10^12/L. 附正常参考范围：新生儿:（6.0～7.0）×10^12/L>；婴儿：（5.2～7.0）×10^12/L; 儿童：（4.2～5.2）×10^12/L; 成人男：（4.0～5.5）×10^12/L; 成人女：（3.5～5.0）×10^12/L. 临床意义：生>理性红细胞和血红蛋白增多的原因：精神因素（冲动、兴奋、恐惧、冷水浴刺激等导致肾上腺素分泌增多的因素）、红细胞代偿性增生（长期低气压>、缺氧刺激，多次献血）；生理性红细胞和血红蛋白减少的原因：造血原料相对不足，多见于妊娠、6个月～2岁婴幼儿、某些老年性造血功能减退；>病理性增多：多见于频繁呕吐、出汗过多、大面积烧伤、血液浓缩，慢性肺心病、肺气肿、高原病、肿瘤以及真性红细胞增多症等；病理性减少：多>见于白血病等血液系统疾病；急性大出血、严重的组织损伤及血细胞的破坏等；合成障碍，见于缺铁、维生素B12缺乏等。2. 病人血红蛋白测量结果>：108g/L. 附血红蛋白正常参考范围：男性120～160g/L；女性110～150g/L；新生儿170～200g/L；临床意义：临床意义与红细胞计数相仿，但能更好地反映贫血程度，极重度贫血（Hb<30g/L）、重度贫血（31～60g/L）、中度贫血（61～90g/L）、男性轻度贫血（90~120g/L）、女性轻度贫血（90~110g/L）。3. 病人白细胞计数结果：13.6 x 10^9/L; 附白细胞计数正常参考范围：成人（4.0～10.0）×10^9/L；新生儿（11.0～12.0）×10^9/L。临>床意义：1）生理性白细胞计数增高见于剧烈运动、妊娠、新生儿；2）病理性白细胞增高见于急性化脓性感染、尿毒症、白血病、组织损伤、急性出>血等；3）病理性白细胞减少见于再生障碍性贫血、某些传染病、肝硬化、脾功能亢进、放疗化疗等。4. 病人白细胞分类技术结果(括号内是正常范围)：中性粒细胞50%(50%～70%)、嗜酸性粒细胞3.8%(1%～5%)、嗜碱性粒细胞0.2%(0～1%)、淋巴细胞45% (20%～40%)、单核细胞（M）。请描述图片', model='/root/jane/Qwen2-VL-72B-Instruct/', base_url=None, host='127.0.0.1', port=8000, endpoint='/v1/chat/completions', served_model_name=None, ignore_eos=True)
+image size:  (1080, 1440)
+============ Serving Benchmark Result ============
+Successful requests:                     1         
+Benchmark duration (s):                  30.18     
+Total input tokens:                      1950      
+Total image and input tokens:            3950      
+Total generated tokens:                  1024      
+Request throughput (req/s):              0.03      
+Output token throughput (tok/s):         33.93     
+Total Token throughput (tok/s):          98.54     
+---------------Time to First Token----------------
+Mean TTFT (ms):                          1998.29   
+Median TTFT (ms):                        1998.29   
+P99 TTFT (ms):                           1998.29   
+-----Time per Output Token (excl. 1st token)------
+Mean TPOT (ms):                          27.55     
+Median TPOT (ms):                        27.55     
+P99 TPOT (ms):                           27.55     
+---------------Inter-token Latency----------------
+Mean ITL (ms):                           27.52     
+Median ITL (ms):                         27.55     
+P99 ITL (ms):                            28.06     
+==================================================
+Namespace(seed=0, batch_size=1, output_len=2048, image_path='../../accuracy/zto/40_20240903093021_78830772282673.jpg', prompt='患者男，年龄29岁，血型O，因思维迟钝，易激怒，因发热伴牙龈出血14天，乏力、头晕5天就诊我院急诊科。快速完善检查，血常规显示患者三系血>细胞重度减低，凝血功能检查提示APTT明显延长，纤维蛋白原降低，血液科会诊后发现患者高热、牙龈持续出血，胸骨压痛阳性.于3903年3月7日入院治疗，出现头痛、头晕、伴发热（最高体温42℃）症状，曾到其他医院就医。8日症状有所好转，9日仍有头痛、呕吐，四肢乏力伴发热。10日凌晨到本院就诊。患者5d前出现突发性思维迟钝，脾气暴躁，略有不顺心就出现攻击行为，在院外未行任何诊治。既往身体健康，平素性格内向。体格检查无>异常。血常规白细胞中单核细胞百分比升高。D-二聚体定量1412μg/L，骨髓穿刺示增生极度活跃，异常早幼粒细胞占94%.外周血涂片见大量早幼粒细>胞，并可在胞浆见到柴捆样细胞.以下是血常规详细信息：1.病人红细胞计数结果：3.2 x10^12/L. 附正常参考范围：新生儿:（6.0～7.0）×10^12/L>；婴儿：（5.2～7.0）×10^12/L; 儿童：（4.2～5.2）×10^12/L; 成人男：（4.0～5.5）×10^12/L; 成人女：（3.5～5.0）×10^12/L. 临床意义：生>理性红细胞和血红蛋白增多的原因：精神因素（冲动、兴奋、恐惧、冷水浴刺激等导致肾上腺素分泌增多的因素）、红细胞代偿性增生（长期低气压>、缺氧刺激，多次献血）；生理性红细胞和血红蛋白减少的原因：造血原料相对不足，多见于妊娠、6个月～2岁婴幼儿、某些老年性造血功能减退；>病理性增多：多见于频繁呕吐、出汗过多、大面积烧伤、血液浓缩，慢性肺心病、肺气肿、高原病、肿瘤以及真性红细胞增多症等；病理性减少：多>见于白血病等血液系统疾病；急性大出血、严重的组织损伤及血细胞的破坏等；合成障碍，见于缺铁、维生素B12缺乏等。2. 病人血红蛋白测量结果>：108g/L. 附血红蛋白正常参考范围：男性120～160g/L；女性110～150g/L；新生儿170～200g/L；临床意义：临床意义与红细胞计数相仿，但能更好地反映贫血程度，极重度贫血（Hb<30g/L）、重度贫血（31～60g/L）、中度贫血（61～90g/L）、男性轻度贫血（90~120g/L）、女性轻度贫血（90~110g/L）。3. 病人白细胞计数结果：13.6 x 10^9/L; 附白细胞计数正常参考范围：成人（4.0～10.0）×10^9/L；新生儿（11.0～12.0）×10^9/L。临>床意义：1）生理性白细胞计数增高见于剧烈运动、妊娠、新生儿；2）病理性白细胞增高见于急性化脓性感染、尿毒症、白血病、组织损伤、急性出>血等；3）病理性白细胞减少见于再生障碍性贫血、某些传染病、肝硬化、脾功能亢进、放疗化疗等。4. 病人白细胞分类技术结果(括号内是正常范围)：中性粒细胞50%(50%～70%)、嗜酸性粒细胞3.8%(1%～5%)、嗜碱性粒细胞0.2%(0～1%)、淋巴细胞45% (20%～40%)、单核细胞患者男，年龄29岁，血型O，因思维迟钝，易激怒，因发热伴牙龈出血14天，乏力、头晕5天就诊我院急诊科。快速完善检查，血常规显示患者三系血>细胞重度减低，凝血功能检查提示APTT明显延长，纤维蛋白原降低，血液科会诊后发现患者高热、牙龈持续出血，胸骨压痛阳性.于3903年3月7日入院治疗，出现头痛、头晕、伴发热（最高体温42℃）症状，曾到其他医院就医。8日症状有所好转，9日仍有头痛、呕吐，四肢乏力伴发热。10日凌晨到本院就诊。患者5d前出现突发性思维迟钝，脾气暴躁，略有不顺心就出现攻击行为，在院外未行任何诊治。既往身体健康，平素性格内向。体格检查无>异常。血常规白细胞中单核细胞百分比升高。D-二聚体定量1412μg/L，骨髓穿刺示增生极度活跃，异常早幼粒细胞占94%.外周血涂片见大量早幼粒细>胞，并可在胞浆见到柴捆样细胞.以下是血常规详细信息：1.病人红细胞计数结果：3.2 x10^12/L. 附正常参考范围：新生儿:（6.0～7.0）×10^12/L>；婴儿：（5.2～7.0）×10^12/L; 儿童：（4.2～5.2）×10^12/L; 成人男：（4.0～5.5）×10^12/L; 成人女：（3.5～5.0）×10^12/L. 临床意义：生>理性红细胞和血红蛋白增多的原因：精神因素（冲动、兴奋、恐惧、冷水浴刺激等导致肾上腺素分泌增多的因素）、红细胞代偿性增生（长期低气压>、缺氧刺激，多次献血）；生理性红细胞和血红蛋白减少的原因：造血原料相对不足，多见于妊娠、6个月～2岁婴幼儿、某些老年性造血功能减退；>病理性增多：多见于频繁呕吐、出汗过多、大面积烧伤、血液浓缩，慢性肺心病、肺气肿、高原病、肿瘤以及真性红细胞增多症等；病理性减少：多>见于白血病等血液系统疾病；急性大出血、严重的组织损伤及血细胞的破坏等；合成障碍，见于缺铁、维生素B12缺乏等。2. 病人血红蛋白测量结果>：108g/L. 附血红蛋白正常参考范围：男性120～160g/L；女性110～150g/L；新生儿170～200g/L；临床意义：临床意义与红细胞计数相仿，但能更好地反映贫血程度，极重度贫血（Hb<30g/L）、重度贫血（31～60g/L）、中度贫血（61～90g/L）、男性轻度贫血（90~120g/L）、女性轻度贫血（90~110g/L）。3. 病人白细胞计数结果：13.6 x 10^9/L; 附白细胞计数正常参考范围：成人（4.0～10.0）×10^9/L；新生儿（11.0～12.0）×10^9/L。临>床意义：1）生理性白细胞计数增高见于剧烈运动、妊娠、新生儿；2）病理性白细胞增高见于急性化脓性感染、尿毒症、白血病、组织损伤、急性出>血等；3）病理性白细胞减少见于再生障碍性贫血、某些传染病、肝硬化、脾功能亢进、放疗化疗等。4. 病人白细胞分类技术结果(括号内是正常范围)：中性粒细胞50%(50%～70%)、嗜酸性粒细胞3.8%(1%～5%)、嗜碱性粒细胞0.2%(0～1%)、淋巴细胞45% (20%～40%)、单核细胞（M）。请描述图片', model='/root/jane/Qwen2-VL-72B-Instruct/', base_url=None, host='127.0.0.1', port=8000, endpoint='/v1/chat/completions', served_model_name=None, ignore_eos=True)
+image size:  (1080, 1440)
+============ Serving Benchmark Result ============
+Successful requests:                     1         
+Benchmark duration (s):                  58.62     
+Total input tokens:                      1950      
+Total image and input tokens:            3950      
+Total generated tokens:                  2048      
+Request throughput (req/s):              0.02      
+Output token throughput (tok/s):         34.94     
+Total Token throughput (tok/s):          68.21     
+---------------Time to First Token----------------
+Mean TTFT (ms):                          2000.14   
+Median TTFT (ms):                        2000.14   
+P99 TTFT (ms):                           2000.14   
+-----Time per Output Token (excl. 1st token)------
+Mean TPOT (ms):                          27.66     
+Median TPOT (ms):                        27.66     
+P99 TPOT (ms):                           27.66     
+---------------Inter-token Latency----------------
+Mean ITL (ms):                           27.64     
+Median ITL (ms):                         27.66     
+P99 ITL (ms):                            28.33     
+==================================================
+Namespace(seed=0, batch_size=2, output_len=512, image_path='../../accuracy/zto/40_20240903093021_78830772282673.jpg', prompt='患者男，年龄29岁，血型O，因思维迟钝，易激怒，因发热伴牙龈出血14天，乏力、头晕5天就诊我院急诊科。快速完善检查，血常规显示患者三系血>细胞重度减低，凝血功能检查提示APTT明显延长，纤维蛋白原降低，血液科会诊后发现患者高热、牙龈持续出血，胸骨压痛阳性.于3903年3月7日入院治疗，出现头痛、头晕、伴发热（最高体温42℃）症状，曾到其他医院就医。8日症状有所好转，9日仍有头痛、呕吐，四肢乏力伴发热。10日凌晨到本院就诊。患者5d前出现突发性思维迟钝，脾气暴躁，略有不顺心就出现攻击行为，在院外未行任何诊治。既往身体健康，平素性格内向。体格检查无>异常。血常规白细胞中单核细胞百分比升高。D-二聚体定量1412μg/L，骨髓穿刺示增生极度活跃，异常早幼粒细胞占94%.外周血涂片见大量早幼粒细>胞，并可在胞浆见到柴捆样细胞.以下是血常规详细信息：1.病人红细胞计数结果：3.2 x10^12/L. 附正常参考范围：新生儿:（6.0～7.0）×10^12/L>；婴儿：（5.2～7.0）×10^12/L; 儿童：（4.2～5.2）×10^12/L; 成人男：（4.0～5.5）×10^12/L; 成人女：（3.5～5.0）×10^12/L. 临床意义：生>理性红细胞和血红蛋白增多的原因：精神因素（冲动、兴奋、恐惧、冷水浴刺激等导致肾上腺素分泌增多的因素）、红细胞代偿性增生（长期低气压>、缺氧刺激，多次献血）；生理性红细胞和血红蛋白减少的原因：造血原料相对不足，多见于妊娠、6个月～2岁婴幼儿、某些老年性造血功能减退；>病理性增多：多见于频繁呕吐、出汗过多、大面积烧伤、血液浓缩，慢性肺心病、肺气肿、高原病、肿瘤以及真性红细胞增多症等；病理性减少：多>见于白血病等血液系统疾病；急性大出血、严重的组织损伤及血细胞的破坏等；合成障碍，见于缺铁、维生素B12缺乏等。2. 病人血红蛋白测量结果>：108g/L. 附血红蛋白正常参考范围：男性120～160g/L；女性110～150g/L；新生儿170～200g/L；临床意义：临床意义与红细胞计数相仿，但能更好地反映贫血程度，极重度贫血（Hb<30g/L）、重度贫血（31～60g/L）、中度贫血（61～90g/L）、男性轻度贫血（90~120g/L）、女性轻度贫血（90~110g/L）。3. 病人白细胞计数结果：13.6 x 10^9/L; 附白细胞计数正常参考范围：成人（4.0～10.0）×10^9/L；新生儿（11.0～12.0）×10^9/L。临>床意义：1）生理性白细胞计数增高见于剧烈运动、妊娠、新生儿；2）病理性白细胞增高见于急性化脓性感染、尿毒症、白血病、组织损伤、急性出>血等；3）病理性白细胞减少见于再生障碍性贫血、某些传染病、肝硬化、脾功能亢进、放疗化疗等。4. 病人白细胞分类技术结果(括号内是正常范围)：中性粒细胞50%(50%～70%)、嗜酸性粒细胞3.8%(1%～5%)、嗜碱性粒细胞0.2%(0～1%)、淋巴细胞45% (20%～40%)、单核细胞患者男，年龄29岁，血型O，因思维迟钝，易激怒，因发热伴牙龈出血14天，乏力、头晕5天就诊我院急诊科。快速完善检查，血常规显示患者三系血>细胞重度减低，凝血功能检查提示APTT明显延长，纤维蛋白原降低，血液科会诊后发现患者高热、牙龈持续出血，胸骨压痛阳性.于3903年3月7日入院治疗，出现头痛、头晕、伴发热（最高体温42℃）症状，曾到其他医院就医。8日症状有所好转，9日仍有头痛、呕吐，四肢乏力伴发热。10日凌晨到本院就诊。患者5d前出现突发性思维迟钝，脾气暴躁，略有不顺心就出现攻击行为，在院外未行任何诊治。既往身体健康，平素性格内向。体格检查无>异常。血常规白细胞中单核细胞百分比升高。D-二聚体定量1412μg/L，骨髓穿刺示增生极度活跃，异常早幼粒细胞占94%.外周血涂片见大量早幼粒细>胞，并可在胞浆见到柴捆样细胞.以下是血常规详细信息：1.病人红细胞计数结果：3.2 x10^12/L. 附正常参考范围：新生儿:（6.0～7.0）×10^12/L>；婴儿：（5.2～7.0）×10^12/L; 儿童：（4.2～5.2）×10^12/L; 成人男：（4.0～5.5）×10^12/L; 成人女：（3.5～5.0）×10^12/L. 临床意义：生>理性红细胞和血红蛋白增多的原因：精神因素（冲动、兴奋、恐惧、冷水浴刺激等导致肾上腺素分泌增多的因素）、红细胞代偿性增生（长期低气压>、缺氧刺激，多次献血）；生理性红细胞和血红蛋白减少的原因：造血原料相对不足，多见于妊娠、6个月～2岁婴幼儿、某些老年性造血功能减退；>病理性增多：多见于频繁呕吐、出汗过多、大面积烧伤、血液浓缩，慢性肺心病、肺气肿、高原病、肿瘤以及真性红细胞增多症等；病理性减少：多>见于白血病等血液系统疾病；急性大出血、严重的组织损伤及血细胞的破坏等；合成障碍，见于缺铁、维生素B12缺乏等。2. 病人血红蛋白测量结果>：108g/L. 附血红蛋白正常参考范围：男性120～160g/L；女性110～150g/L；新生儿170～200g/L；临床意义：临床意义与红细胞计数相仿，但能更好地反映贫血程度，极重度贫血（Hb<30g/L）、重度贫血（31～60g/L）、中度贫血（61～90g/L）、男性轻度贫血（90~120g/L）、女性轻度贫血（90~110g/L）。3. 病人白细胞计数结果：13.6 x 10^9/L; 附白细胞计数正常参考范围：成人（4.0～10.0）×10^9/L；新生儿（11.0～12.0）×10^9/L。临>床意义：1）生理性白细胞计数增高见于剧烈运动、妊娠、新生儿；2）病理性白细胞增高见于急性化脓性感染、尿毒症、白血病、组织损伤、急性出>血等；3）病理性白细胞减少见于再生障碍性贫血、某些传染病、肝硬化、脾功能亢进、放疗化疗等。4. 病人白细胞分类技术结果(括号内是正常范围)：中性粒细胞50%(50%～70%)、嗜酸性粒细胞3.8%(1%～5%)、嗜碱性粒细胞0.2%(0～1%)、淋巴细胞45% (20%～40%)、单核细胞（M）。请描述图片', model='/root/jane/Qwen2-VL-72B-Instruct/', base_url=None, host='127.0.0.1', port=8000, endpoint='/v1/chat/completions', served_model_name=None, ignore_eos=True)
+image size:  (1080, 1440)
+============ Serving Benchmark Result ============
+Successful requests:                     2         
+Benchmark duration (s):                  18.72     
+Total input tokens:                      3900      
+Total image and input tokens:            7900      
+Total generated tokens:                  1024      
+Request throughput (req/s):              0.11      
+Output token throughput (tok/s):         54.69     
+Total Token throughput (tok/s):          262.98    
+---------------Time to First Token----------------
+Mean TTFT (ms):                          3216.27   
+Median TTFT (ms):                        3216.27   
+P99 TTFT (ms):                           3945.20   
+-----Time per Output Token (excl. 1st token)------
+Mean TPOT (ms):                          30.29     
+Median TPOT (ms):                        30.29     
+P99 TPOT (ms):                           31.66     
+---------------Inter-token Latency----------------
+Mean ITL (ms):                           30.23     
+Median ITL (ms):                         28.89     
+P99 ITL (ms):                            29.67     
+==================================================
+Namespace(seed=0, batch_size=2, output_len=1024, image_path='../../accuracy/zto/40_20240903093021_78830772282673.jpg', prompt='患者男，年龄29岁，血型O，因思维迟钝，易激怒，因发热伴牙龈出血14天，乏力、头晕5天就诊我院急诊科。快速完善检查，血常规显示患者三系血>细胞重度减低，凝血功能检查提示APTT明显延长，纤维蛋白原降低，血液科会诊后发现患者高热、牙龈持续出血，胸骨压痛阳性.于3903年3月7日入院治疗，出现头痛、头晕、伴发热（最高体温42℃）症状，曾到其他医院就医。8日症状有所好转，9日仍有头痛、呕吐，四肢乏力伴发热。10日凌晨到本院就诊。患者5d前出现突发性思维迟钝，脾气暴躁，略有不顺心就出现攻击行为，在院外未行任何诊治。既往身体健康，平素性格内向。体格检查无>异常。血常规白细胞中单核细胞百分比升高。D-二聚体定量1412μg/L，骨髓穿刺示增生极度活跃，异常早幼粒细胞占94%.外周血涂片见大量早幼粒细>胞，并可在胞浆见到柴捆样细胞.以下是血常规详细信息：1.病人红细胞计数结果：3.2 x10^12/L. 附正常参考范围：新生儿:（6.0～7.0）×10^12/L>；婴儿：（5.2～7.0）×10^12/L; 儿童：（4.2～5.2）×10^12/L; 成人男：（4.0～5.5）×10^12/L; 成人女：（3.5～5.0）×10^12/L. 临床意义：生>理性红细胞和血红蛋白增多的原因：精神因素（冲动、兴奋、恐惧、冷水浴刺激等导致肾上腺素分泌增多的因素）、红细胞代偿性增生（长期低气压>、缺氧刺激，多次献血）；生理性红细胞和血红蛋白减少的原因：造血原料相对不足，多见于妊娠、6个月～2岁婴幼儿、某些老年性造血功能减退；>病理性增多：多见于频繁呕吐、出汗过多、大面积烧伤、血液浓缩，慢性肺心病、肺气肿、高原病、肿瘤以及真性红细胞增多症等；病理性减少：多>见于白血病等血液系统疾病；急性大出血、严重的组织损伤及血细胞的破坏等；合成障碍，见于缺铁、维生素B12缺乏等。2. 病人血红蛋白测量结果>：108g/L. 附血红蛋白正常参考范围：男性120～160g/L；女性110～150g/L；新生儿170～200g/L；临床意义：临床意义与红细胞计数相仿，但能更好地反映贫血程度，极重度贫血（Hb<30g/L）、重度贫血（31～60g/L）、中度贫血（61～90g/L）、男性轻度贫血（90~120g/L）、女性轻度贫血（90~110g/L）。3. 病人白细胞计数结果：13.6 x 10^9/L; 附白细胞计数正常参考范围：成人（4.0～10.0）×10^9/L；新生儿（11.0～12.0）×10^9/L。临>床意义：1）生理性白细胞计数增高见于剧烈运动、妊娠、新生儿；2）病理性白细胞增高见于急性化脓性感染、尿毒症、白血病、组织损伤、急性出>血等；3）病理性白细胞减少见于再生障碍性贫血、某些传染病、肝硬化、脾功能亢进、放疗化疗等。4. 病人白细胞分类技术结果(括号内是正常范围)：中性粒细胞50%(50%～70%)、嗜酸性粒细胞3.8%(1%～5%)、嗜碱性粒细胞0.2%(0～1%)、淋巴细胞45% (20%～40%)、单核细胞患者男，年龄29岁，血型O，因思维迟钝，易激怒，因发热伴牙龈出血14天，乏力、头晕5天就诊我院急诊科。快速完善检查，血常规显示患者三系血>细胞重度减低，凝血功能检查提示APTT明显延长，纤维蛋白原降低，血液科会诊后发现患者高热、牙龈持续出血，胸骨压痛阳性.于3903年3月7日入院治疗，出现头痛、头晕、伴发热（最高体温42℃）症状，曾到其他医院就医。8日症状有所好转，9日仍有头痛、呕吐，四肢乏力伴发热。10日凌晨到本院就诊。患者5d前出现突发性思维迟钝，脾气暴躁，略有不顺心就出现攻击行为，在院外未行任何诊治。既往身体健康，平素性格内向。体格检查无>异常。血常规白细胞中单核细胞百分比升高。D-二聚体定量1412μg/L，骨髓穿刺示增生极度活跃，异常早幼粒细胞占94%.外周血涂片见大量早幼粒细>胞，并可在胞浆见到柴捆样细胞.以下是血常规详细信息：1.病人红细胞计数结果：3.2 x10^12/L. 附正常参考范围：新生儿:（6.0～7.0）×10^12/L>；婴儿：（5.2～7.0）×10^12/L; 儿童：（4.2～5.2）×10^12/L; 成人男：（4.0～5.5）×10^12/L; 成人女：（3.5～5.0）×10^12/L. 临床意义：生>理性红细胞和血红蛋白增多的原因：精神因素（冲动、兴奋、恐惧、冷水浴刺激等导致肾上腺素分泌增多的因素）、红细胞代偿性增生（长期低气压>、缺氧刺激，多次献血）；生理性红细胞和血红蛋白减少的原因：造血原料相对不足，多见于妊娠、6个月～2岁婴幼儿、某些老年性造血功能减退；>病理性增多：多见于频繁呕吐、出汗过多、大面积烧伤、血液浓缩，慢性肺心病、肺气肿、高原病、肿瘤以及真性红细胞增多症等；病理性减少：多>见于白血病等血液系统疾病；急性大出血、严重的组织损伤及血细胞的破坏等；合成障碍，见于缺铁、维生素B12缺乏等。2. 病人血红蛋白测量结果>：108g/L. 附血红蛋白正常参考范围：男性120～160g/L；女性110～150g/L；新生儿170～200g/L；临床意义：临床意义与红细胞计数相仿，但能更好地反映贫血程度，极重度贫血（Hb<30g/L）、重度贫血（31～60g/L）、中度贫血（61～90g/L）、男性轻度贫血（90~120g/L）、女性轻度贫血（90~110g/L）。3. 病人白细胞计数结果：13.6 x 10^9/L; 附白细胞计数正常参考范围：成人（4.0～10.0）×10^9/L；新生儿（11.0～12.0）×10^9/L。临>床意义：1）生理性白细胞计数增高见于剧烈运动、妊娠、新生儿；2）病理性白细胞增高见于急性化脓性感染、尿毒症、白血病、组织损伤、急性出>血等；3）病理性白细胞减少见于再生障碍性贫血、某些传染病、肝硬化、脾功能亢进、放疗化疗等。4. 病人白细胞分类技术结果(括号内是正常范围)：中性粒细胞50%(50%～70%)、嗜酸性粒细胞3.8%(1%～5%)、嗜碱性粒细胞0.2%(0～1%)、淋巴细胞45% (20%～40%)、单核细胞（M）。请描述图片', model='/root/jane/Qwen2-VL-72B-Instruct/', base_url=None, host='127.0.0.1', port=8000, endpoint='/v1/chat/completions', served_model_name=None, ignore_eos=True)
+image size:  (1080, 1440)
+============ Serving Benchmark Result ============
+Successful requests:                     2         
+Benchmark duration (s):                  33.60     
+Total input tokens:                      3900      
+Total image and input tokens:            7900      
+Total generated tokens:                  2048      
+Request throughput (req/s):              0.06      
+Output token throughput (tok/s):         60.96     
+Total Token throughput (tok/s):          177.05    
+---------------Time to First Token----------------
+Mean TTFT (ms):                          3226.57   
+Median TTFT (ms):                        3226.57   
+P99 TTFT (ms):                           3956.14   
+-----Time per Output Token (excl. 1st token)------
+Mean TPOT (ms):                          29.66     
+Median TPOT (ms):                        29.66     
+P99 TPOT (ms):                           30.34     
+---------------Inter-token Latency----------------
+Mean ITL (ms):                           29.63     
+Median ITL (ms):                         28.95     
+P99 ITL (ms):                            29.61     
+==================================================
+Namespace(seed=0, batch_size=2, output_len=2048, image_path='../../accuracy/zto/40_20240903093021_78830772282673.jpg', prompt='患者男，年龄29岁，血型O，因思维迟钝，易激怒，因发热伴牙龈出血14天，乏力、头晕5天就诊我院急诊科。快速完善检查，血常规显示患者三系血>细胞重度减低，凝血功能检查提示APTT明显延长，纤维蛋白原降低，血液科会诊后发现患者高热、牙龈持续出血，胸骨压痛阳性.于3903年3月7日入院治疗，出现头痛、头晕、伴发热（最高体温42℃）症状，曾到其他医院就医。8日症状有所好转，9日仍有头痛、呕吐，四肢乏力伴发热。10日凌晨到本院就诊。患者5d前出现突发性思维迟钝，脾气暴躁，略有不顺心就出现攻击行为，在院外未行任何诊治。既往身体健康，平素性格内向。体格检查无>异常。血常规白细胞中单核细胞百分比升高。D-二聚体定量1412μg/L，骨髓穿刺示增生极度活跃，异常早幼粒细胞占94%.外周血涂片见大量早幼粒细>胞，并可在胞浆见到柴捆样细胞.以下是血常规详细信息：1.病人红细胞计数结果：3.2 x10^12/L. 附正常参考范围：新生儿:（6.0～7.0）×10^12/L>；婴儿：（5.2～7.0）×10^12/L; 儿童：（4.2～5.2）×10^12/L; 成人男：（4.0～5.5）×10^12/L; 成人女：（3.5～5.0）×10^12/L. 临床意义：生>理性红细胞和血红蛋白增多的原因：精神因素（冲动、兴奋、恐惧、冷水浴刺激等导致肾上腺素分泌增多的因素）、红细胞代偿性增生（长期低气压>、缺氧刺激，多次献血）；生理性红细胞和血红蛋白减少的原因：造血原料相对不足，多见于妊娠、6个月～2岁婴幼儿、某些老年性造血功能减退；>病理性增多：多见于频繁呕吐、出汗过多、大面积烧伤、血液浓缩，慢性肺心病、肺气肿、高原病、肿瘤以及真性红细胞增多症等；病理性减少：多>见于白血病等血液系统疾病；急性大出血、严重的组织损伤及血细胞的破坏等；合成障碍，见于缺铁、维生素B12缺乏等。2. 病人血红蛋白测量结果>：108g/L. 附血红蛋白正常参考范围：男性120～160g/L；女性110～150g/L；新生儿170～200g/L；临床意义：临床意义与红细胞计数相仿，但能更好地反映贫血程度，极重度贫血（Hb<30g/L）、重度贫血（31～60g/L）、中度贫血（61～90g/L）、男性轻度贫血（90~120g/L）、女性轻度贫血（90~110g/L）。3. 病人白细胞计数结果：13.6 x 10^9/L; 附白细胞计数正常参考范围：成人（4.0～10.0）×10^9/L；新生儿（11.0～12.0）×10^9/L。临>床意义：1）生理性白细胞计数增高见于剧烈运动、妊娠、新生儿；2）病理性白细胞增高见于急性化脓性感染、尿毒症、白血病、组织损伤、急性出>血等；3）病理性白细胞减少见于再生障碍性贫血、某些传染病、肝硬化、脾功能亢进、放疗化疗等。4. 病人白细胞分类技术结果(括号内是正常范围)：中性粒细胞50%(50%～70%)、嗜酸性粒细胞3.8%(1%～5%)、嗜碱性粒细胞0.2%(0～1%)、淋巴细胞45% (20%～40%)、单核细胞患者男，年龄29岁，血型O，因思维迟钝，易激怒，因发热伴牙龈出血14天，乏力、头晕5天就诊我院急诊科。快速完善检查，血常规显示患者三系血>细胞重度减低，凝血功能检查提示APTT明显延长，纤维蛋白原降低，血液科会诊后发现患者高热、牙龈持续出血，胸骨压痛阳性.于3903年3月7日入院治疗，出现头痛、头晕、伴发热（最高体温42℃）症状，曾到其他医院就医。8日症状有所好转，9日仍有头痛、呕吐，四肢乏力伴发热。10日凌晨到本院就诊。患者5d前出现突发性思维迟钝，脾气暴躁，略有不顺心就出现攻击行为，在院外未行任何诊治。既往身体健康，平素性格内向。体格检查无>异常。血常规白细胞中单核细胞百分比升高。D-二聚体定量1412μg/L，骨髓穿刺示增生极度活跃，异常早幼粒细胞占94%.外周血涂片见大量早幼粒细>胞，并可在胞浆见到柴捆样细胞.以下是血常规详细信息：1.病人红细胞计数结果：3.2 x10^12/L. 附正常参考范围：新生儿:（6.0～7.0）×10^12/L>；婴儿：（5.2～7.0）×10^12/L; 儿童：（4.2～5.2）×10^12/L; 成人男：（4.0～5.5）×10^12/L; 成人女：（3.5～5.0）×10^12/L. 临床意义：生>理性红细胞和血红蛋白增多的原因：精神因素（冲动、兴奋、恐惧、冷水浴刺激等导致肾上腺素分泌增多的因素）、红细胞代偿性增生（长期低气压>、缺氧刺激，多次献血）；生理性红细胞和血红蛋白减少的原因：造血原料相对不足，多见于妊娠、6个月～2岁婴幼儿、某些老年性造血功能减退；>病理性增多：多见于频繁呕吐、出汗过多、大面积烧伤、血液浓缩，慢性肺心病、肺气肿、高原病、肿瘤以及真性红细胞增多症等；病理性减少：多>见于白血病等血液系统疾病；急性大出血、严重的组织损伤及血细胞的破坏等；合成障碍，见于缺铁、维生素B12缺乏等。2. 病人血红蛋白测量结果>：108g/L. 附血红蛋白正常参考范围：男性120～160g/L；女性110～150g/L；新生儿170～200g/L；临床意义：临床意义与红细胞计数相仿，但能更好地反映贫血程度，极重度贫血（Hb<30g/L）、重度贫血（31～60g/L）、中度贫血（61～90g/L）、男性轻度贫血（90~120g/L）、女性轻度贫血（90~110g/L）。3. 病人白细胞计数结果：13.6 x 10^9/L; 附白细胞计数正常参考范围：成人（4.0～10.0）×10^9/L；新生儿（11.0～12.0）×10^9/L。临>床意义：1）生理性白细胞计数增高见于剧烈运动、妊娠、新生儿；2）病理性白细胞增高见于急性化脓性感染、尿毒症、白血病、组织损伤、急性出>血等；3）病理性白细胞减少见于再生障碍性贫血、某些传染病、肝硬化、脾功能亢进、放疗化疗等。4. 病人白细胞分类技术结果(括号内是正常范围)：中性粒细胞50%(50%～70%)、嗜酸性粒细胞3.8%(1%～5%)、嗜碱性粒细胞0.2%(0～1%)、淋巴细胞45% (20%～40%)、单核细胞（M）。请描述图片', model='/root/jane/Qwen2-VL-72B-Instruct/', base_url=None, host='127.0.0.1', port=8000, endpoint='/v1/chat/completions', served_model_name=None, ignore_eos=True)
+image size:  (1080, 1440)
+============ Serving Benchmark Result ============
+Successful requests:                     2         
+Benchmark duration (s):                  63.43     
+Total input tokens:                      3900      
+Total image and input tokens:            7900      
+Total generated tokens:                  4096      
+Request throughput (req/s):              0.03      
+Output token throughput (tok/s):         64.58     
+Total Token throughput (tok/s):          126.06    
+---------------Time to First Token----------------
+Mean TTFT (ms):                          3220.89   
+Median TTFT (ms):                        3220.89   
+P99 TTFT (ms):                           3950.60   
+-----Time per Output Token (excl. 1st token)------
+Mean TPOT (ms):                          29.40     
+Median TPOT (ms):                        29.40     
+P99 TPOT (ms):                           29.74     
+---------------Inter-token Latency----------------
+Mean ITL (ms):                           29.38     
+Median ITL (ms):                         29.05     
+P99 ITL (ms):                            29.65     
+==================================================
+Namespace(seed=0, batch_size=4, output_len=512, image_path='../../accuracy/zto/40_20240903093021_78830772282673.jpg', prompt='患者男，年龄29岁，血型O，因思维迟钝，易激怒，因发热伴牙龈出血14天，乏力、头晕5天就诊我院急诊科。快速完善检查，血常规显示患者三系血>细胞重度减低，凝血功能检查提示APTT明显延长，纤维蛋白原降低，血液科会诊后发现患者高热、牙龈持续出血，胸骨压痛阳性.于3903年3月7日入院治疗，出现头痛、头晕、伴发热（最高体温42℃）症状，曾到其他医院就医。8日症状有所好转，9日仍有头痛、呕吐，四肢乏力伴发热。10日凌晨到本院就诊。患者5d前出现突发性思维迟钝，脾气暴躁，略有不顺心就出现攻击行为，在院外未行任何诊治。既往身体健康，平素性格内向。体格检查无>异常。血常规白细胞中单核细胞百分比升高。D-二聚体定量1412μg/L，骨髓穿刺示增生极度活跃，异常早幼粒细胞占94%.外周血涂片见大量早幼粒细>胞，并可在胞浆见到柴捆样细胞.以下是血常规详细信息：1.病人红细胞计数结果：3.2 x10^12/L. 附正常参考范围：新生儿:（6.0～7.0）×10^12/L>；婴儿：（5.2～7.0）×10^12/L; 儿童：（4.2～5.2）×10^12/L; 成人男：（4.0～5.5）×10^12/L; 成人女：（3.5～5.0）×10^12/L. 临床意义：生>理性红细胞和血红蛋白增多的原因：精神因素（冲动、兴奋、恐惧、冷水浴刺激等导致肾上腺素分泌增多的因素）、红细胞代偿性增生（长期低气压>、缺氧刺激，多次献血）；生理性红细胞和血红蛋白减少的原因：造血原料相对不足，多见于妊娠、6个月～2岁婴幼儿、某些老年性造血功能减退；>病理性增多：多见于频繁呕吐、出汗过多、大面积烧伤、血液浓缩，慢性肺心病、肺气肿、高原病、肿瘤以及真性红细胞增多症等；病理性减少：多>见于白血病等血液系统疾病；急性大出血、严重的组织损伤及血细胞的破坏等；合成障碍，见于缺铁、维生素B12缺乏等。2. 病人血红蛋白测量结果>：108g/L. 附血红蛋白正常参考范围：男性120～160g/L；女性110～150g/L；新生儿170～200g/L；临床意义：临床意义与红细胞计数相仿，但能更好地反映贫血程度，极重度贫血（Hb<30g/L）、重度贫血（31～60g/L）、中度贫血（61～90g/L）、男性轻度贫血（90~120g/L）、女性轻度贫血（90~110g/L）。3. 病人白细胞计数结果：13.6 x 10^9/L; 附白细胞计数正常参考范围：成人（4.0～10.0）×10^9/L；新生儿（11.0～12.0）×10^9/L。临>床意义：1）生理性白细胞计数增高见于剧烈运动、妊娠、新生儿；2）病理性白细胞增高见于急性化脓性感染、尿毒症、白血病、组织损伤、急性出>血等；3）病理性白细胞减少见于再生障碍性贫血、某些传染病、肝硬化、脾功能亢进、放疗化疗等。4. 病人白细胞分类技术结果(括号内是正常范围)：中性粒细胞50%(50%～70%)、嗜酸性粒细胞3.8%(1%～5%)、嗜碱性粒细胞0.2%(0～1%)、淋巴细胞45% (20%～40%)、单核细胞患者男，年龄29岁，血型O，因思维迟钝，易激怒，因发热伴牙龈出血14天，乏力、头晕5天就诊我院急诊科。快速完善检查，血常规显示患者三系血>细胞重度减低，凝血功能检查提示APTT明显延长，纤维蛋白原降低，血液科会诊后发现患者高热、牙龈持续出血，胸骨压痛阳性.于3903年3月7日入院治疗，出现头痛、头晕、伴发热（最高体温42℃）症状，曾到其他医院就医。8日症状有所好转，9日仍有头痛、呕吐，四肢乏力伴发热。10日凌晨到本院就诊。患者5d前出现突发性思维迟钝，脾气暴躁，略有不顺心就出现攻击行为，在院外未行任何诊治。既往身体健康，平素性格内向。体格检查无>异常。血常规白细胞中单核细胞百分比升高。D-二聚体定量1412μg/L，骨髓穿刺示增生极度活跃，异常早幼粒细胞占94%.外周血涂片见大量早幼粒细>胞，并可在胞浆见到柴捆样细胞.以下是血常规详细信息：1.病人红细胞计数结果：3.2 x10^12/L. 附正常参考范围：新生儿:（6.0～7.0）×10^12/L>；婴儿：（5.2～7.0）×10^12/L; 儿童：（4.2～5.2）×10^12/L; 成人男：（4.0～5.5）×10^12/L; 成人女：（3.5～5.0）×10^12/L. 临床意义：生>理性红细胞和血红蛋白增多的原因：精神因素（冲动、兴奋、恐惧、冷水浴刺激等导致肾上腺素分泌增多的因素）、红细胞代偿性增生（长期低气压>、缺氧刺激，多次献血）；生理性红细胞和血红蛋白减少的原因：造血原料相对不足，多见于妊娠、6个月～2岁婴幼儿、某些老年性造血功能减退；>病理性增多：多见于频繁呕吐、出汗过多、大面积烧伤、血液浓缩，慢性肺心病、肺气肿、高原病、肿瘤以及真性红细胞增多症等；病理性减少：多>见于白血病等血液系统疾病；急性大出血、严重的组织损伤及血细胞的破坏等；合成障碍，见于缺铁、维生素B12缺乏等。2. 病人血红蛋白测量结果>：108g/L. 附血红蛋白正常参考范围：男性120～160g/L；女性110～150g/L；新生儿170～200g/L；临床意义：临床意义与红细胞计数相仿，但能更好地反映贫血程度，极重度贫血（Hb<30g/L）、重度贫血（31～60g/L）、中度贫血（61～90g/L）、男性轻度贫血（90~120g/L）、女性轻度贫血（90~110g/L）。3. 病人白细胞计数结果：13.6 x 10^9/L; 附白细胞计数正常参考范围：成人（4.0～10.0）×10^9/L；新生儿（11.0～12.0）×10^9/L。临>床意义：1）生理性白细胞计数增高见于剧烈运动、妊娠、新生儿；2）病理性白细胞增高见于急性化脓性感染、尿毒症、白血病、组织损伤、急性出>血等；3）病理性白细胞减少见于再生障碍性贫血、某些传染病、肝硬化、脾功能亢进、放疗化疗等。4. 病人白细胞分类技术结果(括号内是正常范围)：中性粒细胞50%(50%～70%)、嗜酸性粒细胞3.8%(1%～5%)、嗜碱性粒细胞0.2%(0～1%)、淋巴细胞45% (20%～40%)、单核细胞（M）。请描述图片', model='/root/jane/Qwen2-VL-72B-Instruct/', base_url=None, host='127.0.0.1', port=8000, endpoint='/v1/chat/completions', served_model_name=None, ignore_eos=True)
+image size:  (1080, 1440)
+============ Serving Benchmark Result ============
+Successful requests:                     4         
+Benchmark duration (s):                  23.14     
+Total input tokens:                      7800      
+Total image and input tokens:            15800     
+Total generated tokens:                  2048      
+Request throughput (req/s):              0.17      
+Output token throughput (tok/s):         88.51     
+Total Token throughput (tok/s):          425.59    
+---------------Time to First Token----------------
+Mean TTFT (ms):                          5339.96   
+Median TTFT (ms):                        5491.89   
+P99 TTFT (ms):                           7840.49   
+-----Time per Output Token (excl. 1st token)------
+Mean TPOT (ms):                          34.65     
+Median TPOT (ms):                        34.36     
+P99 TPOT (ms):                           39.94     
+---------------Inter-token Latency----------------
+Mean ITL (ms):                           34.59     
+Median ITL (ms):                         29.85     
+P99 ITL (ms):                            30.61     
+==================================================
+Namespace(seed=0, batch_size=4, output_len=1024, image_path='../../accuracy/zto/40_20240903093021_78830772282673.jpg', prompt='患者男，年龄29岁，血型O，因思维迟钝，易激怒，因发热伴牙龈出血14天，乏力、头晕5天就诊我院急诊科。快速完善检查，血常规显示患者三系血>细胞重度减低，凝血功能检查提示APTT明显延长，纤维蛋白原降低，血液科会诊后发现患者高热、牙龈持续出血，胸骨压痛阳性.于3903年3月7日入院治疗，出现头痛、头晕、伴发热（最高体温42℃）症状，曾到其他医院就医。8日症状有所好转，9日仍有头痛、呕吐，四肢乏力伴发热。10日凌晨到本院就诊。患者5d前出现突发性思维迟钝，脾气暴躁，略有不顺心就出现攻击行为，在院外未行任何诊治。既往身体健康，平素性格内向。体格检查无>异常。血常规白细胞中单核细胞百分比升高。D-二聚体定量1412μg/L，骨髓穿刺示增生极度活跃，异常早幼粒细胞占94%.外周血涂片见大量早幼粒细>胞，并可在胞浆见到柴捆样细胞.以下是血常规详细信息：1.病人红细胞计数结果：3.2 x10^12/L. 附正常参考范围：新生儿:（6.0～7.0）×10^12/L>；婴儿：（5.2～7.0）×10^12/L; 儿童：（4.2～5.2）×10^12/L; 成人男：（4.0～5.5）×10^12/L; 成人女：（3.5～5.0）×10^12/L. 临床意义：生>理性红细胞和血红蛋白增多的原因：精神因素（冲动、兴奋、恐惧、冷水浴刺激等导致肾上腺素分泌增多的因素）、红细胞代偿性增生（长期低气压>、缺氧刺激，多次献血）；生理性红细胞和血红蛋白减少的原因：造血原料相对不足，多见于妊娠、6个月～2岁婴幼儿、某些老年性造血功能减退；>病理性增多：多见于频繁呕吐、出汗过多、大面积烧伤、血液浓缩，慢性肺心病、肺气肿、高原病、肿瘤以及真性红细胞增多症等；病理性减少：多>见于白血病等血液系统疾病；急性大出血、严重的组织损伤及血细胞的破坏等；合成障碍，见于缺铁、维生素B12缺乏等。2. 病人血红蛋白测量结果>：108g/L. 附血红蛋白正常参考范围：男性120～160g/L；女性110～150g/L；新生儿170～200g/L；临床意义：临床意义与红细胞计数相仿，但能更好地反映贫血程度，极重度贫血（Hb<30g/L）、重度贫血（31～60g/L）、中度贫血（61～90g/L）、男性轻度贫血（90~120g/L）、女性轻度贫血（90~110g/L）。3. 病人白细胞计数结果：13.6 x 10^9/L; 附白细胞计数正常参考范围：成人（4.0～10.0）×10^9/L；新生儿（11.0～12.0）×10^9/L。临>床意义：1）生理性白细胞计数增高见于剧烈运动、妊娠、新生儿；2）病理性白细胞增高见于急性化脓性感染、尿毒症、白血病、组织损伤、急性出>血等；3）病理性白细胞减少见于再生障碍性贫血、某些传染病、肝硬化、脾功能亢进、放疗化疗等。4. 病人白细胞分类技术结果(括号内是正常范围)：中性粒细胞50%(50%～70%)、嗜酸性粒细胞3.8%(1%～5%)、嗜碱性粒细胞0.2%(0～1%)、淋巴细胞45% (20%～40%)、单核细胞患者男，年龄29岁，血型O，因思维迟钝，易激怒，因发热伴牙龈出血14天，乏力、头晕5天就诊我院急诊科。快速完善检查，血常规显示患者三系血>细胞重度减低，凝血功能检查提示APTT明显延长，纤维蛋白原降低，血液科会诊后发现患者高热、牙龈持续出血，胸骨压痛阳性.于3903年3月7日入院治疗，出现头痛、头晕、伴发热（最高体温42℃）症状，曾到其他医院就医。8日症状有所好转，9日仍有头痛、呕吐，四肢乏力伴发热。10日凌晨到本院就诊。患者5d前出现突发性思维迟钝，脾气暴躁，略有不顺心就出现攻击行为，在院外未行任何诊治。既往身体健康，平素性格内向。体格检查无>异常。血常规白细胞中单核细胞百分比升高。D-二聚体定量1412μg/L，骨髓穿刺示增生极度活跃，异常早幼粒细胞占94%.外周血涂片见大量早幼粒细>胞，并可在胞浆见到柴捆样细胞.以下是血常规详细信息：1.病人红细胞计数结果：3.2 x10^12/L. 附正常参考范围：新生儿:（6.0～7.0）×10^12/L>；婴儿：（5.2～7.0）×10^12/L; 儿童：（4.2～5.2）×10^12/L; 成人男：（4.0～5.5）×10^12/L; 成人女：（3.5～5.0）×10^12/L. 临床意义：生>理性红细胞和血红蛋白增多的原因：精神因素（冲动、兴奋、恐惧、冷水浴刺激等导致肾上腺素分泌增多的因素）、红细胞代偿性增生（长期低气压>、缺氧刺激，多次献血）；生理性红细胞和血红蛋白减少的原因：造血原料相对不足，多见于妊娠、6个月～2岁婴幼儿、某些老年性造血功能减退；>病理性增多：多见于频繁呕吐、出汗过多、大面积烧伤、血液浓缩，慢性肺心病、肺气肿、高原病、肿瘤以及真性红细胞增多症等；病理性减少：多>见于白血病等血液系统疾病；急性大出血、严重的组织损伤及血细胞的破坏等；合成障碍，见于缺铁、维生素B12缺乏等。2. 病人血红蛋白测量结果>：108g/L. 附血红蛋白正常参考范围：男性120～160g/L；女性110～150g/L；新生儿170～200g/L；临床意义：临床意义与红细胞计数相仿，但能更好地反映贫血程度，极重度贫血（Hb<30g/L）、重度贫血（31～60g/L）、中度贫血（61～90g/L）、男性轻度贫血（90~120g/L）、女性轻度贫血（90~110g/L）。3. 病人白细胞计数结果：13.6 x 10^9/L; 附白细胞计数正常参考范围：成人（4.0～10.0）×10^9/L；新生儿（11.0～12.0）×10^9/L。临>床意义：1）生理性白细胞计数增高见于剧烈运动、妊娠、新生儿；2）病理性白细胞增高见于急性化脓性感染、尿毒症、白血病、组织损伤、急性出>血等；3）病理性白细胞减少见于再生障碍性贫血、某些传染病、肝硬化、脾功能亢进、放疗化疗等。4. 病人白细胞分类技术结果(括号内是正常范围)：中性粒细胞50%(50%～70%)、嗜酸性粒细胞3.8%(1%～5%)、嗜碱性粒细胞0.2%(0～1%)、淋巴细胞45% (20%～40%)、单核细胞（M）。请描述图片', model='/root/jane/Qwen2-VL-72B-Instruct/', base_url=None, host='127.0.0.1', port=8000, endpoint='/v1/chat/completions', served_model_name=None, ignore_eos=True)
+image size:  (1080, 1440)
+============ Serving Benchmark Result ============
+Successful requests:                     4         
+Benchmark duration (s):                  38.52     
+Total input tokens:                      7800      
+Total image and input tokens:            15800     
+Total generated tokens:                  4096      
+Request throughput (req/s):              0.10      
+Output token throughput (tok/s):         106.32    
+Total Token throughput (tok/s):          308.79    
+---------------Time to First Token----------------
+Mean TTFT (ms):                          5370.50   
+Median TTFT (ms):                        5524.42   
+P99 TTFT (ms):                           7877.17   
+-----Time per Output Token (excl. 1st token)------
+Mean TPOT (ms):                          32.32     
+Median TPOT (ms):                        32.17     
+P99 TPOT (ms):                           34.97     
+---------------Inter-token Latency----------------
+Mean ITL (ms):                           32.29     
+Median ITL (ms):                         29.90     
+P99 ITL (ms):                            30.56     
+==================================================
+Namespace(seed=0, batch_size=4, output_len=2048, image_path='../../accuracy/zto/40_20240903093021_78830772282673.jpg', prompt='患者男，年龄29岁，血型O，因思维迟钝，易激怒，因发热伴牙龈出血14天，乏力、头晕5天就诊我院急诊科。快速完善检查，血常规显示患者三系血>细胞重度减低，凝血功能检查提示APTT明显延长，纤维蛋白原降低，血液科会诊后发现患者高热、牙龈持续出血，胸骨压痛阳性.于3903年3月7日入院治疗，出现头痛、头晕、伴发热（最高体温42℃）症状，曾到其他医院就医。8日症状有所好转，9日仍有头痛、呕吐，四肢乏力伴发热。10日凌晨到本院就诊。患者5d前出现突发性思维迟钝，脾气暴躁，略有不顺心就出现攻击行为，在院外未行任何诊治。既往身体健康，平素性格内向。体格检查无>异常。血常规白细胞中单核细胞百分比升高。D-二聚体定量1412μg/L，骨髓穿刺示增生极度活跃，异常早幼粒细胞占94%.外周血涂片见大量早幼粒细>胞，并可在胞浆见到柴捆样细胞.以下是血常规详细信息：1.病人红细胞计数结果：3.2 x10^12/L. 附正常参考范围：新生儿:（6.0～7.0）×10^12/L>；婴儿：（5.2～7.0）×10^12/L; 儿童：（4.2～5.2）×10^12/L; 成人男：（4.0～5.5）×10^12/L; 成人女：（3.5～5.0）×10^12/L. 临床意义：生>理性红细胞和血红蛋白增多的原因：精神因素（冲动、兴奋、恐惧、冷水浴刺激等导致肾上腺素分泌增多的因素）、红细胞代偿性增生（长期低气压>、缺氧刺激，多次献血）；生理性红细胞和血红蛋白减少的原因：造血原料相对不足，多见于妊娠、6个月～2岁婴幼儿、某些老年性造血功能减退；>病理性增多：多见于频繁呕吐、出汗过多、大面积烧伤、血液浓缩，慢性肺心病、肺气肿、高原病、肿瘤以及真性红细胞增多症等；病理性减少：多>见于白血病等血液系统疾病；急性大出血、严重的组织损伤及血细胞的破坏等；合成障碍，见于缺铁、维生素B12缺乏等。2. 病人血红蛋白测量结果>：108g/L. 附血红蛋白正常参考范围：男性120～160g/L；女性110～150g/L；新生儿170～200g/L；临床意义：临床意义与红细胞计数相仿，但能更好地反映贫血程度，极重度贫血（Hb<30g/L）、重度贫血（31～60g/L）、中度贫血（61～90g/L）、男性轻度贫血（90~120g/L）、女性轻度贫血（90~110g/L）。3. 病人白细胞计数结果：13.6 x 10^9/L; 附白细胞计数正常参考范围：成人（4.0～10.0）×10^9/L；新生儿（11.0～12.0）×10^9/L。临>床意义：1）生理性白细胞计数增高见于剧烈运动、妊娠、新生儿；2）病理性白细胞增高见于急性化脓性感染、尿毒症、白血病、组织损伤、急性出>血等；3）病理性白细胞减少见于再生障碍性贫血、某些传染病、肝硬化、脾功能亢进、放疗化疗等。4. 病人白细胞分类技术结果(括号内是正常范围)：中性粒细胞50%(50%～70%)、嗜酸性粒细胞3.8%(1%～5%)、嗜碱性粒细胞0.2%(0～1%)、淋巴细胞45% (20%～40%)、单核细胞患者男，年龄29岁，血型O，因思维迟钝，易激怒，因发热伴牙龈出血14天，乏力、头晕5天就诊我院急诊科。快速完善检查，血常规显示患者三系血>细胞重度减低，凝血功能检查提示APTT明显延长，纤维蛋白原降低，血液科会诊后发现患者高热、牙龈持续出血，胸骨压痛阳性.于3903年3月7日入院治疗，出现头痛、头晕、伴发热（最高体温42℃）症状，曾到其他医院就医。8日症状有所好转，9日仍有头痛、呕吐，四肢乏力伴发热。10日凌晨到本院就诊。患者5d前出现突发性思维迟钝，脾气暴躁，略有不顺心就出现攻击行为，在院外未行任何诊治。既往身体健康，平素性格内向。体格检查无>异常。血常规白细胞中单核细胞百分比升高。D-二聚体定量1412μg/L，骨髓穿刺示增生极度活跃，异常早幼粒细胞占94%.外周血涂片见大量早幼粒细>胞，并可在胞浆见到柴捆样细胞.以下是血常规详细信息：1.病人红细胞计数结果：3.2 x10^12/L. 附正常参考范围：新生儿:（6.0～7.0）×10^12/L>；婴儿：（5.2～7.0）×10^12/L; 儿童：（4.2～5.2）×10^12/L; 成人男：（4.0～5.5）×10^12/L; 成人女：（3.5～5.0）×10^12/L. 临床意义：生>理性红细胞和血红蛋白增多的原因：精神因素（冲动、兴奋、恐惧、冷水浴刺激等导致肾上腺素分泌增多的因素）、红细胞代偿性增生（长期低气压>、缺氧刺激，多次献血）；生理性红细胞和血红蛋白减少的原因：造血原料相对不足，多见于妊娠、6个月～2岁婴幼儿、某些老年性造血功能减退；>病理性增多：多见于频繁呕吐、出汗过多、大面积烧伤、血液浓缩，慢性肺心病、肺气肿、高原病、肿瘤以及真性红细胞增多症等；病理性减少：多>见于白血病等血液系统疾病；急性大出血、严重的组织损伤及血细胞的破坏等；合成障碍，见于缺铁、维生素B12缺乏等。2. 病人血红蛋白测量结果>：108g/L. 附血红蛋白正常参考范围：男性120～160g/L；女性110～150g/L；新生儿170～200g/L；临床意义：临床意义与红细胞计数相仿，但能更好地反映贫血程度，极重度贫血（Hb<30g/L）、重度贫血（31～60g/L）、中度贫血（61～90g/L）、男性轻度贫血（90~120g/L）、女性轻度贫血（90~110g/L）。3. 病人白细胞计数结果：13.6 x 10^9/L; 附白细胞计数正常参考范围：成人（4.0～10.0）×10^9/L；新生儿（11.0～12.0）×10^9/L。临>床意义：1）生理性白细胞计数增高见于剧烈运动、妊娠、新生儿；2）病理性白细胞增高见于急性化脓性感染、尿毒症、白血病、组织损伤、急性出>血等；3）病理性白细胞减少见于再生障碍性贫血、某些传染病、肝硬化、脾功能亢进、放疗化疗等。4. 病人白细胞分类技术结果(括号内是正常范围)：中性粒细胞50%(50%～70%)、嗜酸性粒细胞3.8%(1%～5%)、嗜碱性粒细胞0.2%(0～1%)、淋巴细胞45% (20%～40%)、单核细胞（M）。请描述图片', model='/root/jane/Qwen2-VL-72B-Instruct/', base_url=None, host='127.0.0.1', port=8000, endpoint='/v1/chat/completions', served_model_name=None, ignore_eos=True)
+image size:  (1080, 1440)
+============ Serving Benchmark Result ============
+Successful requests:                     4         
+Benchmark duration (s):                  69.38     
+Total input tokens:                      7800      
+Total image and input tokens:            15800     
+Total generated tokens:                  8192      
+Request throughput (req/s):              0.06      
+Output token throughput (tok/s):         118.08    
+Total Token throughput (tok/s):          230.50    
+---------------Time to First Token----------------
+Mean TTFT (ms):                          5368.89   
+Median TTFT (ms):                        5524.28   
+P99 TTFT (ms):                           7877.21   
+-----Time per Output Token (excl. 1st token)------
+Mean TPOT (ms):                          31.22     
+Median TPOT (ms):                        31.15     
+P99 TPOT (ms):                           32.55     
+---------------Inter-token Latency----------------
+Mean ITL (ms):                           31.21     
+Median ITL (ms):                         30.01     
+P99 ITL (ms):                            30.66     
+==================================================
+Namespace(seed=0, batch_size=6, output_len=512, image_path='../../accuracy/zto/40_20240903093021_78830772282673.jpg', prompt='患者男，年龄29岁，血型O，因思维迟钝，易激怒，因发热伴牙龈出血14天，乏力、头晕5天就诊我院急诊科。快速完善检查，血常规显示患者三系血>细胞重度减低，凝血功能检查提示APTT明显延长，纤维蛋白原降低，血液科会诊后发现患者高热、牙龈持续出血，胸骨压痛阳性.于3903年3月7日入院治疗，出现头痛、头晕、伴发热（最高体温42℃）症状，曾到其他医院就医。8日症状有所好转，9日仍有头痛、呕吐，四肢乏力伴发热。10日凌晨到本院就诊。患者5d前出现突发性思维迟钝，脾气暴躁，略有不顺心就出现攻击行为，在院外未行任何诊治。既往身体健康，平素性格内向。体格检查无>异常。血常规白细胞中单核细胞百分比升高。D-二聚体定量1412μg/L，骨髓穿刺示增生极度活跃，异常早幼粒细胞占94%.外周血涂片见大量早幼粒细>胞，并可在胞浆见到柴捆样细胞.以下是血常规详细信息：1.病人红细胞计数结果：3.2 x10^12/L. 附正常参考范围：新生儿:（6.0～7.0）×10^12/L>；婴儿：（5.2～7.0）×10^12/L; 儿童：（4.2～5.2）×10^12/L; 成人男：（4.0～5.5）×10^12/L; 成人女：（3.5～5.0）×10^12/L. 临床意义：生>理性红细胞和血红蛋白增多的原因：精神因素（冲动、兴奋、恐惧、冷水浴刺激等导致肾上腺素分泌增多的因素）、红细胞代偿性增生（长期低气压>、缺氧刺激，多次献血）；生理性红细胞和血红蛋白减少的原因：造血原料相对不足，多见于妊娠、6个月～2岁婴幼儿、某些老年性造血功能减退；>病理性增多：多见于频繁呕吐、出汗过多、大面积烧伤、血液浓缩，慢性肺心病、肺气肿、高原病、肿瘤以及真性红细胞增多症等；病理性减少：多>见于白血病等血液系统疾病；急性大出血、严重的组织损伤及血细胞的破坏等；合成障碍，见于缺铁、维生素B12缺乏等。2. 病人血红蛋白测量结果>：108g/L. 附血红蛋白正常参考范围：男性120～160g/L；女性110～150g/L；新生儿170～200g/L；临床意义：临床意义与红细胞计数相仿，但能更好地反映贫血程度，极重度贫血（Hb<30g/L）、重度贫血（31～60g/L）、中度贫血（61～90g/L）、男性轻度贫血（90~120g/L）、女性轻度贫血（90~110g/L）。3. 病人白细胞计数结果：13.6 x 10^9/L; 附白细胞计数正常参考范围：成人（4.0～10.0）×10^9/L；新生儿（11.0～12.0）×10^9/L。临>床意义：1）生理性白细胞计数增高见于剧烈运动、妊娠、新生儿；2）病理性白细胞增高见于急性化脓性感染、尿毒症、白血病、组织损伤、急性出>血等；3）病理性白细胞减少见于再生障碍性贫血、某些传染病、肝硬化、脾功能亢进、放疗化疗等。4. 病人白细胞分类技术结果(括号内是正常范围)：中性粒细胞50%(50%～70%)、嗜酸性粒细胞3.8%(1%～5%)、嗜碱性粒细胞0.2%(0～1%)、淋巴细胞45% (20%～40%)、单核细胞患者男，年龄29岁，血型O，因思维迟钝，易激怒，因发热伴牙龈出血14天，乏力、头晕5天就诊我院急诊科。快速完善检查，血常规显示患者三系血>细胞重度减低，凝血功能检查提示APTT明显延长，纤维蛋白原降低，血液科会诊后发现患者高热、牙龈持续出血，胸骨压痛阳性.于3903年3月7日入院治疗，出现头痛、头晕、伴发热（最高体温42℃）症状，曾到其他医院就医。8日症状有所好转，9日仍有头痛、呕吐，四肢乏力伴发热。10日凌晨到本院就诊。患者5d前出现突发性思维迟钝，脾气暴躁，略有不顺心就出现攻击行为，在院外未行任何诊治。既往身体健康，平素性格内向。体格检查无>异常。血常规白细胞中单核细胞百分比升高。D-二聚体定量1412μg/L，骨髓穿刺示增生极度活跃，异常早幼粒细胞占94%.外周血涂片见大量早幼粒细>胞，并可在胞浆见到柴捆样细胞.以下是血常规详细信息：1.病人红细胞计数结果：3.2 x10^12/L. 附正常参考范围：新生儿:（6.0～7.0）×10^12/L>；婴儿：（5.2～7.0）×10^12/L; 儿童：（4.2～5.2）×10^12/L; 成人男：（4.0～5.5）×10^12/L; 成人女：（3.5～5.0）×10^12/L. 临床意义：生>理性红细胞和血红蛋白增多的原因：精神因素（冲动、兴奋、恐惧、冷水浴刺激等导致肾上腺素分泌增多的因素）、红细胞代偿性增生（长期低气压>、缺氧刺激，多次献血）；生理性红细胞和血红蛋白减少的原因：造血原料相对不足，多见于妊娠、6个月～2岁婴幼儿、某些老年性造血功能减退；>病理性增多：多见于频繁呕吐、出汗过多、大面积烧伤、血液浓缩，慢性肺心病、肺气肿、高原病、肿瘤以及真性红细胞增多症等；病理性减少：多>见于白血病等血液系统疾病；急性大出血、严重的组织损伤及血细胞的破坏等；合成障碍，见于缺铁、维生素B12缺乏等。2. 病人血红蛋白测量结果>：108g/L. 附血红蛋白正常参考范围：男性120～160g/L；女性110～150g/L；新生儿170～200g/L；临床意义：临床意义与红细胞计数相仿，但能更好地反映贫血程度，极重度贫血（Hb<30g/L）、重度贫血（31～60g/L）、中度贫血（61～90g/L）、男性轻度贫血（90~120g/L）、女性轻度贫血（90~110g/L）。3. 病人白细胞计数结果：13.6 x 10^9/L; 附白细胞计数正常参考范围：成人（4.0～10.0）×10^9/L；新生儿（11.0～12.0）×10^9/L。临>床意义：1）生理性白细胞计数增高见于剧烈运动、妊娠、新生儿；2）病理性白细胞增高见于急性化脓性感染、尿毒症、白血病、组织损伤、急性出>血等；3）病理性白细胞减少见于再生障碍性贫血、某些传染病、肝硬化、脾功能亢进、放疗化疗等。4. 病人白细胞分类技术结果(括号内是正常范围)：中性粒细胞50%(50%～70%)、嗜酸性粒细胞3.8%(1%～5%)、嗜碱性粒细胞0.2%(0～1%)、淋巴细胞45% (20%～40%)、单核细胞（M）。请描述图片', model='/root/jane/Qwen2-VL-72B-Instruct/', base_url=None, host='127.0.0.1', port=8000, endpoint='/v1/chat/completions', served_model_name=None, ignore_eos=True)
+image size:  (1080, 1440)
+============ Serving Benchmark Result ============
+Successful requests:                     6         
+Benchmark duration (s):                  29.64     
+Total input tokens:                      11700     
+Total image and input tokens:            23700     
+Total generated tokens:                  3072      
+Request throughput (req/s):              0.20      
+Output token throughput (tok/s):         103.63    
+Total Token throughput (tok/s):          498.32    
+---------------Time to First Token----------------
+Mean TTFT (ms):                          7379.33   
+Median TTFT (ms):                        7499.09   
+P99 TTFT (ms):                           11715.63  
+-----Time per Output Token (excl. 1st token)------
+Mean TPOT (ms):                          43.27     
+Median TPOT (ms):                        43.04     
+P99 TPOT (ms):                           52.31     
+---------------Inter-token Latency----------------
+Mean ITL (ms):                           43.18     
+Median ITL (ms):                         35.01     
+P99 ITL (ms):                            36.82     
+==================================================
+Namespace(seed=0, batch_size=6, output_len=1024, image_path='../../accuracy/zto/40_20240903093021_78830772282673.jpg', prompt='患者男，年龄29岁，血型O，因思维迟钝，易激怒，因发热伴牙龈出血14天，乏力、头晕5天就诊我院急诊科。快速完善检查，血常规显示患者三系血>细胞重度减低，凝血功能检查提示APTT明显延长，纤维蛋白原降低，血液科会诊后发现患者高热、牙龈持续出血，胸骨压痛阳性.于3903年3月7日入院治疗，出现头痛、头晕、伴发热（最高体温42℃）症状，曾到其他医院就医。8日症状有所好转，9日仍有头痛、呕吐，四肢乏力伴发热。10日凌晨到本院就诊。患者5d前出现突发性思维迟钝，脾气暴躁，略有不顺心就出现攻击行为，在院外未行任何诊治。既往身体健康，平素性格内向。体格检查无>异常。血常规白细胞中单核细胞百分比升高。D-二聚体定量1412μg/L，骨髓穿刺示增生极度活跃，异常早幼粒细胞占94%.外周血涂片见大量早幼粒细>胞，并可在胞浆见到柴捆样细胞.以下是血常规详细信息：1.病人红细胞计数结果：3.2 x10^12/L. 附正常参考范围：新生儿:（6.0～7.0）×10^12/L>；婴儿：（5.2～7.0）×10^12/L; 儿童：（4.2～5.2）×10^12/L; 成人男：（4.0～5.5）×10^12/L; 成人女：（3.5～5.0）×10^12/L. 临床意义：生>理性红细胞和血红蛋白增多的原因：精神因素（冲动、兴奋、恐惧、冷水浴刺激等导致肾上腺素分泌增多的因素）、红细胞代偿性增生（长期低气压>、缺氧刺激，多次献血）；生理性红细胞和血红蛋白减少的原因：造血原料相对不足，多见于妊娠、6个月～2岁婴幼儿、某些老年性造血功能减退；>病理性增多：多见于频繁呕吐、出汗过多、大面积烧伤、血液浓缩，慢性肺心病、肺气肿、高原病、肿瘤以及真性红细胞增多症等；病理性减少：多>见于白血病等血液系统疾病；急性大出血、严重的组织损伤及血细胞的破坏等；合成障碍，见于缺铁、维生素B12缺乏等。2. 病人血红蛋白测量结果>：108g/L. 附血红蛋白正常参考范围：男性120～160g/L；女性110～150g/L；新生儿170～200g/L；临床意义：临床意义与红细胞计数相仿，但能更好地反映贫血程度，极重度贫血（Hb<30g/L）、重度贫血（31～60g/L）、中度贫血（61～90g/L）、男性轻度贫血（90~120g/L）、女性轻度贫血（90~110g/L）。3. 病人白细胞计数结果：13.6 x 10^9/L; 附白细胞计数正常参考范围：成人（4.0～10.0）×10^9/L；新生儿（11.0～12.0）×10^9/L。临>床意义：1）生理性白细胞计数增高见于剧烈运动、妊娠、新生儿；2）病理性白细胞增高见于急性化脓性感染、尿毒症、白血病、组织损伤、急性出>血等；3）病理性白细胞减少见于再生障碍性贫血、某些传染病、肝硬化、脾功能亢进、放疗化疗等。4. 病人白细胞分类技术结果(括号内是正常范围)：中性粒细胞50%(50%～70%)、嗜酸性粒细胞3.8%(1%～5%)、嗜碱性粒细胞0.2%(0～1%)、淋巴细胞45% (20%～40%)、单核细胞患者男，年龄29岁，血型O，因思维迟钝，易激怒，因发热伴牙龈出血14天，乏力、头晕5天就诊我院急诊科。快速完善检查，血常规显示患者三系血>细胞重度减低，凝血功能检查提示APTT明显延长，纤维蛋白原降低，血液科会诊后发现患者高热、牙龈持续出血，胸骨压痛阳性.于3903年3月7日入院治疗，出现头痛、头晕、伴发热（最高体温42℃）症状，曾到其他医院就医。8日症状有所好转，9日仍有头痛、呕吐，四肢乏力伴发热。10日凌晨到本院就诊。患者5d前出现突发性思维迟钝，脾气暴躁，略有不顺心就出现攻击行为，在院外未行任何诊治。既往身体健康，平素性格内向。体格检查无>异常。血常规白细胞中单核细胞百分比升高。D-二聚体定量1412μg/L，骨髓穿刺示增生极度活跃，异常早幼粒细胞占94%.外周血涂片见大量早幼粒细>胞，并可在胞浆见到柴捆样细胞.以下是血常规详细信息：1.病人红细胞计数结果：3.2 x10^12/L. 附正常参考范围：新生儿:（6.0～7.0）×10^12/L>；婴儿：（5.2～7.0）×10^12/L; 儿童：（4.2～5.2）×10^12/L; 成人男：（4.0～5.5）×10^12/L; 成人女：（3.5～5.0）×10^12/L. 临床意义：生>理性红细胞和血红蛋白增多的原因：精神因素（冲动、兴奋、恐惧、冷水浴刺激等导致肾上腺素分泌增多的因素）、红细胞代偿性增生（长期低气压>、缺氧刺激，多次献血）；生理性红细胞和血红蛋白减少的原因：造血原料相对不足，多见于妊娠、6个月～2岁婴幼儿、某些老年性造血功能减退；>病理性增多：多见于频繁呕吐、出汗过多、大面积烧伤、血液浓缩，慢性肺心病、肺气肿、高原病、肿瘤以及真性红细胞增多症等；病理性减少：多>见于白血病等血液系统疾病；急性大出血、严重的组织损伤及血细胞的破坏等；合成障碍，见于缺铁、维生素B12缺乏等。2. 病人血红蛋白测量结果>：108g/L. 附血红蛋白正常参考范围：男性120～160g/L；女性110～150g/L；新生儿170～200g/L；临床意义：临床意义与红细胞计数相仿，但能更好地反映贫血程度，极重度贫血（Hb<30g/L）、重度贫血（31～60g/L）、中度贫血（61～90g/L）、男性轻度贫血（90~120g/L）、女性轻度贫血（90~110g/L）。3. 病人白细胞计数结果：13.6 x 10^9/L; 附白细胞计数正常参考范围：成人（4.0～10.0）×10^9/L；新生儿（11.0～12.0）×10^9/L。临>床意义：1）生理性白细胞计数增高见于剧烈运动、妊娠、新生儿；2）病理性白细胞增高见于急性化脓性感染、尿毒症、白血病、组织损伤、急性出>血等；3）病理性白细胞减少见于再生障碍性贫血、某些传染病、肝硬化、脾功能亢进、放疗化疗等。4. 病人白细胞分类技术结果(括号内是正常范围)：中性粒细胞50%(50%～70%)、嗜酸性粒细胞3.8%(1%～5%)、嗜碱性粒细胞0.2%(0～1%)、淋巴细胞45% (20%～40%)、单核细胞（M）。请描述图片', model='/root/jane/Qwen2-VL-72B-Instruct/', base_url=None, host='127.0.0.1', port=8000, endpoint='/v1/chat/completions', served_model_name=None, ignore_eos=True)
+image size:  (1080, 1440)
+============ Serving Benchmark Result ============
+Successful requests:                     6         
+Benchmark duration (s):                  47.56     
+Total input tokens:                      11700     
+Total image and input tokens:            23700     
+Total generated tokens:                  6144      
+Request throughput (req/s):              0.13      
+Output token throughput (tok/s):         129.19    
+Total Token throughput (tok/s):          375.20    
+---------------Time to First Token----------------
+Mean TTFT (ms):                          7372.90   
+Median TTFT (ms):                        7489.96   
+P99 TTFT (ms):                           11708.14  
+-----Time per Output Token (excl. 1st token)------
+Mean TPOT (ms):                          39.13     
+Median TPOT (ms):                        39.02     
+P99 TPOT (ms):                           43.64     
+---------------Inter-token Latency----------------
+Mean ITL (ms):                           39.09     
+Median ITL (ms):                         35.01     
+P99 ITL (ms):                            35.79     
+==================================================
+Namespace(seed=0, batch_size=6, output_len=2048, image_path='../../accuracy/zto/40_20240903093021_78830772282673.jpg', prompt='患者男，年龄29岁，血型O，因思维迟钝，易激怒，因发热伴牙龈出血14天，乏力、头晕5天就诊我院急诊科。快速完善检查，血常规显示患者三系血>细胞重度减低，凝血功能检查提示APTT明显延长，纤维蛋白原降低，血液科会诊后发现患者高热、牙龈持续出血，胸骨压痛阳性.于3903年3月7日入院治疗，出现头痛、头晕、伴发热（最高体温42℃）症状，曾到其他医院就医。8日症状有所好转，9日仍有头痛、呕吐，四肢乏力伴发热。10日凌晨到本院就诊。患者5d前出现突发性思维迟钝，脾气暴躁，略有不顺心就出现攻击行为，在院外未行任何诊治。既往身体健康，平素性格内向。体格检查无>异常。血常规白细胞中单核细胞百分比升高。D-二聚体定量1412μg/L，骨髓穿刺示增生极度活跃，异常早幼粒细胞占94%.外周血涂片见大量早幼粒细>胞，并可在胞浆见到柴捆样细胞.以下是血常规详细信息：1.病人红细胞计数结果：3.2 x10^12/L. 附正常参考范围：新生儿:（6.0～7.0）×10^12/L>；婴儿：（5.2～7.0）×10^12/L; 儿童：（4.2～5.2）×10^12/L; 成人男：（4.0～5.5）×10^12/L; 成人女：（3.5～5.0）×10^12/L. 临床意义：生>理性红细胞和血红蛋白增多的原因：精神因素（冲动、兴奋、恐惧、冷水浴刺激等导致肾上腺素分泌增多的因素）、红细胞代偿性增生（长期低气压>、缺氧刺激，多次献血）；生理性红细胞和血红蛋白减少的原因：造血原料相对不足，多见于妊娠、6个月～2岁婴幼儿、某些老年性造血功能减退；>病理性增多：多见于频繁呕吐、出汗过多、大面积烧伤、血液浓缩，慢性肺心病、肺气肿、高原病、肿瘤以及真性红细胞增多症等；病理性减少：多>见于白血病等血液系统疾病；急性大出血、严重的组织损伤及血细胞的破坏等；合成障碍，见于缺铁、维生素B12缺乏等。2. 病人血红蛋白测量结果>：108g/L. 附血红蛋白正常参考范围：男性120～160g/L；女性110～150g/L；新生儿170～200g/L；临床意义：临床意义与红细胞计数相仿，但能更好地反映贫血程度，极重度贫血（Hb<30g/L）、重度贫血（31～60g/L）、中度贫血（61～90g/L）、男性轻度贫血（90~120g/L）、女性轻度贫血（90~110g/L）。3. 病人白细胞计数结果：13.6 x 10^9/L; 附白细胞计数正常参考范围：成人（4.0～10.0）×10^9/L；新生儿（11.0～12.0）×10^9/L。临>床意义：1）生理性白细胞计数增高见于剧烈运动、妊娠、新生儿；2）病理性白细胞增高见于急性化脓性感染、尿毒症、白血病、组织损伤、急性出>血等；3）病理性白细胞减少见于再生障碍性贫血、某些传染病、肝硬化、脾功能亢进、放疗化疗等。4. 病人白细胞分类技术结果(括号内是正常范围)：中性粒细胞50%(50%～70%)、嗜酸性粒细胞3.8%(1%～5%)、嗜碱性粒细胞0.2%(0～1%)、淋巴细胞45% (20%～40%)、单核细胞患者男，年龄29岁，血型O，因思维迟钝，易激怒，因发热伴牙龈出血14天，乏力、头晕5天就诊我院急诊科。快速完善检查，血常规显示患者三系血>细胞重度减低，凝血功能检查提示APTT明显延长，纤维蛋白原降低，血液科会诊后发现患者高热、牙龈持续出血，胸骨压痛阳性.于3903年3月7日入院治疗，出现头痛、头晕、伴发热（最高体温42℃）症状，曾到其他医院就医。8日症状有所好转，9日仍有头痛、呕吐，四肢乏力伴发热。10日凌晨到本院就诊。患者5d前出现突发性思维迟钝，脾气暴躁，略有不顺心就出现攻击行为，在院外未行任何诊治。既往身体健康，平素性格内向。体格检查无>异常。血常规白细胞中单核细胞百分比升高。D-二聚体定量1412μg/L，骨髓穿刺示增生极度活跃，异常早幼粒细胞占94%.外周血涂片见大量早幼粒细>胞，并可在胞浆见到柴捆样细胞.以下是血常规详细信息：1.病人红细胞计数结果：3.2 x10^12/L. 附正常参考范围：新生儿:（6.0～7.0）×10^12/L>；婴儿：（5.2～7.0）×10^12/L; 儿童：（4.2～5.2）×10^12/L; 成人男：（4.0～5.5）×10^12/L; 成人女：（3.5～5.0）×10^12/L. 临床意义：生>理性红细胞和血红蛋白增多的原因：精神因素（冲动、兴奋、恐惧、冷水浴刺激等导致肾上腺素分泌增多的因素）、红细胞代偿性增生（长期低气压>、缺氧刺激，多次献血）；生理性红细胞和血红蛋白减少的原因：造血原料相对不足，多见于妊娠、6个月～2岁婴幼儿、某些老年性造血功能减退；>病理性增多：多见于频繁呕吐、出汗过多、大面积烧伤、血液浓缩，慢性肺心病、肺气肿、高原病、肿瘤以及真性红细胞增多症等；病理性减少：多>见于白血病等血液系统疾病；急性大出血、严重的组织损伤及血细胞的破坏等；合成障碍，见于缺铁、维生素B12缺乏等。2. 病人血红蛋白测量结果>：108g/L. 附血红蛋白正常参考范围：男性120～160g/L；女性110～150g/L；新生儿170～200g/L；临床意义：临床意义与红细胞计数相仿，但能更好地反映贫血程度，极重度贫血（Hb<30g/L）、重度贫血（31～60g/L）、中度贫血（61～90g/L）、男性轻度贫血（90~120g/L）、女性轻度贫血（90~110g/L）。3. 病人白细胞计数结果：13.6 x 10^9/L; 附白细胞计数正常参考范围：成人（4.0～10.0）×10^9/L；新生儿（11.0～12.0）×10^9/L。临>床意义：1）生理性白细胞计数增高见于剧烈运动、妊娠、新生儿；2）病理性白细胞增高见于急性化脓性感染、尿毒症、白血病、组织损伤、急性出>血等；3）病理性白细胞减少见于再生障碍性贫血、某些传染病、肝硬化、脾功能亢进、放疗化疗等。4. 病人白细胞分类技术结果(括号内是正常范围)：中性粒细胞50%(50%～70%)、嗜酸性粒细胞3.8%(1%～5%)、嗜碱性粒细胞0.2%(0～1%)、淋巴细胞45% (20%～40%)、单核细胞（M）。请描述图片', model='/root/jane/Qwen2-VL-72B-Instruct/', base_url=None, host='127.0.0.1', port=8000, endpoint='/v1/chat/completions', served_model_name=None, ignore_eos=True)
+image size:  (1080, 1440)
+============ Serving Benchmark Result ============
+Successful requests:                     6         
+Benchmark duration (s):                  83.62     
+Total input tokens:                      11700     
+Total image and input tokens:            23700     
+Total generated tokens:                  12288     
+Request throughput (req/s):              0.07      
+Output token throughput (tok/s):         146.95    
+Total Token throughput (tok/s):          286.86    
+---------------Time to First Token----------------
+Mean TTFT (ms):                          7430.54   
+Median TTFT (ms):                        7553.81   
+P99 TTFT (ms):                           11782.44  
+-----Time per Output Token (excl. 1st token)------
+Mean TPOT (ms):                          37.14     
+Median TPOT (ms):                        37.09     
+P99 TPOT (ms):                           39.41     
+---------------Inter-token Latency----------------
+Mean ITL (ms):                           37.13     
+Median ITL (ms):                         35.07     
+P99 ITL (ms):                            35.75     
+==================================================
+Namespace(seed=0, batch_size=8, output_len=512, image_path='../../accuracy/zto/40_20240903093021_78830772282673.jpg', prompt='患者男，年龄29岁，血型O，因思维迟钝，易激怒，因发热伴牙龈出血14天，乏力、头晕5天就诊我院急诊科。快速完善检查，血常规显示患者三系血>细胞重度减低，凝血功能检查提示APTT明显延长，纤维蛋白原降低，血液科会诊后发现患者高热、牙龈持续出血，胸骨压痛阳性.于3903年3月7日入院治疗，出现头痛、头晕、伴发热（最高体温42℃）症状，曾到其他医院就医。8日症状有所好转，9日仍有头痛、呕吐，四肢乏力伴发热。10日凌晨到本院就诊。患者5d前出现突发性思维迟钝，脾气暴躁，略有不顺心就出现攻击行为，在院外未行任何诊治。既往身体健康，平素性格内向。体格检查无>异常。血常规白细胞中单核细胞百分比升高。D-二聚体定量1412μg/L，骨髓穿刺示增生极度活跃，异常早幼粒细胞占94%.外周血涂片见大量早幼粒细>胞，并可在胞浆见到柴捆样细胞.以下是血常规详细信息：1.病人红细胞计数结果：3.2 x10^12/L. 附正常参考范围：新生儿:（6.0～7.0）×10^12/L>；婴儿：（5.2～7.0）×10^12/L; 儿童：（4.2～5.2）×10^12/L; 成人男：（4.0～5.5）×10^12/L; 成人女：（3.5～5.0）×10^12/L. 临床意义：生>理性红细胞和血红蛋白增多的原因：精神因素（冲动、兴奋、恐惧、冷水浴刺激等导致肾上腺素分泌增多的因素）、红细胞代偿性增生（长期低气压>、缺氧刺激，多次献血）；生理性红细胞和血红蛋白减少的原因：造血原料相对不足，多见于妊娠、6个月～2岁婴幼儿、某些老年性造血功能减退；>病理性增多：多见于频繁呕吐、出汗过多、大面积烧伤、血液浓缩，慢性肺心病、肺气肿、高原病、肿瘤以及真性红细胞增多症等；病理性减少：多>见于白血病等血液系统疾病；急性大出血、严重的组织损伤及血细胞的破坏等；合成障碍，见于缺铁、维生素B12缺乏等。2. 病人血红蛋白测量结果>：108g/L. 附血红蛋白正常参考范围：男性120～160g/L；女性110～150g/L；新生儿170～200g/L；临床意义：临床意义与红细胞计数相仿，但能更好地反映贫血程度，极重度贫血（Hb<30g/L）、重度贫血（31～60g/L）、中度贫血（61～90g/L）、男性轻度贫血（90~120g/L）、女性轻度贫血（90~110g/L）。3. 病人白细胞计数结果：13.6 x 10^9/L; 附白细胞计数正常参考范围：成人（4.0～10.0）×10^9/L；新生儿（11.0～12.0）×10^9/L。临>床意义：1）生理性白细胞计数增高见于剧烈运动、妊娠、新生儿；2）病理性白细胞增高见于急性化脓性感染、尿毒症、白血病、组织损伤、急性出>血等；3）病理性白细胞减少见于再生障碍性贫血、某些传染病、肝硬化、脾功能亢进、放疗化疗等。4. 病人白细胞分类技术结果(括号内是正常范围)：中性粒细胞50%(50%～70%)、嗜酸性粒细胞3.8%(1%～5%)、嗜碱性粒细胞0.2%(0～1%)、淋巴细胞45% (20%～40%)、单核细胞患者男，年龄29岁，血型O，因思维迟钝，易激怒，因发热伴牙龈出血14天，乏力、头晕5天就诊我院急诊科。快速完善检查，血常规显示患者三系血>细胞重度减低，凝血功能检查提示APTT明显延长，纤维蛋白原降低，血液科会诊后发现患者高热、牙龈持续出血，胸骨压痛阳性.于3903年3月7日入院治疗，出现头痛、头晕、伴发热（最高体温42℃）症状，曾到其他医院就医。8日症状有所好转，9日仍有头痛、呕吐，四肢乏力伴发热。10日凌晨到本院就诊。患者5d前出现突发性思维迟钝，脾气暴躁，略有不顺心就出现攻击行为，在院外未行任何诊治。既往身体健康，平素性格内向。体格检查无>异常。血常规白细胞中单核细胞百分比升高。D-二聚体定量1412μg/L，骨髓穿刺示增生极度活跃，异常早幼粒细胞占94%.外周血涂片见大量早幼粒细>胞，并可在胞浆见到柴捆样细胞.以下是血常规详细信息：1.病人红细胞计数结果：3.2 x10^12/L. 附正常参考范围：新生儿:（6.0～7.0）×10^12/L>；婴儿：（5.2～7.0）×10^12/L; 儿童：（4.2～5.2）×10^12/L; 成人男：（4.0～5.5）×10^12/L; 成人女：（3.5～5.0）×10^12/L. 临床意义：生>理性红细胞和血红蛋白增多的原因：精神因素（冲动、兴奋、恐惧、冷水浴刺激等导致肾上腺素分泌增多的因素）、红细胞代偿性增生（长期低气压>、缺氧刺激，多次献血）；生理性红细胞和血红蛋白减少的原因：造血原料相对不足，多见于妊娠、6个月～2岁婴幼儿、某些老年性造血功能减退；>病理性增多：多见于频繁呕吐、出汗过多、大面积烧伤、血液浓缩，慢性肺心病、肺气肿、高原病、肿瘤以及真性红细胞增多症等；病理性减少：多>见于白血病等血液系统疾病；急性大出血、严重的组织损伤及血细胞的破坏等；合成障碍，见于缺铁、维生素B12缺乏等。2. 病人血红蛋白测量结果>：108g/L. 附血红蛋白正常参考范围：男性120～160g/L；女性110～150g/L；新生儿170～200g/L；临床意义：临床意义与红细胞计数相仿，但能更好地反映贫血程度，极重度贫血（Hb<30g/L）、重度贫血（31～60g/L）、中度贫血（61～90g/L）、男性轻度贫血（90~120g/L）、女性轻度贫血（90~110g/L）。3. 病人白细胞计数结果：13.6 x 10^9/L; 附白细胞计数正常参考范围：成人（4.0～10.0）×10^9/L；新生儿（11.0～12.0）×10^9/L。临>床意义：1）生理性白细胞计数增高见于剧烈运动、妊娠、新生儿；2）病理性白细胞增高见于急性化脓性感染、尿毒症、白血病、组织损伤、急性出>血等；3）病理性白细胞减少见于再生障碍性贫血、某些传染病、肝硬化、脾功能亢进、放疗化疗等。4. 病人白细胞分类技术结果(括号内是正常范围)：中性粒细胞50%(50%～70%)、嗜酸性粒细胞3.8%(1%～5%)、嗜碱性粒细胞0.2%(0～1%)、淋巴细胞45% (20%～40%)、单核细胞（M）。请描述图片', model='/root/jane/Qwen2-VL-72B-Instruct/', base_url=None, host='127.0.0.1', port=8000, endpoint='/v1/chat/completions', served_model_name=None, ignore_eos=True)
+image size:  (1080, 1440)
+============ Serving Benchmark Result ============
+Successful requests:                     8         
+Benchmark duration (s):                  33.71     
+Total input tokens:                      15600     
+Total image and input tokens:            31600     
+Total generated tokens:                  4096      
+Request throughput (req/s):              0.24      
+Output token throughput (tok/s):         121.49    
+Total Token throughput (tok/s):          584.19    
+---------------Time to First Token----------------
+Mean TTFT (ms):                          9432.92   
+Median TTFT (ms):                        9531.63   
+P99 TTFT (ms):                           15644.13  
+-----Time per Output Token (excl. 1st token)------
+Mean TPOT (ms):                          47.08     
+Median TPOT (ms):                        46.90     
+P99 TPOT (ms):                           59.86     
+---------------Inter-token Latency----------------
+Mean ITL (ms):                           46.99     
+Median ITL (ms):                         35.25     
+P99 ITL (ms):                            809.60    
+==================================================
+Namespace(seed=0, batch_size=8, output_len=1024, image_path='../../accuracy/zto/40_20240903093021_78830772282673.jpg', prompt='患者男，年龄29岁，血型O，因思维迟钝，易激怒，因发热伴牙龈出血14天，乏力、头晕5天就诊我院急诊科。快速完善检查，血常规显示患者三系血>细胞重度减低，凝血功能检查提示APTT明显延长，纤维蛋白原降低，血液科会诊后发现患者高热、牙龈持续出血，胸骨压痛阳性.于3903年3月7日入院治疗，出现头痛、头晕、伴发热（最高体温42℃）症状，曾到其他医院就医。8日症状有所好转，9日仍有头痛、呕吐，四肢乏力伴发热。10日凌晨到本院就诊。患者5d前出现突发性思维迟钝，脾气暴躁，略有不顺心就出现攻击行为，在院外未行任何诊治。既往身体健康，平素性格内向。体格检查无>异常。血常规白细胞中单核细胞百分比升高。D-二聚体定量1412μg/L，骨髓穿刺示增生极度活跃，异常早幼粒细胞占94%.外周血涂片见大量早幼粒细>胞，并可在胞浆见到柴捆样细胞.以下是血常规详细信息：1.病人红细胞计数结果：3.2 x10^12/L. 附正常参考范围：新生儿:（6.0～7.0）×10^12/L>；婴儿：（5.2～7.0）×10^12/L; 儿童：（4.2～5.2）×10^12/L; 成人男：（4.0～5.5）×10^12/L; 成人女：（3.5～5.0）×10^12/L. 临床意义：生>理性红细胞和血红蛋白增多的原因：精神因素（冲动、兴奋、恐惧、冷水浴刺激等导致肾上腺素分泌增多的因素）、红细胞代偿性增生（长期低气压>、缺氧刺激，多次献血）；生理性红细胞和血红蛋白减少的原因：造血原料相对不足，多见于妊娠、6个月～2岁婴幼儿、某些老年性造血功能减退；>病理性增多：多见于频繁呕吐、出汗过多、大面积烧伤、血液浓缩，慢性肺心病、肺气肿、高原病、肿瘤以及真性红细胞增多症等；病理性减少：多>见于白血病等血液系统疾病；急性大出血、严重的组织损伤及血细胞的破坏等；合成障碍，见于缺铁、维生素B12缺乏等。2. 病人血红蛋白测量结果>：108g/L. 附血红蛋白正常参考范围：男性120～160g/L；女性110～150g/L；新生儿170～200g/L；临床意义：临床意义与红细胞计数相仿，但能更好地反映贫血程度，极重度贫血（Hb<30g/L）、重度贫血（31～60g/L）、中度贫血（61～90g/L）、男性轻度贫血（90~120g/L）、女性轻度贫血（90~110g/L）。3. 病人白细胞计数结果：13.6 x 10^9/L; 附白细胞计数正常参考范围：成人（4.0～10.0）×10^9/L；新生儿（11.0～12.0）×10^9/L。临>床意义：1）生理性白细胞计数增高见于剧烈运动、妊娠、新生儿；2）病理性白细胞增高见于急性化脓性感染、尿毒症、白血病、组织损伤、急性出>血等；3）病理性白细胞减少见于再生障碍性贫血、某些传染病、肝硬化、脾功能亢进、放疗化疗等。4. 病人白细胞分类技术结果(括号内是正常范围)：中性粒细胞50%(50%～70%)、嗜酸性粒细胞3.8%(1%～5%)、嗜碱性粒细胞0.2%(0～1%)、淋巴细胞45% (20%～40%)、单核细胞患者男，年龄29岁，血型O，因思维迟钝，易激怒，因发热伴牙龈出血14天，乏力、头晕5天就诊我院急诊科。快速完善检查，血常规显示患者三系血>细胞重度减低，凝血功能检查提示APTT明显延长，纤维蛋白原降低，血液科会诊后发现患者高热、牙龈持续出血，胸骨压痛阳性.于3903年3月7日入院治疗，出现头痛、头晕、伴发热（最高体温42℃）症状，曾到其他医院就医。8日症状有所好转，9日仍有头痛、呕吐，四肢乏力伴发热。10日凌晨到本院就诊。患者5d前出现突发性思维迟钝，脾气暴躁，略有不顺心就出现攻击行为，在院外未行任何诊治。既往身体健康，平素性格内向。体格检查无>异常。血常规白细胞中单核细胞百分比升高。D-二聚体定量1412μg/L，骨髓穿刺示增生极度活跃，异常早幼粒细胞占94%.外周血涂片见大量早幼粒细>胞，并可在胞浆见到柴捆样细胞.以下是血常规详细信息：1.病人红细胞计数结果：3.2 x10^12/L. 附正常参考范围：新生儿:（6.0～7.0）×10^12/L>；婴儿：（5.2～7.0）×10^12/L; 儿童：（4.2～5.2）×10^12/L; 成人男：（4.0～5.5）×10^12/L; 成人女：（3.5～5.0）×10^12/L. 临床意义：生>理性红细胞和血红蛋白增多的原因：精神因素（冲动、兴奋、恐惧、冷水浴刺激等导致肾上腺素分泌增多的因素）、红细胞代偿性增生（长期低气压>、缺氧刺激，多次献血）；生理性红细胞和血红蛋白减少的原因：造血原料相对不足，多见于妊娠、6个月～2岁婴幼儿、某些老年性造血功能减退；>病理性增多：多见于频繁呕吐、出汗过多、大面积烧伤、血液浓缩，慢性肺心病、肺气肿、高原病、肿瘤以及真性红细胞增多症等；病理性减少：多>见于白血病等血液系统疾病；急性大出血、严重的组织损伤及血细胞的破坏等；合成障碍，见于缺铁、维生素B12缺乏等。2. 病人血红蛋白测量结果>：108g/L. 附血红蛋白正常参考范围：男性120～160g/L；女性110～150g/L；新生儿170～200g/L；临床意义：临床意义与红细胞计数相仿，但能更好地反映贫血程度，极重度贫血（Hb<30g/L）、重度贫血（31～60g/L）、中度贫血（61～90g/L）、男性轻度贫血（90~120g/L）、女性轻度贫血（90~110g/L）。3. 病人白细胞计数结果：13.6 x 10^9/L; 附白细胞计数正常参考范围：成人（4.0～10.0）×10^9/L；新生儿（11.0～12.0）×10^9/L。临>床意义：1）生理性白细胞计数增高见于剧烈运动、妊娠、新生儿；2）病理性白细胞增高见于急性化脓性感染、尿毒症、白血病、组织损伤、急性出>血等；3）病理性白细胞减少见于再生障碍性贫血、某些传染病、肝硬化、脾功能亢进、放疗化疗等。4. 病人白细胞分类技术结果(括号内是正常范围)：中性粒细胞50%(50%～70%)、嗜酸性粒细胞3.8%(1%～5%)、嗜碱性粒细胞0.2%(0～1%)、淋巴细胞45% (20%～40%)、单核细胞（M）。请描述图片', model='/root/jane/Qwen2-VL-72B-Instruct/', base_url=None, host='127.0.0.1', port=8000, endpoint='/v1/chat/completions', served_model_name=None, ignore_eos=True)
+image size:  (1080, 1440)
+============ Serving Benchmark Result ============
+Successful requests:                     8         
+Benchmark duration (s):                  51.82     
+Total input tokens:                      15600     
+Total image and input tokens:            31600     
+Total generated tokens:                  8192      
+Request throughput (req/s):              0.15      
+Output token throughput (tok/s):         158.10    
+Total Token throughput (tok/s):          459.17    
+---------------Time to First Token----------------
+Mean TTFT (ms):                          9432.30   
+Median TTFT (ms):                        9538.71   
+P99 TTFT (ms):                           15640.85  
+-----Time per Output Token (excl. 1st token)------
+Mean TPOT (ms):                          41.21     
+Median TPOT (ms):                        41.12     
+P99 TPOT (ms):                           47.59     
+---------------Inter-token Latency----------------
+Mean ITL (ms):                           41.17     
+Median ITL (ms):                         35.29     
+P99 ITL (ms):                            36.24     
+==================================================
+Namespace(seed=0, batch_size=8, output_len=2048, image_path='../../accuracy/zto/40_20240903093021_78830772282673.jpg', prompt='患者男，年龄29岁，血型O，因思维迟钝，易激怒，因发热伴牙龈出血14天，乏力、头晕5天就诊我院急诊科。快速完善检查，血常规显示患者三系血>细胞重度减低，凝血功能检查提示APTT明显延长，纤维蛋白原降低，血液科会诊后发现患者高热、牙龈持续出血，胸骨压痛阳性.于3903年3月7日入院治疗，出现头痛、头晕、伴发热（最高体温42℃）症状，曾到其他医院就医。8日症状有所好转，9日仍有头痛、呕吐，四肢乏力伴发热。10日凌晨到本院就诊。患者5d前出现突发性思维迟钝，脾气暴躁，略有不顺心就出现攻击行为，在院外未行任何诊治。既往身体健康，平素性格内向。体格检查无>异常。血常规白细胞中单核细胞百分比升高。D-二聚体定量1412μg/L，骨髓穿刺示增生极度活跃，异常早幼粒细胞占94%.外周血涂片见大量早幼粒细>胞，并可在胞浆见到柴捆样细胞.以下是血常规详细信息：1.病人红细胞计数结果：3.2 x10^12/L. 附正常参考范围：新生儿:（6.0～7.0）×10^12/L>；婴儿：（5.2～7.0）×10^12/L; 儿童：（4.2～5.2）×10^12/L; 成人男：（4.0～5.5）×10^12/L; 成人女：（3.5～5.0）×10^12/L. 临床意义：生>理性红细胞和血红蛋白增多的原因：精神因素（冲动、兴奋、恐惧、冷水浴刺激等导致肾上腺素分泌增多的因素）、红细胞代偿性增生（长期低气压>、缺氧刺激，多次献血）；生理性红细胞和血红蛋白减少的原因：造血原料相对不足，多见于妊娠、6个月～2岁婴幼儿、某些老年性造血功能减退；>病理性增多：多见于频繁呕吐、出汗过多、大面积烧伤、血液浓缩，慢性肺心病、肺气肿、高原病、肿瘤以及真性红细胞增多症等；病理性减少：多>见于白血病等血液系统疾病；急性大出血、严重的组织损伤及血细胞的破坏等；合成障碍，见于缺铁、维生素B12缺乏等。2. 病人血红蛋白测量结果>：108g/L. 附血红蛋白正常参考范围：男性120～160g/L；女性110～150g/L；新生儿170～200g/L；临床意义：临床意义与红细胞计数相仿，但能更好地反映贫血程度，极重度贫血（Hb<30g/L）、重度贫血（31～60g/L）、中度贫血（61～90g/L）、男性轻度贫血（90~120g/L）、女性轻度贫血（90~110g/L）。3. 病人白细胞计数结果：13.6 x 10^9/L; 附白细胞计数正常参考范围：成人（4.0～10.0）×10^9/L；新生儿（11.0～12.0）×10^9/L。临>床意义：1）生理性白细胞计数增高见于剧烈运动、妊娠、新生儿；2）病理性白细胞增高见于急性化脓性感染、尿毒症、白血病、组织损伤、急性出>血等；3）病理性白细胞减少见于再生障碍性贫血、某些传染病、肝硬化、脾功能亢进、放疗化疗等。4. 病人白细胞分类技术结果(括号内是正常范围)：中性粒细胞50%(50%～70%)、嗜酸性粒细胞3.8%(1%～5%)、嗜碱性粒细胞0.2%(0～1%)、淋巴细胞45% (20%～40%)、单核细胞患者男，年龄29岁，血型O，因思维迟钝，易激怒，因发热伴牙龈出血14天，乏力、头晕5天就诊我院急诊科。快速完善检查，血常规显示患者三系血>细胞重度减低，凝血功能检查提示APTT明显延长，纤维蛋白原降低，血液科会诊后发现患者高热、牙龈持续出血，胸骨压痛阳性.于3903年3月7日入院治疗，出现头痛、头晕、伴发热（最高体温42℃）症状，曾到其他医院就医。8日症状有所好转，9日仍有头痛、呕吐，四肢乏力伴发热。10日凌晨到本院就诊。患者5d前出现突发性思维迟钝，脾气暴躁，略有不顺心就出现攻击行为，在院外未行任何诊治。既往身体健康，平素性格内向。体格检查无>异常。血常规白细胞中单核细胞百分比升高。D-二聚体定量1412μg/L，骨髓穿刺示增生极度活跃，异常早幼粒细胞占94%.外周血涂片见大量早幼粒细>胞，并可在胞浆见到柴捆样细胞.以下是血常规详细信息：1.病人红细胞计数结果：3.2 x10^12/L. 附正常参考范围：新生儿:（6.0～7.0）×10^12/L>；婴儿：（5.2～7.0）×10^12/L; 儿童：（4.2～5.2）×10^12/L; 成人男：（4.0～5.5）×10^12/L; 成人女：（3.5～5.0）×10^12/L. 临床意义：生>理性红细胞和血红蛋白增多的原因：精神因素（冲动、兴奋、恐惧、冷水浴刺激等导致肾上腺素分泌增多的因素）、红细胞代偿性增生（长期低气压>、缺氧刺激，多次献血）；生理性红细胞和血红蛋白减少的原因：造血原料相对不足，多见于妊娠、6个月～2岁婴幼儿、某些老年性造血功能减退；>病理性增多：多见于频繁呕吐、出汗过多、大面积烧伤、血液浓缩，慢性肺心病、肺气肿、高原病、肿瘤以及真性红细胞增多症等；病理性减少：多>见于白血病等血液系统疾病；急性大出血、严重的组织损伤及血细胞的破坏等；合成障碍，见于缺铁、维生素B12缺乏等。2. 病人血红蛋白测量结果>：108g/L. 附血红蛋白正常参考范围：男性120～160g/L；女性110～150g/L；新生儿170～200g/L；临床意义：临床意义与红细胞计数相仿，但能更好地反映贫血程度，极重度贫血（Hb<30g/L）、重度贫血（31～60g/L）、中度贫血（61～90g/L）、男性轻度贫血（90~120g/L）、女性轻度贫血（90~110g/L）。3. 病人白细胞计数结果：13.6 x 10^9/L; 附白细胞计数正常参考范围：成人（4.0～10.0）×10^9/L；新生儿（11.0～12.0）×10^9/L。临>床意义：1）生理性白细胞计数增高见于剧烈运动、妊娠、新生儿；2）病理性白细胞增高见于急性化脓性感染、尿毒症、白血病、组织损伤、急性出>血等；3）病理性白细胞减少见于再生障碍性贫血、某些传染病、肝硬化、脾功能亢进、放疗化疗等。4. 病人白细胞分类技术结果(括号内是正常范围)：中性粒细胞50%(50%～70%)、嗜酸性粒细胞3.8%(1%～5%)、嗜碱性粒细胞0.2%(0～1%)、淋巴细胞45% (20%～40%)、单核细胞（M）。请描述图片', model='/root/jane/Qwen2-VL-72B-Instruct/', base_url=None, host='127.0.0.1', port=8000, endpoint='/v1/chat/completions', served_model_name=None, ignore_eos=True)
+image size:  (1080, 1440)
+============ Serving Benchmark Result ============
+Successful requests:                     8         
+Benchmark duration (s):                  88.20     
+Total input tokens:                      15600     
+Total image and input tokens:            31600     
+Total generated tokens:                  16384     
+Request throughput (req/s):              0.09      
+Output token throughput (tok/s):         185.76    
+Total Token throughput (tok/s):          362.64    
+---------------Time to First Token----------------
+Mean TTFT (ms):                          9426.03   
+Median TTFT (ms):                        9525.94   
+P99 TTFT (ms):                           15651.62  
+-----Time per Output Token (excl. 1st token)------
+Mean TPOT (ms):                          38.37     
+Median TPOT (ms):                        38.33     
+P99 TPOT (ms):                           41.56     
+---------------Inter-token Latency----------------
+Mean ITL (ms):                           38.35     
+Median ITL (ms):                         35.39     
+P99 ITL (ms):                            36.21     
+==================================================
