@@ -9,7 +9,7 @@ docker load -i mmmu_1.0.tar
 docker run -itd  -v /llm:/llm \
 	 --ipc=host \
 	 --name mmmu \
-	 mmmu:1.0
+	 mmmu:2.0
 ```
 host上的/llm目录需要包含MMMU以及MMMMUPro的测试数据集，这两个数据集可从10.238.149.77的/DISK3/home/llm/multimodalLLM/MMMU_Test目录中下载。
 ## 2. 启动模型vllm服务
