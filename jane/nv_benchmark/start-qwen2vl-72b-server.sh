@@ -1,12 +1,12 @@
 #!/bin/bash
 
-MODEL="/disk0/LLM/Qwen2-VL-72B-Instruct/"
+MODEL="/root/jane/Qwen2-VL-72B-Instruct/"
 
 export VLLM_USE_V1=1
 
 NUM_CARD=8
 # 设置开关变量
-enable_prefix_caching=False  # 改为 False 则禁用 prefix caching
+enable_prefix_caching=True  # 改为 False 则禁用 prefix caching
 
 PREFIX_CACHING_FLAG=""
 if [ "$enable_prefix_caching" = "False" ]; then

@@ -54,7 +54,7 @@ def extract_log_metrics(log_file, output_csv):
        
         # 获取 Mean TTFT 并判断是否超过5秒（5000毫秒）
         mean_ttft = float(metrics['Mean TTFT (ms)'].group(1)) if metrics['Mean TTFT (ms)'] else None
-        if mean_ttft is not None and mean_ttft > 5000:
+        if mean_ttft is not None and mean_ttft > 6000:
             continue  # 跳过该结果
 
         # 按指定顺序提取数值
