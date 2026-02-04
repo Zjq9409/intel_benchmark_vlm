@@ -175,13 +175,50 @@ def main(args: argparse.Namespace):
     args = parser.parse_args()
     batch_size = args.batch_size
     image_path = args.image_path
-    print("image size: ",Image.open(image_path).size)
-
-    with open(image_path, 'rb') as file:
-        image_data = file.read()
-        base64_image = base64.b64encode(image_data).decode("utf-8")
+    
+    # Read images from the dataset directory
+    # Use relative path from the script location
+    script_dir = os.path.dirname(os.path.abspath(__file__))
+    image_dir = os.path.join(script_dir, "..", "dataset", "images")
+    
+    if os.path.isdir(image_dir):
+        # Get all image files from the directory
+        image_files = glob.glob(os.path.join(image_dir, "*.jpg")) + \
+                     glob.glob(os.path.join(image_dir, "*.jpeg")) + \
+                     glob.glob(os.path.join(image_dir, "*.png"))
+        
+        if len(image_files) == 0:
+            print(f"Error: No images found in {image_dir}")
+            print(f"Falling back to use --image_path: {image_path}")
+            image_files = [image_path] * batch_size
+        elif len(image_files) < batch_size:
+            print(f"Warning: Only {len(image_files)} images found in {image_dir}, but batch_size is {batch_size}")
+            print("Will repeat images to fill the batch")
+            # Repeat images if not enough
+            image_files = (image_files * ((batch_size // len(image_files)) + 1))[:batch_size]
+        else:
+            # Select batch_size images randomly
+            random.shuffle(image_files)
+            image_files = image_files[:batch_size]
+        
+        print(f"Using {len(image_files)} images from {image_dir}")
+        for idx, img_path in enumerate(image_files):
+            img_size = Image.open(img_path).size
+            print(f"  [{idx+1}] {os.path.basename(img_path)} (size: {img_size[0]}x{img_size[1]})")
+    else:
+        # If directory doesn't exist, use the single image_path
+        print(f"Warning: Directory {image_dir} not found")
+        print(f"Using --image_path: {image_path}")
+        image_files = [image_path] * batch_size
+    
     sampled_requests: List[Tuple[str, int, int, dict]] = []
     for i in range(batch_size):
+        # Read and encode the image for this request
+        current_image_path = image_files[i]
+        with open(current_image_path, 'rb') as file:
+            image_data = file.read()
+            base64_image = base64.b64encode(image_data).decode("utf-8")
+        
         mm_content = {
                 "type": "image_url",
                 "image_url": {
