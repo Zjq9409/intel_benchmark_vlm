@@ -5,7 +5,7 @@
 性能测试在 `performance_benchmark` 文件夹下进行：
 
 ```bash
-cd /home/intel/llm_test/intel_benchmark_vlm/performance_benchmark
+cd performance_benchmark
 ```
 
 ## 1. 下载测试数据集
