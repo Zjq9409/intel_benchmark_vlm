@@ -13,9 +13,12 @@ cd performance_benchmark
 首先需要下载COCO图像数据集用于测试：
 
 ```bash
-pip install datasets tqdm pillow
 
 cd performance_benchmark
+
+#安装依赖
+pip install datasets tqdm pillow
+
 
 # 下载400张图像（默认）
 python3 download_dataset.py
