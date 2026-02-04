@@ -15,7 +15,7 @@ cd performance_benchmark
 ```bash
 pip install datasets tqdm pillow
 
-cd /home/intel/llm_test/intel_benchmark_vlm/performance_benchmark
+cd performance_benchmark
 
 # 下载400张图像（默认）
 python3 download_dataset.py
