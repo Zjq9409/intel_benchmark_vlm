@@ -5,6 +5,7 @@ def parse_args():
     parser.add_argument("--model-path", type=str, default="/root/hugging-face-llm/Qwen2.5-VL-7B-Instruct")
     parser.add_argument("--imgs-path", type=str, default="image/qwen_qoe_test")
     parser.add_argument("--batch", type=int, default=2)
+    parser.add_argument("--multi-batch", action="store_true", help="Test multiple batch sizes (1,2,4,8,16,32,64,128)")
     parser.add_argument("--text", type=str, default="Describe this video")
     parser.add_argument("--num_frames", type=int, default=8)
     parser.add_argument('--visual_engine_dir',
