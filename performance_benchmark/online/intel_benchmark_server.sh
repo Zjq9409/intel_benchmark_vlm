@@ -102,19 +102,26 @@ run_benchmark() {
     local INPUT_LEN=$2
     local OUTPUT_LEN=$3
 
-    echo ">>> Running benchmark: bsize=$bsize input=$INPUT_LEN output=$OUTPUT_LEN" | tee -a "$LOG_FILE"
-    vllm bench serve \
+    # Select prompt file based on input length
+    if [ "$INPUT_LEN" -le 256 ]; then
+        PROMPT_FILE="${PROMPT_DIR}/prompt_128.txt"
+    elif [ "$INPUT_LEN" -le 1500 ]; then
+        PROMPT_FILE="${PROMPT_DIR}/prompt_1k.txt"
+    else
+        PROMPT_FILE="${PROMPT_DIR}/prompt_2k.txt"
+    fi
+
+    echo ">>> Running vlm_benchmark: bsize=$bsize input=$INPUT_LEN output=$OUTPUT_LEN prompt=$(basename $PROMPT_FILE)" | tee -a "$LOG_FILE"
+    python3 vlm_benchmark.py \
+        --prompt "$(cat "$PROMPT_FILE")" \
         --model "$MODEL_PATH" \
-        --dataset-name random \
         --served-model-name "$MODEL_NAME" \
-        --random-input-len=$INPUT_LEN \
-        --random-output-len=$OUTPUT_LEN \
-        --ignore-eos \
-        --num-prompt $bsize \
-        --trust-remote-code \
-        --request-rate inf \
-        --backend vllm \
-        --port=8000 | tee -a "$LOG_FILE"
+        --batch_size "$bsize" \
+        --output_len "$OUTPUT_LEN" \
+        --image_dir "$IMAGE_DIR" \
+        --port 8000 \
+        --host 127.0.0.1 \
+        --ignore-eos | tee -a "$LOG_FILE"
 }
 
 # Run tests
