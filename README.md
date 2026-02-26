@@ -1,5 +1,32 @@
 # Performance测试
 
+
+## 脚本说明
+
+| 脚本 | 说明 |
+|------|------|
+| `setup_env.sh` | 环境初始化脚本，自动检测 GPU 类型：检测到 **NVIDIA GPU** 时，使用 `uv` 创建 Python 3.12 虚拟环境并安装 vllm；检测到 **Intel GPU** 时，拉取 `intel/llm-scaler-vllm` Docker 镜像并启动容器（需传入镜像版本号，如 `0.11.1-b7`） |
+| `performance_benchmark/online/intel_benchmark_server.sh` | **Intel GPU** 性能测试脚本。设置 Intel vllm 所需环境变量（`VLLM_OFFLOAD_WEIGHTS_BEFORE_QUANT`、`VLLM_WORKER_MULTIPROC_METHOD` 等），启动 vllm OpenAI 兼容服务端，循环运行不同 batch_size 的 `vllm bench serve` 纯文本 benchmark，完成后自动调用 `parse_log.py` 生成 CSV 结果 |
+| `performance_benchmark/online/nv_benchmark_server.sh` | **NVIDIA GPU** 性能测试脚本。根据 `tp` 参数自动设置 `CUDA_VISIBLE_DEVICES`，启动 vllm 服务端（支持 fp8 量化），循环运行不同 batch_size 的 `vlm_benchmark.py` 图文 benchmark（从 `dataset/images` 读取图片），完成后自动调用 `parse_log.py` 生成 CSV 结果 |
+
+### 使用方式
+
+```bash
+# 初始化环境（NVIDIA，无需参数）
+bash setup_env.sh
+
+# 初始化环境（Intel，需指定镜像版本）
+bash setup_env.sh 0.11.1-b7
+
+# 运行 Intel GPU benchmark
+bash performance_benchmark/online/intel_benchmark_server.sh <model_path> <model_name> [tp]
+
+# 运行 NVIDIA GPU benchmark
+bash performance_benchmark/online/nv_benchmark_server.sh <model_path> <model_name> [tp] [image_dir]
+```
+
+---
+
 ## 快速开始
 
 性能测试在 `performance_benchmark` 文件夹下进行：
@@ -32,46 +59,7 @@ python3 download_dataset.py --num-images 320
 
 详细说明参考 [DATASET_README.md](DATASET_README.md)
 
-## 2. 启动VLM服务（B60）
-
-在B60服务器上启动VLLM服务：
-
-```bash
-VLLM_ALLOW_LONG_MAX_MODEL_LEN=1 \
-VLLM_WORKER_MULTIPROC_METHOD=spawn \
-vllm serve \
-    --model /llm/models/Qwen3-VL-4B-Instruct/ \
-    --served-model-name Qwen3-VL-4B-Instruct \
-    --dtype=float16 \
-    --enforce-eager \
-    --port 8000 \
-    --host 0.0.0.0 \
-    --trust-remote-code \
-    --no-enable-prefix-caching \
-    --gpu-memory-util=0.9 \
-    --max-num-batched-tokens=8192 \
-    --disable-log-requests \
-    --max-model-len=8192 \
-    --block-size 64 \
-    -tp=1
-```
-
-## 3. 运行性能测试
-
-使用 `online/benchmark_server.sh` 脚本测试VLM模型性能：
-
-```bash
-cd online
-bash benchmark_server.sh
-```
-
-测试脚本会：
-- 自动从 `dataset/images` 目录读取图片
-- 支持batch_size > 1时使用不同的图片
-- 显示每张图片的尺寸信息
-- 输出详细的性能指标（TTFT, TPOT, ITL等）
-
-## 4. 测试输入的文本长度配置
+## 2. 测试输入的文本长度配置
 
 ### 测试场景
 1. 128/128, 128/512, 128/1024
@@ -83,9 +71,9 @@ bash benchmark_server.sh
 - 1024输入的prompt参看文件 `prompt_1k.txt`
 - 2048输入的prompt参看文件 `prompt_2k.txt`
 
-## 5. 手动测试代码示例
+## 3. 手动测试代码示例
 
-如需手动运行测试（不使用benchmark_server.sh）：
+如需手动运行测试（不使用 benchmark 脚本）：
 
 ```bash
 cd online
@@ -110,7 +98,7 @@ python vlm_benchmark.py \
 - `--image_path`: 单张图片路径（batch_size=1时使用，>1时自动忽略）
 - `--ignore-eos`: 忽略EOS token，强制输出到max_tokens
 
-## 6. 测试结果
+## 4. 测试结果
 
 测试脚本会输出以下性能指标：
 - **Request throughput**: 请求吞吐量（req/s）
@@ -120,7 +108,7 @@ python vlm_benchmark.py \
 - **ITL** (Inter-token Latency): token间延迟
 - **Total Token throughput**: 总token吞吐量（包含输入+输出）
 
-## 7. 解析测试日志
+## 5. 解析测试日志
 
 使用 `parse_log.py` 脚本可以从测试日志中提取性能指标并导出为CSV格式：
 
@@ -141,12 +129,6 @@ python parse_log.py test_output.log
 # - Benchmark duration (s)
 ```
 
-### 参数说明
-- `log_file`: 必需，日志文件路径
-- `--performance`: 可选，是否输出性能数据（默认为True）
-  - `True/1/yes`: 解析性能指标并输出CSV
-  - `False/0/no`: 解析准确性测试结果（图片路径和输出文本）
-
 ### 使用示例
 
 ```bash
@@ -154,5 +136,3 @@ python parse_log.py test_output.log
 python parse_log.py benchmark_result.log
 
 ```
-
-**注意**：脚本会自动过滤掉 Mean TTFT > 6000ms 的异常数据
