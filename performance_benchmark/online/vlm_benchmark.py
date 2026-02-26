@@ -179,7 +179,10 @@ def main(args: argparse.Namespace):
     # Read images from the dataset directory
     # Use relative path from the script location
     script_dir = os.path.dirname(os.path.abspath(__file__))
-    image_dir = os.path.join(script_dir, "..", "dataset", "images")
+    if args.image_dir:
+        image_dir = os.path.abspath(args.image_dir)
+    else:
+        image_dir = os.path.join(script_dir, "..", "dataset", "images")
     
     if os.path.isdir(image_dir):
         # Get all image files from the directory
@@ -263,7 +266,13 @@ if __name__ == "__main__":
         "--image_path",
         type=str,
         default="",
-        help="image file path"
+        help="image file path (fallback when image_dir is empty)"
+    )
+    parser.add_argument(
+        "--image_dir",
+        type=str,
+        default="",
+        help="directory containing images; overrides default ../dataset/images"
     )
     parser.add_argument(
         "--prompt",
