@@ -19,7 +19,7 @@ bash setup_env.sh
 bash setup_env.sh 0.11.1-b7
 
 # 运行 Intel GPU benchmark
-bash performance_benchmark/online/intel_benchmark_server.sh <model_path> <model_name> [tp]
+bash performance_benchmark/online/intel_benchmark_server.sh <model_path> <model_name> [tp] [image_dir]
 
 # 运行 NVIDIA GPU benchmark
 bash performance_benchmark/online/nv_benchmark_server.sh <model_path> <model_name> [tp] [image_dir]
