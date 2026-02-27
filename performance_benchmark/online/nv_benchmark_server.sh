@@ -11,6 +11,22 @@
 
 #!/bin/bash
 
+# ----------------------------------------------------------------
+# Bare-metal guard: if not inside Docker, re-exec inside container
+# ----------------------------------------------------------------
+if [ ! -f "/.dockerenv" ] && ! grep -q 'docker\|containerd' /proc/1/cgroup 2>/dev/null; then
+    CONTAINER_NAME="vllm-nv-container"
+    SCRIPT_IN_CONTAINER="/llm/performance_benchmark/online/$(basename "$0")"
+    RUNNING=$(docker ps --filter "name=^/${CONTAINER_NAME}$" --format "{{.Names}}" 2>/dev/null)
+    if [ -z "$RUNNING" ]; then
+        echo "ERROR: Container '$CONTAINER_NAME' is not running."
+        echo "Please run setup_env.sh first to start the container."
+        exit 1
+    fi
+    echo "Bare-metal detected — re-executing inside container '$CONTAINER_NAME'..."
+    exec docker exec -it "$CONTAINER_NAME" bash "$SCRIPT_IN_CONTAINER" "$@"
+fi
+
 # Check input parameters
 if [ "$#" -lt 2 ]; then
     echo "Usage: $0 <modelpath> <modelname> [tp] [image_dir]"

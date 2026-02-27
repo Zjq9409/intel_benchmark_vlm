@@ -13,8 +13,8 @@
 #   Example:     $0 0.11.1-b7
 # ============================================================
 
-SCRIPT_DIR="$(dirname "$(realpath "$0")")" 
-VENV_DIR="$SCRIPT_DIR/.venv"
+# SCRIPT_DIR: defaults to the directory containing this script; override via env var
+SCRIPT_DIR="${SCRIPT_DIR:-$(dirname "$(realpath "$0")")}" 
 CONTAINER_NAME="lsv-container"
 IMAGE_BASE="intel/llm-scaler-vllm"
 
@@ -41,7 +41,8 @@ if [ "$USE_NV" -eq 1 ]; then
     # ----------------------------------------------------------------
     NV_IMAGE="vllm/vllm-openai:v0.15.1-cu130"
     NV_CONTAINER="vllm-nv-container"
-    WEIGHTS_DIR="${1:-$(dirname "$SCRIPT_DIR")/weights}"
+    # WEIGHTS_DIR: env var > $1 arg > auto-detect as ../weights relative to SCRIPT_DIR
+    WEIGHTS_DIR="${WEIGHTS_DIR:-${1:-$(dirname "$SCRIPT_DIR")/weights}}"
 
     echo "  Image:       $NV_IMAGE"
     echo "  Container:   $NV_CONTAINER"
@@ -70,7 +71,7 @@ if [ "$USE_NV" -eq 1 ]; then
 
     if [ -n "$RUNNING" ]; then
         echo "  Container '$NV_CONTAINER' is already running. Entering container..."
-        docker exec -it "$NV_CONTAINER" /bin/bash
+        # docker exec -it "$NV_CONTAINER" /bin/bash
     else
         if [ -n "$EXISTING" ]; then
             echo "  Found stopped container '$NV_CONTAINER'. Removing..."
@@ -81,9 +82,11 @@ if [ "$USE_NV" -eq 1 ]; then
         docker run -td \
             --runtime nvidia --gpus all \
             --name "$NV_CONTAINER" \
-            -v "$WEIGHTS_DIR":/models \
-            -v "$SCRIPT_DIR":/workspace \
-            -p 8000:8000 \
+            -v "$WEIGHTS_DIR":/llm/models \
+            -v "$SCRIPT_DIR":/llm \
+            -e no_proxy=localhost,127.0.0.1 \
+            -e http_proxy="$http_proxy" \
+            -e https_proxy="$https_proxy" \
             --ipc=host \
             --entrypoint /bin/bash \
             "$NV_IMAGE"
@@ -93,7 +96,7 @@ if [ "$USE_NV" -eq 1 ]; then
             exit 1
         fi
         echo "  Container '$NV_CONTAINER' started successfully."
-        docker exec -it "$NV_CONTAINER" /bin/bash
+        # docker exec -it "$NV_CONTAINER" /bin/bash
     fi
 
     echo ""
@@ -113,6 +116,8 @@ echo "  No NVIDIA GPU detected — using Intel Docker path."
 # Intel path: Docker image + container
 # ----------------------------------------------------------------
 IMAGE_VERSION=${1:-0.11.1-b7}
+# WEIGHTS_DIR: env var > auto-detect as ../weights relative to SCRIPT_DIR
+WEIGHTS_DIR="${WEIGHTS_DIR:-$(dirname "$SCRIPT_DIR")/weights}"
 FULL_IMAGE="${IMAGE_BASE}:${IMAGE_VERSION}"
 echo "  Image: $FULL_IMAGE"
 
@@ -139,7 +144,7 @@ EXISTING=$(sudo docker ps -a --filter "name=^/${CONTAINER_NAME}$" --format "{{.N
 
 if [ -n "$RUNNING" ]; then
     echo "Container '$CONTAINER_NAME' is already running. Entering container..."
-    sudo docker exec -it "$CONTAINER_NAME" /bin/bash
+    # sudo docker exec -it "$CONTAINER_NAME" /bin/bash
     exit 0
 else
     if [ -n "$EXISTING" ]; then
@@ -156,9 +161,8 @@ else
         --net=host \
         --device=/dev/dri \
         --name="$CONTAINER_NAME" \
-        -v /home/intel/llm_test/weights/:/llm/models/ \
-        -v /home/intel/llm_test/:/llm/ \
-        -v "$(dirname "$(realpath "$0")"):/llm_test/" \
+        -v "$WEIGHTS_DIR":/llm/models \
+        -v "$SCRIPT_DIR":/llm \
         -e no_proxy=localhost,127.0.0.1 \
         -e http_proxy="$http_proxy" \
         -e https_proxy="$https_proxy" \
@@ -171,7 +175,7 @@ else
         exit 1
     fi
     echo "Container '$CONTAINER_NAME' started successfully."
-    docker exec -it "$CONTAINER_NAME" /bin/bash
+    # docker exec -it "$CONTAINER_NAME" /bin/bash
 fi
 
 echo ""
