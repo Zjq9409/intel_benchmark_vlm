@@ -111,7 +111,7 @@ nohup python3 -m vllm.entrypoints.openai.api_server \
     --no-enable-prefix-caching \
     --max-num-batched-tokens=8192 \
     --disable-log-requests \
-    --max-model-len 32768 \
+    --max-model-len 262144 \
     --block-size 64 \
     --quantization fp8 \
     -tp=$TP > "$SERVER_LOG" 2>&1 &
@@ -178,7 +178,7 @@ do
 	for output in 128
 	do
 		run_benchmark 1 $input $output
-		for (( i=2; i<=MAX_BSIZE; i+=2 )); do
+		for (( i=2; i<=MAX_BSIZE; i+=4 )); do
 			run_benchmark $i $input $output
 		done
 	done
