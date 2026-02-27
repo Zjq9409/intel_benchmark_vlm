@@ -2,11 +2,15 @@
 
 # ============================================================
 # Environment Setup Script
-# - NVIDIA GPU: sets up uv venv (Python 3.12) and installs vllm
-# - Intel GPU:  pulls Docker image and starts container
-# Usage: $0 [image_version]   (image_version only needed for Intel path)
-# Example (Intel): $0 0.11.1-b7
-# Example (NV):    $0
+# - NVIDIA GPU: pulls vllm/vllm-openai Docker image and starts container
+#               weights dir auto-detected as ../weights, or pass as $1
+# - Intel GPU:  pulls intel/llm-scaler-vllm Docker image and starts container
+#               image version passed as $1 (default: current hardcoded ver)
+# Usage (NV):    $0 [weights_dir]
+#   Example:     $0
+#   Example:     $0 /data/models
+# Usage (Intel): $0 [image_version]
+#   Example:     $0 0.11.1-b7
 # ============================================================
 
 SCRIPT_DIR="$(dirname "$(realpath "$0")")" 
@@ -30,69 +34,75 @@ if command -v nvidia-smi &>/dev/null && nvidia-smi &>/dev/null; then
 fi
 
 if [ "$USE_NV" -eq 1 ]; then
-    echo "  Detected NVIDIA GPU — using uv venv install path."
+    echo "  Detected NVIDIA GPU — using Docker image path."
 
     # ----------------------------------------------------------------
-    # NV path: uv + vllm
+    # NV path: Docker vllm image
     # ----------------------------------------------------------------
+    NV_IMAGE="vllm/vllm-openai:v0.15.1-cu130"
+    NV_CONTAINER="vllm-nv-container"
+    WEIGHTS_DIR="${1:-$(dirname "$SCRIPT_DIR")/weights}"
 
-    # Check / install uv
+    echo "  Image:       $NV_IMAGE"
+    echo "  Container:   $NV_CONTAINER"
+    echo "  Weights dir: $WEIGHTS_DIR"
+
+    # Step 1: Pull image if not already present
     echo ""
-    echo "[1/2] Checking uv..."
-    if ! command -v uv &>/dev/null; then
-        echo "  uv not found. Installing uv..."
-        curl -LsSf https://astral.sh/uv/install.sh | sh
-        source "$HOME/.local/bin/env"
-        if ! command -v uv &>/dev/null; then
-            echo "ERROR: uv installation failed or not in PATH."
+    echo "[1/2] Checking Docker image: $NV_IMAGE ..."
+    if docker image inspect "$NV_IMAGE" &>/dev/null; then
+        echo "  Image already exists locally, skipping pull."
+    else
+        echo "  Image not found locally. Pulling..."
+        docker pull "$NV_IMAGE"
+        if [ $? -ne 0 ]; then
+            echo "ERROR: Failed to pull image $NV_IMAGE"
             exit 1
         fi
-        echo "  uv installed: $(uv --version)"
-    else
-        echo "  uv found: $(uv --version)"
+        echo "  Image pulled successfully."
     fi
 
-    # Create venv if needed
+    # Step 2: Check container state and start if needed
     echo ""
-    echo "[2/2] Setting up Python 3.12 venv and installing vllm..."
-    if [ ! -d "$VENV_DIR" ]; then
-        echo "  Creating venv at $VENV_DIR ..."
-        uv venv --python 3.12 --seed --managed-python "$VENV_DIR"
+    echo "[2/2] Checking for existing container: $NV_CONTAINER ..."
+    RUNNING=$(docker ps --filter "name=^/${NV_CONTAINER}$" --format "{{.Names}}")
+    EXISTING=$(docker ps -a --filter "name=^/${NV_CONTAINER}$" --format "{{.Names}}")
+
+    if [ -n "$RUNNING" ]; then
+        echo "  Container '$NV_CONTAINER' is already running. Entering container..."
+        docker exec -it "$NV_CONTAINER" /bin/bash
+    else
+        if [ -n "$EXISTING" ]; then
+            echo "  Found stopped container '$NV_CONTAINER'. Removing..."
+            docker rm "$NV_CONTAINER"
+        fi
+
+        echo "  Starting container: $NV_CONTAINER ..."
+        docker run -td \
+            --runtime nvidia --gpus all \
+            --name "$NV_CONTAINER" \
+            -v "$WEIGHTS_DIR":/models \
+            -v "$SCRIPT_DIR":/workspace \
+            -p 8000:8000 \
+            --ipc=host \
+            --entrypoint /bin/bash \
+            "$NV_IMAGE"
+
         if [ $? -ne 0 ]; then
-            echo "ERROR: Failed to create venv."
+            echo "ERROR: Failed to start container."
             exit 1
         fi
-        echo "  Venv created."
-    else
-        echo "  Venv already exists at $VENV_DIR, skipping creation."
-    fi
-
-    # Activate venv
-    source "$VENV_DIR/bin/activate"
-    if [ $? -ne 0 ]; then
-        echo "ERROR: Failed to activate venv."
-        exit 1
-    fi
-    echo "  Venv activated: $(which python) ($(python --version))"
-
-    # Install vllm
-    if python -c "import vllm" &>/dev/null; then
-        VLLM_VER=$(python -c "import vllm; print(vllm.__version__)" 2>/dev/null)
-        echo "  vllm already installed (version: $VLLM_VER), skipping install."
-    else
-        echo "  Installing vllm (--torch-backend=auto)..."
-        uv pip install vllm --torch-backend=auto
-        if [ $? -ne 0 ]; then
-            echo "ERROR: Failed to install vllm."
-            exit 1
-        fi
-        echo "  vllm installed: $(python -c 'import vllm; print(vllm.__version__)')"
+        echo "  Container '$NV_CONTAINER' started successfully."
+        docker exec -it "$NV_CONTAINER" /bin/bash
     fi
 
     echo ""
     echo "============================================================"
     echo "NV environment setup complete."
-    echo "Activate with: source $VENV_DIR/bin/activate"
+    echo "  Container : $NV_CONTAINER"
+    echo "  Weights   : $WEIGHTS_DIR -> /models (inside container)"
+    echo "  Scripts   : $SCRIPT_DIR  -> /workspace (inside container)"
+    echo "  Port      : 8000 (host) -> 8000 (container)"
     echo "============================================================"
     exit 0
 fi

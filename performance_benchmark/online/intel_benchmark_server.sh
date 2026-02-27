@@ -16,8 +16,10 @@ PROMPT_DIR=$(dirname "$0")/..
 # Setup logging
 mkdir -p LOG
 CURRENT_TIME=$(date "+%Y%m%d_%H%M%S")
-LOG_FILE="LOG/${MODEL_NAME}_${CURRENT_TIME}.log"
-SERVER_LOG="./LOG/${MODEL_NAME}_tp${TP}_server_${CURRENT_TIME}.log"
+GPU_TYPE=$(nvidia-smi --query-gpu=name --format=csv,noheader 2>/dev/null | head -1 | sed 's/NVIDIA //g; s/GeForce //g; s/Quadro //g; s/Tesla //g' | tr -d ' \r')
+[ -z "$GPU_TYPE" ] && GPU_TYPE="unknown_gpu"
+LOG_FILE="LOG/${MODEL_NAME}_${GPU_TYPE}_${CURRENT_TIME}.log"
+SERVER_LOG="./LOG/${MODEL_NAME}_tp${TP}_${GPU_TYPE}_server_${CURRENT_TIME}.log"
 echo "Test results will be saved to: $LOG_FILE"
 echo "Server log will be saved to: $SERVER_LOG"
 

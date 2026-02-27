@@ -43,7 +43,9 @@ echo "CUDA_VISIBLE_DEVICES set to: $CUDA_VISIBLE_DEVICES (tp=$TP)"
 mkdir -p LOG
 CURRENT_TIME=$(date "+%Y%m%d_%H%M%S")
 #LOG_FILE="LOG/${MODEL_NAME}_in${INPUT_LEN}_out${OUTPUT_LEN}_${CURRENT_TIME}.log"
-LOG_FILE="LOG/${MODEL_NAME}_${CURRENT_TIME}.log"
+GPU_TYPE=$(nvidia-smi --query-gpu=name --format=csv,noheader 2>/dev/null | head -1 | sed 's/NVIDIA //g; s/GeForce //g; s/Quadro //g; s/Tesla //g' | tr -d ' \r')
+[ -z "$GPU_TYPE" ] && GPU_TYPE="unknown_gpu"
+LOG_FILE="LOG/${MODEL_NAME}_${GPU_TYPE}_${CURRENT_TIME}.log"
 echo "Test results will be saved to: $LOG_FILE"
 
 echo "---------------------------------------------------"
@@ -84,7 +86,7 @@ sleep 2
 # Export environment variables
 # Start vllm server
 echo "Starting vllm server..."
-SERVER_LOG="./LOG/${MODEL_NAME}_tp${TP}_server_${CURRENT_TIME}.log"
+SERVER_LOG="./LOG/${MODEL_NAME}_tp${TP}_${GPU_TYPE}_server_${CURRENT_TIME}.log"
 nohup python3 -m vllm.entrypoints.openai.api_server \
     --model "$MODEL_PATH" \
     --served-model-name "$MODEL_NAME" \
