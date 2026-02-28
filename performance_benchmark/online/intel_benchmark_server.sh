@@ -1,17 +1,49 @@
 #!/bin/bash
 
+CONTAINER_NAME="lsv-container"
+# Host-to-container path mapping (from setup_env.sh volume mounts)
+HOST_WEIGHTS_PREFIX="/home/intel/llm_test/weights"
+CONTAINER_WEIGHTS_PREFIX="/llm/models"
+CONTAINER_LOG_DIR="/llm/intel_benchmark_vlm/performance_benchmark/online/LOG"
+
 # Check input parameters
-if [ "$#" -lt 2 ]; then
-    echo "Usage: $0 <modelpath> <modelname> [tp] [image_dir]"
-    echo "Example: $0 /llm/models/DeepSeek-R1-Distill-Qwen-32B DeepSeek-R1-Distill-Qwen-32B 4 ../dataset/images"
+if [ "$#" -lt 1 ]; then
+    echo "Usage: $0 <modelpath> [tp] [image_dir]"
+    echo "  modelpath: host or container path to the model"
+    echo "Example: $0 /home/intel/llm_test/weights/Qwen3-VL-4B-Instruct 1"
+    echo "         $0 /home/intel/llm_test/weights/Qwen3-VL-8B-Instruct 4 ../dataset/images"
     exit 1
 fi
 
 MODEL_PATH=$1
-MODEL_NAME=$2
-TP=${3:-4}
-IMAGE_DIR=${4:-$(dirname "$0")/../dataset/images}
+# If the 2nd arg is purely numeric, treat it as TP and infer model name from path
+if [[ "${2}" =~ ^[0-9]+$ ]]; then
+    MODEL_NAME=$(basename "${MODEL_PATH%/}")
+    TP=${2:-4}
+    IMAGE_DIR=${3:-$(dirname "$0")/../dataset/images}
+else
+    MODEL_NAME=${2:-$(basename "${MODEL_PATH%/}")}
+    TP=${3:-4}
+    IMAGE_DIR=${4:-$(dirname "$0")/../dataset/images}
+fi
 PROMPT_DIR=$(dirname "$0")/..
+
+# Ensure container exists then always restart it for a clean state
+echo "Checking container '$CONTAINER_NAME'..."
+CONTAINER_STATE=$(sudo docker inspect --format '{{.State.Status}}' "$CONTAINER_NAME" 2>/dev/null)
+if [ -z "$CONTAINER_STATE" ]; then
+    echo "ERROR: Container '$CONTAINER_NAME' does not exist. Run setup_env.sh first."
+    exit 1
+fi
+echo "Restarting container '$CONTAINER_NAME' (current state: $CONTAINER_STATE)..."
+sudo docker restart "$CONTAINER_NAME"
+sleep 5
+CONTAINER_STATE=$(sudo docker inspect --format '{{.State.Status}}' "$CONTAINER_NAME" 2>/dev/null)
+if [ "$CONTAINER_STATE" != "running" ]; then
+    echo "ERROR: Failed to restart container '$CONTAINER_NAME'."
+    exit 1
+fi
+echo "Container '$CONTAINER_NAME' restarted successfully."
 
 # Convert host MODEL_PATH to container MODEL_PATH if needed
 if [[ "$MODEL_PATH" == ${HOST_WEIGHTS_PREFIX}* ]]; then
@@ -143,7 +175,7 @@ run_benchmark() {
 }
 
 # Run tests
-MAX_BSIZE=90
+MAX_BSIZE=128
 for input in 128
 do
 	for output in 128
