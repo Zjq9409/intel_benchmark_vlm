@@ -3,4 +3,7 @@
 __pycache__/
 venv/
 dataset/
+**/outputs/
+**/sharegpt4v_data/
 **/LOG/
+models/
