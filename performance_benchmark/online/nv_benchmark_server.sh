@@ -13,31 +13,60 @@
 
 # ----------------------------------------------------------------
 # Bare-metal guard: if not inside Docker, re-exec inside container
+# Path translation: host WEIGHTS_DIR -> /llm/models inside container
 # ----------------------------------------------------------------
 if [ ! -f "/.dockerenv" ] && ! grep -q 'docker\|containerd' /proc/1/cgroup 2>/dev/null; then
     CONTAINER_NAME="vllm-nv-container"
     SCRIPT_IN_CONTAINER="/llm/performance_benchmark/online/$(basename "$0")"
+
+    # Resolve host WEIGHTS_DIR (env var > default ../weights beside intel_benchmark_vlm/)
+    _SELF_DIR="$(dirname "$(realpath "$0")")"
+    _WEIGHTS_DIR="${WEIGHTS_DIR:-$(dirname "$(dirname "$(dirname "$_SELF_DIR")")")/weights}"
+    _WEIGHTS_DIR="$(realpath "$_WEIGHTS_DIR" 2>/dev/null || echo "${_WEIGHTS_DIR%/}")"
+
+    # Translate each argument: replace host WEIGHTS_DIR prefix with /llm/models
+    TRANSLATED_ARGS=()
+    for arg in "$@"; do
+        arg_real="$(realpath "$arg" 2>/dev/null || echo "${arg%/}")"
+        if [[ "$arg_real" == "$_WEIGHTS_DIR"* ]]; then
+            rel="${arg_real#$_WEIGHTS_DIR}"
+            arg="/llm/models${rel}"
+        fi
+        TRANSLATED_ARGS+=("$arg")
+    done
+
     RUNNING=$(docker ps --filter "name=^/${CONTAINER_NAME}$" --format "{{.Names}}" 2>/dev/null)
     if [ -z "$RUNNING" ]; then
         echo "ERROR: Container '$CONTAINER_NAME' is not running."
         echo "Please run setup_env.sh first to start the container."
         exit 1
     fi
-    echo "Bare-metal detected — re-executing inside container '$CONTAINER_NAME'..."
-    exec docker exec -it "$CONTAINER_NAME" bash "$SCRIPT_IN_CONTAINER" "$@"
+    echo "Bare-metal detected -- restarting container '$CONTAINER_NAME' to kill stale processes..."
+    docker restart "$CONTAINER_NAME"
+    echo "Waiting for container to be ready..."
+    sleep 5
+    echo "Bare-metal detected -- re-executing inside container '$CONTAINER_NAME'..."
+    echo "  Host WEIGHTS_DIR : $_WEIGHTS_DIR  ->  /llm/models (in container)"
+    for i in "${!TRANSLATED_ARGS[@]}"; do
+        [ "${TRANSLATED_ARGS[$i]}" != "${*:$((i+1)):1}" ] &&             echo "  arg$((i+1)) translated: ${*:$((i+1)):1}  ->  ${TRANSLATED_ARGS[$i]}"
+    done
+    exec docker exec -it "$CONTAINER_NAME" bash "$SCRIPT_IN_CONTAINER" "${TRANSLATED_ARGS[@]}"
 fi
 
+# Ensure we run from the script's own directory so LOG/ lands in the right place
+cd "$(dirname "$(realpath "$0")")"
+
 # Check input parameters
-if [ "$#" -lt 2 ]; then
-    echo "Usage: $0 <modelpath> <modelname> [tp] [image_dir]"
+if [ "$#" -lt 1 ]; then
+    echo "Usage: $0 <modelpath> [tp] [image_dir]"
     echo "Example: $0 /home/sdf/jane/weights/Qwen3-VL-30B-A3B-Instruct Qwen3-VL-30B-A3B-Instruct 4 ../dataset/images"
     exit 1
 fi
 
 MODEL_PATH=$1
-MODEL_NAME=$2
-TP=${3:-4}
-IMAGE_DIR=${4:-$(dirname "$0")/../dataset/images}
+MODEL_NAME=$(basename "${1%/}")
+TP=${2:-4}
+IMAGE_DIR=${3:-$(dirname "$0")/../dataset/images}
 PROMPT_DIR=$(dirname "$0")/..
 #INPUT_LEN=$5
 #OUTPUT_LEN=$5
@@ -162,7 +191,7 @@ run_benchmark() {
     fi
 
     echo ">>> Running vlm_benchmark: bsize=$bsize input=$INPUT_LEN output=$OUTPUT_LEN prompt=$(basename $PROMPT_FILE)" | tee -a "$LOG_FILE"
-    python vlm_benchmark.py \
+    python3 vlm_benchmark.py \
         --prompt "$(cat "$PROMPT_FILE")" \
         --model "$MODEL_PATH" \
         --served-model-name "$MODEL_NAME" \
@@ -175,7 +204,7 @@ run_benchmark() {
 }
 
 # Run tests
-MAX_BSIZE=128
+MAX_BSIZE=90
 for input in 128  
 do
 	for output in 128 
