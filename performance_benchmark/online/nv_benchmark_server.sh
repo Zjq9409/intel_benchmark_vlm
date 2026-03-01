@@ -131,6 +131,7 @@ fi
 sleep 2
 
 # Export environment variables
+export LD_LIBRARY_PATH=/usr/lib/x86_64-linux-gnu:$LD_LIBRARY_PATH
 # Start vllm server
 echo "Starting vllm server..."
 nohup python3 -m vllm.entrypoints.openai.api_server \
@@ -140,11 +141,11 @@ nohup python3 -m vllm.entrypoints.openai.api_server \
     --port 8000 \
     --host 0.0.0.0 \
     --trust-remote-code \
-    --gpu-memory-util=0.9 \
+    --gpu-memory-util=0.8 \
     --no-enable-prefix-caching \
     --max-num-batched-tokens=8192 \
     --disable-log-requests \
-    --max-model-len 32768 \
+    --max-model-len 12768 \
     --block-size 64 \
     --quantization fp8 \
     -tp=$TP > "$SERVER_LOG" 2>&1 &
@@ -205,7 +206,7 @@ run_benchmark() {
 }
 
 # Run tests
-MAX_BSIZE=90
+MAX_BSIZE=50
 for input in 128  
 do
 	for output in 128 
