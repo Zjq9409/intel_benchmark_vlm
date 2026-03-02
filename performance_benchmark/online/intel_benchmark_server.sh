@@ -186,7 +186,7 @@ run_benchmark() {
 }
 
 # Run tests
-MAX_BSIZE=80
+MAX_BSIZE=60
 for input in 128
 do
 for output in 128

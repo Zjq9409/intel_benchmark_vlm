@@ -123,7 +123,6 @@ def calculate_metrics(
     all_tpots: List[float] = []
     ttfts: List[float] = []
     e2els: List[float] = []
-    # print(outputs)
     for i in range(len(outputs)):
         if outputs[i].success:
             output_len = outputs[i].output_tokens
@@ -263,7 +262,6 @@ async def async_request_openai_chat_completions(
                                     if ttft == 0.0:
                                         ttft = timestamp - st
                                         output.ttft = ttft
-                                        print(output.ttft)
                                     else:
                                         output.itl.append(timestamp - most_recent_timestamp)
                                     generated_text += content or ""

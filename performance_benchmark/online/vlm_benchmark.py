@@ -172,7 +172,7 @@ def main(args: argparse.Namespace):
     tokenizer = AutoTokenizer.from_pretrained(tokenizer_id,
                               trust_remote_code=True
                               )
-    args = parser.parse_args()
+    # args = parser.parse_args()
     batch_size = args.batch_size
     image_path = args.image_path
     
@@ -216,18 +216,21 @@ def main(args: argparse.Namespace):
     
     sampled_requests: List[Tuple[str, int, int, dict]] = []
     for i in range(batch_size):
-        # Read and encode the image for this request
-        current_image_path = image_files[i]
-        with open(current_image_path, 'rb') as file:
-            image_data = file.read()
-            base64_image = base64.b64encode(image_data).decode("utf-8")
-        
-        mm_content = {
-                "type": "image_url",
-                "image_url": {
-                    "url": f"data:image/jpeg;base64,{base64_image}"
-                },
-            }
+        if args.no_image:
+            # Text-only mode: no image
+            mm_content = None
+        else:
+            # Read and encode the image for this request
+            current_image_path = image_files[i]
+            with open(current_image_path, 'rb') as file:
+                image_data = file.read()
+                base64_image = base64.b64encode(image_data).decode("utf-8")
+            mm_content = {
+                    "type": "image_url",
+                    "image_url": {
+                        "url": f"data:image/jpeg;base64,{base64_image}"
+                    },
+                }
         texts = args.prompt
         prompt_token_ids = tokenizer(texts).input_ids
         prompt_len = len(prompt_token_ids)
@@ -306,6 +309,11 @@ if __name__ == "__main__":
                         help="The model name used in the API. "
                         "If not specified, the model name will be the "
                         "same as the ``--model`` argument. ")
+    parser.add_argument(
+        "--no-image",
+        action="store_true",
+        help="Run text-only benchmark without any image input.",
+    )
     parser.add_argument(
         "--ignore-eos",
         action="store_true",
