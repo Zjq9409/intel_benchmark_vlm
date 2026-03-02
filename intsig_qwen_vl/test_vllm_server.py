@@ -211,6 +211,7 @@ if __name__ == '__main__':
         parallel=parallel,  # 并发数
         seed=42,          # 固定随机种子，确保跨平台输入一致
         top_p=1,
+        max_tokens=128,   # 固定最大输出长度，确保跨并发测试输出长度一致
         stream=False,
         debug=True
     )
