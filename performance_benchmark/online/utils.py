@@ -8,6 +8,46 @@ import os
 import time
 import json
 
+class StreamedResponseHandler:
+    """Handles streaming HTTP responses by accumulating chunks until complete
+    messages are available."""
+
+    def __init__(self):
+        self.buffer = ""
+
+    def add_chunk(self, chunk_bytes: bytes) -> list[str]:
+        """Add a chunk of bytes to the buffer and return any complete
+        messages."""
+        chunk_str = chunk_bytes.decode("utf-8")
+        self.buffer += chunk_str
+
+        messages = []
+
+        # Split by double newlines (SSE message separator)
+        while "\n\n" in self.buffer:
+            message, self.buffer = self.buffer.split("\n\n", 1)
+            message = message.strip()
+            if message:
+                messages.append(message)
+
+        # if self.buffer is not empty, check if it is a complete message
+        # by removing data: prefix and check if it is a valid JSON
+        if self.buffer.startswith("data: "):
+            message_content = self.buffer.removeprefix("data: ").strip()
+            if message_content == "[DONE]":
+                messages.append(self.buffer.strip())
+                self.buffer = ""
+            elif message_content:
+                try:
+                    json.loads(message_content)
+                    messages.append(self.buffer.strip())
+                    self.buffer = ""
+                except json.JSONDecodeError:
+                    # Incomplete JSON, wait for more chunks.
+                    pass
+
+        return messages
+    
 @dataclass
 class RequestFuncInput:
     prompt: str
@@ -196,42 +236,44 @@ async def async_request_openai_chat_completions(
         generated_text = ""
         ttft = 0.0
         st = time.perf_counter()
+        output.start_time = st
         most_recent_timestamp = st
         try:
             async with session.post(url=api_url, json=payload,
                                     headers=headers) as response:
                 if response.status == 200:
-                    async for chunk_bytes in response.content:
+                    handler = StreamedResponseHandler()
+                    async for chunk_bytes in response.content.iter_any():
                         chunk_bytes = chunk_bytes.strip()
                         if not chunk_bytes:
                             continue
+                        messages = handler.add_chunk(chunk_bytes)
+                        for message in messages:
+                            if message.startswith(":"):
+                              continue
 
-                        chunk = chunk_bytes.decode("utf-8").removeprefix(
-                            "data: ")
-                        if chunk != "[DONE]":
-                            timestamp = time.perf_counter()
-                            data = json.loads(chunk)
+                            chunk = message.removeprefix("data: ")
 
-                            if choices := data.get("choices"):
-                                content = choices[0]["delta"].get("content")
-                                # First token
-                                if ttft == 0.0:
-                                    ttft = timestamp - st
-                                    output.ttft = ttft
+                            if chunk != "[DONE]":
+                                timestamp = time.perf_counter()
+                                data = json.loads(chunk)
+                                if choices := data.get("choices"):
+                                    content = choices[0]["delta"].get("content")
+                                    # First token
+                                    if ttft == 0.0:
+                                        ttft = timestamp - st
+                                        output.ttft = ttft
+                                        print(output.ttft)
+                                    else:
+                                        output.itl.append(timestamp - most_recent_timestamp)
+                                    generated_text += content or ""
 
-                                # Decoding phase
-                                else:
-                                    output.itl.append(timestamp -
-                                                      most_recent_timestamp)
-
-                                generated_text += content or ""
-                            elif usage := data.get("usage"):
-                                output.output_tokens = usage.get(
-                                    "completion_tokens")
-                                output.image_prompt_total_len = usage.get("prompt_tokens")
-                                # print("image and prompt total len: ", output.total_len)
-
-                            most_recent_timestamp = timestamp
+                                    # Only count non-empty content chunks
+                                elif usage := data.get("usage"):
+                                   output.output_tokens = usage.get("completion_tokens")
+                                   output.image_prompt_total_len = usage.get("prompt_tokens")
+                                    
+                                most_recent_timestamp = timestamp
 
                     output.generated_text = generated_text
                     output.success = True
