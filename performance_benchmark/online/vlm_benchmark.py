@@ -35,6 +35,7 @@ async def benchmark(
     tokenizer: PreTrainedTokenizerBase,
     input_requests: List[Tuple[str, int, int]],
     ignore_eos: bool,
+    profile: bool = False,
 ):
     tasks: List[asyncio.Task] = []
     test_prompt, test_prompt_len,test_output_len, test_mm_content,  = (
@@ -52,6 +53,25 @@ async def benchmark(
     test_output = await async_request_openai_chat_completions(request_func_input=test_input)
     if not ignore_eos:
        print("输出结果：",test_output.generated_text)
+
+    if profile:
+        print("Starting profiler...")
+        profile_input = RequestFuncInput(
+            model=model_id,
+            model_name=model_name,
+            prompt=test_prompt,
+            api_url=base_url + "/start_profile",
+            prompt_len=test_prompt_len,
+            output_len=test_output_len,
+            multi_modal_content=test_mm_content,
+            ignore_eos=ignore_eos,
+        )
+        profile_output = await async_request_openai_chat_completions(
+            request_func_input=profile_input
+        )
+        if profile_output.success:
+            print("Profiler started")
+
     benchmark_start_time = time.perf_counter()
     for request in input_requests:
         prompt, prompt_len, test_output_len, mm_content = request
@@ -150,6 +170,21 @@ async def benchmark(
 
     print("=" * 50)
 
+    if profile:
+        print("Stopping profiler...")
+        profile_input = RequestFuncInput(
+            model=model_id,
+            prompt=test_prompt,
+            api_url=base_url + "/stop_profile",
+            prompt_len=test_prompt_len,
+            output_len=test_output_len,
+        )
+        profile_output = await async_request_openai_chat_completions(
+            request_func_input=profile_input
+        )
+        if profile_output.success:
+            print("Profiler stopped")
+
     return result
 
 
@@ -246,7 +281,8 @@ def main(args: argparse.Namespace):
             model_name=model_name,
             tokenizer=tokenizer,
             input_requests=sampled_requests,
-            ignore_eos=args.ignore_eos,)
+            ignore_eos=args.ignore_eos,
+            profile=args.profile,)
     )
 
 if __name__ == "__main__":
@@ -319,5 +355,10 @@ if __name__ == "__main__":
         action="store_true",
         help="Set ignore_eos flag when sending the benchmark request."
         "Warning: ignore_eos is not supported in deepspeed_mii and tgi.")
+    parser.add_argument(
+        "--profile",
+        action="store_true",
+        help="Use vLLM Profiling. --profiler-config must be provided on the server.",
+    )
     args = parser.parse_args()
     main(args)
