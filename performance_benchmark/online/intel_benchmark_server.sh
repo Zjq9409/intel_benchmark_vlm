@@ -5,7 +5,7 @@
 # Path translation: host WEIGHTS_DIR -> /llm/models inside container
 # ----------------------------------------------------------------
 if [ ! -f "/.dockerenv" ] && ! grep -q 'docker\|containerd' /proc/1/cgroup 2>/dev/null; then
-    CONTAINER_NAME="lsv-container-b7"
+    CONTAINER_NAME="lsv-container"
     SCRIPT_IN_CONTAINER="/llm/performance_benchmark/online/$(basename "$0")"
 
     # Resolve host WEIGHTS_DIR (env var > default ../weights beside intel_benchmark_vlm/)
@@ -188,7 +188,7 @@ run_benchmark() {
 }
 
 # Run tests
-MAX_BSIZE=60
+MAX_BSIZE=50
 WARMUP=3        # warmup rounds before measurement (suppressed)
 NUM_ROUNDS=1    # use the result of this single run after warmup
 for input in 128
