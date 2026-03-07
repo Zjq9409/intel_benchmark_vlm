@@ -121,7 +121,7 @@ nohup python3 -m vllm.entrypoints.openai.api_server \
     --port 8000 \
     --host 0.0.0.0 \
     --trust-remote-code \
-    --gpu-memory-util=0.9 \
+    --gpu-memory-util=0.8 \
     --no-enable-prefix-caching \
     --max-num-batched-tokens=8192 \
     --disable-log-requests \
