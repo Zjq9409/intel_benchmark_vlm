@@ -120,8 +120,8 @@ if [ "$USE_NV" -eq 1 ]; then
     echo "============================================================"
     echo "NV environment setup complete."
     echo "  Container : $NV_CONTAINER"
-    echo "  Weights   : $WEIGHTS_DIR -> /models (inside container)"
-    echo "  Scripts   : $SCRIPT_DIR  -> /workspace (inside container)"
+    echo "  Weights   : $WEIGHTS_DIR -> /llm/models (inside container)"
+    echo "  Scripts   : $SCRIPT_DIR  -> /llm (inside container)"
     echo "  Port      : 8000 (host) -> 8000 (container)"
     echo "============================================================"
     exit 0
@@ -132,9 +132,9 @@ echo "  No NVIDIA GPU detected — using Intel Docker path."
 # ----------------------------------------------------------------
 # Intel path: Docker image + container
 # ----------------------------------------------------------------
-IMAGE_VERSION=${1:-0.11.1-b7}
-# WEIGHTS_DIR: env var > auto-detect as ../weights relative to SCRIPT_DIR
-WEIGHTS_DIR="${WEIGHTS_DIR:-$(dirname "$SCRIPT_DIR")/weights}"
+IMAGE_VERSION="${IMAGE_VERSION_ARG:-${IMAGE_VERSION:-0.11.1-b7}}"
+# WEIGHTS_DIR: --weights-dir arg > env var > auto-detect as ../weights relative to SCRIPT_DIR
+WEIGHTS_DIR="${WEIGHTS_DIR_ARG:-${WEIGHTS_DIR:-$(dirname "$SCRIPT_DIR")/weights}}"
 FULL_IMAGE="${IMAGE_BASE}:${IMAGE_VERSION}"
 echo "  Image: $FULL_IMAGE"
 
