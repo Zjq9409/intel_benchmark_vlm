@@ -5,7 +5,7 @@
 # Path translation: host WEIGHTS_DIR -> /llm/models inside container
 # ----------------------------------------------------------------
 if [ ! -f "/.dockerenv" ] && ! grep -q 'docker\|containerd' /proc/1/cgroup 2>/dev/null; then
-    CONTAINER_NAME="lsv-container"
+    CONTAINER_NAME="lsv-container-b7"
     SCRIPT_IN_CONTAINER="/llm/performance_benchmark/online/$(basename "$0")"
 
     # Resolve host WEIGHTS_DIR (env var > default ../weights beside intel_benchmark_vlm/)
@@ -125,7 +125,7 @@ nohup python3 -m vllm.entrypoints.openai.api_server \
     --no-enable-prefix-caching \
     --max-num-batched-tokens=8192 \
     --disable-log-requests \
-    --max-model-len 32768 \
+    --max-model-len 12768 \
     --block-size 64 \
     --quantization fp8 \
     -tp=$TP > "$SERVER_LOG" 2>&1 &
