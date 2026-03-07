@@ -3,18 +3,35 @@
 # ============================================================
 # Environment Setup Script
 # - NVIDIA GPU: pulls vllm/vllm-openai Docker image and starts container
-#               weights dir auto-detected as ../weights, or pass as $1
 # - Intel GPU:  pulls intel/llm-scaler-vllm Docker image and starts container
-#               image version passed as $1 (default: current hardcoded ver)
-# Usage (NV):    $0 [weights_dir]
-#   Example:     $0
-#   Example:     $0 /data/models
-# Usage (Intel): $0 [image_version]
-#   Example:     $0 0.11.1-b7
+#
+# Usage: $0 [--weights-dir <path>] [--script-dir <path>] [--image-version <ver>]
+#   --weights-dir  : model weights directory (NV/Intel, default: ../weights)
+#   --script-dir   : script root directory (default: directory of this script)
+#   --image-version: Intel Docker image version (default: 0.11.1-b7)
+#
+#   Examples:
+#     $0
+#     $0 --weights-dir /data/models
+#     $0 --script-dir /custom/path --weights-dir /data/models
+#     $0 --image-version 0.12.0
 # ============================================================
 
-# SCRIPT_DIR: defaults to the directory containing this script; override via env var
-SCRIPT_DIR="${SCRIPT_DIR:-$(dirname "$(realpath "$0")")}" 
+# Parse named arguments (override env vars if provided)
+_DEFAULT_SCRIPT_DIR="$(dirname "$(realpath "$0")")"
+SCRIPT_DIR="${SCRIPT_DIR:-$_DEFAULT_SCRIPT_DIR}"
+IMAGE_VERSION_ARG=""
+WEIGHTS_DIR_ARG=""
+
+while [[ $# -gt 0 ]]; do
+    case "$1" in
+        --weights-dir)   WEIGHTS_DIR_ARG="$2";   shift 2 ;;
+        --script-dir)    SCRIPT_DIR="$2";         shift 2 ;;
+        --image-version) IMAGE_VERSION_ARG="$2";  shift 2 ;;
+        *) echo "WARNING: Unknown argument: $1" >&2; shift ;;
+    esac
+done
+
 CONTAINER_NAME="lsv-container"
 IMAGE_BASE="intel/llm-scaler-vllm"
 
@@ -41,8 +58,8 @@ if [ "$USE_NV" -eq 1 ]; then
     # ----------------------------------------------------------------
     NV_IMAGE="vllm/vllm-openai:v0.15.1-cu130"
     NV_CONTAINER="vllm-nv-container"
-    # WEIGHTS_DIR: env var > $1 arg > auto-detect as ../weights relative to SCRIPT_DIR
-    WEIGHTS_DIR="${WEIGHTS_DIR:-${1:-$(dirname "$SCRIPT_DIR")/weights}}"
+    # WEIGHTS_DIR: --weights-dir arg > env var > auto-detect as ../weights relative to SCRIPT_DIR
+    WEIGHTS_DIR="${WEIGHTS_DIR_ARG:-${WEIGHTS_DIR:-$(dirname "$SCRIPT_DIR")/weights}}"
 
     echo "  Image:       $NV_IMAGE"
     echo "  Container:   $NV_CONTAINER"

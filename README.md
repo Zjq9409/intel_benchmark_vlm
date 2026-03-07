@@ -5,24 +5,30 @@
 
 | 脚本 | 说明 |
 |------|------|
-| `setup_env.sh` | 环境初始化脚本，自动检测 GPU 类型：检测到 **NVIDIA GPU** 时，使用 `uv` 创建 Python 3.12 虚拟环境并安装 vllm；检测到 **Intel GPU** 时，拉取 `intel/llm-scaler-vllm` Docker 镜像并启动容器（需传入镜像版本号，如 `0.11.1-b7`） |
+| `setup_env.sh` | 环境初始化脚本，自动检测 GPU 类型：检测到 **NVIDIA GPU** 时，拉取 `vllm/vllm-openai` Docker 镜像并启动容器；检测到 **Intel GPU** 时，拉取 `intel/llm-scaler-vllm` Docker 镜像并启动容器。支持命名参数：`--weights-dir`（模型目录，默认 `../weights`）、`--script-dir`（脚本根目录，默认脚本所在目录）、`--image-version`（Intel 镜像版本，默认 `0.11.1-b7`） |
 | `performance_benchmark/online/intel_benchmark_server.sh` | **Intel GPU** 性能测试脚本。设置 Intel vllm 所需环境变量（`VLLM_OFFLOAD_WEIGHTS_BEFORE_QUANT`、`VLLM_WORKER_MULTIPROC_METHOD` 等），启动 vllm OpenAI 兼容服务端，循环运行不同 batch_size 的 `vllm bench serve` 纯文本 benchmark，完成后自动调用 `parse_log.py` 生成 CSV 结果 |
 | `performance_benchmark/online/nv_benchmark_server.sh` | **NVIDIA GPU** 性能测试脚本。根据 `tp` 参数自动设置 `CUDA_VISIBLE_DEVICES`，启动 vllm 服务端（支持 fp8 量化），循环运行不同 batch_size 的 `vlm_benchmark.py` 图文 benchmark（从 `dataset/images` 读取图片），完成后自动调用 `parse_log.py` 生成 CSV 结果 |
 
 ### 使用方式
 
 ```bash
-# 初始化环境（NVIDIA，无需参数）
+# 初始化环境（NVIDIA，自动检测 ../weights 作为模型目录）
 bash setup_env.sh
 
-# 初始化环境（Intel，需指定镜像版本）
-bash setup_env.sh 0.11.1-b7
+# 初始化环境（NVIDIA，指定 weights 目录）
+bash setup_env.sh --weights-dir /data/models
 
-# 运行 Intel GPU benchmark
-bash performance_benchmark/online/intel_benchmark_server.sh <model_path> <model_name> [tp] [image_dir]
+# 初始化环境（NVIDIA，同时指定 weights 目录和脚本根目录）
+bash setup_env.sh --weights-dir /data/models --script-dir /custom/path
 
-# 运行 NVIDIA GPU benchmark
-bash performance_benchmark/online/nv_benchmark_server.sh <model_path> <model_name> [tp] [image_dir]
+# 初始化环境（Intel，使用默认镜像版本 0.11.1-b7）
+bash setup_env.sh
+
+# 初始化环境（Intel，指定镜像版本）
+bash setup_env.sh --image-version 0.12.0
+
+# 初始化环境（Intel，指定镜像版本和 weights 目录）
+bash setup_env.sh --image-version 0.12.0 --weights-dir /data/models
 ```
 
 ---
