@@ -189,8 +189,8 @@ run_benchmark() {
 
 # Run tests
 MAX_BSIZE=50
-WARMUP=3        # warmup rounds before measurement (suppressed)
-NUM_ROUNDS=1    # use the result of this single run after warmup
+WARMUP=2        # warmup rounds before measurement (suppressed)
+NUM_ROUNDS=3    # average results across this many measurement rounds
 for input in 128
 do
 for output in 128
