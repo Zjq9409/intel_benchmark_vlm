@@ -141,7 +141,7 @@ nohup python3 -m vllm.entrypoints.openai.api_server \
     --port 8000 \
     --host 0.0.0.0 \
     --trust-remote-code \
-    --gpu-memory-util=0.9 \
+    --gpu-memory-util=0.8 \
     --no-enable-prefix-caching \
     --max-num-batched-tokens=8192 \
     --disable-log-requests \
@@ -208,7 +208,7 @@ run_benchmark() {
 }
 
 # Run tests
-MAX_BSIZE=50
+MAX_BSIZE=40
 WARMUP=3        # warmup rounds before measurement (suppressed)
 NUM_ROUNDS=1    # use the result of this single run after warmup
 for input in 128  
