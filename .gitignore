@@ -8,3 +8,5 @@ dataset/
 **/LOG/
 models/
 **/*.gz
+**/*.nsys-rep
+**/*.sqlite

@@ -6,6 +6,8 @@ import os
 import glob
 from concurrent.futures import ThreadPoolExecutor, as_completed
 import asyncio
+import contextlib
+import io
 import time
 from transformers import PreTrainedTokenizerBase
 from argparse import ArgumentParser as FlexibleArgumentParser
@@ -115,6 +117,7 @@ async def benchmark(
         "duration": benchmark_duration,
         "completed": metrics.completed,
         "total_input_tokens": metrics.total_input,
+        "image_prompt_input_lens": metrics.image_prompt_input_lens,
         "total_output_tokens": metrics.total_output,
         "request_throughput": metrics.request_throughput,
         "request_goodput:":
@@ -273,17 +276,80 @@ def main(args: argparse.Namespace):
         output_len = args.output_len
         sampled_requests.append((texts, prompt_len, output_len, mm_content))
 
-    benchmark_result = asyncio.run(
-        benchmark(
-            api_url=api_url,
-            base_url=base_url,
-            model_id=model_id,
-            model_name=model_name,
-            tokenizer=tokenizer,
-            input_requests=sampled_requests,
-            ignore_eos=args.ignore_eos,
-            profile=args.profile,)
-    )
+    # ------ warmup + multi-round averaging for stable results ------
+    warmup     = args.warmup
+    num_rounds = args.num_rounds
+
+    def _run_benchmark():
+        return asyncio.run(
+            benchmark(
+                api_url=api_url,
+                base_url=base_url,
+                model_id=model_id,
+                model_name=model_name,
+                tokenizer=tokenizer,
+                input_requests=sampled_requests,
+                ignore_eos=args.ignore_eos,
+                profile=args.profile,
+            )
+        )
+
+    # Warmup: suppress output to stabilise GPU KV-cache state
+    if warmup > 0:
+        print(f"Running {warmup} warmup round(s) (output suppressed)...")
+    for w in range(warmup):
+        with contextlib.redirect_stdout(io.StringIO()):
+            _run_benchmark()
+        print(f"  Warmup {w + 1}/{warmup} done.")
+
+    # Measurement rounds: collect results silently, then print averaged output
+    print(f"Running {num_rounds} measurement round(s)...")
+    round_results = []
+    for r in range(num_rounds):
+        with contextlib.redirect_stdout(io.StringIO()):
+            result = _run_benchmark()
+        round_results.append(result)
+        print(
+            f"  Round {r + 1}/{num_rounds}: "
+            f"output_throughput={result['output_throughput']:.2f} tok/s, "
+            f"mean_ttft={result.get('mean_ttft_ms', 0):.2f} ms"
+        )
+
+    # Average numeric metrics across all rounds
+    avg_keys = [
+        "duration", "request_throughput", "output_throughput",
+        "total_token_throughput", "mean_ttft_ms", "median_ttft_ms",
+        "mean_tpot_ms", "median_tpot_ms", "mean_itl_ms", "median_itl_ms",
+    ]
+    avg = {k: sum(r[k] for r in round_results if k in r) / num_rounds
+           for k in avg_keys}
+    # Non-averaged (deterministic) fields from last round
+    avg["completed"]               = round_results[-1]["completed"]
+    avg["total_input_tokens"]      = round_results[-1]["total_input_tokens"]
+    avg["total_output_tokens"]     = round_results[-1]["total_output_tokens"]
+    avg["image_prompt_input_lens"] = round_results[-1].get("image_prompt_input_lens", 0)
+
+    # Print final result in the format parse_log.py expects
+    _title = " Serving Benchmark Result " if num_rounds == 1 else f" Serving Benchmark Result (avg {num_rounds} rounds) "
+    print("{s:{c}^{n}}".format(s=_title, n=50, c="="))
+    print("{:<40} {:<10}".format("Successful requests:",          avg["completed"]))
+    print("{:<40} {:<10.2f}".format("Benchmark duration (s):",    avg["duration"]))
+    print("{:<40} {:<10}".format("Total input tokens:",           avg["total_input_tokens"]))
+    print("{:<40} {:<10}".format("Total image and input tokens:", avg["image_prompt_input_lens"]))
+    print("{:<40} {:<10}".format("Total generated tokens:",       avg["total_output_tokens"]))
+    print("{:<40} {:<10.2f}".format("Request throughput (req/s):",        avg["request_throughput"]))
+    print("{:<40} {:<10.2f}".format("Output token throughput (tok/s):",   avg["output_throughput"]))
+    print("{:<40} {:<10.2f}".format("Total Token throughput (tok/s):",    avg["total_token_throughput"]))
+    print("{s:{c}^{n}}".format(s="Time to First Token", n=50, c="-"))
+    print("{:<40} {:<10.2f}".format("Mean TTFT (ms):",            avg["mean_ttft_ms"]))
+    print("{:<40} {:<10.2f}".format("Median TTFT (ms):",          avg["median_ttft_ms"]))
+    print("{s:{c}^{n}}".format(s="Time per Output Token (excl. 1st token)", n=50, c="-"))
+    print("{:<40} {:<10.2f}".format("Mean TPOT (ms):",            avg["mean_tpot_ms"]))
+    print("{:<40} {:<10.2f}".format("Median TPOT (ms):",          avg["median_tpot_ms"]))
+    print("{s:{c}^{n}}".format(s="Inter-token Latency", n=50, c="-"))
+    print("{:<40} {:<10.2f}".format("Mean ITL (ms):",             avg["mean_itl_ms"]))
+    print("{:<40} {:<10.2f}".format("Median ITL (ms):",           avg["median_itl_ms"]))
+    print("=" * 50)
 
 if __name__ == "__main__":
     parser = FlexibleArgumentParser(
@@ -359,6 +425,18 @@ if __name__ == "__main__":
         "--profile",
         action="store_true",
         help="Use vLLM Profiling. --profiler-config must be provided on the server.",
+    )
+    parser.add_argument(
+        "--warmup",
+        type=int,
+        default=1,
+        help="Number of warmup rounds to run (output suppressed) before measurement.",
+    )
+    parser.add_argument(
+        "--num_rounds",
+        type=int,
+        default=3,
+        help="Number of measurement rounds; final metrics are averaged across rounds.",
     )
     args = parser.parse_args()
     main(args)

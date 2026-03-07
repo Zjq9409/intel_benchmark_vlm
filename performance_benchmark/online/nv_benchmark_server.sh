@@ -202,11 +202,15 @@ run_benchmark() {
         --image_dir "$IMAGE_DIR" \
         --port 8000 \
         --host 127.0.0.1 \
-        --ignore-eos | tee -a "$LOG_FILE"
+        --ignore-eos \
+        --warmup "$WARMUP" \
+        --num_rounds "$NUM_ROUNDS" | tee -a "$LOG_FILE"
 }
 
 # Run tests
 MAX_BSIZE=50
+WARMUP=3        # warmup rounds before measurement (suppressed)
+NUM_ROUNDS=1    # use the result of this single run after warmup
 for input in 128  
 do
 	for output in 128 
