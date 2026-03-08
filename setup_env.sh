@@ -34,11 +34,8 @@ while [[ $# -gt 0 ]]; do
 done
 
 CONTAINER_NAME="lsv-container"
-=======
 # SCRIPT_DIR: defaults to the directory containing this script; override via env var
 SCRIPT_DIR="${SCRIPT_DIR:-$(dirname "$(realpath "$0")")}" 
-CONTAINER_NAME="lsv-container-b7"
->>>>>>> Stashed changes
 IMAGE_BASE="intel/llm-scaler-vllm"
 
 echo "============================================================"
