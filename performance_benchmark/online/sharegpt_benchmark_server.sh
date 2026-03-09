@@ -115,7 +115,7 @@ if [ "$GPU_TYPE" = "XPU" ]; then
     --trust-remote-code \
     --disable-sliding-window \
     --gpu-memory-util=$GPU_MEM_UTIL \
-    --max-num-batched-tokens=8192 \
+    --max-num-batched-tokens=$MAX_BATCHED_TOKENS \
     --limit-mm-per-prompt '{"image": 1}' \
     --disable-log-requests \
     --max-model-len=$MAX_MODEL_LEN  \
@@ -136,7 +136,7 @@ else
     --disable-sliding-window \
     --no-enable-prefix-caching \
     --gpu-memory-util=$GPU_MEM_UTIL \
-    --max-num-batched-tokens=8192 \
+    --max-num-batched-tokens=$MAX_BATCHED_TOKENS \
     --disable-log-requests \
     --max-model-len=$MAX_MODEL_LEN \
     --block-size 64 \
