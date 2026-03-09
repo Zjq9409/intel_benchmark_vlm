@@ -220,6 +220,7 @@ run_benchmark() {
         --random-mm-bucket-config '{(1920, 1080, 1): 1.0}' \
         --request-rate inf \
         --ignore-eos \
+        --port=$PORT \
         --seed 42 2>&1 | tee -a "$LOG_FILE"
 } 
 
