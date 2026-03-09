@@ -115,6 +115,7 @@ if GPU_TYPE="XPU"; then
     --limit-mm-per-prompt '{"image": 1}' \
     --disable-log-requests \
     --max-model-len=16384  \
+    --no-enable-prefix-caching \
     --block-size 64 \
     --quantization fp8 \
     -tp=$TP > "$SERVER_LOG" 2>&1 &
@@ -128,10 +129,11 @@ else
     --host 0.0.0.0 \
     --trust-remote-code \
     --disable-sliding-window \
+    --no-enable-prefix-caching \
     --gpu-memory-util=0.9 \
     --max-num-batched-tokens=8192 \
     --disable-log-requests \
-    --max-model-len=8192 \
+    --max-model-len=16384 \
     --block-size 64 \
     --quantization fp8 \
     -tp=$TP > "$SERVER_LOG" 2>&1 &
