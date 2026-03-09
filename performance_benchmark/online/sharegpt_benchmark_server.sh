@@ -146,24 +146,40 @@ fi
 # Run ShareGPT benchmarks
 echo "Starting ShareGPT benchmark runs..." | tee -a "$LOG_FILE"
 
+vllm bench serve \
+        --backend openai-chat \
+        --model "$SERVER_MODEL" \
+        --served-model-name "$SERVER_MODEL_NAME" \
+        --dataset-name sharegpt \
+        --dataset-path "$DATASET_PATH" \
+        --num-prompts 2   \
+        --save-result \
+        --result-dir "$RESULT_DIR" \
+        --save-detailed \
+        --endpoint /v1/chat/completions \
+        --port=$PORT
+
 run_benchmark() {
-    for NUM in 2 1 2 4 6 8 12 16 20 24 28 32; do
-        echo ">>> Running vllm bench serve with --num-prompts=$NUM" | tee -a "$LOG_FILE"
-        vllm bench serve \
-            --backend openai-chat \
-            --model "$SERVER_MODEL" \
-            --served-model-name "$SERVER_MODEL_NAME" \
-            --dataset-name sharegpt \
-            --dataset-path "$DATASET_PATH" \
-            --num-prompts $NUM \
-            --save-result \
-            --result-dir "$RESULT_DIR" \
-            --save-detailed \
-            --endpoint /v1/chat/completions \
-            --port=$PORT 2>&1 | tee -a "$LOG_FILE"
-    done
+    local bsize=$1
+    echo ">>> Running vllm bench serve with --num-prompts=$NUM" | tee -a "$LOG_FILE"
+    vllm bench serve \
+        --backend openai-chat \
+        --model "$SERVER_MODEL" \
+        --served-model-name "$SERVER_MODEL_NAME" \
+        --dataset-name sharegpt \
+        --dataset-path "$DATASET_PATH" \
+        --num-prompts $bsize \
+        --endpoint /v1/chat/completions \
+        --port=$PORT 2>&1 | tee -a "$LOG_FILE"
+    
 } 
-run_benchmark 
+
+MAX_BSIZE=128
+run_benchmark 1 
+for (( i=2; i<=MAX_BSIZE; i+=2 )); do
+run_benchmark $i 
+done
+
 echo "All benchmark runs finished. Stopping server..."
 kill $SERVER_PID
 echo "Done."
