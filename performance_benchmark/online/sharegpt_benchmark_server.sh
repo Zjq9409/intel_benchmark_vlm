@@ -99,7 +99,7 @@ export VLLM_WORKER_MULTIPROC_METHOD=spawn
 
 # Start vllm server
 echo "Starting vllm server..."
-if GPU_TYPE="XPU"; then
+if [ "$GPU_TYPE" = "XPU" ]; then
     nohup vllm serve \
     --model "$SERVER_MODEL" \
     --served-model-name "$SERVER_MODEL_NAME" \
