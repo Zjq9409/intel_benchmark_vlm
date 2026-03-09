@@ -32,7 +32,7 @@ while [[ $# -gt 0 ]]; do
     esac
 done
 
-CONTAINER_NAME="lsv-container"
+CONTAINER_NAME="lsv-container-b8"
 IMAGE_BASE="intel/llm-scaler-vllm"
 
 echo "============================================================"

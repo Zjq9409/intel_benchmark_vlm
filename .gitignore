@@ -10,3 +10,4 @@ models/
 **/*.gz
 **/*.nsys-rep
 **/*.sqlite
+**/*.json

@@ -5,7 +5,7 @@
 # Path translation: host WEIGHTS_DIR -> /llm/models inside container
 # ----------------------------------------------------------------
 if [ ! -f "/.dockerenv" ] && ! grep -q 'docker\|containerd' /proc/1/cgroup 2>/dev/null; then
-    CONTAINER_NAME="lsv-container"
+    CONTAINER_NAME="lsv-container-b8"
     SCRIPT_IN_CONTAINER="/llm/performance_benchmark/online/$(basename "$0")"
 
     # Resolve host WEIGHTS_DIR (env var > default ../weights beside intel_benchmark_vlm/)
