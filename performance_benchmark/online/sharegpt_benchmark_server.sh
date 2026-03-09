@@ -165,7 +165,7 @@ if [ $SERVER_READY -eq 0 ]; then
 fi
 
 # Run ShareGPT benchmarks
-echo "Starting ShareGPT benchmark runs..." | tee -a "$LOG_FILE"
+echo "VLM benchmark runs..." | tee -a "$LOG_FILE"
 
 # vllm bench serve \
 #         --backend openai-chat \
