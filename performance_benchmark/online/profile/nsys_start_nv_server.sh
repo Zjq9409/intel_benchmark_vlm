@@ -26,6 +26,7 @@ nsys profile \
         --no-enable-prefix-caching \
         --max-num-batched-tokens=8192 \
         --disable-log-requests \
+        --enforce-eager \
         --max-model-len 12768 \
         --block-size 64 \
         --quantization fp8 \

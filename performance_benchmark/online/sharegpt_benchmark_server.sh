@@ -99,7 +99,8 @@ export VLLM_WORKER_MULTIPROC_METHOD=spawn
 
 # Start vllm server
 echo "Starting vllm server..."
-nohup vllm serve \
+if GPU_TYPE="XPU"; then
+    nohup vllm serve \
     --model "$SERVER_MODEL" \
     --served-model-name "$SERVER_MODEL_NAME" \
     --allowed-local-media-path /llm/models \
@@ -116,6 +117,25 @@ nohup vllm serve \
     --block-size 64 \
     --quantization fp8 \
     -tp=$TP > "$SERVER_LOG" 2>&1 &
+else
+    nohup vllm serve \
+    --model "$SERVER_MODEL" \
+    --served-model-name "$SERVER_MODEL_NAME" \
+    --allowed-local-media-path /llm/models \
+    --dtype=float16 \
+    --port $PORT \
+    --host 0.0.0.0 \
+    --trust-remote-code \
+    --disable-sliding-window \
+    --gpu-memory-util=0.9 \
+    --max-num-batched-tokens=8192 \
+    --disable-log-requests \
+    --max-model-len=8192 \
+    --block-size 64 \
+    --quantization fp8 \
+    -tp=$TP > "$SERVER_LOG" 2>&1 &
+fi
+
 
 SERVER_PID=$!
 echo "Server PID: $SERVER_PID"
@@ -153,9 +173,6 @@ vllm bench serve \
         --dataset-name sharegpt \
         --dataset-path "$DATASET_PATH" \
         --num-prompts 2   \
-        --save-result \
-        --result-dir "$RESULT_DIR" \
-        --save-detailed \
         --endpoint /v1/chat/completions \
         --port=$PORT
 
