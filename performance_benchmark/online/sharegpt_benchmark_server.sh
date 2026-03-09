@@ -207,6 +207,7 @@ for (( i=1; i<=MAX_BSIZE; i+=2 )); do
             --ignore-eos \
             --port=$PORT \
             --seed 42
+done
 
 run_benchmark() {
     local bsize=$1
