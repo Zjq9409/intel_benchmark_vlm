@@ -183,23 +183,30 @@ echo "VLM benchmark runs..." | tee -a "$LOG_FILE"
 #         --num-prompts 2   \
 #         --endpoint /v1/chat/completions \
 #         --port=$PORT
-vllm bench serve \
-        --backend openai-chat \
-        --model "$SERVER_MODEL" \
-        --served-model-name "$SERVER_MODEL_NAME" \
-        --endpoint /v1/chat/completions \
-        --dataset-name random-mm \
-        --num-prompts 2 \
-        --max-concurrency 2 \
-        --random-input-len 128 \
-        --random-output-len 128 \
-        --random-mm-base-items-per-request 1 \
-        --random-mm-limit-mm-per-prompt '{"image": 1, "video": 0}' \
-        --random-mm-bucket-config '{(1920, 1080, 1): 1.0}' \
-        --request-rate inf \
-        --ignore-eos \
-        --port=$PORT \
-        --seed 42
+if [ "$GPU_TYPE" = "XPU" ]; then
+    MAX_BSIZE=30
+else
+    MAX_BSIZE=50
+fi     
+for (( i=1; i<=MAX_BSIZE; i+=2 )); do
+    # echo ">>> Running vllm bench serve with --num-prompts=$i" | tee -a "$LOG_FILE"
+    vllm bench serve \
+            --backend openai-chat \
+            --model "$SERVER_MODEL" \
+            --served-model-name "$SERVER_MODEL_NAME" \
+            --endpoint /v1/chat/completions \
+            --dataset-name random-mm \
+            --num-prompts 2 \
+            --max-concurrency 2 \
+            --random-input-len 128 \
+            --random-output-len 128 \
+            --random-mm-base-items-per-request 1 \
+            --random-mm-limit-mm-per-prompt '{"image": 1, "video": 0}' \
+            --random-mm-bucket-config '{(1920, 1080, 1): 1.0}' \
+            --request-rate inf \
+            --ignore-eos \
+            --port=$PORT \
+            --seed 42
 
 run_benchmark() {
     local bsize=$1
@@ -232,7 +239,8 @@ run_benchmark() {
         --seed 42 2>&1 | tee -a "$LOG_FILE"
 } 
 
-MAX_BSIZE=50
+
+
 run_benchmark 1 
 for (( i=2; i<=MAX_BSIZE; i+=2 )); do
 run_benchmark $i 
