@@ -47,7 +47,7 @@ cd "$(dirname "$(realpath "$0")")"
 # ----------------------------------------------------------------
 SERVER_MODEL="/llm/models/Qwen3-VL-30B-A3B-Instruct"
 SERVER_MODEL_NAME="Qwen3-VL-30B-A3B-Instruct"
-DATASET_PATH="/llm/models/sharegpt4v_instruct_gpt4-vision_cap100k.json"
+# DATASET_PATH="/llm/models/sharegpt4v_instruct_gpt4-vision_cap100k.json"
 PORT=8006
 TP=4
 
@@ -67,7 +67,7 @@ echo "---------------------------------------------------"
 echo "Starting ShareGPT Benchmark with the following parameters:"
 echo "Server Model Path: $SERVER_MODEL"
 echo "Server Model Name: $SERVER_MODEL_NAME"
-echo "Dataset:           $DATASET_PATH"
+# echo "Dataset:           $DATASET_PATH"
 echo "Port:              $PORT"
 echo "TP:                $TP"
 echo "GPU Type:          $GPU_TYPE"
