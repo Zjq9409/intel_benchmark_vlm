@@ -99,6 +99,10 @@ export VLLM_WORKER_MULTIPROC_METHOD=spawn
 
 # Start vllm server
 echo "Starting vllm server..."
+
+MAX_MODEL_LEN=16384
+GPU_MEM_UTIL=0.8
+MAX_BATCHED_TOKENS=8192
 if [ "$GPU_TYPE" = "XPU" ]; then
     nohup vllm serve \
     --model "$SERVER_MODEL" \
@@ -110,16 +114,17 @@ if [ "$GPU_TYPE" = "XPU" ]; then
     --host 0.0.0.0 \
     --trust-remote-code \
     --disable-sliding-window \
-    --gpu-memory-util=0.9 \
+    --gpu-memory-util=$GPU_MEM_UTIL \
     --max-num-batched-tokens=8192 \
     --limit-mm-per-prompt '{"image": 1}' \
     --disable-log-requests \
-    --max-model-len=16384  \
+    --max-model-len=$MAX_MODEL_LEN  \
     --no-enable-prefix-caching \
     --block-size 64 \
     --quantization fp8 \
     -tp=$TP > "$SERVER_LOG" 2>&1 &
 else
+    export LD_LIBRARY_PATH=/usr/lib/x86_64-linux-gnu:$LD_LIBRARY_PATH
     nohup vllm serve \
     --model "$SERVER_MODEL" \
     --served-model-name "$SERVER_MODEL_NAME" \
@@ -130,10 +135,10 @@ else
     --trust-remote-code \
     --disable-sliding-window \
     --no-enable-prefix-caching \
-    --gpu-memory-util=0.9 \
+    --gpu-memory-util=$GPU_MEM_UTIL \
     --max-num-batched-tokens=8192 \
     --disable-log-requests \
-    --max-model-len=16384 \
+    --max-model-len=$MAX_MODEL_LEN \
     --block-size 64 \
     --quantization fp8 \
     -tp=$TP > "$SERVER_LOG" 2>&1 &
@@ -227,7 +232,7 @@ run_benchmark() {
         --seed 42 2>&1 | tee -a "$LOG_FILE"
 } 
 
-MAX_BSIZE=80
+MAX_BSIZE=50
 run_benchmark 1 
 for (( i=2; i<=MAX_BSIZE; i+=2 )); do
 run_benchmark $i 
