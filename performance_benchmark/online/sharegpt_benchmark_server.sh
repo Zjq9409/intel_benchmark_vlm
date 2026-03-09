@@ -55,7 +55,7 @@ TP=4
 mkdir -p LOG
 mkdir -p "$RESULT_DIR"
 CURRENT_TIME=$(date "+%Y%m%d_%H%M%S")
-GPU_TYPE=$(xpu-smi discovery 2>/dev/null | grep -oP 'GPU [0-9]+' | head -1 | tr ' ' '_')
+GPU_TYPE=$(nvidia-smi --query-gpu=name --format=csv,noheader 2>/dev/null | head -1 | sed 's/NVIDIA //g; s/GeForce //g; s/Quadro //g; s/Tesla //g' | tr -d ' \r')
 [ -z "$GPU_TYPE" ] && GPU_TYPE="XPU"
 LOG_FILE="LOG/sharegpt_benchmark_${SERVER_MODEL_NAME}_tp${TP}_${GPU_TYPE}_${CURRENT_TIME}.log"
 SERVER_LOG="LOG/sharegpt_server_${SERVER_MODEL_NAME}_tp${TP}_${GPU_TYPE}_${CURRENT_TIME}.log"
