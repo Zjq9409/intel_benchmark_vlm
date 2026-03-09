@@ -191,6 +191,7 @@ vllm bench serve \
         --random-mm-bucket-config '{(1920, 1080, 1): 1.0}' \
         --request-rate inf \
         --ignore-eos \
+        --port=$PORT \
         --seed 42
 
 run_benchmark() {
