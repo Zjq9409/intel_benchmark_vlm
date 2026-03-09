@@ -112,8 +112,9 @@ if GPU_TYPE="XPU"; then
     --disable-sliding-window \
     --gpu-memory-util=0.9 \
     --max-num-batched-tokens=8192 \
+    --limit-mm-per-prompt '{"image": 1}' \
     --disable-log-requests \
-    --max-model-len=8192 \
+    --max-model-len=16384  \
     --block-size 64 \
     --quantization fp8 \
     -tp=$TP > "$SERVER_LOG" 2>&1 &
@@ -166,34 +167,65 @@ fi
 # Run ShareGPT benchmarks
 echo "Starting ShareGPT benchmark runs..." | tee -a "$LOG_FILE"
 
+# vllm bench serve \
+#         --backend openai-chat \
+#         --model "$SERVER_MODEL" \
+#         --served-model-name "$SERVER_MODEL_NAME" \
+#         --dataset-name sharegpt \
+#         --dataset-path "$DATASET_PATH" \
+#         --num-prompts 2   \
+#         --endpoint /v1/chat/completions \
+#         --port=$PORT
 vllm bench serve \
         --backend openai-chat \
         --model "$SERVER_MODEL" \
         --served-model-name "$SERVER_MODEL_NAME" \
-        --dataset-name sharegpt \
-        --dataset-path "$DATASET_PATH" \
-        --num-prompts 2   \
         --endpoint /v1/chat/completions \
-        --port=$PORT
+        --dataset-name random-mm \
+        --num-prompts 2 \
+        --max-concurrency 2 \
+        --random-input-len 128 \
+        --random-output-len 128 \
+        --random-mm-base-items-per-request 1 \
+        --random-mm-limit-mm-per-prompt '{"image": 1, "video": 0}' \
+        --random-mm-bucket-config '{(1920, 1080, 1): 1.0}' \
+        --request-rate inf \
+        --ignore-eos \
+        --seed 42
 
 run_benchmark() {
     local bsize=$1
     echo ">>> Running vllm bench serve with --num-prompts=$bsize" | tee -a "$LOG_FILE"
+    # vllm bench serve \
+    #     --backend openai-chat \
+    #     --model "$SERVER_MODEL" \
+    #     --served-model-name "$SERVER_MODEL_NAME" \
+    #     --dataset-name sharegpt \
+    #     --dataset-path "$DATASET_PATH" \
+    #     --num-prompts $bsize \
+    #     --endpoint /v1/chat/completions \
+    #     --port=$PORT 2>&1 | tee -a "$LOG_FILE"
     vllm bench serve \
         --backend openai-chat \
         --model "$SERVER_MODEL" \
         --served-model-name "$SERVER_MODEL_NAME" \
-        --dataset-name sharegpt \
-        --dataset-path "$DATASET_PATH" \
-        --num-prompts $bsize \
         --endpoint /v1/chat/completions \
-        --port=$PORT 2>&1 | tee -a "$LOG_FILE"
-    
+        --dataset-name random-mm \
+        --num-prompts $((bsize*5)) \
+        --max-concurrency $bsize \
+        --random-input-len 128 \
+        --random-output-len 128 \
+        --random-mm-base-items-per-request 1 \
+        --random-mm-limit-mm-per-prompt '{"image": 1, "video": 0}' \
+        --random-mm-bucket-config '{(1920, 1080, 1): 1.0}' \
+        --request-rate inf \
+        --ignore-eos \
+        --seed 42 2>&1 | tee -a "$LOG_FILE"
 } 
 
-MAX_BSIZE=128
+MAX_BSIZE=80
 run_benchmark 1 
-for (( i=2; i<=MAX_BSIZE; i+=2 )); do
+for (( i=1; i<=MAX_BSIZE; i+=2 )); do
 run_benchmark $i 
 done
 
