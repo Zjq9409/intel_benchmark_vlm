@@ -161,7 +161,7 @@ vllm bench serve \
 
 run_benchmark() {
     local bsize=$1
-    echo ">>> Running vllm bench serve with --num-prompts=$NUM" | tee -a "$LOG_FILE"
+    echo ">>> Running vllm bench serve with --num-prompts=$bsize" | tee -a "$LOG_FILE"
     vllm bench serve \
         --backend openai-chat \
         --model "$SERVER_MODEL" \
