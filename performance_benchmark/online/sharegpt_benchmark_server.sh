@@ -227,7 +227,7 @@ run_benchmark() {
 
 MAX_BSIZE=80
 run_benchmark 1 
-for (( i=1; i<=MAX_BSIZE; i+=2 )); do
+for (( i=2; i<=MAX_BSIZE; i+=2 )); do
 run_benchmark $i 
 done
 
