@@ -186,7 +186,7 @@ echo "VLM benchmark runs..." | tee -a "$LOG_FILE"
 if [ "$GPU_TYPE" = "XPU" ]; then
     MAX_BSIZE=30
 else
-    MAX_BSIZE=50
+    MAX_BSIZE=40
 fi     
 
 run_benchmark() {
