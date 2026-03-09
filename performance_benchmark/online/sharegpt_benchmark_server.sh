@@ -219,7 +219,7 @@ run_benchmark() {
         --served-model-name "$SERVER_MODEL_NAME" \
         --endpoint /v1/chat/completions \
         --dataset-name random-mm \
-        --num-prompts $((bsize*5)) \
+        --num-prompts $bsize \
         --max-concurrency $bsize \
         --random-input-len 128 \
         --random-output-len 128 \
