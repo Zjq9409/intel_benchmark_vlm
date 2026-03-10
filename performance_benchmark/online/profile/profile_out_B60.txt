@@ -1,0 +1,107 @@
+-------------------------------------------------------  ------------  ------------  ------------  ------------  ------------  ------------  ------------  ------------  ------------  ------------  
+                                                   Name    Self CPU %      Self CPU   CPU total %     CPU total  CPU time avg      Self XPU    Self XPU %     XPU total  XPU time avg    # of Calls  
+-------------------------------------------------------  ------------  ------------  ------------  ------------  ------------  ------------  ------------  ------------  ------------  ------------  
+                                            gemm_kernel         0.00%       0.000us         0.00%       0.000us       0.000us     170.635ms        22.39%     170.635ms       9.072us         18810  
+                             torch_ipex::fp8_gemm_w8a16        11.35%        1.632s        14.71%        2.116s     113.916us     170.211ms        22.33%     170.211ms       9.163us         18576  
+                                              aten::cat         9.97%        1.435s        16.28%        2.342s     125.794us     142.479ms        18.70%     142.751ms       7.667us         18620  
+                                            aten::copy_         5.40%     776.476ms        12.74%        1.833s      41.208us      99.347ms        13.04%     100.105ms       2.251us         44478  
+                    torch_ipex::fused_add_rms_norm_vllm         1.73%     248.490ms         3.27%     470.837ms      50.693us      84.932ms        11.14%      84.932ms       9.144us          9288  
+at::AtenIpexTypeXPU::FusedAddRmsNormVllmImpl::fused_...         0.00%       0.000us         0.00%       0.000us       0.000us      84.932ms        11.14%      84.932ms       9.144us          9288  
+at::native::xpu::CatArrayBatchedCopyKernelFunctor<c1...         0.00%       0.000us         0.00%       0.000us       0.000us      81.352ms        10.67%      81.352ms       4.379us         18576  
+                                              aten::mul         4.41%     634.921ms        10.20%        1.467s      39.379us      73.161ms         9.60%      73.161ms       1.964us         37254  
+at::native::xpu::VectorizedElementwiseKernel<8, at::...         0.00%       0.000us         0.00%       0.000us       0.000us      72.819ms         9.55%      72.819ms       1.960us         37152  
+                            Memcpy H2D (HOST -> DEVICE)         0.00%       0.000us         0.00%       0.000us       0.000us      65.550ms         8.60%      65.550ms       3.341us         19617  
+                    torch_ipex::reshape_and_cache_flash         1.11%     159.260ms         2.01%     288.915ms      62.213us      42.466ms         5.57%      42.466ms       9.144us          4644  
+at::AtenIpexTypeXPU::cache_op::ReshapeAndCacheFlash<...         0.00%       0.000us         0.00%       0.000us       0.000us      42.466ms         5.57%      42.466ms       9.144us          4644  
+                               torch_ipex::silu_and_mul         0.61%      88.095ms         1.39%     200.619ms      43.200us      42.466ms         5.57%      42.466ms       9.144us          4644  
+at::AtenIpexTypeXPU::impl::op_and_mul_functor<c10::H...         0.00%       0.000us         0.00%       0.000us       0.000us      42.466ms         5.57%      42.466ms       9.144us          4644  
+at::native::xpu::ElementwiseGlobalRangeKernel<at::na...         0.00%       0.000us         0.00%       0.000us       0.000us      42.346ms         5.56%      42.346ms       9.190us          4608  
+at::native::xpu::ElementwiseGlobalRangeKernel<at::na...         0.00%       0.000us         0.00%       0.000us       0.000us      37.547ms         4.93%      37.547ms       1.352us         27768  
+at::native::xpu::VectorizedElementwiseKernel<8, at::...         0.00%       0.000us         0.00%       0.000us       0.000us      37.266ms         4.89%      37.266ms       1.955us         19060  
+gpu::xetla::fmha::FmhaForwardKernelFunctor<gpu::xetl...         0.00%       0.000us         0.00%       0.000us       0.000us      36.739ms         4.82%      36.739ms     510.268us            72  
+            chunk_prefill(Nq=32, Nkv=8, M=2178, N=2179)         0.01%     932.320us         0.01%       2.090ms      58.064us      36.620ms         4.81%      36.620ms       1.017ms            36  
+                                              aten::add         1.13%     162.491ms         2.59%     372.416ms      38.169us      18.993ms         2.49%      18.993ms       1.947us          9757  
+                                              aten::sub         1.18%     170.462ms         2.64%     379.638ms      40.131us      18.782ms         2.46%      18.782ms       1.985us          9460  
+at::native::xpu::VectorizedElementwiseKernel<8, at::...         0.00%       0.000us         0.00%       0.000us       0.000us      13.254ms         1.74%      13.254ms       1.399us          9473  
+                              torch_ipex::rms_norm_vllm         1.46%     210.294ms         2.95%     424.729ms      45.102us      13.044ms         1.71%      13.044ms       1.385us          9417  
+at::AtenIpexTypeXPU::RmsNormVllmImpl::rms_norm_kerne...         0.00%       0.000us         0.00%       0.000us       0.000us      13.044ms         1.71%      13.044ms       1.385us          9417  
+                                            aten::index         1.34%     192.608ms         2.53%     363.662ms      76.159us       6.390ms         0.84%       6.462ms       1.353us          4775  
+at::native::xpu::IndexKernelFunctor<at::native::xpu:...         0.00%       0.000us         0.00%       0.000us       0.000us       6.313ms         0.83%       6.313ms       1.359us          4645  
+gpu::xetla::attention::paged_attention_kernel_vllm<p...         0.00%       0.000us         0.00%       0.000us       0.000us       5.727ms         0.75%       5.727ms       1.253us          4572  
+gpu::xetla::attention::paged_attention_reduce_vllm<p...         0.00%       0.000us         0.00%       0.000us       0.000us       5.727ms         0.75%       5.727ms       1.253us          4572  
+at::native::xpu::UnrolledElementwiseKernel<at::nativ...         0.00%       0.000us         0.00%       0.000us       0.000us     561.783us         0.07%     561.783us       1.452us           387  
+at::native::xpu::ElementwiseGlobalRangeKernel<at::na...         0.00%       0.000us         0.00%       0.000us       0.000us     458.813us         0.06%     458.813us       3.254us           141  
+                                     aten::index_select         0.03%       3.824ms         0.06%       8.064ms      30.897us     428.608us         0.06%     428.608us       1.642us           261  
+at::native::xpu::IndexKernel<at::native::xpu::IndexK...         0.00%       0.000us         0.00%       0.000us       0.000us     428.608us         0.06%     428.608us       3.247us           132  
+at::native::xpu::VectorizedElementwiseKernel<8, at::...         0.00%       0.000us         0.00%       0.000us       0.000us     422.566us         0.06%     422.566us       3.251us           130  
+at::native::xpu::UnrolledElementwiseKernel<at::nativ...         0.00%       0.000us         0.00%       0.000us       0.000us     418.817us         0.05%     418.817us       3.247us           129  
+at::native::xpu::ElementwiseGlobalRangeKernel<at::na...         0.00%       0.000us         0.00%       0.000us       0.000us     332.039us         0.04%     332.039us       3.354us            99  
+                                            aten::fill_         0.05%       6.997ms         0.11%      15.912ms      20.347us     221.843us         0.03%     221.843us       0.284us           782  
+at::native::xpu::VectorizedElementwiseKernel<8, at::...         0.00%       0.000us         0.00%       0.000us       0.000us     221.843us         0.03%     221.843us       0.570us           389  
+               chunk_prefill(Nq=32, Nkv=8, M=1, N=2305)         0.02%       3.018ms         0.05%       7.071ms      98.202us     198.126us         0.03%     198.126us       2.752us            72  
+                                aten::native_layer_norm         0.02%       3.151ms         0.03%       4.688ms      90.146us     174.716us         0.02%     174.716us       3.360us            52  
+at::native::xpu::VectorizedLayerNormKernelFunctor<c1...         0.00%       0.000us         0.00%       0.000us       0.000us     174.716us         0.02%     174.716us       3.360us            52  
+            chunk_prefill(Nq=32, Nkv=8, M=2178, N=2178)         0.01%       1.014ms         0.02%       2.235ms      62.093us     119.309us         0.02%     119.309us       3.314us            36  
+               chunk_prefill(Nq=32, Nkv=8, M=1, N=2225)         0.01%       1.562ms         0.02%       3.579ms      99.423us     114.222us         0.01%     114.222us       3.173us            36  
+               chunk_prefill(Nq=32, Nkv=8, M=1, N=2223)         0.01%       1.441ms         0.02%       3.452ms      95.893us     112.246us         0.01%     112.246us       3.118us            36  
+               chunk_prefill(Nq=32, Nkv=8, M=1, N=2270)         0.01%       1.525ms         0.02%       3.556ms      98.789us     108.700us         0.01%     108.700us       3.019us            36  
+               chunk_prefill(Nq=32, Nkv=8, M=1, N=2247)         0.01%       1.501ms         0.02%       3.528ms      98.008us     105.472us         0.01%     105.472us       2.930us            36  
+               chunk_prefill(Nq=32, Nkv=8, M=1, N=2231)         0.01%       1.739ms         0.03%       3.853ms     107.016us     105.366us         0.01%     105.366us       2.927us            36  
+               chunk_prefill(Nq=32, Nkv=8, M=1, N=2295)         0.01%       1.467ms         0.02%       3.478ms      96.599us     104.224us         0.01%     104.224us       2.895us            36  
+               chunk_prefill(Nq=32, Nkv=8, M=1, N=2234)         0.01%       1.511ms         0.02%       3.559ms      98.867us     104.016us         0.01%     104.016us       2.889us            36  
+               chunk_prefill(Nq=32, Nkv=8, M=1, N=2241)         0.01%       1.489ms         0.02%       3.527ms      97.974us     103.808us         0.01%     103.808us       2.884us            36  
+               chunk_prefill(Nq=32, Nkv=8, M=1, N=2278)         0.01%       1.579ms         0.02%       3.591ms      99.760us     103.598us         0.01%     103.598us       2.878us            36  
+               chunk_prefill(Nq=32, Nkv=8, M=1, N=2221)         0.01%       1.461ms         0.02%       3.472ms      96.443us     103.492us         0.01%     103.492us       2.875us            36  
+               chunk_prefill(Nq=32, Nkv=8, M=1, N=2292)         0.01%       1.484ms         0.02%       3.489ms      96.922us     103.180us         0.01%     103.180us       2.866us            36  
+               chunk_prefill(Nq=32, Nkv=8, M=1, N=2283)         0.01%       1.491ms         0.02%       3.507ms      97.427us     102.558us         0.01%     102.558us       2.849us            36  
+               chunk_prefill(Nq=32, Nkv=8, M=1, N=2230)         0.01%       1.507ms         0.02%       3.537ms      98.255us     100.052us         0.01%     100.052us       2.779us            36  
+               chunk_prefill(Nq=32, Nkv=8, M=1, N=2302)         0.01%       1.511ms         0.02%       3.546ms      98.490us      99.846us         0.01%      99.846us       2.773us            36  
+               chunk_prefill(Nq=32, Nkv=8, M=1, N=2276)         0.01%       1.619ms         0.03%       3.646ms     101.266us      99.842us         0.01%      99.842us       2.773us            36  
+               chunk_prefill(Nq=32, Nkv=8, M=1, N=2293)         0.01%       1.572ms         0.02%       3.579ms      99.429us      99.744us         0.01%      99.744us       2.771us            36  
+               chunk_prefill(Nq=32, Nkv=8, M=1, N=2284)         0.01%       1.472ms         0.02%       3.482ms      96.716us      99.742us         0.01%      99.742us       2.771us            36  
+               chunk_prefill(Nq=32, Nkv=8, M=1, N=2220)         0.01%       1.484ms         0.02%       3.492ms      96.989us      99.326us         0.01%      99.326us       2.759us            36  
+               chunk_prefill(Nq=32, Nkv=8, M=1, N=2304)         0.01%       1.516ms         0.02%       3.517ms      97.687us      98.804us         0.01%      98.804us       2.745us            36  
+               chunk_prefill(Nq=32, Nkv=8, M=1, N=2279)         0.01%       1.463ms         0.02%       3.488ms      96.880us      98.700us         0.01%      98.700us       2.742us            36  
+               chunk_prefill(Nq=32, Nkv=8, M=1, N=2277)         0.01%       1.511ms         0.02%       3.536ms      98.222us      98.598us         0.01%      98.598us       2.739us            36  
+               chunk_prefill(Nq=32, Nkv=8, M=1, N=2227)         0.01%       1.515ms         0.02%       3.547ms      98.531us      98.386us         0.01%      98.386us       2.733us            36  
+               chunk_prefill(Nq=32, Nkv=8, M=1, N=2294)         0.01%       1.491ms         0.02%       3.506ms      97.391us      96.510us         0.01%      96.510us       2.681us            36  
+               chunk_prefill(Nq=32, Nkv=8, M=1, N=2272)         0.01%       1.543ms         0.03%       3.598ms      99.938us      96.304us         0.01%      96.304us       2.675us            36  
+               chunk_prefill(Nq=32, Nkv=8, M=1, N=2281)         0.01%       1.476ms         0.02%       3.473ms      96.476us      96.202us         0.01%      96.202us       2.672us            36  
+               chunk_prefill(Nq=32, Nkv=8, M=1, N=2262)         0.01%       1.450ms         0.02%       3.458ms      96.050us      96.094us         0.01%      96.094us       2.669us            36  
+               chunk_prefill(Nq=32, Nkv=8, M=1, N=2248)         0.01%       1.714ms         0.03%       3.819ms     106.090us      95.470us         0.01%      95.470us       2.652us            36  
+               chunk_prefill(Nq=32, Nkv=8, M=1, N=2219)         0.05%       7.200ms         0.06%       9.266ms     257.395us      95.470us         0.01%      95.470us       2.652us            36  
+               chunk_prefill(Nq=32, Nkv=8, M=1, N=2280)         0.01%       1.540ms         0.02%       3.573ms      99.254us      95.468us         0.01%      95.468us       2.652us            36  
+               chunk_prefill(Nq=32, Nkv=8, M=1, N=2201)         0.01%       1.431ms         0.02%       3.377ms      93.796us      95.262us         0.01%      95.262us       2.646us            36  
+               chunk_prefill(Nq=32, Nkv=8, M=1, N=2303)         0.01%       1.494ms         0.02%       3.511ms      97.515us      95.054us         0.01%      95.054us       2.640us            36  
+               chunk_prefill(Nq=32, Nkv=8, M=1, N=2199)         0.01%       1.566ms         0.02%       3.558ms      98.832us      94.950us         0.01%      94.950us       2.638us            36  
+               chunk_prefill(Nq=32, Nkv=8, M=1, N=2275)         0.01%       1.469ms         0.02%       3.469ms      96.352us      94.742us         0.01%      94.742us       2.632us            36  
+               chunk_prefill(Nq=32, Nkv=8, M=1, N=2259)         0.01%       1.560ms         0.03%       3.620ms     100.568us      94.326us         0.01%      94.326us       2.620us            36  
+                                             aten::gelu         0.00%     621.449us         0.01%       1.272ms      45.427us      94.206us         0.01%      94.206us       3.364us            28  
+               chunk_prefill(Nq=32, Nkv=8, M=1, N=2254)         0.01%       1.473ms         0.02%       3.478ms      96.607us      94.014us         0.01%      94.014us       2.611us            36  
+               chunk_prefill(Nq=32, Nkv=8, M=1, N=2299)         0.01%       1.494ms         0.02%       3.505ms      97.348us      93.700us         0.01%      93.700us       2.603us            36  
+               chunk_prefill(Nq=32, Nkv=8, M=1, N=2244)         0.01%       1.537ms         0.02%       3.557ms      98.806us      93.280us         0.01%      93.280us       2.591us            36  
+               chunk_prefill(Nq=32, Nkv=8, M=1, N=2204)         0.01%       1.464ms         0.02%       3.463ms      96.185us      91.928us         0.01%      91.928us       2.554us            36  
+               chunk_prefill(Nq=32, Nkv=8, M=1, N=2224)         0.01%       1.520ms         0.03%       3.606ms     100.175us      91.928us         0.01%      91.928us       2.554us            36  
+               chunk_prefill(Nq=32, Nkv=8, M=1, N=2205)         0.01%       1.454ms         0.02%       3.451ms      95.870us      91.720us         0.01%      91.720us       2.548us            36  
+               chunk_prefill(Nq=32, Nkv=8, M=1, N=2192)         0.01%       1.504ms         0.02%       3.556ms      98.790us      91.718us         0.01%      91.718us       2.548us            36  
+               chunk_prefill(Nq=32, Nkv=8, M=1, N=2287)         0.01%       1.479ms         0.02%       3.478ms      96.598us      91.616us         0.01%      91.616us       2.545us            36  
+               chunk_prefill(Nq=32, Nkv=8, M=1, N=2267)         0.01%       1.517ms         0.02%       3.570ms      99.172us      91.612us         0.01%      91.612us       2.545us            36  
+               chunk_prefill(Nq=32, Nkv=8, M=1, N=2217)         0.01%       1.468ms         0.02%       3.472ms      96.453us      91.408us         0.01%      91.408us       2.539us            36  
+               chunk_prefill(Nq=32, Nkv=8, M=1, N=2296)         0.01%       1.504ms         0.02%       3.508ms      97.441us      91.406us         0.01%      91.406us       2.539us            36  
+               chunk_prefill(Nq=32, Nkv=8, M=1, N=2209)         0.01%       1.498ms         0.02%       3.528ms      97.997us      91.302us         0.01%      91.302us       2.536us            36  
+               chunk_prefill(Nq=32, Nkv=8, M=1, N=2216)         0.01%       1.760ms         0.03%       3.791ms     105.316us      91.300us         0.01%      91.300us       2.536us            36  
+               chunk_prefill(Nq=32, Nkv=8, M=1, N=2286)         0.01%       1.603ms         0.03%       3.669ms     101.915us      91.094us         0.01%      91.094us       2.530us            36  
+               chunk_prefill(Nq=32, Nkv=8, M=1, N=2260)         0.01%       1.546ms         0.03%       3.643ms     101.201us      90.886us         0.01%      90.886us       2.525us            36  
+               chunk_prefill(Nq=32, Nkv=8, M=1, N=2195)         0.01%       1.439ms         0.02%       3.475ms      96.517us      90.782us         0.01%      90.782us       2.522us            36  
+               chunk_prefill(Nq=32, Nkv=8, M=1, N=2239)         0.01%       1.518ms         0.02%       3.550ms      98.600us      90.782us         0.01%      90.782us       2.522us            36  
+               chunk_prefill(Nq=32, Nkv=8, M=1, N=2269)         0.01%       1.538ms         0.02%       3.575ms      99.298us      90.678us         0.01%      90.678us       2.519us            36  
+               chunk_prefill(Nq=32, Nkv=8, M=1, N=2198)         0.01%       1.456ms         0.02%       3.450ms      95.839us      90.470us         0.01%      90.470us       2.513us            36  
+               chunk_prefill(Nq=32, Nkv=8, M=1, N=2185)         0.01%       1.403ms         0.02%       3.412ms      94.771us      90.470us         0.01%      90.470us       2.513us            36  
+               chunk_prefill(Nq=32, Nkv=8, M=1, N=2261)         0.01%       1.601ms         0.03%       3.634ms     100.958us      90.470us         0.01%      90.470us       2.513us            36  
+               chunk_prefill(Nq=32, Nkv=8, M=1, N=2258)         0.01%       1.484ms         0.02%       3.489ms      96.927us      90.262us         0.01%      90.262us       2.507us            36  
+               chunk_prefill(Nq=32, Nkv=8, M=1, N=2300)         0.01%       1.508ms         0.02%       3.558ms      98.824us      90.160us         0.01%      90.160us       2.504us            36  
+               chunk_prefill(Nq=32, Nkv=8, M=1, N=2289)         0.01%       1.507ms         0.02%       3.504ms      97.321us      90.054us         0.01%      90.054us       2.501us            36  
+-------------------------------------------------------  ------------  ------------  ------------  ------------  ------------  ------------  ------------  ------------  ------------  ------------  
+Self CPU time total: 14.388s
+Self XPU time total: 762.117ms
+

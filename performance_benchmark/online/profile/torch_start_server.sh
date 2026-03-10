@@ -36,10 +36,12 @@ else
     --trust-remote-code \
     --gpu-memory-util=0.8 \
     --no-enable-prefix-caching \
+    --enforce-eager \
     --max-num-batched-tokens=8192 \
     --disable-log-requests \
     --max-model-len 12768 \
     --block-size 64 \
     --quantization fp8 \
+    --profiler-config '{"profiler": "torch", "torch_profiler_dir": "./vllm_profile"}' \
     -tp=$TP   
 fi
