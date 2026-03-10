@@ -3,7 +3,7 @@ export PROMPT_FILE="../../prompt_128.txt"
 export SERVER_MODEL="/llm/models/Qwen3-VL-4B-Instruct"
 export SERVER_MODEL_NAME="Qwen3-VL-4B-Instruct"
 export bsize=4
-export OUTPUT_LEN=128
+export OUTPUT_LEN=2
 export PORT=8000
 vllm bench serve \
             --backend openai-chat \
@@ -14,7 +14,7 @@ vllm bench serve \
             --num-prompts $bsize \
             --max-concurrency $bsize \
             --random-input-len 128 \
-            --random-output-len 128 \
+            --random-output-len $OUTPUT_LEN \
             --random-mm-base-items-per-request 1 \
             --random-mm-limit-mm-per-prompt '{"image": 1, "video": 0}' \
             --random-mm-bucket-config '{(1920, 1080, 1): 1.0}' \
