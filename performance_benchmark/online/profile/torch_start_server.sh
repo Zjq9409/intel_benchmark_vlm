@@ -6,8 +6,6 @@ export MODEL_PATH="/llm/models/Qwen3-VL-4B-Instruct"
 export MODEL_NAME="Qwen3-VL-4B-Instruct"
 # export LD_LIBRARY_PATH=/usr/lib/x86_64-linux-gnu:$LD_LIBRARY_PATH
 
-    # 
-
 if [ "$GPU_TYPE" = "XPU" ]; then
      VLLM_TORCH_PROFILER_DIR=/llm/performance_benchmark/online/profile python3 -m vllm.entrypoints.openai.api_server \
     --model "$MODEL_PATH" \
@@ -23,7 +21,6 @@ if [ "$GPU_TYPE" = "XPU" ]; then
     --max-model-len 12768 \
     --enforce-eager \
     --block-size 64 \
-    --quantization fp8 \
     --profiler-config '{"profiler": "torch", "torch_profiler_dir": "./vllm_profile"}' \
     -tp=$TP   
 else
@@ -41,7 +38,6 @@ else
     --disable-log-requests \
     --max-model-len 12768 \
     --block-size 64 \
-    --quantization fp8 \
     --profiler-config '{"profiler": "torch", "torch_profiler_dir": "./vllm_profile"}' \
     -tp=$TP   
 fi

@@ -3,7 +3,7 @@ export PROMPT_FILE="../../prompt_128.txt"
 export SERVER_MODEL="/llm/models/Qwen3-VL-4B-Instruct"
 export SERVER_MODEL_NAME="Qwen3-VL-4B-Instruct"
 export bsize=4
-export OUTPUT_LEN=2
+export OUTPUT_LEN=24
 export PORT=8000
 vllm bench serve \
             --backend openai-chat \
@@ -17,12 +17,13 @@ vllm bench serve \
             --random-output-len $OUTPUT_LEN \
             --random-mm-base-items-per-request 1 \
             --random-mm-limit-mm-per-prompt '{"image": 1, "video": 0}' \
-            --random-mm-bucket-config '{(1920, 1080, 1): 1.0}' \
+            --random-mm-bucket-config '{ (720, 1280, 1): 1}' \
             --request-rate inf \
             --ignore-eos \
             --port=$PORT \
             --profile \
             --seed 42
+
 # python3 ../vlm_benchmark.py \
 #         --prompt "$(cat "$PROMPT_FILE")" \
 #         --model "$MODEL_PATH" \
