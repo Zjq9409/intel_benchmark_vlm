@@ -94,8 +94,7 @@ fi
 sleep 2
 
 # Export environment variables
-export VLLM_ALLOW_LONG_MAX_MODEL_LEN=1
-export VLLM_WORKER_MULTIPROC_METHOD=spawn
+
 
 # Start vllm server
 echo "Starting vllm server..."
@@ -104,6 +103,8 @@ MAX_MODEL_LEN=16384
 GPU_MEM_UTIL=0.8
 MAX_BATCHED_TOKENS=8192
 if [ "$GPU_TYPE" = "XPU" ]; then
+    export VLLM_ALLOW_LONG_MAX_MODEL_LEN=1
+    export VLLM_WORKER_MULTIPROC_METHOD=spawn
     nohup vllm serve \
     --model "$SERVER_MODEL" \
     --served-model-name "$SERVER_MODEL_NAME" \
@@ -113,10 +114,8 @@ if [ "$GPU_TYPE" = "XPU" ]; then
     --port $PORT \
     --host 0.0.0.0 \
     --trust-remote-code \
-    --disable-sliding-window \
     --gpu-memory-util=$GPU_MEM_UTIL \
     --max-num-batched-tokens=$MAX_BATCHED_TOKENS \
-    --limit-mm-per-prompt '{"image": 1}' \
     --disable-log-requests \
     --max-model-len=$MAX_MODEL_LEN  \
     --no-enable-prefix-caching \
@@ -133,7 +132,6 @@ else
     --port $PORT \
     --host 0.0.0.0 \
     --trust-remote-code \
-    --disable-sliding-window \
     --no-enable-prefix-caching \
     --gpu-memory-util=$GPU_MEM_UTIL \
     --max-num-batched-tokens=$MAX_BATCHED_TOKENS \

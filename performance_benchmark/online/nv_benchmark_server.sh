@@ -73,6 +73,8 @@ PROMPT_DIR=$(dirname "$0")/..
 #MAX_BSIZE=$6
 unset http_proxy
 unset https_proxy
+MAX_MODEL_LEN=12768
+MAX_BATCHED_TOKENS=8192
 export NCCL_P2P_LEVEL=SYS
 
 # Auto-set CUDA_VISIBLE_DEVICES based on TP value
@@ -90,8 +92,8 @@ CURRENT_TIME=$(date "+%Y%m%d_%H%M%S")
 #LOG_FILE="LOG/${MODEL_NAME}_in${INPUT_LEN}_out${OUTPUT_LEN}_${CURRENT_TIME}.log"
 GPU_TYPE=$(nvidia-smi --query-gpu=name --format=csv,noheader 2>/dev/null | head -1 | sed 's/NVIDIA //g; s/GeForce //g; s/Quadro //g; s/Tesla //g' | tr -d ' \r')
 [ -z "$GPU_TYPE" ] && GPU_TYPE="unknown_gpu"
-LOG_FILE="LOG/benchmark_${MODEL_NAME}_tp${TP}_${GPU_TYPE}_${CURRENT_TIME}.log"
-SERVER_LOG="LOG/server_${MODEL_NAME}_tp${TP}_${GPU_TYPE}_${CURRENT_TIME}.log"
+LOG_FILE="LOG/benchmark_${MODEL_NAME}_tp${TP}_mbt${MAX_BATCHED_TOKENS}_${GPU_TYPE}_${CURRENT_TIME}.log"
+SERVER_LOG="LOG/server_${MODEL_NAME}_tp${TP}_mbt${MAX_BATCHED_TOKENS}_${GPU_TYPE}_${CURRENT_TIME}.log"
 echo "Test results will be saved to: $LOG_FILE"
 echo "Server log will be saved to:   $SERVER_LOG"
 
@@ -143,9 +145,9 @@ nohup python3 -m vllm.entrypoints.openai.api_server \
     --trust-remote-code \
     --gpu-memory-util=0.9 \
     --no-enable-prefix-caching \
-    --max-num-batched-tokens=8192 \
+    --max-num-batched-tokens=$MAX_BATCHED_TOKENS \
     --disable-log-requests \
-    --max-model-len 12768 \
+    --max-model-len $MAX_MODEL_LEN \
     --block-size 64 \
     --quantization fp8 \
     -tp=$TP > "$SERVER_LOG" 2>&1 &

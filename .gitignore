@@ -11,3 +11,4 @@ models/
 **/*.nsys-rep
 **/*.sqlite
 **/*.json
+**/*.txt

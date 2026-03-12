@@ -7,7 +7,7 @@ export MODEL_NAME="Qwen3-VL-4B-Instruct"
 # export LD_LIBRARY_PATH=/usr/lib/x86_64-linux-gnu:$LD_LIBRARY_PATH
 
 if [ "$GPU_TYPE" = "XPU" ]; then
-     VLLM_TORCH_PROFILER_DIR=/llm/performance_benchmark/online/profile python3 -m vllm.entrypoints.openai.api_server \
+    VLLM_TORCH_PROFILER_DIR=/llm/performance_benchmark/online/profile python3 -m vllm.entrypoints.openai.api_server \
     --model "$MODEL_PATH" \
     --served-model-name "$MODEL_NAME" \
     --dtype=float16 \
