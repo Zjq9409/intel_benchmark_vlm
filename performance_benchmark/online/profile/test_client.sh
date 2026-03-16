@@ -3,7 +3,7 @@ export PROMPT_FILE="../../prompt_128.txt"
 export SERVER_MODEL="/llm/models/Qwen3-VL-4B-Instruct"
 export SERVER_MODEL_NAME="Qwen3-VL-4B-Instruct"
 export bsize=4
-export OUTPUT_LEN=24
+export OUTPUT_LEN=10
 export PORT=8000
 vllm bench serve \
             --backend openai-chat \
