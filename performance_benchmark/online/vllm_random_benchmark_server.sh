@@ -7,7 +7,7 @@ if [ ! -f "/.dockerenv" ] && ! grep -q 'docker\|containerd' /proc/1/cgroup 2>/de
     if nvidia-smi &>/dev/null; then
         CONTAINER_NAME="vllm-nv-container"
     else
-        CONTAINER_NAME="lsv-container-b8"
+        CONTAINER_NAME="lsv-container"
     fi
 
     SCRIPT_IN_CONTAINER="/llm/performance_benchmark/online/$(basename "$0")"
@@ -88,7 +88,6 @@ VLLM_SERVER_ARGS=(
     --port $PORT
     --host 0.0.0.0
     --trust-remote-code
-    --disable-sliding-window
     --no-enable-prefix-caching
     --gpu-memory-util=$GPU_MEM_UTIL
     --max-num-batched-tokens=$MAX_BATCHED_TOKENS
