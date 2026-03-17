@@ -74,6 +74,8 @@ if __name__ == '__main__':
 
     # 输出文件名
     base_filename = os.path.splitext(os.path.basename(rawdatafile))[0]
+    output_dir = os.path.join(os.path.dirname(os.path.abspath(rawdatafile)), 'LOG')
+    os.makedirs(output_dir, exist_ok=True)
 
     # 定义目标列头顺序
     headers = [
@@ -85,7 +87,7 @@ if __name__ == '__main__':
     ]
 
     # 写入四舍五入的 CSV 文件
-    with open(f'./LOG/{base_filename}.csv', 'w', encoding="utf-8") as f:
+    with open(os.path.join(output_dir, f'{base_filename}.csv'), 'w', encoding="utf-8") as f:
         f.write(", ".join(headers) + '\n')
         for result_dict in results:
             if not result_dict:
@@ -101,4 +103,4 @@ if __name__ == '__main__':
             
             f.write(", ".join(row_data) + '\n')
 
-    print(f"Data successfully processed! Outputs saved as ./LOG/{base_filename}.csv")
+    print(f"Data successfully processed! Outputs saved as {os.path.join(output_dir, base_filename)}.csv")

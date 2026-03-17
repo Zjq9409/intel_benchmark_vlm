@@ -52,14 +52,16 @@ TP=4
 MAX_BATCHED_TOKENS=8192
 MAX_MODEL_LEN=16384
 GPU_MEM_UTIL=0.8
+MM_W=224
+MM_H=224
 
 # Setup logging
 mkdir -p $SERVER_MODEL_NAME
 CURRENT_TIME=$(date "+%Y%m%d_%H%M%S")
 GPU_TYPE=$(nvidia-smi --query-gpu=name --format=csv,noheader 2>/dev/null | head -1 | sed 's/NVIDIA //g; s/GeForce //g; s/Quadro //g; s/Tesla //g' | tr -d ' \r')
 [ -z "$GPU_TYPE" ] && GPU_TYPE="XPU"
-LOG_FILE="${SERVER_MODEL_NAME}/client_${CURRENT_TIME}_tp${TP}_mbt${MAX_BATCHED_TOKENS}_${GPU_TYPE}.log"
-SERVER_LOG="${SERVER_MODEL_NAME}/server_${CURRENT_TIME}_tp${TP}_mbt${MAX_BATCHED_TOKENS}_${GPU_TYPE}.log"
+LOG_FILE="${SERVER_MODEL_NAME}/client_${CURRENT_TIME}_tp${TP}_mbt${MAX_BATCHED_TOKENS}_${MM_W}x${MM_H}_${GPU_TYPE}.log"
+SERVER_LOG="${SERVER_MODEL_NAME}/server_${CURRENT_TIME}_tp${TP}_mbt${MAX_BATCHED_TOKENS}_${MM_W}x${MM_H}_${GPU_TYPE}.log"
 
 echo "Test results will be saved to: $LOG_FILE"
 echo "Server log will be saved to:   $SERVER_LOG"
@@ -152,7 +154,7 @@ run_benchmark() {
         --random-output-len 128 \
         --random-mm-base-items-per-request 1 \
         --random-mm-limit-mm-per-prompt '{"image": 1, "video": 0}' \
-        --random-mm-bucket-config '{(224,224, 1): 1.0}' \
+        --random-mm-bucket-config "{(${MM_W},${MM_H}, 1): 1.0}" \
         --request-rate inf \
         --backend openai-chat \
         --ignore-eos \
