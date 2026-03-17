@@ -31,11 +31,11 @@ if [ ! -f "/.dockerenv" ] && ! grep -q 'docker\|containerd' /proc/1/cgroup 2>/de
         echo "ERROR: Container '$CONTAINER_NAME' does not exist. Run setup_env.sh first."
         exit 1
     fi
-    echo "Bare-metal detected -- restarting container '$CONTAINER_NAME' to kill stale processes..."
-    sudo docker restart "$CONTAINER_NAME"
-    echo "Waiting for container to be ready..."
-    sleep 5
-    echo "Bare-metal detected -- re-executing inside container '$CONTAINER_NAME'..."
+    # echo "Bare-metal detected -- restarting container '$CONTAINER_NAME' to kill stale processes..."
+    # sudo docker restart "$CONTAINER_NAME"
+    # echo "Waiting for container to be ready..."
+    # sleep 5
+    # echo "Bare-metal detected -- re-executing inside container '$CONTAINER_NAME'..."
     exec sudo docker exec -it "$CONTAINER_NAME" bash "$SCRIPT_IN_CONTAINER" "${TRANSLATED_ARGS[@]}"
 fi
 
@@ -54,12 +54,12 @@ MAX_MODEL_LEN=16384
 GPU_MEM_UTIL=0.8
 
 # Setup logging
-mkdir -p LOG
+mkdir -p $SERVER_MODEL_NAME
 CURRENT_TIME=$(date "+%Y%m%d_%H%M%S")
 GPU_TYPE=$(nvidia-smi --query-gpu=name --format=csv,noheader 2>/dev/null | head -1 | sed 's/NVIDIA //g; s/GeForce //g; s/Quadro //g; s/Tesla //g' | tr -d ' \r')
 [ -z "$GPU_TYPE" ] && GPU_TYPE="XPU"
-LOG_FILE="LOG/sharegpt_benchmark_${SERVER_MODEL_NAME}_tp${TP}_mbt${MAX_BATCHED_TOKENS}_${GPU_TYPE}_${CURRENT_TIME}.log"
-SERVER_LOG="LOG/sharegpt_server_${SERVER_MODEL_NAME}_tp${TP}_mbt${MAX_BATCHED_TOKENS}_${GPU_TYPE}_${CURRENT_TIME}.log"
+LOG_FILE="${SERVER_MODEL_NAME}/client_${CURRENT_TIME}_tp${TP}_mbt${MAX_BATCHED_TOKENS}_${GPU_TYPE}.log"
+SERVER_LOG="${SERVER_MODEL_NAME}/server_${CURRENT_TIME}_tp${TP}_mbt${MAX_BATCHED_TOKENS}_${GPU_TYPE}.log"
 
 echo "Test results will be saved to: $LOG_FILE"
 echo "Server log will be saved to:   $SERVER_LOG"
@@ -100,7 +100,6 @@ VLLM_SERVER_ARGS=(
     -tp=$TP
 )
 
-export IMAGE_SIZE=224
 if [ "$GPU_TYPE" = "XPU" ]; then
     export VLLM_ALLOW_LONG_MAX_MODEL_LEN=1
     export VLLM_WORKER_MULTIPROC_METHOD=spawn
@@ -154,7 +153,7 @@ run_benchmark() {
         --random-output-len 128 \
         --random-mm-base-items-per-request 1 \
         --random-mm-limit-mm-per-prompt '{"image": 1, "video": 0}' \
-        --random-mm-bucket-config '{(224, 224, 1): 1.0}' \
+        --random-mm-bucket-config '{(224,224, 1): 1.0}' \
         --request-rate inf \
         --backend openai-chat \
         --ignore-eos \
