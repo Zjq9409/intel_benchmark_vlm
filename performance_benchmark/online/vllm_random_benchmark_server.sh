@@ -136,7 +136,7 @@ if [ $SERVER_READY -eq 0 ]; then
 fi
 
 # Run benchmarks
-[ "$GPU_TYPE" = "XPU" ] && MAX_BSIZE=30 || MAX_BSIZE=40
+[ "$GPU_TYPE" = "XPU" ] && MAX_BSIZE=100 || MAX_BSIZE=128
 
 run_benchmark() {
     local bsize=$1
