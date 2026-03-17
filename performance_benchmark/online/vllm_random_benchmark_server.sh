@@ -54,14 +54,16 @@ MAX_MODEL_LEN=16384
 GPU_MEM_UTIL=0.8
 MM_W=224
 MM_H=224
+INPUT_LEN=1024
+OUTPUT_LEN=1024
 
 # Setup logging
 mkdir -p $SERVER_MODEL_NAME
 CURRENT_TIME=$(date "+%Y%m%d_%H%M%S")
 GPU_TYPE=$(nvidia-smi --query-gpu=name --format=csv,noheader 2>/dev/null | head -1 | sed 's/NVIDIA //g; s/GeForce //g; s/Quadro //g; s/Tesla //g' | tr -d ' \r')
 [ -z "$GPU_TYPE" ] && GPU_TYPE="XPU"
-LOG_FILE="${SERVER_MODEL_NAME}/${CURRENT_TIME}_client_tp${TP}_mbt${MAX_BATCHED_TOKENS}_${MM_W}x${MM_H}_${GPU_TYPE}.log"
-SERVER_LOG="${SERVER_MODEL_NAME}/${CURRENT_TIME}_server_tp${TP}_mbt${MAX_BATCHED_TOKENS}_${MM_W}x${MM_H}_${GPU_TYPE}.log"
+LOG_FILE="${SERVER_MODEL_NAME}/${CURRENT_TIME}_client_tp${TP}_mbt${MAX_BATCHED_TOKENS}_${MM_W}x${MM_H}_in${INPUT_LEN}_out${OUTPUT_LEN}_${GPU_TYPE}.log"
+SERVER_LOG="${SERVER_MODEL_NAME}/${CURRENT_TIME}_server_tp${TP}_mbt${MAX_BATCHED_TOKENS}_${MM_W}x${MM_H}_in${INPUT_LEN}_out${OUTPUT_LEN}_${GPU_TYPE}.log"
 
 echo "Test results will be saved to: $LOG_FILE"
 echo "Server log will be saved to:   $SERVER_LOG"
@@ -137,7 +139,7 @@ if [ $SERVER_READY -eq 0 ]; then
 fi
 
 # Run benchmarks
-[ "$GPU_TYPE" = "XPU" ] && MAX_BSIZE=100 || MAX_BSIZE=200
+[ "$GPU_TYPE" = "XPU" ] && MAX_BSIZE=100 || MAX_BSIZE=180
 MM_BUCKET_CONFIG="{(${MM_W},${MM_H}, 1): 1.0}"
 
 run_benchmark() {
@@ -151,8 +153,8 @@ run_benchmark() {
         --num-prompts $bsize \
         --max-concurrency $bsize \
         --ready-check-timeout-sec 1 --num-warmups 1 \
-        --random-input-len 128 \
-        --random-output-len 128 \
+        --random-input-len $INPUT_LEN \
+        --random-output-len $OUTPUT_LEN \
         --random-mm-base-items-per-request 1 \
         --random-mm-limit-mm-per-prompt '{"image": 1, "video": 0}' \
         --random-mm-bucket-config "$MM_BUCKET_CONFIG" \
