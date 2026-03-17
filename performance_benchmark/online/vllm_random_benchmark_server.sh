@@ -110,6 +110,7 @@ if [ "$GPU_TYPE" = "XPU" ]; then
     VLLM_SERVER_ARGS+=(--enforce-eager)
 else
     export LD_LIBRARY_PATH=/usr/lib/x86_64-linux-gnu:$LD_LIBRARY_PATH
+    export NCCL_P2P_LEVEL=SYS
 fi
 
 nohup vllm serve "${VLLM_SERVER_ARGS[@]}" > "$SERVER_LOG" 2>&1 &
