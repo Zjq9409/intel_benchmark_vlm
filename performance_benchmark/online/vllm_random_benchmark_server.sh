@@ -137,7 +137,8 @@ if [ $SERVER_READY -eq 0 ]; then
 fi
 
 # Run benchmarks
-[ "$GPU_TYPE" = "XPU" ] && MAX_BSIZE=100 || MAX_BSIZE=128
+[ "$GPU_TYPE" = "XPU" ] && MAX_BSIZE=100 || MAX_BSIZE=200
+MM_BUCKET_CONFIG="{(${MM_W},${MM_H}, 1): 1.0}"
 
 run_benchmark() {
     local bsize=$1
@@ -154,7 +155,7 @@ run_benchmark() {
         --random-output-len 128 \
         --random-mm-base-items-per-request 1 \
         --random-mm-limit-mm-per-prompt '{"image": 1, "video": 0}' \
-        --random-mm-bucket-config "{(${MM_W},${MM_H}, 1): 1.0}" \
+        --random-mm-bucket-config "$MM_BUCKET_CONFIG" \
         --request-rate inf \
         --backend openai-chat \
         --ignore-eos \
@@ -163,8 +164,10 @@ run_benchmark() {
 }
 
 run_benchmark 1
-for (( i=2; i<=MAX_BSIZE; i+=2 )); do
+i=2
+while [ $i -le $MAX_BSIZE ]; do
     run_benchmark $i
+    i=$((i + 2))
 done
 
 echo "All benchmark runs finished. Stopping server..."
