@@ -60,8 +60,8 @@ mkdir -p $SERVER_MODEL_NAME
 CURRENT_TIME=$(date "+%Y%m%d_%H%M%S")
 GPU_TYPE=$(nvidia-smi --query-gpu=name --format=csv,noheader 2>/dev/null | head -1 | sed 's/NVIDIA //g; s/GeForce //g; s/Quadro //g; s/Tesla //g' | tr -d ' \r')
 [ -z "$GPU_TYPE" ] && GPU_TYPE="XPU"
-LOG_FILE="${SERVER_MODEL_NAME}/client_${CURRENT_TIME}_tp${TP}_mbt${MAX_BATCHED_TOKENS}_${MM_W}x${MM_H}_${GPU_TYPE}.log"
-SERVER_LOG="${SERVER_MODEL_NAME}/server_${CURRENT_TIME}_tp${TP}_mbt${MAX_BATCHED_TOKENS}_${MM_W}x${MM_H}_${GPU_TYPE}.log"
+LOG_FILE="${SERVER_MODEL_NAME}/${CURRENT_TIME}_client_tp${TP}_mbt${MAX_BATCHED_TOKENS}_${MM_W}x${MM_H}_${GPU_TYPE}.log"
+SERVER_LOG="${SERVER_MODEL_NAME}/${CURRENT_TIME}_server_tp${TP}_mbt${MAX_BATCHED_TOKENS}_${MM_W}x${MM_H}_${GPU_TYPE}.log"
 
 echo "Test results will be saved to: $LOG_FILE"
 echo "Server log will be saved to:   $SERVER_LOG"
