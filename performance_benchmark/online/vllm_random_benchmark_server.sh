@@ -169,3 +169,8 @@ done
 echo "All benchmark runs finished. Stopping server..."
 kill $SERVER_PID
 echo "Done."
+
+# Parse log and generate CSV
+echo "Parsing log and generating CSV..."
+python3 "$(dirname "$0")/parse_log.py" "$LOG_FILE"
+echo "CSV saved."
