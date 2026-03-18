@@ -37,26 +37,25 @@ if __name__ == '__main__':
                 continue  # 跳过重复行
             previous_line = dataline
 
-            if dataline.startswith('Running benchmark with batch size'):
+            if dataline.startswith('>>> Running vllm bench serve with --num-prompts='):
                 # 如果遇到新的 Batch Size 开头，保存上一组数据并开始新组
                 if current_group:
                     results.append(current_group)
-                current_group = {'Batch Size': get_num(dataline)}
+                bsize = int(dataline.split('--num-prompts=')[1].split()[0])
+                current_group = {'Batch Size': bsize}
             elif dataline.strip().lower().startswith('successful requests:'):
                 current_group['Successful Requests'] = get_num(dataline)
             elif dataline.startswith('Benchmark duration (s):'):
                 current_group['Benchmark Duration (s)'] = get_num(dataline)
             elif dataline.startswith('Total input tokens:'):
                 current_group['Total Input Tokens'] = get_num(dataline)
-            elif dataline.startswith('Total image and input tokens:'):
-                current_group['Total Image and Input Tokens'] = get_num(dataline)
             elif dataline.startswith('Total generated tokens:'):
                 current_group['Total Generated Tokens'] = get_num(dataline)
             elif dataline.startswith('Request throughput (req/s):'):
                 current_group['Request Throughput (req/s)'] = get_num(dataline)
             elif dataline.startswith('Output token throughput (tok/s):'):
                 current_group['Output Token Throughput (tok/s)'] = get_num(dataline)
-            elif dataline.startswith('Total Token throughput (tok/s):'):
+            elif dataline.startswith('Total token throughput (tok/s):'):
                 current_group['Total Token Throughput (tok/s)'] = get_num(dataline)
             elif dataline.startswith('Mean TTFT (ms):'):
                 current_group['Mean TTFT (ms)'] = get_num(dataline)
@@ -82,7 +81,7 @@ if __name__ == '__main__':
         "Successful Requests", "Mean TTFT (ms)", "Mean TPOT (ms)", 
         "Output Token Throughput (tok/s)", "Request Throughput (req/s)",
         "Benchmark Duration (s)", "Total Input Tokens",
-        "Total Image and Input Tokens", "Total Generated Tokens",
+        "Total Generated Tokens",
         "Total Token Throughput (tok/s)", "Mean ITL (ms)"
     ]
 

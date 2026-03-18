@@ -150,7 +150,13 @@ if [ $SERVER_READY -eq 0 ]; then
 fi
 
 # Run benchmarks
-[ "$GPU_TYPE" = "XPU" ] && MAX_BSIZE=150 || MAX_BSIZE=200
+if [ "$GPU_TYPE" = "XPU" ]; then
+    MAX_BSIZE=150
+elif [ "$GPU_TYPE" = "RTX5090" ]; then
+    MAX_BSIZE=300
+else
+    MAX_BSIZE=200
+fi
 MM_BUCKET_CONFIG="{(${MM_W},${MM_H}, 1): 1.0}"
 
 run_benchmark() {
