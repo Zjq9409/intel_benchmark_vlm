@@ -7,7 +7,7 @@ if [ ! -f "/.dockerenv" ] && ! grep -q 'docker\|containerd' /proc/1/cgroup 2>/de
     if nvidia-smi &>/dev/null; then
         CONTAINER_NAME="vllm-nv-container"
     else
-        CONTAINER_NAME="lsv-container"
+        CONTAINER_NAME="lsv-container-b8"
     fi
 
     SCRIPT_IN_CONTAINER="/llm/performance_benchmark/online/$(basename "$0")"
@@ -151,7 +151,11 @@ fi
 
 # Run benchmarks
 if [ "$GPU_TYPE" = "XPU" ]; then
-    MAX_BSIZE=150
+     if [ "$MODEL_SELECT" = "4b" ]; then
+        MAX_BSIZE=100
+    else
+        MAX_BSIZE=130
+    fi
 elif [ "$GPU_TYPE" = "RTX5090" ]; then
     if [ "$MODEL_SELECT" = "4b" ]; then
         MAX_BSIZE=130
