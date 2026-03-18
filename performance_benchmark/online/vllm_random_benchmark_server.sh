@@ -153,7 +153,11 @@ fi
 if [ "$GPU_TYPE" = "XPU" ]; then
     MAX_BSIZE=150
 elif [ "$GPU_TYPE" = "RTX5090" ]; then
-    MAX_BSIZE=300
+    if [ "$MODEL_SELECT" = "4b" ]; then
+        MAX_BSIZE=130
+    else
+        MAX_BSIZE=300
+    fi
 else
     MAX_BSIZE=200
 fi
