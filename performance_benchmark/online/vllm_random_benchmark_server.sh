@@ -123,6 +123,8 @@ else
     export NCCL_P2P_LEVEL=SYS
 fi
 
+export CUDA_VISIBLE_DEVICES=4
+
 nohup vllm serve "${VLLM_SERVER_ARGS[@]}" > "$SERVER_LOG" 2>&1 &
 SERVER_PID=$!
 echo "Server PID: $SERVER_PID"
@@ -153,7 +155,11 @@ fi
 if [ "$GPU_TYPE" = "XPU" ]; then
     MAX_BSIZE=150
 else
-    MAX_BSIZE=200
+    if [ "$MODEL_SELECT" = "4b" ]; then
+        MAX_BSIZE=90
+    else
+        MAX_BSIZE=200
+    fi
 fi
 
 MM_BUCKET_CONFIG="{(${MM_W},${MM_H}, 1): 1.0}"
