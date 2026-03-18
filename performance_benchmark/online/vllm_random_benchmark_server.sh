@@ -62,8 +62,8 @@ PORT=8006
 MAX_BATCHED_TOKENS=8192
 MAX_MODEL_LEN=16384
 GPU_MEM_UTIL=0.8
-MM_W=224
-MM_H=224
+MM_W=1280
+MM_H=720
 INPUT_LEN=1024
 OUTPUT_LEN=1024
 
@@ -151,20 +151,11 @@ fi
 
 # Run benchmarks
 if [ "$GPU_TYPE" = "XPU" ]; then
-     if [ "$MODEL_SELECT" = "4b" ]; then
-        MAX_BSIZE=100
-    else
-        MAX_BSIZE=130
-    fi
-elif [ "$GPU_TYPE" = "RTX5090" ]; then
-    if [ "$MODEL_SELECT" = "4b" ]; then
-        MAX_BSIZE=130
-    else
-        MAX_BSIZE=300
-    fi
+    MAX_BSIZE=150
 else
     MAX_BSIZE=200
 fi
+
 MM_BUCKET_CONFIG="{(${MM_W},${MM_H}, 1): 1.0}"
 
 run_benchmark() {
@@ -190,10 +181,28 @@ run_benchmark() {
         --seed 42 2>&1 | tee -a "$LOG_FILE"
 }
 
+check_ttft() {
+    local ttft
+    ttft=$(grep 'Mean TTFT (ms):' "$LOG_FILE" | tail -1 | awk '{print $NF}')
+    if [ -n "$ttft" ]; then
+        if awk "BEGIN { exit !(${ttft} > 7000) }"; then
+            echo "Mean TTFT ${ttft}ms exceeds 7000ms threshold. Stopping server..."
+            kill $SERVER_PID
+            echo "Done."
+            echo "Parsing log and generating CSV..."
+            python3 "$(dirname "$0")/parse_log.py" "$LOG_FILE"
+            echo "CSV saved."
+            exit 0
+        fi
+    fi
+}
+
 run_benchmark 1
+check_ttft
 i=2
 while [ $i -le $MAX_BSIZE ]; do
     run_benchmark $i
+    check_ttft
     i=$((i + 2))
 done
 
