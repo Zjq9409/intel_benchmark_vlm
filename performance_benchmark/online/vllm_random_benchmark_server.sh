@@ -45,10 +45,20 @@ cd "$(dirname "$(realpath "$0")")"
 # ----------------------------------------------------------------
 # Configuration
 # ----------------------------------------------------------------
-SERVER_MODEL="/llm/models/Qwen3-VL-30B-A3B-Instruct"
-SERVER_MODEL_NAME="Qwen3-VL-30B-A3B-Instruct"
+# Select model via first argument: "4b" for Qwen3-VL-4B-Instruct, default is 30B
+MODEL_SELECT="${1:-30b}"
+
+if [ "$MODEL_SELECT" = "4b" ]; then
+    SERVER_MODEL="/llm/models/Qwen3-VL-4B-Instruct"
+    SERVER_MODEL_NAME="Qwen3-VL-4B-Instruct"
+    TP=1
+else
+    SERVER_MODEL="/llm/models/Qwen3-VL-30B-A3B-Instruct"
+    SERVER_MODEL_NAME="Qwen3-VL-30B-A3B-Instruct"
+    TP=4
+fi
+
 PORT=8006
-TP=4
 MAX_BATCHED_TOKENS=8192
 MAX_MODEL_LEN=16384
 GPU_MEM_UTIL=0.8
@@ -140,7 +150,7 @@ if [ $SERVER_READY -eq 0 ]; then
 fi
 
 # Run benchmarks
-[ "$GPU_TYPE" = "XPU" ] && MAX_BSIZE=100 || MAX_BSIZE=180
+[ "$GPU_TYPE" = "XPU" ] && MAX_BSIZE=150 || MAX_BSIZE=200
 MM_BUCKET_CONFIG="{(${MM_W},${MM_H}, 1): 1.0}"
 
 run_benchmark() {
