@@ -185,8 +185,8 @@ check_ttft() {
     local ttft
     ttft=$(grep 'Mean TTFT (ms):' "$LOG_FILE" | tail -1 | awk '{print $NF}')
     if [ -n "$ttft" ]; then
-        if awk "BEGIN { exit !(${ttft} > 7000) }"; then
-            echo "Mean TTFT ${ttft}ms exceeds 7000ms threshold. Stopping server..."
+        if awk "BEGIN { exit !(${ttft} > 6000) }"; then
+            echo "Mean TTFT ${ttft}ms exceeds 6000ms threshold. Stopping server..."
             kill $SERVER_PID
             echo "Done."
             echo "Parsing log and generating CSV..."
