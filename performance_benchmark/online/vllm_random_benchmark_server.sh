@@ -152,15 +152,7 @@ if [ $SERVER_READY -eq 0 ]; then
 fi
 
 # Run benchmarks
-if [ "$GPU_TYPE" = "XPU" ]; then
-    MAX_BSIZE=150
-else
-    if [ "$MODEL_SELECT" = "4b" ]; then
-        MAX_BSIZE=90
-    else
-        MAX_BSIZE=200
-    fi
-fi
+MAX_BSIZE=200
 
 MM_BUCKET_CONFIG="{(${MM_W},${MM_H}, 1): 1.0}"
 
