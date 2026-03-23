@@ -6,12 +6,24 @@ export MODEL_PATH="/llm/models/Qwen3-VL-4B-Instruct"
 export MODEL_NAME="Qwen3-VL-4B-Instruct"
 # export LD_LIBRARY_PATH=/usr/lib/x86_64-linux-gnu:$LD_LIBRARY_PATH
 
+# Usage: bash torch_start_server.sh [--profile|--no-profile]
+# Default: profiling disabled
+ENABLE_PROFILE=0
+for arg in "$@"; do
+    case "$arg" in
+        --profile) ENABLE_PROFILE=1 ;;
+        --no-profile) ENABLE_PROFILE=0 ;;
+    esac
+done
+
 PROFILE_BASE_DIR="/llm/performance_benchmark/profile/qwen-vl-4b"
 PROFILE_TIMESTAMP=$(date +"%Y%m%d_%H%M%S")
 PROFILE_DIR="${PROFILE_BASE_DIR}/${PROFILE_TIMESTAMP}"
-mkdir -p "$PROFILE_DIR"
 
-# export VLLM_TORCH_PROFILER_DIR="$PROFILE_DIR"
+if [ "$ENABLE_PROFILE" = "1" ]; then
+    mkdir -p "$PROFILE_DIR"
+    export VLLM_TORCH_PROFILER_DIR="$PROFILE_DIR"
+fi
 
 if [ "$GPU_TYPE" = "XPU" ]; then
     python3 -m vllm.entrypoints.openai.api_server \

@@ -1,10 +1,22 @@
 
-export PROMPT_FILE="../../prompt_128.txt"
 export SERVER_MODEL="/llm/models/Qwen3-VL-4B-Instruct"
 export SERVER_MODEL_NAME="Qwen3-VL-4B-Instruct"
 export bsize=4
 export OUTPUT_LEN=24
 export PORT=8000
+# Usage: bash test_client.sh [--profile|--no-profile]
+# Default: profiling disabled
+ENABLE_PROFILE=0
+for arg in "$@"; do
+    case "$arg" in
+        --profile) ENABLE_PROFILE=1 ;;
+        --no-profile) ENABLE_PROFILE=0 ;;
+    esac
+done
+
+PROFILE_FLAG=""
+[ "$ENABLE_PROFILE" = "1" ] && PROFILE_FLAG="--profile"
+
 vllm bench serve \
             --backend openai-chat \
             --model "$SERVER_MODEL" \
@@ -17,12 +29,12 @@ vllm bench serve \
             --random-output-len $OUTPUT_LEN \
             --random-mm-base-items-per-request 1 \
             --random-mm-limit-mm-per-prompt '{"image": 1, "video": 0}' \
-            --random-mm-bucket-config '{ (720, 1280, 1): 1}' \
+            --random-mm-bucket-config '{ (720, 1280, 1): 1 }' \
             --request-rate inf \
             --ignore-eos \
             --port=$PORT \
-            --profile \
-            --seed 42
+            --seed 42  \
+            $PROFILE_FLAG \
 
 # python3 ../vlm_benchmark.py \
 #         --prompt "$(cat "$PROMPT_FILE")" \

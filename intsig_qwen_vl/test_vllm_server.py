@@ -194,8 +194,8 @@ if __name__ == '__main__':
     # dataset_path = '/home/intel/llm_test/ocr_qwen_vl/test_dataset.jsonl'  # 仅单图测试
     # dataset_path = '/home/intel/llm_test/ocr_qwen_vl/test_dataset_multi.jsonl'  # 仅多图测试
     args = Arguments(
-        # model='Qwen3-VL-4B-Instruct', 
-        model='Qwen3-VL-8B-Instruct', # For Intel B60
+        model='Qwen3-VL-4B-Instruct', 
+        # model='Qwen3-VL-8B-Instruct', # For Intel B60
         # url='http://10.48.2.128:30096/v1/chat/completions', # 5090 tp 1
         # url='http://10.48.2.128:30086/v1/chat/completions', # 5090 tp 2
         # url='http://10.48.1.135:30087/v1/chat/completions',   # l4 tp 2
@@ -211,8 +211,8 @@ if __name__ == '__main__':
         parallel=parallel,  # 并发数
         seed=42,          # 固定随机种子，确保跨平台输入一致
         top_p=1,
-        # max_tokens=24,   # 固定最大输出长度，确保跨并发测试输出长度一致
-        max_tokens=1024,   # 固定最大输出长度，确保跨并发测试输出长度一致
+        max_tokens=24,   # 固定最大输出长度，确保跨并发测试输出长度一致
+        #max_tokens=1024,   # 固定最大输出长度，确保跨并发测试输出长度一致
         stream=False,
         debug=True
     )
