@@ -11,7 +11,7 @@ PROFILE_TIMESTAMP=$(date +"%Y%m%d_%H%M%S")
 PROFILE_DIR="${PROFILE_BASE_DIR}/${PROFILE_TIMESTAMP}"
 mkdir -p "$PROFILE_DIR"
 
-export VLLM_TORCH_PROFILER_DIR="$PROFILE_DIR"
+# export VLLM_TORCH_PROFILER_DIR="$PROFILE_DIR"
 
 if [ "$GPU_TYPE" = "XPU" ]; then
     python3 -m vllm.entrypoints.openai.api_server \
@@ -28,7 +28,6 @@ if [ "$GPU_TYPE" = "XPU" ]; then
     --max-model-len 12768 \
     --enforce-eager \
     --block-size 64 \
-    --profiler-config '{"profiler": "torch", "torch_profiler_dir": "./vllm_profile"}' \
     -tp=$TP   
 else
     python3 -m vllm.entrypoints.openai.api_server \
@@ -45,6 +44,5 @@ else
     --disable-log-requests \
     --max-model-len 12768 \
     --block-size 64 \
-    --profiler-config '{"profiler": "torch", "torch_profiler_dir": "./vllm_profile"}' \
     -tp=$TP   
 fi
