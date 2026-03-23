@@ -1,0 +1,13 @@
+vllm serve \
+    --model /llm/models/Qwen3-VL-4B-Instruct/ \
+    --served-model-name Qwen3-VL-4B-Instruct \
+    --dtype=float16 \
+    --port 8000 \
+    --host 0.0.0.0 \
+    --trust-remote-code \
+    --enforce-eager    \
+    --max-model-len=32768 \
+    --max-num-batched-tokens=8192 \
+    --block-size 64 \
+    --no-enable-prefix-caching \
+    --gpu-memory-util=0.9 
