@@ -60,7 +60,14 @@ class CustomDatasetPlugin(DatasetPluginBase):
             if len(imgs) != len(images):
                 continue
             
-            imgs = [dynamic_processess_qwen2(img, 32, 3136, 262144) for img in imgs]
+            processed_imgs = []
+            for idx, img in enumerate(imgs):
+                orig_h, orig_w = img.shape[:2]
+                processed = dynamic_processess_qwen2(img, 32, 3136, 262144)
+                proc_h, proc_w = processed.shape[:2]
+                print(f"  图片[{idx}] {images[idx]}: 原始 {orig_w}x{orig_h} -> 处理后 {proc_w}x{proc_h}")
+                processed_imgs.append(processed)
+            imgs = processed_imgs
             imgs = [b64encode_image(cv2.imencode('.png', image)[1].tobytes()) for image in imgs]
 
             placeholders = [{
