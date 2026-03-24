@@ -1,3 +1,6 @@
+export VLLM_ALLOW_LONG_MAX_MODEL_LEN=1
+export VLLM_WORKER_MULTIPROC_METHOD=spawn
+export VLLM_USE_V1=1  
 vllm serve \
     --model /llm/models/Qwen3-VL-4B-Instruct/ \
     --served-model-name Qwen3-VL-4B-Instruct \
