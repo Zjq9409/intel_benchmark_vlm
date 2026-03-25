@@ -33,7 +33,7 @@ if [ "$GPU_TYPE" = "XPU" ]; then
     --model "$MODEL_PATH" \
     --served-model-name "$MODEL_NAME" \
     --dtype=float16 \
-    --port 8000 \
+    --port 8001 \
     --host 0.0.0.0 \
     --trust-remote-code \
     --gpu-memory-util=0.8 \
