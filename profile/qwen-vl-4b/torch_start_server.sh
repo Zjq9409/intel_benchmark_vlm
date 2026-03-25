@@ -26,6 +26,9 @@ if [ "$ENABLE_PROFILE" = "1" ]; then
 fi
 
 if [ "$GPU_TYPE" = "XPU" ]; then
+    export VLLM_ALLOW_LONG_MAX_MODEL_LEN=1
+    export VLLM_WORKER_MULTIPROC_METHOD=spawn
+    export VLLM_USE_V1=1  
     python3 -m vllm.entrypoints.openai.api_server \
     --model "$MODEL_PATH" \
     --served-model-name "$MODEL_NAME" \
@@ -42,6 +45,8 @@ if [ "$GPU_TYPE" = "XPU" ]; then
     --block-size 64 \
     -tp=$TP   
 else
+    export LD_LIBRARY_PATH=/usr/lib/x86_64-linux-gnu:$LD_LIBRARY_PATH
+    export NCCL_P2P_LEVEL=SYS
     python3 -m vllm.entrypoints.openai.api_server \
     --model "$MODEL_PATH" \
     --served-model-name "$MODEL_NAME" \

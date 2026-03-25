@@ -3,6 +3,7 @@ export SERVER_MODEL="/llm/models/Qwen3-VL-4B-Instruct"
 export SERVER_MODEL_NAME="Qwen3-VL-4B-Instruct"
 export bsize=4
 export OUTPUT_LEN=1024
+export INPUT_LEN=1024
 export PORT=8000
 # Usage: bash test_client.sh [--profile|--no-profile]
 # Default: profiling disabled
@@ -25,13 +26,12 @@ vllm bench serve \
             --dataset-name random-mm \
             --num-prompts $bsize \
             --max-concurrency $bsize \
-            --random-input-len 1024 \
+            --random-input-len  $INPUT_LEN \
             --random-output-len $OUTPUT_LEN \
             --random-mm-base-items-per-request 1 \
-          --random-mm-limit-mm-per-prompt '{"image": 2, "video": 0}' \
+            --random-mm-limit-mm-per-prompt '{"image": , "video": 0}' \
             --random-mm-bucket-config '{ 
-                (720, 1280, 1): 0.5, 
-                (480, 640, 1): 0.5 
+                (426, 640, 1): 1, 
             }'  \
             --request-rate inf \
             --ignore-eos \
