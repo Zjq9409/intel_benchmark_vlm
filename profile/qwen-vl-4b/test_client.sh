@@ -1,9 +1,8 @@
-
 export SERVER_MODEL="/llm/models/Qwen3-VL-4B-Instruct"
 export SERVER_MODEL_NAME="Qwen3-VL-4B-Instruct"
 export bsize=4
 export OUTPUT_LEN=1024
-export INPUT_LEN=512
+export INPUT_LEN=1024
 export PORT=8000
 # Usage: bash test_client.sh [--profile|--no-profile]
 # Default: profiling disabled
@@ -18,7 +17,7 @@ done
 PROFILE_FLAG=""
 if [ "$ENABLE_PROFILE" = "1" ]; then
     PROFILE_FLAG="--profile"
-    OUTPUT_LEN=10
+    OUTPUT_LEN=20
 fi
 
 vllm bench serve \
@@ -33,20 +32,9 @@ vllm bench serve \
             --random-output-len $OUTPUT_LEN \
             --random-mm-base-items-per-request 1 \
             --random-mm-limit-mm-per-prompt '{"image": 1, "video": 0}' \
-            --random-mm-bucket-config '{ (426, 640, 1): 1, }'  \
+             --random-mm-bucket-config '{ (720, 1280, 1): 1}' \
             --request-rate inf \
             --ignore-eos \
             --port=$PORT \
             --seed 42  \
-            $PROFILE_FLAG \
-
-# python3 ../vlm_benchmark.py \
-#         --prompt "$(cat "$PROMPT_FILE")" \
-#         --model "$MODEL_PATH" \
-#         --served-model-name "$MODEL_NAME" \
-#         --batch_size "$bsize" \
-#         --output_len "$OUTPUT_LEN" \
-#         --port 8000 \
-#         --host 127.0.0.1 \
-#         --profile \
-#         --ignore-eos
+            $PROFILE_FLAG
