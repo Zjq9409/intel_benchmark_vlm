@@ -3,7 +3,7 @@ export SERVER_MODEL="/llm/models/Qwen3-VL-4B-Instruct"
 export SERVER_MODEL_NAME="Qwen3-VL-4B-Instruct"
 export bsize=4
 export OUTPUT_LEN=1024
-export INPUT_LEN=1024
+export INPUT_LEN=512
 export PORT=8000
 # Usage: bash test_client.sh [--profile|--no-profile]
 # Default: profiling disabled
@@ -16,10 +16,8 @@ for arg in "$@"; do
 done
 
 PROFILE_FLAG=""
-if [ "$ENABLE_PROFILE" = "1" ]; then
-    PROFILE_FLAG="--profile"
-    OUTPUT_LEN=10
-fi
+[ "$ENABLE_PROFILE" = "1" ] && PROFILE_FLAG="--profile"
+[ "$ENABLE_PROFILE" = "1" ] && export OUTPUT_LEN=10
 
 vllm bench serve \
             --backend openai-chat \
