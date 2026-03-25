@@ -16,8 +16,10 @@ for arg in "$@"; do
 done
 
 PROFILE_FLAG=""
-[ "$ENABLE_PROFILE" = "1" ] && PROFILE_FLAG="--profile"
-[ "$ENABLE_PROFILE" = "1" ] && export OUTPUT_LEN=10
+if [ "$ENABLE_PROFILE" = "1" ]; then
+    PROFILE_FLAG="--profile"
+    OUTPUT_LEN=10
+fi
 
 vllm bench serve \
             --backend openai-chat \

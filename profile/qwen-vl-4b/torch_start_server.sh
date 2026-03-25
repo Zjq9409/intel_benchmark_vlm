@@ -16,7 +16,7 @@ for arg in "$@"; do
     esac
 done
 
-PROFILE_BASE_DIR="/llm/performance_benchmark/profile/qwen-vl-4b"
+PROFILE_BASE_DIR="/llm/profile/qwen-vl-4b"
 PROFILE_TIMESTAMP=$(date +"%Y%m%d_%H%M%S")
 PROFILE_DIR="${PROFILE_BASE_DIR}/${PROFILE_TIMESTAMP}"
 
@@ -56,10 +56,10 @@ else
     --trust-remote-code \
     --gpu-memory-util=0.8 \
     --no-enable-prefix-caching \
-    --enforce-eager \
     --max-num-batched-tokens=8192 \
     --disable-log-requests \
     --max-model-len 12768 \
     --block-size 64 \
     -tp=$TP   
+    # --enforce-eager 
 fi
