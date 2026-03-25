@@ -29,10 +29,8 @@ vllm bench serve \
             --random-input-len  $INPUT_LEN \
             --random-output-len $OUTPUT_LEN \
             --random-mm-base-items-per-request 1 \
-            --random-mm-limit-mm-per-prompt '{"image": , "video": 0}' \
-            --random-mm-bucket-config '{ 
-                (426, 640, 1): 1, 
-            }'  \
+            --random-mm-limit-mm-per-prompt '{"image": 1, "video": 0}' \
+            --random-mm-bucket-config '{ (426, 640, 1): 1, }'  \
             --request-rate inf \
             --ignore-eos \
             --port=$PORT \
