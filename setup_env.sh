@@ -131,7 +131,7 @@ echo "  No NVIDIA GPU detected — using Intel Docker path."
 # ----------------------------------------------------------------
 # Intel path: Docker image + container
 # ----------------------------------------------------------------
-IMAGE_VERSION="${IMAGE_VERSION_ARG:-${IMAGE_VERSION:-0.11.1-b7}}"
+IMAGE_VERSION="${IMAGE_VERSION_ARG:-${IMAGE_VERSION:-0.14.0-b8}}"
 IMAGE_SUFFIX=$(echo "$IMAGE_VERSION" | sed 's/.*-//')
 CONTAINER_NAME="lsv-container-${IMAGE_SUFFIX}"
 # WEIGHTS_DIR: --weights-dir arg > env var > auto-detect as ../weights relative to SCRIPT_DIR

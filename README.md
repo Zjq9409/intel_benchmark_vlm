@@ -21,17 +21,8 @@
 脚本自动检测 GPU 类型，无需区分 NVIDIA / Intel，统一调用方式如下：
 
 ```bash
-# 默认启动（自动检测 GPU，使用 ../weights 作为模型目录）
-bash setup_env.sh
-
-# 指定模型目录
-bash setup_env.sh --weights-dir /data/models
-
 # 指定模型目录和脚本根目录
-bash setup_env.sh --weights-dir /data/models --script-dir /custom/path
-
-# 仅 Intel GPU：指定镜像版本（NVIDIA 忽略此参数）
-bash setup_env.sh --image-version 0.12.0 --weights-dir /data/models
+bash setup_env.sh --weights-dir /data/weights/ --script-dir /data/intel_benchmark_vlm/
 ```
 
 ---
