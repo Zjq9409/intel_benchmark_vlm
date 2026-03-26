@@ -1,14 +1,5 @@
 # Performance测试
 
-
-## 脚本说明
-
-| 脚本 | 说明 |
-|------|------|
-| `setup_env.sh` | 环境初始化脚本，自动检测 GPU 类型：检测到 **NVIDIA GPU** 时，拉取 `vllm/vllm-openai` Docker 镜像并启动容器；检测到 **Intel GPU** 时，拉取 `intel/llm-scaler-vllm` Docker 镜像并启动容器。支持命名参数：`--weights-dir`（模型目录，默认 `../weights`）、`--script-dir`（脚本根目录，默认脚本所在目录）、`--image-version`（Intel 镜像版本，默认 `0.11.1-b7`） |
-| `performance_benchmark/online/vllm_random_benchmark_server.sh` | **NVIDIA / Intel GPU 通用**性能测试脚本。自动检测 GPU 类型，启动 vllm OpenAI 兼容服务端（支持 fp8 量化、tp 并行），使用 `vllm bench serve --dataset-name random-mm` 进行图文 benchmark（随机生成指定尺寸图片，无需预先下载数据集），循环运行 num-prompts 从 1 到 200（步长 2），当 Mean TTFT 超过 6000ms 时自动停止，完成后自动调用 `parse_log.py` 生成 CSV 结果 |
-| `performance_benchmark/online/run_both.sh` | 批量运行脚本，依次以不同模型/图片尺寸组合执行 `vllm_random_benchmark_server.sh` |
-
 ### 参数与容器路径映射
 
 | 参数 | 宿主机路径 | 容器内路径 | 说明 |
