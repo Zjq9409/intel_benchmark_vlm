@@ -13,7 +13,7 @@
 
 ```bash
 # 在宿主机上运行，自动检测 GPU 类型并启动对应容器
-bash setup_env.sh --weights-dir /data/weights/ --script-dir /data/intel_benchmark_vlm/
+bash setup_env.sh --weights-dir /data/weights/ --script-dir /data/intel_benchmark_vlm/ --image-version 0.14.0-b8
 ```
 
 ### 2. 运行在线性能测试
