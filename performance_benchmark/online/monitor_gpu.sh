@@ -1,0 +1,1 @@
+sudo xpu-smi dump -m 0,1,2,3,18,22 -d 0

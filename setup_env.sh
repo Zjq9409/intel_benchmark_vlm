@@ -32,7 +32,8 @@ while [[ $# -gt 0 ]]; do
     esac
 done
 
-IMAGE_BASE="intel/llm-scaler-vllm"
+#IMAGE_BASE="intel/llm-scaler-vllm"
+IMAGE_BASE="intel/vllm"
 
 echo "============================================================"
 echo "  Environment Setup"
@@ -131,7 +132,7 @@ echo "  No NVIDIA GPU detected — using Intel Docker path."
 # ----------------------------------------------------------------
 # Intel path: Docker image + container
 # ----------------------------------------------------------------
-IMAGE_VERSION="${IMAGE_VERSION_ARG:-${IMAGE_VERSION:-0.14.0-b8}}"
+IMAGE_VERSION="${IMAGE_VERSION_ARG:-${IMAGE_VERSION:-0.17.0-xpu}}"
 IMAGE_SUFFIX=$(echo "$IMAGE_VERSION" | sed 's/.*-//')
 CONTAINER_NAME="lsv-container-${IMAGE_SUFFIX}"
 # WEIGHTS_DIR: --weights-dir arg > env var > auto-detect as ../weights relative to SCRIPT_DIR

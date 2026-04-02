@@ -20,9 +20,8 @@ if [ "$GPU_TYPE" = "XPU" ]; then
     --gpu-memory-util=0.8 \
     --no-enable-prefix-caching \
     --max-num-batched-tokens=8192 \
-    --disable-log-requests \
     --max-model-len 12768 \
-    --enforce-eager \
+    --async-scheduling \
     --block-size 64 \
     -tp=$TP   
 else

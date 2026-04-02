@@ -110,6 +110,7 @@ VLLM_SERVER_ARGS=(
     --max-model-len=$MAX_MODEL_LEN
     --block-size 64
     --quantization fp8
+    --async-scheduling 
     -tp=$TP
 )
 
