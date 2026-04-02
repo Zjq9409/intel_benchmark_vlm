@@ -7,13 +7,21 @@ sudo -v
 _SUDO_KEEPALIVE_PID=$!
 trap "kill $_SUDO_KEEPALIVE_PID 2>/dev/null" EXIT
 
-# bash vllm_random_benchmark_server.sh
-
-# 30b + 512x512
+# 30b + 512x512（图片分辨率 512x512）
 bash vllm_random_benchmark_server.sh 30b 512 512
 
-# 4b + 1280x720（默认尺寸）
-# bash vllm_random_benchmark_server.sh 4b
+# 30b + 1280x720（图片分辨率 1280x720，720P）
+bash vllm_random_benchmark_server.sh 30b 1280 720
 
-# 4b + 512x512
+# 30b + 224x224（图片分辨率 224x224）
+bash vllm_random_benchmark_server.sh 30b 224 224
+
+
+# 4b + 1280x720（图片分辨率 1280x720，720P）
+bash vllm_random_benchmark_server.sh 4b 1280 720
+
+# 4b + 512x512（图片分辨率 512x512）
 bash vllm_random_benchmark_server.sh 4b 512 512
+
+# 4b + 224x224（图片分辨率 224x224）
+bash vllm_random_benchmark_server.sh 4b 224 224

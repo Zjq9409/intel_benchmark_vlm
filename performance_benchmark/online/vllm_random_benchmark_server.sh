@@ -154,7 +154,7 @@ fi
 # Run benchmarks
 MAX_BSIZE=200
 
-MM_BUCKET_CONFIG="{(${MM_W},${MM_H}, 1): 1.0}"
+MM_BUCKET_CONFIG="{(${MM_H},${MM_W}, 1): 1.0}"
 
 run_benchmark() {
     local bsize=$1
