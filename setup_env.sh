@@ -32,8 +32,8 @@ while [[ $# -gt 0 ]]; do
     esac
 done
 
-#IMAGE_BASE="intel/llm-scaler-vllm"
-IMAGE_BASE="intel/vllm"
+IMAGE_BASE="intel/llm-scaler-vllm"
+#IMAGE_BASE="intel/vllm"
 
 echo "============================================================"
 echo "  Environment Setup"
