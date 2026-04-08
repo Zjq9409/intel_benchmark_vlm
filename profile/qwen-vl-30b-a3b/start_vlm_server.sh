@@ -1,23 +1,46 @@
-MAX_MODEL_LEN=16384
-MAX_BATCHED_TOKENS=8192
-GPU_MEM_UTIL=0.8
-SERVER_MODEL="/llm/models/Qwen3-VL-30B-A3B-Instruct"
-SERVER_MODEL_NAME="Qwen3-VL-30B-A3B-Instruct"
-PORT=8006
-TP=4
-VLLM_TORCH_PROFILER_DIR=/llm/accuracy_test vllm serve \
-    --model "$SERVER_MODEL" \
-    --served-model-name "$SERVER_MODEL_NAME" \
-    --allowed-local-media-path /llm/models \
+GPU_TYPE=$(nvidia-smi --query-gpu=name --format=csv,noheader 2>/dev/null | head -1 | sed 's/NVIDIA //g; s/GeForce //g; s/Quadro //g; s/Tesla //g' | tr -d ' \r')
+[ -z "$GPU_TYPE" ] && GPU_TYPE="XPU"
+
+export TP=4
+export MODEL_PATH="/llm/models/Qwen3-VL-30B-A3B-Instruct"
+export MODEL_NAME="Qwen3-VL-30B-A3B-Instruct"
+# export LD_LIBRARY_PATH=/usr/lib/x86_64-linux-gnu:$LD_LIBRARY_PATH
+
+if [ "$GPU_TYPE" = "XPU" ]; then
+    export VLLM_ALLOW_LONG_MAX_MODEL_LEN=1
+    export VLLM_WORKER_MULTIPROC_METHOD=spawn
+    export VLLM_USE_V1=1  
+    VLLM_TORCH_PROFILER_DIR=./profile python3 -m vllm.entrypoints.openai.api_server \
+    --model "$MODEL_PATH" \
+    --served-model-name "$MODEL_NAME" \
     --dtype=float16 \
-    --port $PORT \
+    --port 8000 \
     --host 0.0.0.0 \
     --trust-remote-code \
+    --gpu-memory-util=0.8 \
     --no-enable-prefix-caching \
-    --gpu-memory-util=$GPU_MEM_UTIL \
-    --max-num-batched-tokens=$MAX_BATCHED_TOKENS \
+    --max-num-batched-tokens=8192 \
     --disable-log-requests \
-    --max-model-len=$MAX_MODEL_LEN \
+    --max-model-len 12768 \
+    --enforce-eager \
     --block-size 64 \
-    --quantization fp8 \
-    -tp=$TP
+    -tp=$TP   
+else
+    export LD_LIBRARY_PATH=/usr/lib/x86_64-linux-gnu:$LD_LIBRARY_PATH
+    export NCCL_P2P_LEVEL=SYS
+    VLLM_TORCH_PROFILER_DIR=./profile  python3 -m vllm.entrypoints.openai.api_server \
+    --model "$MODEL_PATH" \
+    --served-model-name "$MODEL_NAME" \
+    --dtype=float16 \
+    --port 8000 \
+    --host 0.0.0.0 \
+    --trust-remote-code \
+    --gpu-memory-util=0.8 \
+    --no-enable-prefix-caching \
+    --max-num-batched-tokens=8192 \
+    --disable-log-requests \
+    --max-model-len 12768 \
+    --block-size 64 \
+    -tp=$TP   \
+    --enforce-eager 
+fi

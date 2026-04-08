@@ -1,6 +1,6 @@
 SERVER_MODEL="/llm/models/Qwen3-30B-A3B/"
 SERVER_MODEL_NAME="Qwen3-30B-A3B"
-bsize=28
+bsize=1
 PORT=8006
 vllm bench serve \
             --backend openai-chat \
