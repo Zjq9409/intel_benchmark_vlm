@@ -4,13 +4,15 @@ export bsize=4
 export OUTPUT_LEN=1024
 export INPUT_LEN=512
 export PORT=8000
-# Usage: bash test_client.sh [--profile|--no-profile]
-# Default: profiling disabled
+# Usage: bash test_client.sh [--profile|--no-profile] [--bsize N]
+# Default: profiling disabled, bsize=4
 ENABLE_PROFILE=0
-for arg in "$@"; do
-    case "$arg" in
-        --profile) ENABLE_PROFILE=1 ;;
-        --no-profile) ENABLE_PROFILE=0 ;;
+while [[ $# -gt 0 ]]; do
+    case "$1" in
+        --profile) ENABLE_PROFILE=1; shift ;;
+        --no-profile) ENABLE_PROFILE=0; shift ;;
+        --bsize) bsize="$2"; shift 2 ;;
+        *) shift ;;
     esac
 done
 

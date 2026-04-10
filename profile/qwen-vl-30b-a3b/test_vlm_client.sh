@@ -2,7 +2,7 @@ export SERVER_MODEL="/llm/models/Qwen3-VL-30B-A3B-Instruct"
 export SERVER_MODEL_NAME="Qwen3-VL-30B-A3B-Instruct"
 export bsize=1
 export OUTPUT_LEN=1024
-export INPUT_LEN=512
+export INPUT_LEN=1024
 export PORT=8000
 # Usage: bash test_client.sh [--profile|--no-profile]
 # Default: profiling disabled

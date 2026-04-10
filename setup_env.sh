@@ -8,13 +8,15 @@
 # Usage: $0 [--weights-dir <path>] [--script-dir <path>] [--image-version <ver>]
 #   --weights-dir  : model weights directory (NV/Intel, default: ../weights)
 #   --script-dir   : script root directory (default: directory of this script)
-#   --image-version: Intel Docker image version (default: 0.11.1-b7)
+#   --image-version  : Intel Docker image version (default: 0.11.1-b7)
+#   --container-name : override container name (default: auto-detected)
 #
 #   Examples:
 #     $0
 #     $0 --weights-dir /data/models
 #     $0 --script-dir /custom/path --weights-dir /data/models
 #     $0 --image-version 0.12.0
+#     $0 --container-name my-container
 # ============================================================
 
 # Parse named arguments (override env vars if provided)
@@ -22,12 +24,14 @@ _DEFAULT_SCRIPT_DIR="$(dirname "$(realpath "$0")")"
 SCRIPT_DIR="${SCRIPT_DIR:-$_DEFAULT_SCRIPT_DIR}"
 IMAGE_VERSION_ARG=""
 WEIGHTS_DIR_ARG=""
+CONTAINER_NAME_ARG=""
 
 while [[ $# -gt 0 ]]; do
     case "$1" in
-        --weights-dir)   WEIGHTS_DIR_ARG="$2";   shift 2 ;;
-        --script-dir)    SCRIPT_DIR="$2";         shift 2 ;;
-        --image-version) IMAGE_VERSION_ARG="$2";  shift 2 ;;
+        --weights-dir)    WEIGHTS_DIR_ARG="$2";    shift 2 ;;
+        --script-dir)     SCRIPT_DIR="$2";          shift 2 ;;
+        --image-version)  IMAGE_VERSION_ARG="$2";   shift 2 ;;
+        --container-name) CONTAINER_NAME_ARG="$2";  shift 2 ;;
         *) echo "WARNING: Unknown argument: $1" >&2; shift ;;
     esac
 done
@@ -57,7 +61,7 @@ if [ "$USE_NV" -eq 1 ]; then
     # NV path: Docker vllm image
     # ----------------------------------------------------------------
     NV_IMAGE="vllm/vllm-openai:v0.15.1-cu130"
-    NV_CONTAINER="vllm-nv-container"
+    NV_CONTAINER="${CONTAINER_NAME_ARG:-vllm-nv-container}"
     # WEIGHTS_DIR: --weights-dir arg > env var > auto-detect as ../weights relative to SCRIPT_DIR
     WEIGHTS_DIR="${WEIGHTS_DIR_ARG:-${WEIGHTS_DIR:-$(dirname "$SCRIPT_DIR")/weights}}"
 
@@ -134,7 +138,7 @@ echo "  No NVIDIA GPU detected — using Intel Docker path."
 # ----------------------------------------------------------------
 IMAGE_VERSION="${IMAGE_VERSION_ARG:-${IMAGE_VERSION:-0.17.0-xpu}}"
 IMAGE_SUFFIX=$(echo "$IMAGE_VERSION" | sed 's/.*-//')
-CONTAINER_NAME="lsv-container-${IMAGE_SUFFIX}"
+CONTAINER_NAME="${CONTAINER_NAME_ARG:-lsv-container-${IMAGE_SUFFIX}}"
 # WEIGHTS_DIR: --weights-dir arg > env var > auto-detect as ../weights relative to SCRIPT_DIR
 WEIGHTS_DIR="${WEIGHTS_DIR_ARG:-${WEIGHTS_DIR:-$(dirname "$SCRIPT_DIR")/weights}}"
 FULL_IMAGE="${IMAGE_BASE}:${IMAGE_VERSION}"
