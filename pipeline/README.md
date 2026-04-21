@@ -49,11 +49,11 @@ ls /dev/dri/render*
 
 ```bash
 python main.py run \
-  --videos /data/v1.mp4 /data/v2.mp4 \
-  --output /data/output \
-  --vlm-url http://localhost:8000/v1 \
-  --vlm-key EMPTY \
-  --vlm-model Qwen2-VL-7B \
+  --videos  /home/intel/media_ai/video/10722664_MotionElements_athletic-fitness-man-running-in-urban-city_preview.mp4 /home/intel/media_ai/video/24303216_MotionElements_a-view-of-the-city-of-istanbul-and-bebek-neighborhood-and-rain_preview.mp4 \
+  --output /home/intel/media_ai/output \
+  --vlm-url http://10.112.234.173:8000/v1 \
+  --vlm-key intel123 \
+  --vlm-model Qwen3-VL-4B-Instruct \
   --interval 5 \
   --encoder h264_vaapi \
   --vaapi-device /dev/dri/renderD128
@@ -63,7 +63,7 @@ python main.py run \
 
 ```bash
 python main.py run \
-  --videos /home/intel/jane/video/10722664_MotionElements_athletic-fitness-man-running-in-urban-city_preview.mp4 \
+  --videos /home/intel/jane/video/10722664_MotionElements_athletic-fitness-man-running-in-urban-city_preview.mp4 /home/intel/jane/video/24303216_MotionElements_a-view-of-the-city-of-istanbul-and-bebek-neighborhood-and-rain_preview.mp4 \
   --output /home/intel/jane/output \
   --vlm-url http://10.112.234.173:8000/v1 \
   --vlm-key intel123 \
