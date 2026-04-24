@@ -13,3 +13,5 @@ models/
 **/*.json
 **/*.txt
 **/*.log
+**/*.csv
+**/*.png

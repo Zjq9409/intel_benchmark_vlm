@@ -85,12 +85,28 @@ LLM 为可选步骤。不传 `--llm-url` 时跳过，`narration` 字段保持为
 
 ### 只抽帧
 
+**Intel VAAPI 硬件解码：**
+
 ```bash
 python main.py extract \
-  --videos /data/v.mp4 \
-  --output /data/output \
-  --interval 5
+  --videos /home/intel/jane/video/10722664_MotionElements_athletic-fitness-man-running-in-urban-city_preview.mp4 \
+  --output /home/intel/jane/video/ \
+  --interval 5 \
+  --hwaccel vaapi \
+  --hwaccel-device /dev/dri/renderD128
 ```
+
+**NVIDIA CUDA 硬件解码：**
+
+```bash
+python main.py extract \
+  --videos /home/intel/jane/video/10722664_MotionElements_athletic-fitness-man-running-in-urban-city_preview.mp4 \
+  --output /home/intel/jane/video/ \
+  --interval 5 \
+  --hwaccel cuda
+```
+
+不传 `--hwaccel` 时使用 CPU 软件解码。
 
 ### 用已有 JSON 直接编码
 
@@ -156,5 +172,7 @@ output/
 | `--encoder` | run/encode | **必填** | h264_vaapi / h264_nvenc / libx264 |
 | `--vaapi-device` | run/encode | /dev/dri/renderD128 | Intel VAAPI 设备节点 |
 | `--no-encode` | run | — | 只分析，不编码 |
+| `--hwaccel` | extract | — | ffmpeg 硬件解码方式：vaapi / cuda / qsv |
+| `--hwaccel-device` | extract | — | 硬件设备节点，如 `/dev/dri/renderD128` |
 | `--llm-url` | run | — | （可选）LLM API URL |
 | `--llm-model` | run | — | （可选）LLM 模型名称 |

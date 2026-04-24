@@ -239,13 +239,17 @@ def _cmd_run(args: argparse.Namespace) -> None:
 
 
 def _cmd_extract(args: argparse.Namespace) -> None:
+    t0 = time.perf_counter()
     results = extract_frames_batch(
         video_paths=args.videos,
         output_root=args.output,
         interval_seconds=args.interval,
+        hwaccel=args.hwaccel,
+        hwaccel_device=args.hwaccel_device,
     )
+    elapsed = time.perf_counter() - t0
     for vp, frames in results.items():
-        logger.info(f"{Path(vp).name}: {len(frames)} 帧")
+        logger.info(f"{Path(vp).name}: {len(frames)} 帧  [{elapsed:.2f}s]")
 
 
 def _cmd_encode(args: argparse.Namespace) -> None:
@@ -289,6 +293,8 @@ def _build_parser() -> argparse.ArgumentParser:
     ext_p.add_argument("--videos", nargs="+", required=True)
     ext_p.add_argument("--output", required=True, help="输出根目录")
     ext_p.add_argument("--interval", type=float, default=5.0)
+    ext_p.add_argument("--hwaccel", default=None, help="ffmpeg 硬件解码方式（可选）：vaapi / cuda / qsv")
+    ext_p.add_argument("--hwaccel-device", default=None, help="ffmpeg 硬件设备（可选），如 /dev/dri/renderD128")
     ext_p.set_defaults(func=_cmd_extract)
 
     # encode

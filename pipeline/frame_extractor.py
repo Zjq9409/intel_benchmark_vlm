@@ -14,13 +14,15 @@ from typing import List
 from loguru import logger
 from tqdm import tqdm
 
+from gpu_monitor import GpuMemSampler, _shorten_gpu_name
+
 
 def _get_video_info(video_path: str) -> dict:
     """通过 ffprobe 获取视频基本信息"""
     cmd = [
         "ffprobe", "-v", "error",
         "-select_streams", "v:0",
-        "-show_entries", "stream=width,height,r_frame_rate,duration",
+        "-show_entries", "stream=width,height,r_frame_rate,duration,codec_name,pix_fmt",
         "-of", "default=noprint_wrappers=1:nokey=0",
         video_path,
     ]
@@ -52,11 +54,16 @@ def _format_timestamp_token(timestamp_sec: float) -> str:
     return f"{hours:02d}{minutes:02d}{seconds:02d}{milliseconds:03d}"
 
 
-def _fast_extract(video_path: str, output_dir: str, interval_seconds: float, fps: float) -> List[str]:
+def _fast_extract(video_path: str, output_dir: str, interval_seconds: float, fps: float,
+                  hwaccel: str = None, hwaccel_device: str = None) -> List[str]:
     """单次 ffmpeg 调用按固定间隔批量抽帧（快速路径）"""
     raw_pattern = os.path.join(output_dir, "fastframe_%06d.jpg")
-    cmd = [
-        "ffmpeg", "-hide_banner", "-loglevel", "error",
+    cmd = ["ffmpeg", "-hide_banner", "-loglevel", "error"]
+    if hwaccel:
+        cmd += ["-hwaccel", hwaccel]
+    if hwaccel_device:
+        cmd += ["-hwaccel_device", hwaccel_device]
+    cmd += [
         "-i", video_path,
         "-vf", f"fps=1/{interval_seconds}",
         "-q:v", "2",
@@ -84,11 +91,16 @@ def _fast_extract(video_path: str, output_dir: str, interval_seconds: float, fps
     return renamed
 
 
-def _extract_single_frame(video_path: str, timestamp_sec: float, output_path: str) -> bool:
+def _extract_single_frame(video_path: str, timestamp_sec: float, output_path: str,
+                          hwaccel: str = None, hwaccel_device: str = None) -> bool:
     """提取单帧（兼容回退路径），优先 PNG 中转避免 MJPEG 问题"""
     png_path = output_path.replace(".jpg", ".png")
-    cmd = [
-        "ffmpeg", "-hide_banner", "-loglevel", "error",
+    cmd = ["ffmpeg", "-hide_banner", "-loglevel", "error"]
+    if hwaccel:
+        cmd += ["-hwaccel", hwaccel]
+    if hwaccel_device:
+        cmd += ["-hwaccel_device", hwaccel_device]
+    cmd += [
         "-ss", str(timestamp_sec),
         "-i", video_path,
         "-vframes", "1", "-f", "image2",
@@ -113,7 +125,8 @@ def _extract_single_frame(video_path: str, timestamp_sec: float, output_path: st
         return False
 
 
-def _compat_extract(video_path: str, output_dir: str, interval_seconds: float, fps: float, duration: float) -> List[str]:
+def _compat_extract(video_path: str, output_dir: str, interval_seconds: float, fps: float, duration: float,
+                    hwaccel: str = None, hwaccel_device: str = None) -> List[str]:
     """逐帧兼容回退路径"""
     times, t = [], 0.0
     while t < duration:
@@ -127,7 +140,7 @@ def _compat_extract(video_path: str, output_dir: str, interval_seconds: float, f
             frame_no = int(ts * fps)
             token = _format_timestamp_token(ts)
             out = os.path.join(output_dir, f"keyframe_{frame_no:06d}_{token}.jpg")
-            if _extract_single_frame(video_path, ts, out):
+            if _extract_single_frame(video_path, ts, out, hwaccel=hwaccel, hwaccel_device=hwaccel_device):
                 ok += 1
                 results.append(out)
             else:
@@ -152,6 +165,8 @@ def extract_frames(
     video_path: str,
     output_dir: str,
     interval_seconds: float = 5.0,
+    hwaccel: str = None,
+    hwaccel_device: str = None,
 ) -> List[str]:
     """
     从单个视频中按固定间隔抽帧。
@@ -173,21 +188,46 @@ def extract_frames(
 
     info = _get_video_info(video_path)
     fps = float(info.get("fps", 25))
-    duration = float(info.get("duration", 0))
-    logger.info(f"视频信息: fps={fps:.2f}, duration={duration:.1f}s, 预计抽帧 {int(duration / interval_seconds) + 1} 张")
-
+    _dur_raw = info.get("duration", "0")
     try:
-        logger.info("使用快速路径抽帧...")
-        frames = _fast_extract(video_path, output_dir, interval_seconds, fps)
-        logger.info(f"快速路径完成，共 {len(frames)} 帧")
-        return frames
-    except Exception as e:
-        logger.warning(f"快速路径失败，回退到兼容路径: {e}")
-        _cleanup_fastframe_artifacts(output_dir)
+        duration = float(_dur_raw) if _dur_raw not in ("N/A", "", None) else 0.0
+    except ValueError:
+        duration = 0.0
+    width = info.get("width", "?")
+    height = info.get("height", "?")
+    logger.info(f"视频信息: {width}x{height}  fps={fps:.2f}  duration={duration:.1f}s  预计抽帧 {int(duration / interval_seconds) + 1} 张")
 
-    frames = _compat_extract(video_path, output_dir, interval_seconds, fps, duration)
-    if not frames:
-        raise RuntimeError(f"视频 {video_path} 抽帧完全失败，请检查 ffmpeg 安装")
+    sampler = GpuMemSampler(hwaccel, hwaccel_device).start() if hwaccel else None
+    try:
+        try:
+            logger.info("使用快速路径抽帧...")
+            frames = _fast_extract(video_path, output_dir, interval_seconds, fps, hwaccel=hwaccel, hwaccel_device=hwaccel_device)
+            logger.info(f"快速路径完成，共 {len(frames)} 帧")
+        except Exception as e:
+            logger.warning(f"快速路径失败，回退到兼容路径: {e}")
+            _cleanup_fastframe_artifacts(output_dir)
+            frames = _compat_extract(video_path, output_dir, interval_seconds, fps, duration, hwaccel=hwaccel, hwaccel_device=hwaccel_device)
+            if not frames:
+                raise RuntimeError(f"视频 {video_path} 抽帧完全失败，请检查 ffmpeg 安装")
+    finally:
+        if sampler:
+            sampler.stop()
+            sampler.log_result()
+            # 构建带设备/分辨率/编码格式的文件名
+            gpu_prefix = "nv" if hwaccel == "cuda" else "intel" if hwaccel in ("vaapi", "qsv") else "gpu"
+            raw_gpu_name = sampler.stats.get("gpu_name") or ""
+            gpu_short = _shorten_gpu_name(raw_gpu_name) if raw_gpu_name else gpu_prefix
+            dev_id = (hwaccel_device or "0").replace("/dev/dri/renderD", "renderD")
+            codec = info.get("codec_name", "unknown")
+            pix = info.get("pix_fmt", "")  # e.g. yuv420p10le -> 10bit
+            bitdepth = "10bit" if "10" in pix else "8bit"
+            video_stem = Path(video_path).stem
+            stats_name = f"{gpu_prefix}_{gpu_short}_{width}x{height}_{codec}_{bitdepth}_{fps:.0f}fps_{video_stem}"
+            pipeline_dir = Path(__file__).resolve().parent
+            stats_dir = pipeline_dir / "gpu_stats"
+            sampler.save_samples_csv(str(stats_dir / (stats_name + "_samples.csv")))
+            plot_title = f"{gpu_short} | {dev_id} | {width}x{height} {codec} {bitdepth} {fps:.0f}fps | {video_stem}"
+            sampler.save_plot(str(stats_dir / (stats_name + "_plot.png")), title=plot_title)
     return frames
 
 
@@ -195,6 +235,8 @@ def extract_frames_batch(
     video_paths: List[str],
     output_root: str,
     interval_seconds: float = 5.0,
+    hwaccel: str = None,
+    hwaccel_device: str = None,
 ) -> dict:
     """
     批量处理多个视频的抽帧。
@@ -208,7 +250,7 @@ def extract_frames_batch(
         out_dir = os.path.join(output_root, video_name, "frames")
         logger.info(f"[{video_name}] 开始抽帧 -> {out_dir}")
         try:
-            frames = extract_frames(vp, out_dir, interval_seconds)
+            frames = extract_frames(vp, out_dir, interval_seconds, hwaccel=hwaccel, hwaccel_device=hwaccel_device)
             results[vp] = frames
             logger.info(f"[{video_name}] 抽帧完成，共 {len(frames)} 帧")
         except Exception as e:
