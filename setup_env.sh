@@ -60,7 +60,7 @@ if [ "$USE_NV" -eq 1 ]; then
     # ----------------------------------------------------------------
     # NV path: Docker vllm image
     # ----------------------------------------------------------------
-    NV_IMAGE="vllm/vllm-openai:v0.15.1-cu130"
+    NV_IMAGE="vllm/vllm-openai:v0.19.1-cu130"
     NV_CONTAINER="${CONTAINER_NAME_ARG:-vllm-nv-container}"
     # WEIGHTS_DIR: --weights-dir arg > env var > auto-detect as ../weights relative to SCRIPT_DIR
     WEIGHTS_DIR="${WEIGHTS_DIR_ARG:-${WEIGHTS_DIR:-$(dirname "$SCRIPT_DIR")/weights}}"
