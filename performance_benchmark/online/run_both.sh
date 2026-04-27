@@ -7,6 +7,12 @@ sudo -v
 _SUDO_KEEPALIVE_PID=$!
 trap "kill $_SUDO_KEEPALIVE_PID 2>/dev/null" EXIT
 
+RUN_START=$(date "+%Y-%m-%d %H:%M:%S")
+RUN_START_TS=$(date +%s)
+echo "========================================"
+echo "Run started at: $RUN_START"
+echo "========================================"
+
 # ================================================================
 # 参数说明: vllm_random_benchmark_server.sh <model> <w> <h> <mm_items> <mtp>
 #   model    : 4b | q35-4b | 30b
@@ -38,3 +44,16 @@ bash vllm_random_benchmark_server.sh q35-4b 1280 720 10 off
 # ----------------------------------------------------------------
 # bash vllm_random_benchmark_server.sh 30b 1280 720 1 off
 # bash vllm_random_benchmark_server.sh 4b  1280 720 1 off
+
+# ================================================================
+echo "========================================"
+RUN_END=$(date "+%Y-%m-%d %H:%M:%S")
+RUN_END_TS=$(date +%s)
+ELAPSED=$(( RUN_END_TS - RUN_START_TS ))
+HOURS=$(( ELAPSED / 3600 ))
+MINUTES=$(( (ELAPSED % 3600) / 60 ))
+SECONDS=$(( ELAPSED % 60 ))
+echo "Run started at:  $RUN_START"
+echo "Run finished at: $RUN_END"
+printf "Total elapsed:   %02dh %02dm %02ds\n" $HOURS $MINUTES $SECONDS
+echo "========================================"

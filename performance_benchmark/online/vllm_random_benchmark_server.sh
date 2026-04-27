@@ -85,10 +85,9 @@ mkdir -p "$SERVER_MODEL_NAME"
 CURRENT_TIME=$(date "+%Y%m%d_%H%M%S")
 GPU_TYPE=$(nvidia-smi --query-gpu=name --format=csv,noheader 2>/dev/null | head -1 | sed 's/NVIDIA //g; s/GeForce //g; s/Quadro //g; s/Tesla //g' | tr -d ' \r')
 [ -z "$GPU_TYPE" ] && GPU_TYPE="XPU"
-MM_TAG=$([ "$MM_ITEMS" -gt 1 ] && echo "mm${MM_ITEMS}_" || echo "")
 MTP_TAG=$([ "$MTP" = "on" ] && echo "mtp_" || echo "nomtp_")
-LOG_FILE="${SERVER_MODEL_NAME}/${CURRENT_TIME}_${MM_TAG}client_${MTP_TAG}${MM_ITEMS}_${MM_W}x${MM_H}_tp${TP}_mbt${MAX_BATCHED_TOKENS}_in${INPUT_LEN}_out${OUTPUT_LEN}_${GPU_TYPE}.log"
-SERVER_LOG="${SERVER_MODEL_NAME}/${CURRENT_TIME}_${MM_TAG}server_${MTP_TAG}${MM_ITEMS}_${MM_W}x${MM_H}_tp${TP}_mbt${MAX_BATCHED_TOKENS}_in${INPUT_LEN}_out${OUTPUT_LEN}_${GPU_TYPE}.log"
+LOG_FILE="${SERVER_MODEL_NAME}/${CURRENT_TIME}_client_${MTP_TAG}${MM_ITEMS}_${MM_W}x${MM_H}_tp${TP}_mbt${MAX_BATCHED_TOKENS}_in${INPUT_LEN}_out${OUTPUT_LEN}_${GPU_TYPE}.log"
+SERVER_LOG="${SERVER_MODEL_NAME}/${CURRENT_TIME}_server_${MTP_TAG}${MM_ITEMS}_${MM_W}x${MM_H}_tp${TP}_mbt${MAX_BATCHED_TOKENS}_in${INPUT_LEN}_out${OUTPUT_LEN}_${GPU_TYPE}.log"
 
 echo "Test results will be saved to: $LOG_FILE"
 echo "Server log will be saved to:   $SERVER_LOG"
@@ -178,7 +177,7 @@ fi
 # Start GPU monitor on XPU
 MONITOR_PID=""
 if [ "$GPU_TYPE" = "XPU" ]; then
-    MONITOR_LOG="${SERVER_MODEL_NAME}/${CURRENT_TIME}_${MM_TAG}monitor_${MTP_TAG}${MM_ITEMS}_${MM_W}x${MM_H}_tp${TP}_mbt${MAX_BATCHED_TOKENS}_in${INPUT_LEN}_out${OUTPUT_LEN}_${GPU_TYPE}.log"
+    MONITOR_LOG="${SERVER_MODEL_NAME}/${CURRENT_TIME}_monitor_${MTP_TAG}${MM_ITEMS}_${MM_W}x${MM_H}_tp${TP}_mbt${MAX_BATCHED_TOKENS}_in${INPUT_LEN}_out${OUTPUT_LEN}_${GPU_TYPE}.log"
     echo "Starting GPU monitor, log: $MONITOR_LOG"
     bash "$(dirname "$0")/monitor_gpu.sh" > "$MONITOR_LOG" 2>&1 &
     MONITOR_PID=$!
