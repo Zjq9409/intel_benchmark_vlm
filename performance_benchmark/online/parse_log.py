@@ -44,25 +44,18 @@ if __name__ == '__main__':
                 bsize = int(dataline.split('--num-prompts=')[1].split()[0])
                 current_group = {'Batch Size': bsize}
             elif dataline.strip().lower().startswith('successful requests:'):
-                current_group['Successful Requests'] = get_num(dataline)
+                current_group['Batch Size'] = get_num(dataline)
             elif dataline.startswith('Benchmark duration (s):'):
                 current_group['Benchmark Duration (s)'] = get_num(dataline)
-            elif dataline.startswith('Total input tokens:'):
-                current_group['Total Input Tokens'] = get_num(dataline)
-            elif dataline.startswith('Total generated tokens:'):
-                current_group['Total Generated Tokens'] = get_num(dataline)
             elif dataline.startswith('Request throughput (req/s):'):
                 current_group['Request Throughput (req/s)'] = get_num(dataline)
             elif dataline.startswith('Output token throughput (tok/s):'):
                 current_group['Output Token Throughput (tok/s)'] = get_num(dataline)
-            elif dataline.startswith('Total token throughput (tok/s):'):
-                current_group['Total Token Throughput (tok/s)'] = get_num(dataline)
-            elif dataline.startswith('Mean TTFT (ms):'):
+            elif dataline.startswith('Mean TTFT (ms)'):
                 current_group['Mean TTFT (ms)'] = get_num(dataline)
             elif dataline.startswith('Mean TPOT (ms):'):
                 current_group['Mean TPOT (ms)'] = get_num(dataline)
             elif dataline.startswith('Mean ITL (ms):'):
-                current_group['Mean ITL (ms)'] = get_num(dataline)
                 # 遇到 ITL 时，将完整组追加到结果中
                 results.append(current_group)
                 current_group = {}  # 清空当前组
@@ -78,11 +71,9 @@ if __name__ == '__main__':
 
     # 定义目标列头顺序
     headers = [
-        "Successful Requests", "Mean TTFT (ms)", "Mean TPOT (ms)", 
+        "Batch Size", "Mean TTFT (ms)", "Mean TPOT (ms)",
         "Output Token Throughput (tok/s)", "Request Throughput (req/s)",
-        "Benchmark Duration (s)", "Total Input Tokens",
-        "Total Generated Tokens",
-        "Total Token Throughput (tok/s)", "Mean ITL (ms)"
+        "Benchmark Duration (s)"
     ]
 
     # 写入四舍五入的 CSV 文件
