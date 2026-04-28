@@ -89,7 +89,7 @@ LLM 为可选步骤。不传 `--llm-url` 时跳过，`narration` 字段保持为
 
 ```bash
 python main.py extract \
-  --videos /home/intel/jane/video/10722664_MotionElements_athletic-fitness-man-running-in-urban-city_preview.mp4 \
+  --videos /home/intel/jane/intel_benchmark_vlm/pipeline/beijing_1080p.mp4 \
   --output /home/intel/jane/video/ \
   --interval 5 \
   --hwaccel vaapi \
@@ -100,7 +100,7 @@ python main.py extract \
 
 ```bash
 python main.py extract \
-  --videos /home/intel/jane/video/10722664_MotionElements_athletic-fitness-man-running-in-urban-city_preview.mp4 \
+  --videos /home/intel/jane/intel_benchmark_vlm/pipeline/beijing_1080p.mp4 \
   --output /home/intel/jane/video/ \
   --interval 5 \
   --hwaccel cuda
