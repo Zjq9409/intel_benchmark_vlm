@@ -106,7 +106,6 @@ echo "Images per request: $MM_ITEMS"
 echo "MTP speculative:    $MTP"
 echo "---------------------------------------------------"
 
-_${MM_W}x${MM_H}
 # Start vllm server
 echo "Starting vllm server..."
 
@@ -159,7 +158,7 @@ COUNT=0
 SERVER_READY=0
 
 while [ $COUNT -lt $MAX_RETRIES ]; do
-    if curl -s "http://localhost:${PORT}/v1/models" > /dev/null; then
+    if curl -s "http://localhost:${PORT}/v1/models" | grep -q "$SERVER_MODEL_NAME"; then
         SERVER_READY=1; break
     fi
     sleep 5
