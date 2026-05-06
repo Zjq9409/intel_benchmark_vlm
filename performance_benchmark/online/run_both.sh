@@ -14,22 +14,28 @@ echo "Run started at: $RUN_START"
 echo "========================================"
 
 # ================================================================
-# 参数: vllm_random_benchmark_server.sh <model> <w> <h> <mm_items> <mtp>
+# 参数: vllm_random_benchmark_server.sh <model> <w> <h> <mm_items> <mtp> <quant>
 #   model    : 4b | q35-4b | 30b
 #   w/h      : 图片分辨率
 #   mm_items : 每请求图片数（1=单图, 10=多图）
 #   mtp      : on | off（仅 Qwen3.5 系列支持）
+#   quant    : fp8 | none（默认 fp8）
+# 本脚本参数: bash run_both.sh [fp8|none] [device_id]（默认 fp8，全部GPU）
 # ================================================================
+QUANT="${1:-fp8}"
+DEVICE="${2:-}"
+echo "Quantization: $QUANT"
+echo "GPU Device:   ${DEVICE:-all}"
 
 for res in "1280 720" "1920 1080"; do
     w=${res% *}; h=${res#* }
     for imgs in 1 10; do
-        echo "--- q35-4b ${w}x${h} imgs=${imgs} ---"
-        bash vllm_random_benchmark_server.sh q35-4b $w $h $imgs on
-        bash vllm_random_benchmark_server.sh q35-4b $w $h $imgs off
+        echo "--- q35-4b ${w}x${h} imgs=${imgs} quant=${QUANT} ---"
+        bash vllm_random_benchmark_server.sh q35-4b $w $h $imgs on $QUANT $DEVICE
+        bash vllm_random_benchmark_server.sh q35-4b $w $h $imgs off $QUANT $DEVICE
 
-        echo "--- 4b ${w}x${h} imgs=${imgs} ---"
-        bash vllm_random_benchmark_server.sh 4b $w $h $imgs off
+        echo "--- 4b ${w}x${h} imgs=${imgs} quant=${QUANT} ---"
+        bash vllm_random_benchmark_server.sh 4b $w $h $imgs off $QUANT $DEVICE
     done
 done
 

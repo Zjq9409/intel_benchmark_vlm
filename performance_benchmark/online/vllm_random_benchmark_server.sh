@@ -50,6 +50,8 @@ cd "$(dirname "$(realpath "$0")")"
 MODEL_SELECT="${1:-30b}"
 MM_ITEMS="${4:-1}"
 MTP="${5:-off}"   # on=enable speculative decoding, off=disable
+QUANT="${6:-fp8}"  # fp8=enable fp8 quantization, none=disable
+DEVICE="${7:-}"     # GPU device ID, e.g. 4; empty=use all
 
 if [ "$MODEL_SELECT" = "4b" ]; then
     SERVER_MODEL="/llm/models/Qwen3-VL-4B-Instruct"
@@ -86,8 +88,10 @@ CURRENT_TIME=$(date "+%Y%m%d_%H%M%S")
 GPU_TYPE=$(nvidia-smi --query-gpu=name --format=csv,noheader 2>/dev/null | head -1 | sed 's/NVIDIA //g; s/GeForce //g; s/Quadro //g; s/Tesla //g' | tr -d ' \r')
 [ -z "$GPU_TYPE" ] && GPU_TYPE="XPU"
 MTP_TAG=$([ "$MTP" = "on" ] && echo "mtp_" || echo "nomtp_")
-LOG_FILE="${SERVER_MODEL_NAME}/${CURRENT_TIME}_client_${MTP_TAG}${MM_ITEMS}_${MM_W}x${MM_H}_tp${TP}_mbt${MAX_BATCHED_TOKENS}_in${INPUT_LEN}_out${OUTPUT_LEN}_${GPU_TYPE}.log"
-SERVER_LOG="${SERVER_MODEL_NAME}/${CURRENT_TIME}_server_${MTP_TAG}${MM_ITEMS}_${MM_W}x${MM_H}_tp${TP}_mbt${MAX_BATCHED_TOKENS}_in${INPUT_LEN}_out${OUTPUT_LEN}_${GPU_TYPE}.log"
+QUANT_TAG=$([ "$QUANT" = "none" ] && echo "fp16_" || echo "${QUANT}_")
+DEV_TAG=$([ -n "$DEVICE" ] && echo "dev${DEVICE}_" || echo "")
+LOG_FILE="${SERVER_MODEL_NAME}/${CURRENT_TIME}_client_${DEV_TAG}${QUANT_TAG}${MTP_TAG}${MM_ITEMS}_${MM_W}x${MM_H}_tp${TP}_mbt${MAX_BATCHED_TOKENS}_in${INPUT_LEN}_out${OUTPUT_LEN}_${GPU_TYPE}.log"
+SERVER_LOG="${SERVER_MODEL_NAME}/${CURRENT_TIME}_server_${DEV_TAG}${QUANT_TAG}${MTP_TAG}${MM_ITEMS}_${MM_W}x${MM_H}_tp${TP}_mbt${MAX_BATCHED_TOKENS}_in${INPUT_LEN}_out${OUTPUT_LEN}_${GPU_TYPE}.log"
 
 echo "Test results will be saved to: $LOG_FILE"
 echo "Server log will be saved to:   $SERVER_LOG"
@@ -103,7 +107,8 @@ echo "Max Model Len:      $MAX_MODEL_LEN"
 echo "GPU Mem Util:       $GPU_MEM_UTIL"
 echo "GPU Type:           $GPU_TYPE"
 echo "Images per request: $MM_ITEMS"
-echo "MTP speculative:    $MTP"
+echo "Quantization:       $QUANT"
+echo "GPU Device:         ${DEVICE:-all}"
 echo "---------------------------------------------------"
 
 # Start vllm server
@@ -123,10 +128,15 @@ VLLM_SERVER_ARGS=(
     --limit-mm-per-prompt '{"image": '"${MM_ITEMS}"'}'
     --max-model-len=$MAX_MODEL_LEN
     --block-size 64
-    --quantization fp8
+
     --async-scheduling 
     -tp=$TP
 )
+
+# Quantization (6th arg: fp8/none, default fp8)
+if [ "$QUANT" != "none" ]; then
+    VLLM_SERVER_ARGS+=(--quantization "$QUANT")
+fi
 
 # MTP speculative decoding (5th arg: on/off)
 if [ "$MTP" = "on" ]; then
@@ -145,7 +155,10 @@ else
     export NCCL_P2P_LEVEL=SYS
 fi
 
-# export CUDA_VISIBLE_DEVICES=4
+if [ -n "$DEVICE" ]; then
+    export CUDA_VISIBLE_DEVICES=$DEVICE
+    echo "Using GPU device: $DEVICE"
+fi
 
 nohup vllm serve "${VLLM_SERVER_ARGS[@]}" > "$SERVER_LOG" 2>&1 &
 SERVER_PID=$!
@@ -176,7 +189,7 @@ fi
 # Start GPU monitor on XPU
 MONITOR_PID=""
 if [ "$GPU_TYPE" = "XPU" ]; then
-    MONITOR_LOG="${SERVER_MODEL_NAME}/${CURRENT_TIME}_monitor_${MTP_TAG}${MM_ITEMS}_${MM_W}x${MM_H}_tp${TP}_mbt${MAX_BATCHED_TOKENS}_in${INPUT_LEN}_out${OUTPUT_LEN}_${GPU_TYPE}.log"
+    MONITOR_LOG="${SERVER_MODEL_NAME}/${CURRENT_TIME}_monitor_${DEV_TAG}${QUANT_TAG}${MTP_TAG}${MM_ITEMS}_${MM_W}x${MM_H}_tp${TP}_mbt${MAX_BATCHED_TOKENS}_in${INPUT_LEN}_out${OUTPUT_LEN}_${GPU_TYPE}.log"
     echo "Starting GPU monitor, log: $MONITOR_LOG"
     bash "$(dirname "$0")/monitor_gpu.sh" > "$MONITOR_LOG" 2>&1 &
     MONITOR_PID=$!

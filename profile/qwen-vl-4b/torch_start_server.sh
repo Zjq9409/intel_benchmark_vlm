@@ -23,7 +23,7 @@ if [ "$GPU_TYPE" = "XPU" ]; then
     export VLLM_ALLOW_LONG_MAX_MODEL_LEN=1
     export VLLM_WORKER_MULTIPROC_METHOD=spawn
     export VLLM_USE_V1=1  
-    VLLM_TORCH_PROFILER_DIR=./profile python3 -m vllm.entrypoints.openai.api_server \
+    CUDA_VISIBLE_DEVICES=4 VLLM_TORCH_PROFILER_DIR=./profile python3 -m vllm.entrypoints.openai.api_server \
     --model "$MODEL_PATH" \
     --served-model-name "$MODEL_NAME" \
     --dtype=float16 \
@@ -41,7 +41,7 @@ if [ "$GPU_TYPE" = "XPU" ]; then
 else
     export LD_LIBRARY_PATH=/usr/lib/x86_64-linux-gnu:$LD_LIBRARY_PATH
     export NCCL_P2P_LEVEL=SYS
-    VLLM_TORCH_PROFILER_DIR=./profile  python3 -m vllm.entrypoints.openai.api_server \
+    CUDA_VISIBLE_DEVICES=4 VLLM_TORCH_PROFILER_DIR=./profile  python3 -m vllm.entrypoints.openai.api_server \
     --model "$MODEL_PATH" \
     --served-model-name "$MODEL_NAME" \
     --dtype=float16 \
@@ -51,10 +51,10 @@ else
     --gpu-memory-util=0.8 \
     --no-enable-prefix-caching \
     --max-num-batched-tokens=8192 \
-    --disable-log-requests \
     --max-model-len 12768 \
     --block-size 64 \
     $FP8_FLAG \
-    -tp=$TP   
+    -tp=$TP   \
+    --profiler-config '{"profiler": "torch", "torch_profiler_dir": "./profile"}'
     # --enforce-eager 
 fi
