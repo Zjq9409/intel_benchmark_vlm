@@ -5,9 +5,9 @@
 # ----------------------------------------------------------------
 if [ ! -f "/.dockerenv" ] && ! grep -q 'docker\|containerd' /proc/1/cgroup 2>/dev/null; then
     if nvidia-smi &>/dev/null; then
-        CONTAINER_NAME="vllm-nv-container"
+        CONTAINER_NAME="${VLLM_NV_CONTAINER:-vllm-nv-container}"
     else
-        CONTAINER_NAME="lsv-container-b8"
+        CONTAINER_NAME="${VLLM_XPU_CONTAINER:-lsv-container-b8}"
     fi
 
     SCRIPT_IN_CONTAINER="/llm/performance_benchmark/online/$(basename "$0")"
@@ -128,7 +128,6 @@ VLLM_SERVER_ARGS=(
     --limit-mm-per-prompt '{"image": '"${MM_ITEMS}"'}'
     --max-model-len=$MAX_MODEL_LEN
     --block-size 64
-
     --async-scheduling 
     -tp=$TP
 )

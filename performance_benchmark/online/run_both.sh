@@ -24,8 +24,18 @@ echo "========================================"
 # ================================================================
 QUANT="${1:-fp8}"
 DEVICE="${2:-}"
-echo "Quantization: $QUANT"
-echo "GPU Device:   ${DEVICE:-all}"
+
+# ----------------------------------------------------------------
+# 环境配置（按需修改）
+# ----------------------------------------------------------------
+export VLLM_NV_CONTAINER="${VLLM_NV_CONTAINER:-vllm-nv-container}"
+export VLLM_XPU_CONTAINER="${VLLM_XPU_CONTAINER:-lsv-container-b8}"
+# ----------------------------------------------------------------
+
+echo "Quantization:  $QUANT"
+echo "GPU Device:    ${DEVICE:-all}"
+echo "NV Container:  $VLLM_NV_CONTAINER"
+echo "XPU Container: $VLLM_XPU_CONTAINER"
 
 for res in "1280 720" "1920 1080"; do
     w=${res% *}; h=${res#* }
