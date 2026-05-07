@@ -149,7 +149,9 @@ if [ "$GPU_TYPE" = "XPU" ]; then
     export VLLM_ALLOW_LONG_MAX_MODEL_LEN=1
     export VLLM_WORKER_MULTIPROC_METHOD=spawn
     export VLLM_USE_V1=1   
-    VLLM_SERVER_ARGS+=(--enforce-eager)
+    if [ "$QUANT" != "none" ]; then
+        VLLM_SERVER_ARGS+=(--enforce-eager)
+    fi
 else
     export LD_LIBRARY_PATH=/usr/lib/x86_64-linux-gnu:$LD_LIBRARY_PATH
     export NCCL_P2P_LEVEL=SYS
