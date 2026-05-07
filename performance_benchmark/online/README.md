@@ -19,8 +19,17 @@ bash vllm_random_benchmark_server.sh q35-4b 1280 720 1 on
 # 测试 Qwen3.5-4B，多图（10张/请求，模拟 AI剪辑场景），MTP 开启
 bash vllm_random_benchmark_server.sh q35-4b 1280 720 10 on
 
+# 关闭 FP8 量化（纯 FP16）
+bash vllm_random_benchmark_server.sh 4b 1280 720 1 off none
+
+# 指定 GPU device 4 运行
+bash vllm_random_benchmark_server.sh 4b 1280 720 1 off fp8 4
+
 # 批量运行多个组合（见 run_both.sh）
 bash run_both.sh
+
+# 批量运行，关闭量化，指定 device 4
+bash run_both.sh none 4
 ```
 
 ### 脚本参数
@@ -32,6 +41,17 @@ bash run_both.sh
 | `$3` 图片高度 | 任意整数 | `720` | 随机生成图片的高度（像素） |
 | `$4` 每请求图片数 | 任意正整数 | `1` | 单图测试填 `1`；模拟 NarratoAI 真实负载填 `10` |
 | `$5` MTP | `on` / `off` | `off` | 是否启用 Speculative Decoding（仅 Qwen3.5 系列支持） |
+| `$6` 量化 | `fp8` / `none` | `fp8` | FP8 量化（RTX 4090/Ada Lovelace 有效）；`none` 为纯 FP16 |
+| `$7` GPU Device | 设备 ID，如 `4` | 空（全部） | 指定 `CUDA_VISIBLE_DEVICES`，空则使用全部可见 GPU |
+
+### 环境变量
+
+| 变量 | 默认值 | 说明 |
+|------|--------|------|
+| `VLLM_NV_CONTAINER` | `vllm-nv-container` | NVIDIA 路径使用的 Docker 容器名 |
+| `VLLM_XPU_CONTAINER` | `lsv-container-b8` | Intel XPU 路径使用的 Docker 容器名 |
+
+可在 `run_both.sh` 开头修改，或在 shell 中 `export` 后执行脚本。
 
 ### 支持的模型
 
@@ -62,19 +82,20 @@ MTP（Speculative Decoding）配置：`{"method":"qwen3_next_mtp","num_speculati
 所有日志统一保存在 `LOG/<MODEL_NAME>/` 子目录下，文件名格式为：
 
 ```
-LOG/<MODEL_NAME>/<YYYYMMDD_HHMMSS>_[mm<N>_][mtp_|nomtp_]client_tp<TP>_mbt<MBT>_<W>x<H>_in<IN>_out<OUT>_<GPU>.log
-LOG/<MODEL_NAME>/<YYYYMMDD_HHMMSS>_[mm<N>_][mtp_|nomtp_]server_tp<TP>_mbt<MBT>_<W>x<H>_in<IN>_out<OUT>_<GPU>.log
+<MODEL_NAME>/<YYYYMMDD_HHMMSS>_[dev<ID>_][fp8_|fp16_][mtp_|nomtp_]<N>_<W>x<H>_tp<TP>_mbt<MBT>_in<IN>_out<OUT>_<GPU>.log
 ```
 
 | 前缀 | 出现条件 | 示例 |
 |------|---------|------|
-| `mm10_` | `$4 > 1`（多图） | `mm10_mtp_client_...log` |
-| `mtp_` | `$5 = on` | `mtp_client_...log` |
-| `nomtp_` | `$5 = off` | `nomtp_client_...log` |
+| `dev4_` | `$7` 指定了 device ID | `dev4_fp8_nomtp_...log` |
+| `fp8_` | `$6 = fp8`（默认） | `fp8_nomtp_...log` |
+| `fp16_` | `$6 = none` | `fp16_nomtp_...log` |
+| `mtp_` | `$5 = on` | `mtp_...log` |
+| `nomtp_` | `$5 = off` | `nomtp_...log` |
 
 示例：
 ```
-LOG/Qwen3.5-4B/20260427_153000_mm10_mtp_client_tp1_mbt32768_1280x720_in1024_out1024_RTX4090D.log
+Qwen3.5-4B/20260507_153000_dev4_fp8_nomtp_1_1280x720_tp1_mbt8192_in1024_out1024_RTX4090D.log
 ```
 
 XPU 运行时还会生成 GPU 监控日志（`monitor_gpu.sh` 采集，5 秒间隔）：
