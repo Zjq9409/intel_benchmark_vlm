@@ -9,7 +9,7 @@
 INTERVAL="${1:-5}"
 
 echo "# $(date '+%Y-%m-%d %H:%M:%S') GPU monitor started (interval=${INTERVAL}s)"
-echo "# Fields: timestamp | device | tile | gpu_util(%) | power(W) | freq(MHz) | temp(C) | mem_used(MiB) | mem_util(%)"
+echo "# Fields: Timestamp, DeviceId, GPU Utilization (%), GPU Power (W), GPU Frequency (MHz), GPU Core Temperature (Celsius Degree), GPU Memory Used (MiB), Compute Engine 0 (%)"
 
 while true; do
     TS=$(date '+%Y-%m-%d %H:%M:%S')

@@ -29,7 +29,7 @@ DEVICE="${2:-}"
 # 环境配置（按需修改）
 # ----------------------------------------------------------------
 export VLLM_NV_CONTAINER="${VLLM_NV_CONTAINER:-vllm-nv-container}"
-export VLLM_XPU_CONTAINER="${VLLM_XPU_CONTAINER:-lsv-container-b8}"
+export VLLM_XPU_CONTAINER="${VLLM_XPU_CONTAINER:-lsv-container-0428}"
 # ----------------------------------------------------------------
 
 echo "Quantization:  $QUANT"
@@ -41,11 +41,11 @@ for res in "1280 720" "1920 1080"; do
     w=${res% *}; h=${res#* }
     for imgs in 1 10; do
         echo "--- q35-4b ${w}x${h} imgs=${imgs} quant=${QUANT} ---"
-        bash vllm_random_benchmark_server.sh q35-4b $w $h $imgs on $QUANT $DEVICE
+        # bash vllm_random_benchmark_server.sh q35-4b $w $h $imgs on $QUANT $DEVICE
         bash vllm_random_benchmark_server.sh q35-4b $w $h $imgs off $QUANT $DEVICE
 
-        echo "--- 4b ${w}x${h} imgs=${imgs} quant=${QUANT} ---"
-        bash vllm_random_benchmark_server.sh 4b $w $h $imgs off $QUANT $DEVICE
+        # echo "--- 4b ${w}x${h} imgs=${imgs} quant=${QUANT} ---"
+        # bash vllm_random_benchmark_server.sh 4b $w $h $imgs off $QUANT $DEVICE
     done
 done
 
