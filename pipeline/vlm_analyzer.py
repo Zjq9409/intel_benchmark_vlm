@@ -67,8 +67,8 @@ frame_observations 长度必须等于 {frame_count}。
 """.strip()
 
 
-async def _call_vlm_api(messages, api_key, model, base_url, timeout=120):
-    headers = {"Authorization": f"Bearer {api_key}", "Content-Type": "application/json"}
+async def _call_vlm_api(messages, model, base_url, timeout=120):
+    headers = {"Content-Type": "application/json"}
     payload = {"model": model, "messages": messages, "max_tokens": 4096, "temperature": 0.2}
     url = base_url.rstrip("/") + "/chat/completions"
     async with httpx.AsyncClient(timeout=timeout) as client:
@@ -106,7 +106,7 @@ def _parse_batch_response(raw, frame_paths, time_range, batch_index):
         }
 
 
-async def _analyze_batches_async(batches, api_key, model, base_url, custom_prompt, max_concurrency, timeout):
+async def _analyze_batches_async(batches, model, base_url, custom_prompt, max_concurrency, timeout):
     semaphore = asyncio.Semaphore(max_concurrency)
 
     async def analyze_one(batch_files, batch_idx):
@@ -115,7 +115,7 @@ async def _analyze_batches_async(batches, api_key, model, base_url, custom_promp
         messages = _build_messages(batch_files, prompt)
         async with semaphore:
             try:
-                raw = await _call_vlm_api(messages, api_key, model, base_url, timeout)
+                raw = await _call_vlm_api(messages, model, base_url, timeout)
                 return _parse_batch_response(raw, batch_files, time_range, batch_idx)
             except Exception as e:
                 logger.error(f"批次 {batch_idx} VLM 调用失败: {e}")
@@ -140,7 +140,6 @@ async def _analyze_batches_async(batches, api_key, model, base_url, custom_promp
 
 def analyze_frames(
     frame_paths: List[str],
-    api_key: str,
     model: str,
     base_url: str,
     batch_size: int = 8,
@@ -153,7 +152,6 @@ def analyze_frames(
 
     Args:
         frame_paths: 抽帧文件路径列表（需按时间排序）
-        api_key: VLM API Key
         model: 模型名称
         base_url: OpenAI 兼容接口 base URL
         batch_size: 每批发送的帧数
@@ -175,11 +173,11 @@ def analyze_frames(
         with concurrent.futures.ThreadPoolExecutor() as pool:
             return pool.submit(
                 asyncio.run,
-                _analyze_batches_async(batches, api_key, model, base_url, custom_prompt, max_concurrency, timeout),
+                _analyze_batches_async(batches, model, base_url, custom_prompt, max_concurrency, timeout),
             ).result()
     except RuntimeError:
         return asyncio.run(
-            _analyze_batches_async(batches, api_key, model, base_url, custom_prompt, max_concurrency, timeout)
+            _analyze_batches_async(batches, model, base_url, custom_prompt, max_concurrency, timeout)
         )
 
 
@@ -229,7 +227,7 @@ def enrich_narration_with_llm(
     （可选）逐条调用 LLM，将 picture 字段的画面描述转为 narration 解说文案。
     """
     url = base_url.rstrip("/") + "/chat/completions"
-    headers = {"Authorization": f"Bearer {api_key}", "Content-Type": "application/json"}
+    headers = {"Content-Type": "application/json"}
     enriched = []
     for clip in tqdm(clips, desc="LLM 生成解说", unit="片段"):
         picture = clip.get("picture", "")
@@ -253,3 +251,67 @@ def enrich_narration_with_llm(
             logger.warning(f"片段 {clip.get('_id')} LLM 解说生成失败: {e}")
             enriched.append(clip)
     return enriched
+
+
+# ---------------------------------------------------------------------------
+# 视频整体 Summary 生成
+# ---------------------------------------------------------------------------
+
+_SUMMARY_SYSTEM_PROMPT = (
+    "你是一位专业的视频内容分析师。"
+    "请根据各时间段的视频片段描述，为整段视频生成一份简洁、连贯的内容总结。"
+)
+
+
+def generate_video_summary(
+    batch_results,
+    model=None,
+    base_url=None,
+    system_prompt=_SUMMARY_SYSTEM_PROMPT,
+    timeout=60,
+):
+    """
+    将各批次 overall_activity_summary 汇总，调用 LLM 生成全视频 summary。
+    """
+    segments = []
+    for batch in batch_results:
+        time_range = batch.get("time_range", "")
+        text = batch.get("overall_activity_summary") or batch.get("fallback_summary") or ""
+        if text:
+            segments.append(f"[{time_range}] {text}")
+
+    if not segments:
+        return ""
+
+    combined = "\n".join(segments)
+
+    if not (model and base_url):
+        logger.info("未配置 LLM，跳过 summary 生成")
+        return ""
+
+    import httpx as _httpx
+
+    user_message = (
+        f"以下是视频各时间段的内容描述：\n\n{combined}\n\n"
+        "请基于以上内容，生成一段完整、连贯的视频内容总结（200字以内）。"
+    )
+    url = base_url.rstrip("/") + "/chat/completions"
+    headers = {"Content-Type": "application/json"}
+    payload = {
+        "model": model,
+        "messages": [
+            {"role": "system", "content": system_prompt},
+            {"role": "user", "content": user_message},
+        ],
+        "max_tokens": 512,
+        "temperature": 0.5,
+    }
+    try:
+        resp = _httpx.post(url, headers=headers, json=payload, timeout=timeout)
+        resp.raise_for_status()
+        summary = resp.json()["choices"][0]["message"]["content"].strip()
+        logger.info("视频 summary 生成成功")
+        return summary
+    except Exception as e:
+        logger.warning(f"LLM summary 生成失败: {e}")
+        return ""

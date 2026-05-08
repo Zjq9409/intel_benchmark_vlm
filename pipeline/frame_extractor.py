@@ -9,7 +9,8 @@ import os
 import re
 import subprocess
 from pathlib import Path
-from typing import List
+from concurrent.futures import ThreadPoolExecutor, as_completed
+from typing import List, Optional
 
 from loguru import logger
 from tqdm import tqdm
@@ -54,6 +55,36 @@ def _format_timestamp_token(timestamp_sec: float) -> str:
     return f"{hours:02d}{minutes:02d}{seconds:02d}{milliseconds:03d}"
 
 
+
+# NVIDIA cuvid 硬件解码器映射表
+_CUVID_DECODER_MAP = {
+    "h264": "h264_cuvid",
+    "hevc": "hevc_cuvid",
+    "av1": "av1_cuvid",
+    "vp9": "vp9_cuvid",
+    "vp8": "vp8_cuvid",
+    "mpeg2video": "mpeg2_cuvid",
+    "mpeg4": "mpeg4_cuvid",
+    "vc1": "vc1_cuvid",
+}
+
+
+def _detect_video_codec(video_path: str) -> str:
+    """使用 ffprobe 检测视频编码格式，返回小写 codec 名称"""
+    cmd = [
+        "ffprobe", "-v", "error",
+        "-select_streams", "v:0",
+        "-show_entries", "stream=codec_name",
+        "-of", "default=noprint_wrappers=1:nokey=1",
+        video_path,
+    ]
+    try:
+        result = subprocess.run(cmd, capture_output=True, text=True, check=True, timeout=10)
+        return result.stdout.strip().lower()
+    except Exception:
+        return ""
+
+
 def _fast_extract(video_path: str, output_dir: str, interval_seconds: float, fps: float,
                   hwaccel: str = None, hwaccel_device: str = None) -> List[str]:
     """单次 ffmpeg 调用按固定间隔批量抽帧（快速路径）"""
@@ -63,6 +94,14 @@ def _fast_extract(video_path: str, output_dir: str, interval_seconds: float, fps
         cmd += ["-hwaccel", hwaccel]
     if hwaccel_device:
         cmd += ["-hwaccel_device", hwaccel_device]
+    if hwaccel == "cuda":
+        codec = _detect_video_codec(video_path)
+        cuvid_decoder = _CUVID_DECODER_MAP.get(codec)
+        if cuvid_decoder:
+            cmd += ["-c:v", cuvid_decoder]
+            logger.debug(f"NVDEC 解码器: {cuvid_decoder} (codec={codec})")
+        else:
+            logger.debug(f"无 cuvid 解码器对应 codec={codec}，使用软解")
     cmd += [
         "-i", video_path,
         "-vf", f"fps=1/{interval_seconds}",
@@ -195,7 +234,8 @@ def extract_frames(
         duration = 0.0
     width = info.get("width", "?")
     height = info.get("height", "?")
-    logger.info(f"视频信息: {width}x{height}  fps={fps:.2f}  duration={duration:.1f}s  预计抽帧 {int(duration / interval_seconds) + 1} 张")
+    codec = info.get("codec_name", "unknown")
+    logger.info(f"视频信息: {width}x{height}  fps={fps:.2f}  duration={duration:.1f}s  codec={codec}  预计抽帧 {int(duration / interval_seconds) + 1} 张")
 
     sampler = GpuMemSampler(hwaccel, hwaccel_device).start() if hwaccel else None
     try:
@@ -237,23 +277,39 @@ def extract_frames_batch(
     interval_seconds: float = 5.0,
     hwaccel: str = None,
     hwaccel_device: str = None,
+    max_workers: Optional[int] = None,
 ) -> dict:
     """
-    批量处理多个视频的抽帧。
+    批量处理多个视频的抽帧，并行执行（类似 ffmpeg ... & ffmpeg ... &）。
 
+    Args:
+        max_workers: 最大并发数，默认等于视频数量（全并行）。
     Returns:
         dict，key 为视频路径，value 为对应帧路径列表
     """
     results = {}
-    for vp in video_paths:
+
+    if max_workers is None:
+        max_workers = len(video_paths)
+
+    def _extract_one(vp):
         video_name = Path(vp).stem
         out_dir = os.path.join(output_root, video_name, "frames")
         logger.info(f"[{video_name}] 开始抽帧 -> {out_dir}")
-        try:
-            frames = extract_frames(vp, out_dir, interval_seconds, hwaccel=hwaccel, hwaccel_device=hwaccel_device)
-            results[vp] = frames
-            logger.info(f"[{video_name}] 抽帧完成，共 {len(frames)} 帧")
-        except Exception as e:
-            logger.error(f"[{video_name}] 抽帧失败: {e}")
-            results[vp] = []
+        frames = extract_frames(vp, out_dir, interval_seconds, hwaccel=hwaccel, hwaccel_device=hwaccel_device)
+        logger.info(f"[{video_name}] 抽帧完成，共 {len(frames)} 帧")
+        return vp, frames
+
+    with ThreadPoolExecutor(max_workers=max_workers) as executor:
+        futures = {executor.submit(_extract_one, vp): vp for vp in video_paths}
+        for future in as_completed(futures):
+            vp = futures[future]
+            video_name = Path(vp).stem
+            try:
+                vp_result, frames = future.result()
+                results[vp_result] = frames
+            except Exception as e:
+                logger.error(f"[{video_name}] 抽帧失败: {e}")
+                results[vp] = []
+
     return results
