@@ -97,7 +97,7 @@ python main.py extract \
 
 \`\`\`bash
 python main.py extract \
-  --videos /home/intel/jane/intel_benchmark_vlm/pipeline/kuahai.mp4 /home/intel/jane/intel_benchmark_vlm/pipeline/baseus.mp4 \
+  --videos /home/intel/jane/intel_benchmark_vlm/pipeline/video/beijing_1080p.mp4 \
   --output ./output \
   --interval 5 \
   --hwaccel cuda \
