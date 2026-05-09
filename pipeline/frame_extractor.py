@@ -94,7 +94,11 @@ def _fast_extract(video_path: str, output_dir: str, interval_seconds: float, fps
         cmd += ["-hwaccel", hwaccel]
     if hwaccel_device:
         cmd += ["-hwaccel_device", hwaccel_device]
-    if hwaccel == "cuda":
+    if hwaccel == "vaapi":
+        # 保持解码帧在 GPU vaapi surface，fps 在 GPU 上运行，最后 hwdownload 拉回 CPU
+        cmd += ["-hwaccel_output_format", "vaapi"]
+        vf_filter = f"fps=1/{interval_seconds},hwdownload,format=nv12"
+    elif hwaccel == "cuda":
         codec = _detect_video_codec(video_path)
         cuvid_decoder = _CUVID_DECODER_MAP.get(codec)
         if cuvid_decoder:
@@ -102,13 +106,17 @@ def _fast_extract(video_path: str, output_dir: str, interval_seconds: float, fps
             logger.debug(f"NVDEC 解码器: {cuvid_decoder} (codec={codec})")
         else:
             logger.debug(f"无 cuvid 解码器对应 codec={codec}，使用软解")
+        vf_filter = f"fps=1/{interval_seconds},hwdownload,format=nv12"
+    else:
+        vf_filter = f"fps=1/{interval_seconds}"
     cmd += [
         "-i", video_path,
-        "-vf", f"fps=1/{interval_seconds}",
+        "-vf", vf_filter,
         "-q:v", "2",
         "-start_number", "0",
         "-y", raw_pattern,
     ]
+    print(cmd)
     subprocess.run(cmd, capture_output=True, text=True, check=True, timeout=300)
 
     raw_files = sorted(

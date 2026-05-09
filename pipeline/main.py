@@ -102,7 +102,7 @@ def run_pipeline(
         #     hwaccel=args.hwaccel,
         #     hwaccel_device=args.hwaccel_device,
         # )
-            frames = extract_frames(vp, out_dir, interval_seconds, hwaccel=hwaccel, hwaccel_device=hwaccel_device)
+            frame_paths = extract_frames(vp, frames_dir, interval_seconds, hwaccel=hwaccel, hwaccel_device=hwaccel_device)
             t_extract = time.perf_counter() - t0
             timing["extract_frames_s"] = round(t_extract, 3)
             frame_w, frame_h = "?", "?"
