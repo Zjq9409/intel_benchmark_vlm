@@ -128,6 +128,7 @@ VLLM_SERVER_ARGS=(
     --limit-mm-per-prompt '{"image": '"${MM_ITEMS}"'}'
     --max-model-len=$MAX_MODEL_LEN
     --block-size 64
+    --mm-processor-cache-gb 0
     --async-scheduling 
     -tp=$TP
 )

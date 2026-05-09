@@ -104,6 +104,7 @@ if [ "$USE_NV" -eq 1 ]; then
         echo "  Starting container: $NV_CONTAINER ..."
         docker run -td \
             --runtime nvidia --gpus all \
+            --net=host \
             --name "$NV_CONTAINER" \
             -v "$WEIGHTS_DIR":/llm/models \
             -v "$SCRIPT_DIR":/llm \

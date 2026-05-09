@@ -7,18 +7,6 @@
 ```bash
 cd performance_benchmark/online
 
-# 测试 Qwen3-VL-30B-A3B 模型（默认），图片 1280×720（默认）
-bash vllm_random_benchmark_server.sh
-
-# 测试 Qwen3-VL-4B 模型，图片 1280×720
-bash vllm_random_benchmark_server.sh 4b
-
-# 测试 Qwen3.5-4B，单图，MTP 开启
-bash vllm_random_benchmark_server.sh q35-4b 1280 720 1 on
-
-# 测试 Qwen3.5-4B，多图（10张/请求，模拟 AI剪辑场景），MTP 开启
-bash vllm_random_benchmark_server.sh q35-4b 1280 720 10 on
-
 # 关闭 FP8 量化（纯 FP16）
 bash vllm_random_benchmark_server.sh 4b 1280 720 1 off none
 
