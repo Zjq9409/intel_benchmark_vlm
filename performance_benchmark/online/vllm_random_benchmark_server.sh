@@ -208,16 +208,6 @@ if [ $SERVER_READY -eq 0 ]; then
 fi
 fi  # SERVER_ALREADY_UP
 
-# Start GPU monitor on XPU
-MONITOR_PID=""
-if [ "$GPU_TYPE" = "XPU" ]; then
-    MONITOR_LOG="${SERVER_MODEL_NAME}/${CURRENT_TIME}_${MODEL_SELECT}_${QUANT}_${MTP_LABEL}_${MAX_BATCHED_TOKENS}_${GPU_TYPE}_monitor.log"
-    echo "Starting GPU monitor, log: $MONITOR_LOG"
-    bash "$(dirname "$0")/monitor_gpu.sh" > "$MONITOR_LOG" 2>&1 &
-    MONITOR_PID=$!
-    echo "GPU monitor PID: $MONITOR_PID"
-fi
-
 # Run benchmarks
 # Multi-image: narrow range (1~20); single-image: full sweep (1~200)
 if [ "$MM_ITEMS" -gt 1 ]; then
@@ -269,7 +259,6 @@ check_stop() {
         python3 "$(dirname "$0")/parse_log.py" "$LOG_FILE"
         if [ -z "$KEEP_SERVER_UP" ]; then
             # Standalone mode: kill server and exit
-            [ -n "$MONITOR_PID" ] && kill "$MONITOR_PID" 2>/dev/null
             kill $SERVER_PID
             exit 0
         fi
@@ -314,7 +303,6 @@ else
 fi
 
 echo "All benchmark runs finished."
-[ -n "$MONITOR_PID" ] && kill "$MONITOR_PID" 2>/dev/null
 if [ -z "$KEEP_SERVER_UP" ]; then
     echo "Stopping server..."
     kill $SERVER_PID 2>/dev/null || true
