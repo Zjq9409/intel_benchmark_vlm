@@ -7,7 +7,7 @@ set -e
 # 指标：E2E < 60s 下的最大帧数 & 最大 TPS
 #
 # 用法: bash run_frames_sweep.sh [model] [batch] [device] [quant]
-# 示例: bash run_frames_sweep.sh 4b 1 4 fp8
+# 示例: bash run_frames_sweep.sh 4b 1 "" fp8
 # ================================================================
 MODEL="${1:-4b}"
 FIXED_BATCH="${2:-1}"
@@ -21,7 +21,47 @@ export VLLM_XPU_CONTAINER="${VLLM_XPU_CONTAINER:-lsv-container-0428}"
 RUN_START=$(date "+%Y-%m-%d %H:%M:%S")
 RUN_START_TS=$(date +%s)
 RUN_START_FILE=$(date "+%Y%m%d_%H%M%S")
+export SWEEP_TIMESTAMP="$RUN_START_FILE"
 SCRIPT_DIR="$(dirname "$(realpath "$0")")"
+if [ "$MODEL" = "4b" ]; then
+    MODEL_DIR="Qwen3-VL-4B-Instruct"
+elif [ "$MODEL" = "32b" ]; then
+    MODEL_DIR="Qwen3-VL-32B-Instruct"
+else
+    MODEL_DIR="Qwen3-VL-30B-A3B-Instruct"
+fi
+_TS_REF=$(mktemp)  # 用于 find -newer 的时间戳参考文件
+
+
+# ----------------------------------------------------------------
+# Helper: stop vllm server (bare metal -> container, or in-container)
+# ----------------------------------------------------------------
+stop_server() {
+    if [ ! -f "/.dockerenv" ] && ! grep -q 'docker\|containerd' /proc/1/cgroup 2>/dev/null; then
+        if nvidia-smi &>/dev/null; then
+            C="${VLLM_NV_CONTAINER:-vllm-nv-container}"
+        else
+            C="${VLLM_XPU_CONTAINER:-lsv-container-b8}"
+        fi
+        echo "Stopping vllm server in container $C..."
+        sudo docker exec "$C" bash -c "
+            PF='/tmp/vllm_server_8006.pid'
+            if [ -f \"\$PF\" ]; then
+                kill \"\$(cat \$PF)\" 2>/dev/null || true
+                rm -f \"\$PF\"
+            else
+                pkill -f 'vllm serve' 2>/dev/null || true
+            fi
+            echo 'Server stopped.'
+        " 2>/dev/null || true
+    else
+        PF="/tmp/vllm_server_8006.pid"
+        [ -f "$PF" ] && kill "$(cat "$PF")" 2>/dev/null || true && rm -f "$PF" || pkill -f "vllm serve" 2>/dev/null || true
+        echo "Server stopped."
+    fi
+}
+
+trap 'echo "Interrupted — stopping server..."; stop_server; exit 1' INT TERM
 
 echo "========================================"
 echo "Frames Sweep started at: $RUN_START"
@@ -45,10 +85,13 @@ for input_len in 512 1024; do
                 echo ""
                 echo "--- ${MODEL} ${w}x${h} frames=${imgs} batch=${FIXED_BATCH} quant=${QUANT} in=${input_len} out=${output_len} ---"
 
-                bash "$SCRIPT_DIR/vllm_random_benchmark_server.sh" \
-                    "$MODEL" "$w" "$h" "$imgs" off "$QUANT" "$DEVICE" "$output_len" "$input_len" "$FIXED_BATCH"
+                if ! bash "$SCRIPT_DIR/vllm_random_benchmark_server.sh" \
+                    "$MODEL" "$w" "$h" "$imgs" off "$QUANT" "$DEVICE" "$output_len" "$input_len" "$FIXED_BATCH" "1" "64"; then
+                    echo "  ERROR: benchmark failed for frames=${imgs} (OOM or Bad Request) — stopping sweep"
+                    break
+                fi
 
-                LATEST_LOG=$(find "$SCRIPT_DIR" -name "*_client_*_${w}x${h}_*.log" \
+                LATEST_LOG=$(find "$SCRIPT_DIR/$MODEL_DIR" -name "*_client.log" \
                     -newer "$SCRIPT_DIR/run_frames_sweep.sh" 2>/dev/null | sort | tail -1)
 
                 if [ -z "$LATEST_LOG" ]; then
@@ -70,6 +113,7 @@ for input_len in 512 1024; do
                 MAX_FRAMES_REACHED=$imgs
                 MAX_TPS_REACHED=$TPS
             done
+rm -f "$_TS_REF"
 
             echo ""
             echo "  >> Result: ${w}x${h} in=${input_len} out=${output_len} batch=${FIXED_BATCH}"
@@ -78,6 +122,8 @@ for input_len in 512 1024; do
         done
     done
 done
+
+stop_server
 
 echo ""
 echo "========================================"
@@ -89,6 +135,9 @@ printf "Run finished at: %s\n" "$RUN_END"
 printf "Total elapsed:   %02dh %02dm %02ds\n" $((ELAPSED/3600)) $(((ELAPSED%3600)/60)) $((ELAPSED%60))
 echo "========================================"
 
-# 合并 CSV
-echo "Combining CSVs..."
-python3 "$SCRIPT_DIR/combine_csv.py" --since "$RUN_START_FILE" --dir "$SCRIPT_DIR"
+# 解析本次运行生成的日志 → CSV
+echo "Parsing logs..."
+find "$SCRIPT_DIR/$MODEL_DIR" -name "*_client.log" -newer "$_TS_REF" 2>/dev/null | sort | while read -r log; do
+    echo "  Parsing: $log"
+    python3 "$SCRIPT_DIR/parse_log.py" "$log"
+done

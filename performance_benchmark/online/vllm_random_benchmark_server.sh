@@ -56,6 +56,7 @@ OUTPUT_LEN="${8:-1024}"  # output token length; 128=realtime, 512=near-realtime,
 INPUT_LEN="${9:-1024}"   # input token length; 512=short prompt, 1024=standard
 FIXED_BATCH="${10:-}"    # if set, run only this single batch size (skip sweep)
 KEEP_SERVER_UP="${11:-}"  # if "1", keep server running after benchmark (multi-combo sweep)
+SERVER_MM_LIMIT="${12:-$MM_ITEMS}"  # server --limit-mm-per-prompt max (set to sweep max for KEEP_SERVER_UP mode)
 
 if [ "$MODEL_SELECT" = "4b" ]; then
     SERVER_MODEL="/llm/models/Qwen3-VL-4B-Instruct"
@@ -77,13 +78,13 @@ fi
 
 PORT=8006
 # Scale token limits with images-per-request (720P ≈576 visual tokens/image)
-if [ "$MM_ITEMS" -gt 1 ]; then
-    MAX_BATCHED_TOKENS=32768
-    MAX_MODEL_LEN=32768
-else
-    MAX_BATCHED_TOKENS=8192
-    MAX_MODEL_LEN=16384
-fi
+# if [ "$MM_ITEMS" -gt 1 ]; then
+MAX_BATCHED_TOKENS=32768
+MAX_MODEL_LEN=32768
+# else
+#     MAX_BATCHED_TOKENS=8192
+#     MAX_MODEL_LEN=16384
+# fi
 GPU_MEM_UTIL=0.8
 MM_W="${2:-1280}"
 MM_H="${3:-720}"
@@ -97,7 +98,7 @@ MTP_TAG=$([ "$MTP" = "on" ] && echo "mtp_" || echo "nomtp_")
 MTP_LABEL=$([ "$MTP" = "on" ] && echo "mtp" || echo "nomtp")
 QUANT_TAG=$([ "$QUANT" = "none" ] && echo "fp16_" || echo "${QUANT}_")
 DEV_TAG=$([ -n "$DEVICE" ] && echo "dev${DEVICE}_" || echo "")
-LOG_FILE="${SERVER_MODEL_NAME}/${CURRENT_TIME}_${MODEL_SELECT}_${QUANT}_${MTP_LABEL}_${MAX_BATCHED_TOKENS}_${GPU_TYPE}_${MM_W}x${MM_H}_f${MM_ITEMS}_in${INPUT_LEN}_out${OUTPUT_LEN}_client.log"
+LOG_FILE="${SERVER_MODEL_NAME}/${CURRENT_TIME}_${MODEL_SELECT}_${QUANT}_${MTP_LABEL}_${MAX_BATCHED_TOKENS}_${GPU_TYPE}_client.log"
 SERVER_LOG="${SERVER_MODEL_NAME}/${CURRENT_TIME}_${MODEL_SELECT}_${QUANT}_${MTP_LABEL}_${MAX_BATCHED_TOKENS}_${GPU_TYPE}_server.log"
 
 
@@ -132,7 +133,7 @@ VLLM_SERVER_ARGS=(
     --no-enable-prefix-caching
     --gpu-memory-util=$GPU_MEM_UTIL
     --max-num-batched-tokens=$MAX_BATCHED_TOKENS
-    --limit-mm-per-prompt '{"image": '"${MM_ITEMS}"'}'
+    --limit-mm-per-prompt '{"image": '"${SERVER_MM_LIMIT}"'}'
     --max-model-len=$MAX_MODEL_LEN
     --block-size 64
     --mm-processor-cache-gb 0
@@ -209,7 +210,7 @@ fi  # SERVER_ALREADY_UP
 # Start GPU monitor on XPU
 MONITOR_PID=""
 if [ "$GPU_TYPE" = "XPU" ]; then
-    MONITOR_LOG="${SERVER_MODEL_NAME}/${CURRENT_TIME}_${MODEL_SELECT}_${QUANT}_${MTP_LABEL}_${MAX_BATCHED_TOKENS}_${GPU_TYPE}_${MM_W}x${MM_H}_f${MM_ITEMS}_in${INPUT_LEN}_out${OUTPUT_LEN}_monitor.log"
+    MONITOR_LOG="${SERVER_MODEL_NAME}/${CURRENT_TIME}_${MODEL_SELECT}_${QUANT}_${MTP_LABEL}_${MAX_BATCHED_TOKENS}_${GPU_TYPE}_monitor.log"
     echo "Starting GPU monitor, log: $MONITOR_LOG"
     bash "$(dirname "$0")/monitor_gpu.sh" > "$MONITOR_LOG" 2>&1 &
     MONITOR_PID=$!

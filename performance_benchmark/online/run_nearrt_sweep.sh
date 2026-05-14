@@ -101,7 +101,7 @@ for res in "1280 720" "1920 1080"; do
                 # arg11="1" → KEEP_SERVER_UP=1: server starts on first call, reused afterwards
                 if ! bash "$SCRIPT_DIR/vllm_random_benchmark_server.sh" \
                     "$MODEL" "$w" "$h" "$imgs" "$MTP" "$QUANT" "$DEVICE" \
-                    "$output_len" "$input_len" "$FIXED_BATCH" "1"; then
+                    "$output_len" "$input_len" "$FIXED_BATCH" "1" "10"; then
                     echo "  ERROR: benchmark failed (OOM / Bad Request) — aborting sweep"
                     stop_server
                     exit 1
