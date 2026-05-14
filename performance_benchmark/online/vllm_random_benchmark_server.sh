@@ -57,6 +57,7 @@ INPUT_LEN="${9:-1024}"   # input token length; 512=short prompt, 1024=standard
 FIXED_BATCH="${10:-}"    # if set, run only this single batch size (skip sweep)
 KEEP_SERVER_UP="${11:-}"  # if "1", keep server running after benchmark (multi-combo sweep)
 SERVER_MM_LIMIT="${12:-$MM_ITEMS}"  # server --limit-mm-per-prompt max (set to sweep max for KEEP_SERVER_UP mode)
+SWEEP_TS="${13:-}"            # timestamp passed from sweep wrapper (survives docker exec)
 
 if [ "$MODEL_SELECT" = "4b" ]; then
     SERVER_MODEL="/llm/models/Qwen3-VL-4B-Instruct"
@@ -91,7 +92,7 @@ MM_H="${3:-720}"
 
 # Setup logging
 mkdir -p "$SERVER_MODEL_NAME"
-CURRENT_TIME="${SWEEP_TIMESTAMP:-$(date "+%Y%m%d_%H%M%S")}"
+CURRENT_TIME="${SWEEP_TS:-${SWEEP_TIMESTAMP:-$(date "+%Y%m%d_%H%M%S")}}"
 GPU_TYPE=$(nvidia-smi --query-gpu=name --format=csv,noheader 2>/dev/null | head -1 | sed 's/NVIDIA //g; s/GeForce //g; s/Quadro //g; s/Tesla //g' | tr -d ' \r')
 [ -z "$GPU_TYPE" ] && GPU_TYPE="XPU"
 MTP_TAG=$([ "$MTP" = "on" ] && echo "mtp_" || echo "nomtp_")

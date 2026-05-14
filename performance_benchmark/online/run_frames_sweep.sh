@@ -86,7 +86,7 @@ for input_len in 512 1024; do
                 echo "--- ${MODEL} ${w}x${h} frames=${imgs} batch=${FIXED_BATCH} quant=${QUANT} in=${input_len} out=${output_len} ---"
 
                 if ! bash "$SCRIPT_DIR/vllm_random_benchmark_server.sh" \
-                    "$MODEL" "$w" "$h" "$imgs" off "$QUANT" "$DEVICE" "$output_len" "$input_len" "$FIXED_BATCH" "1" "64"; then
+                    "$MODEL" "$w" "$h" "$imgs" off "$QUANT" "$DEVICE" "$output_len" "$input_len" "$FIXED_BATCH" "1" "64" "$RUN_START_FILE"; then
                     echo "  ERROR: benchmark failed for frames=${imgs} (OOM or Bad Request) — stopping sweep"
                     break
                 fi
