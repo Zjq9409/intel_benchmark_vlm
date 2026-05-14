@@ -69,7 +69,7 @@ echo "Model=$MODEL  batch=$FIXED_BATCH  quant=$QUANT  E2E_LIMIT=${E2E_LIMIT}s"
 echo "========================================"
 
 for input_len in 512 1024; do
-    for output_len in 128 512; do
+    for output_len in 128 1024; do
         for res in "1280 720" "1920 1080"; do
             w=${res% *}; h=${res#* }
 

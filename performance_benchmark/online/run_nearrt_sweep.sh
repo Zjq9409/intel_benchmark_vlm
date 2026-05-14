@@ -99,7 +99,7 @@ for res in "1280 720" "1920 1080"; do
     w=${res% *}; h=${res#* }
 
     for input_len in 512 1024; do
-        for output_len in 128 512 1024; do
+        for output_len in 128 1024; do
 
             echo ""
             echo "================================================================"
@@ -107,7 +107,7 @@ for res in "1280 720" "1920 1080"; do
             echo "Dynamic batch sweep (max batch @ E2E<${E2E_LIMIT}s per frame count)"
             echo "================================================================"
 
-            for imgs in 4 6 8 10 12 16 20 24; do
+            for imgs in 1 4 6 8 10 12 16 20 24; do
                 # Each (imgs) gets its own COMBO_TS -> its own log (holds all batch sweep entries)
                 COMBO_TS=$(date "+%Y%m%d_%H%M%S")
                 COMBO_LOG="$SCRIPT_DIR/$MODEL_DIR/${COMBO_TS}_${MODEL}_${QUANT}_${MTP_LABEL}_32768_${GPU_TYPE}_client.log"
