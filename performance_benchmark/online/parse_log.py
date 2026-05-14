@@ -46,7 +46,7 @@ if __name__ == '__main__':
             elif dataline.strip().lower().startswith('successful requests:'):
                 current_group['Batch Size'] = get_num(dataline)
             elif dataline.startswith('Benchmark duration (s):'):
-                current_group['Benchmark Duration (s)'] = get_num(dataline)
+                current_group['E2E Latency (s)'] = get_num(dataline)
             elif dataline.startswith('Request throughput (req/s):'):
                 current_group['Request Throughput (req/s)'] = get_num(dataline)
             elif dataline.startswith('Output token throughput (tok/s):'):
@@ -73,7 +73,7 @@ if __name__ == '__main__':
     headers = [
         "Batch Size", "Mean TTFT (ms)", "Mean TPOT (ms)",
         "Output Token Throughput (tok/s)", "Request Throughput (req/s)",
-        "Benchmark Duration (s)"
+        "E2E Latency (s)"
     ]
 
     # 写入四舍五入的 CSV 文件

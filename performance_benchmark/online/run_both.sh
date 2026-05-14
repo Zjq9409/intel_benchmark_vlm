@@ -37,15 +37,16 @@ echo "GPU Device:    ${DEVICE:-all}"
 echo "NV Container:  $VLLM_NV_CONTAINER"
 echo "XPU Container: $VLLM_XPU_CONTAINER"
 
-for res in "1280 720" "1920 1080"; do
+for res in "512 512"; do
+#for res in "1280 720" "1920 1080"; do
     w=${res% *}; h=${res#* }
-    for imgs in 1 10; do
-        echo "--- q35-4b ${w}x${h} imgs=${imgs} quant=${QUANT} ---"
+    for imgs in 1 8 10; do
+        # echo "--- q35-4b ${w}x${h} imgs=${imgs} quant=${QUANT} ---"
         # bash vllm_random_benchmark_server.sh q35-4b $w $h $imgs on $QUANT $DEVICE
-        bash vllm_random_benchmark_server.sh q35-4b $w $h $imgs off $QUANT $DEVICE
+        # bash vllm_random_benchmark_server.sh q35-4b $w $h $imgs off $QUANT $DEVICE
 
-        # echo "--- 4b ${w}x${h} imgs=${imgs} quant=${QUANT} ---"
-        # bash vllm_random_benchmark_server.sh 4b $w $h $imgs off $QUANT $DEVICE
+        echo "--- 4b ${w}x${h} imgs=${imgs} quant=${QUANT} ---"
+        bash vllm_random_benchmark_server.sh 4b $w $h $imgs off $QUANT $DEVICE
     done
 done
 

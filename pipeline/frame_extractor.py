@@ -99,6 +99,7 @@ def _fast_extract(video_path: str, output_dir: str, interval_seconds: float, fps
         cmd += ["-hwaccel_output_format", "vaapi"]
         vf_filter = f"fps=1/{interval_seconds},hwdownload,format=nv12"
     elif hwaccel == "cuda":
+        cmd += ["-hwaccel_output_format", "cuda"]
         codec = _detect_video_codec(video_path)
         cuvid_decoder = _CUVID_DECODER_MAP.get(codec)
         if cuvid_decoder:

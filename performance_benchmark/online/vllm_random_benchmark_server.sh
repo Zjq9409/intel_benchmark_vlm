@@ -52,6 +52,8 @@ MM_ITEMS="${4:-1}"
 MTP="${5:-off}"   # on=enable speculative decoding, off=disable
 QUANT="${6:-fp8}"  # fp8=enable fp8 quantization, none=disable
 DEVICE="${7:-}"     # GPU device ID, e.g. 4; empty=use all
+OUTPUT_LEN="${8:-1024}"  # output token length; 128=realtime, 512=near-realtime, 1024=batch
+INPUT_LEN="${9:-1024}"   # input token length; 512=short prompt, 1024=standard
 
 if [ "$MODEL_SELECT" = "4b" ]; then
     SERVER_MODEL="/llm/models/Qwen3-VL-4B-Instruct"
@@ -61,6 +63,10 @@ elif [ "$MODEL_SELECT" = "q35-4b" ]; then
     SERVER_MODEL="/llm/models/Qwen3.5-4B"
     SERVER_MODEL_NAME="Qwen3.5-4B"
     TP=1
+elif [ "$MODEL_SELECT" = "32b" ]; then
+    SERVER_MODEL="/llm/models/Qwen3-VL-32B-Instruct"
+    SERVER_MODEL_NAME="Qwen3-VL-32B-Instruct"
+    TP=4
 else
     SERVER_MODEL="/llm/models/Qwen3-VL-30B-A3B-Instruct"
     SERVER_MODEL_NAME="Qwen3-VL-30B-A3B-Instruct"
@@ -79,8 +85,6 @@ fi
 GPU_MEM_UTIL=0.8
 MM_W="${2:-1280}"
 MM_H="${3:-720}"
-INPUT_LEN=1024
-OUTPUT_LEN=1024
 
 # Setup logging
 mkdir -p "$SERVER_MODEL_NAME"
@@ -231,32 +235,35 @@ run_benchmark() {
         --seed 42 2>&1 | tee -a "$LOG_FILE"
 }
 
-check_ttft() {
-    local ttft
-    ttft=$(grep 'Mean TTFT (ms):' "$LOG_FILE" | tail -1 | awk '{print $NF}')
-    if [ -n "$ttft" ]; then
-        local ttft_limit
-        ttft_limit=$([ "$MM_ITEMS" -gt 1 ] && echo 10000 || echo 5000)
-        if awk "BEGIN { exit !(${ttft} > ${ttft_limit}) }"; then
-            echo "Mean TTFT ${ttft}ms exceeds ${ttft_limit}ms threshold. Stopping server..."
-            [ -n "$MONITOR_PID" ] && kill "$MONITOR_PID" 2>/dev/null
-            kill $SERVER_PID
-            echo "Done."
-            echo "Parsing log and generating CSV..."
-            python3 "$(dirname "$0")/parse_log.py" "$LOG_FILE"
-            echo "CSV saved."
-            exit 0
-        fi
+check_stop() {
+    # 用 Benchmark Duration (s) 作为 E2E Latency（最准确）
+    local e2e_s e2e_ms e2e_limit
+    e2e_s=$(grep 'Benchmark duration (s):' "$LOG_FILE" | tail -1 | awk '{print $NF}')
+    [ -z "$e2e_s" ] && return
+    e2e_ms=$(awk "BEGIN { printf "%.0f", ${e2e_s} * 1000 }")
+    # 停止阈值：单图 60s，多图 120s
+    e2e_limit=$([ "$MM_ITEMS" -gt 1 ] && echo 120000 || echo 60000)
+    echo "  E2E: ${e2e_s}s (limit: $(( e2e_limit / 1000 ))s)"
+    if awk "BEGIN { exit !(${e2e_ms} > ${e2e_limit}) }"; then
+        echo "E2E ${e2e_s}s exceeds $(( e2e_limit / 1000 ))s threshold. Stopping server..."
+        [ -n "$MONITOR_PID" ] && kill "$MONITOR_PID" 2>/dev/null
+        kill $SERVER_PID
+        echo "Done."
+        echo "Parsing log and generating CSV..."
+        python3 "$(dirname "$0")/parse_log.py" "$LOG_FILE"
+        echo "CSV saved."
+        exit 0
     fi
 }
 
+
 run_benchmark 1
-check_ttft
+check_stop
 i=2
 STEP=$([ "$MM_ITEMS" -gt 1 ] && echo 1 || echo 2)
 while [ $i -le $MAX_BSIZE ]; do
     run_benchmark $i
-    check_ttft
+    check_stop
     i=$((i + STEP))
 done
 
