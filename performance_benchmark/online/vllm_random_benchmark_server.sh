@@ -259,8 +259,9 @@ check_stop() {
 
 run_benchmark 1
 check_stop
-i=4
-STEP=$([ "$MM_ITEMS" -gt 1 ] && echo 1 || echo 2)
+i=1
+# STEP=$([ "$MM_ITEMS" -gt 1 ] && echo 1 || echo 2)
+STEP=10
 while [ $i -le $MAX_BSIZE ]; do
     run_benchmark $i
     check_stop
