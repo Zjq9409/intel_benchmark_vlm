@@ -22,7 +22,6 @@ export VLLM_XPU_CONTAINER="${VLLM_XPU_CONTAINER:-lsv-container-b8}"
 
 RUN_START=$(date "+%Y-%m-%d %H:%M:%S")
 RUN_START_TS=$(date +%s)
-RUN_START_FILE=$(date "+%Y%m%d_%H%M%S")
 SCRIPT_DIR="$(dirname "$(realpath "$0")")"
 
 if [ "$MODEL" = "4b" ]; then
@@ -36,11 +35,14 @@ else
     MODEL_LABEL="Qwen3-VL-30B-A3B"
 fi
 
+MTP_LABEL=$([ "$MTP" = "on" ] && echo "mtp" || echo "nomtp")
+
 # Detect GPU type on bare metal
 GPU_TYPE=$(nvidia-smi --query-gpu=name --format=csv,noheader 2>/dev/null | head -1 \
     | sed 's/NVIDIA //g; s/GeForce //g; s/Quadro //g; s/Tesla //g' | tr -d ' \r')
 [ -z "$GPU_TYPE" ] && GPU_TYPE="XPU"
 
+RUN_START_FILE=$(date "+%Y%m%d_%H%M%S")
 SUMMARY_CSV="$SCRIPT_DIR/nearrt_summary_${RUN_START_FILE}_${MODEL}_${QUANT}_${GPU_TYPE}.csv"
 echo "Device, Model, Precision, Image Size, Input Len, Output Len, Batch, Max Frames (E2E<${E2E_LIMIT}s), E2E(s), TPS(tok/s)" > "$SUMMARY_CSV"
 _sweep_ref=$(mktemp)
@@ -96,11 +98,16 @@ for res in "1280 720" "1920 1080"; do
     w=${res% *}; h=${res#* }
 
     for input_len in 512 1024; do
-        for output_len in 128  1024; do
+        for output_len in 128 512 1024; do
+
+            # One shared timestamp per (res x in x out) combo -> one shared log file
+            COMBO_TS=$(date "+%Y%m%d_%H%M%S")
+            COMBO_LOG="$SCRIPT_DIR/$MODEL_DIR/${COMBO_TS}_${MODEL}_${QUANT}_${MTP_LABEL}_32768_${GPU_TYPE}_client.log"
 
             echo ""
             echo "================================================================"
             echo "Resolution: ${w}x${h}  input_len=${input_len}  output_len=${output_len}"
+            echo "Log: $(basename "$COMBO_LOG")"
             echo "================================================================"
 
             MAX_FRAMES_REACHED=0
@@ -111,28 +118,18 @@ for res in "1280 720" "1920 1080"; do
                 echo ""
                 echo "--- ${MODEL} ${w}x${h} frames=${imgs} in=${input_len} out=${output_len} quant=${QUANT} ---"
 
-                # arg11="1" -> KEEP_SERVER_UP; arg12=MAX_IMGS -> server allows up to MAX_IMGS imgs/req
-                _log_ref=$(mktemp)
+                # arg11="1"       -> KEEP_SERVER_UP (server reused across all combos)
+                # arg12=MAX_IMGS  -> server allows up to MAX_IMGS imgs/req
+                # arg13=COMBO_TS  -> all frames in this combo share one log file
                 if ! bash "$SCRIPT_DIR/vllm_random_benchmark_server.sh" \
                     "$MODEL" "$w" "$h" "$imgs" "$MTP" "$QUANT" "$DEVICE" \
-                    "$output_len" "$input_len" "$FIXED_BATCH" "1" "$MAX_IMGS" ""; then
-                    rm -f "$_log_ref"
+                    "$output_len" "$input_len" "$FIXED_BATCH" "1" "$MAX_IMGS" "$COMBO_TS"; then
                     echo "  ERROR: benchmark failed (OOM / Bad Request) — stopping frames sweep"
                     break
                 fi
 
-                # Find the log created during this run (newer than _log_ref)
-                LATEST_LOG=$(find "$SCRIPT_DIR/$MODEL_DIR" -name "*_client.log" \
-                    -newer "$_log_ref" 2>/dev/null | sort | tail -1)
-                rm -f "$_log_ref"
-
-                if [ -z "$LATEST_LOG" ]; then
-                    echo "  WARNING: could not find log file, skipping E2E check"
-                    continue
-                fi
-
-                E2E=$(grep 'Benchmark duration (s):' "$LATEST_LOG" | tail -1 | awk '{print $NF}')
-                TPS=$(grep 'Output token throughput (tok/s):' "$LATEST_LOG" | tail -1 | awk '{print $NF}')
+                E2E=$(grep 'Benchmark duration (s):' "$COMBO_LOG" 2>/dev/null | tail -1 | awk '{print $NF}')
+                TPS=$(grep 'Output token throughput (tok/s):' "$COMBO_LOG" 2>/dev/null | tail -1 | awk '{print $NF}')
 
                 echo "  frames=${imgs}  E2E=${E2E}s  TPS=${TPS} tok/s"
 
@@ -172,7 +169,7 @@ printf "Run finished at: %s\n" "$RUN_END"
 printf "Total elapsed:   %02dh %02dm %02ds\n" $((ELAPSED/3600)) $(((ELAPSED%3600)/60)) $((ELAPSED%60))
 echo "========================================"
 
-# Parse all client logs generated in this sweep -> per-run CSV
+# Parse all combo logs generated in this sweep -> per-combo CSV
 echo "Parsing logs..."
 find "$SCRIPT_DIR/$MODEL_DIR" -name "*_client.log" \
     -newer "$_sweep_ref" 2>/dev/null | sort | while read -r log; do
