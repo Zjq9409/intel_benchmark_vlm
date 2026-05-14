@@ -55,6 +55,7 @@ DEVICE="${7:-}"     # GPU device ID, e.g. 4; empty=use all
 OUTPUT_LEN="${8:-1024}"  # output token length; 128=realtime, 512=near-realtime, 1024=batch
 INPUT_LEN="${9:-1024}"   # input token length; 512=short prompt, 1024=standard
 FIXED_BATCH="${10:-}"    # if set, run only this single batch size (skip sweep)
+KEEP_SERVER_UP="${11:-}"  # if "1", keep server running after benchmark (multi-combo sweep)
 
 if [ "$MODEL_SELECT" = "4b" ]; then
     SERVER_MODEL="/llm/models/Qwen3-VL-4B-Instruct"
@@ -89,18 +90,18 @@ MM_H="${3:-720}"
 
 # Setup logging
 mkdir -p "$SERVER_MODEL_NAME"
-CURRENT_TIME=$(date "+%Y%m%d_%H%M%S")
+CURRENT_TIME="${SWEEP_TIMESTAMP:-$(date "+%Y%m%d_%H%M%S")}"
 GPU_TYPE=$(nvidia-smi --query-gpu=name --format=csv,noheader 2>/dev/null | head -1 | sed 's/NVIDIA //g; s/GeForce //g; s/Quadro //g; s/Tesla //g' | tr -d ' \r')
 [ -z "$GPU_TYPE" ] && GPU_TYPE="XPU"
 MTP_TAG=$([ "$MTP" = "on" ] && echo "mtp_" || echo "nomtp_")
+MTP_LABEL=$([ "$MTP" = "on" ] && echo "mtp" || echo "nomtp")
 QUANT_TAG=$([ "$QUANT" = "none" ] && echo "fp16_" || echo "${QUANT}_")
 DEV_TAG=$([ -n "$DEVICE" ] && echo "dev${DEVICE}_" || echo "")
-LOG_FILE="${SERVER_MODEL_NAME}/${CURRENT_TIME}_client_${DEV_TAG}${QUANT_TAG}${MTP_TAG}${MM_ITEMS}_${MM_W}x${MM_H}_tp${TP}_mbt${MAX_BATCHED_TOKENS}_in${INPUT_LEN}_out${OUTPUT_LEN}_${GPU_TYPE}.log"
-SERVER_LOG="${SERVER_MODEL_NAME}/${CURRENT_TIME}_server_${DEV_TAG}${QUANT_TAG}${MTP_TAG}${MM_ITEMS}_${MM_W}x${MM_H}_tp${TP}_mbt${MAX_BATCHED_TOKENS}_in${INPUT_LEN}_out${OUTPUT_LEN}_${GPU_TYPE}.log"
+LOG_FILE="${SERVER_MODEL_NAME}/${CURRENT_TIME}_${MODEL_SELECT}_${QUANT}_${MTP_LABEL}_${MAX_BATCHED_TOKENS}_${GPU_TYPE}_${MM_W}x${MM_H}_f${MM_ITEMS}_in${INPUT_LEN}_out${OUTPUT_LEN}_client.log"
+SERVER_LOG="${SERVER_MODEL_NAME}/${CURRENT_TIME}_${MODEL_SELECT}_${QUANT}_${MTP_LABEL}_${MAX_BATCHED_TOKENS}_${GPU_TYPE}_server.log"
 
-echo "Test results will be saved to: $LOG_FILE"
-echo "Server log will be saved to:   $SERVER_LOG"
 
+{
 echo "---------------------------------------------------"
 echo "Starting ShareGPT Benchmark with the following parameters:"
 echo "Server Model Path:  $SERVER_MODEL"
@@ -115,6 +116,7 @@ echo "Images per request: $MM_ITEMS"
 echo "Quantization:       $QUANT"
 echo "GPU Device:         ${DEVICE:-all}"
 echo "---------------------------------------------------"
+} | tee -a "$LOG_FILE"
 
 # Start vllm server
 echo "Starting vllm server..."
@@ -149,7 +151,7 @@ if [ "$MTP" = "on" ]; then
 fi
 
 # Remove the extra closing paren — restore block
-
+export PYTORCH_ALLOC_CONF="expandable_segments:True"
 if [ "$GPU_TYPE" = "XPU" ]; then
     export VLLM_ALLOW_LONG_MAX_MODEL_LEN=1
     export VLLM_WORKER_MULTIPROC_METHOD=spawn
@@ -167,9 +169,18 @@ if [ -n "$DEVICE" ]; then
     echo "Using GPU device: $DEVICE"
 fi
 
-nohup vllm serve "${VLLM_SERVER_ARGS[@]}" > "$SERVER_LOG" 2>&1 &
-SERVER_PID=$!
-echo "Server PID: $SERVER_PID"
+SERVER_PID_FILE="/tmp/vllm_server_${PORT}.pid"
+SERVER_ALREADY_UP=0
+if curl -sf "http://localhost:${PORT}/v1/models" 2>/dev/null | grep -q "$SERVER_MODEL_NAME"; then
+    SERVER_ALREADY_UP=1
+    SERVER_PID=$(cat "$SERVER_PID_FILE" 2>/dev/null || echo "0")
+    echo "Server already running (PID=${SERVER_PID}), skipping start..." | tee -a "$LOG_FILE"
+fi
+if [ "$SERVER_ALREADY_UP" = "0" ]; then
+    nohup vllm serve "${VLLM_SERVER_ARGS[@]}" > "$SERVER_LOG" 2>&1 &
+    SERVER_PID=$!
+    echo "$SERVER_PID" > "$SERVER_PID_FILE"
+    echo "Server PID: $SERVER_PID"
 
 # Wait for server to start
 echo "Waiting for server to be ready..."
@@ -190,13 +201,15 @@ if [ $SERVER_READY -eq 0 ]; then
     echo "Server failed to start within timeout. Checking logs:"
     tail -n 20 "$SERVER_LOG"
     kill $SERVER_PID
+    rm -f "$SERVER_PID_FILE"
     exit 1
 fi
+fi  # SERVER_ALREADY_UP
 
 # Start GPU monitor on XPU
 MONITOR_PID=""
 if [ "$GPU_TYPE" = "XPU" ]; then
-    MONITOR_LOG="${SERVER_MODEL_NAME}/${CURRENT_TIME}_monitor_${DEV_TAG}${QUANT_TAG}${MTP_TAG}${MM_ITEMS}_${MM_W}x${MM_H}_tp${TP}_mbt${MAX_BATCHED_TOKENS}_in${INPUT_LEN}_out${OUTPUT_LEN}_${GPU_TYPE}.log"
+    MONITOR_LOG="${SERVER_MODEL_NAME}/${CURRENT_TIME}_${MODEL_SELECT}_${QUANT}_${MTP_LABEL}_${MAX_BATCHED_TOKENS}_${GPU_TYPE}_${MM_W}x${MM_H}_f${MM_ITEMS}_in${INPUT_LEN}_out${OUTPUT_LEN}_monitor.log"
     echo "Starting GPU monitor, log: $MONITOR_LOG"
     bash "$(dirname "$0")/monitor_gpu.sh" > "$MONITOR_LOG" 2>&1 &
     MONITOR_PID=$!
@@ -215,6 +228,7 @@ MM_BUCKET_CONFIG="{(${MM_H},${MM_W}, 1): 1.0}"
 
 run_benchmark() {
     local bsize=$1
+    echo "[$(date +%Y%m%d_%H%M%S)] === BENCHMARK batch=$bsize imgs=${MM_ITEMS} res=${MM_W}x${MM_H} in=${INPUT_LEN} out=${OUTPUT_LEN} quant=${QUANT} ===" | tee -a "$LOG_FILE"
     echo ">>> Running vllm bench serve with --num-prompts=$bsize" | tee -a "$LOG_FILE"
     vllm bench serve \
         --model "$SERVER_MODEL" \
@@ -288,10 +302,16 @@ else
     done
 fi
 
-echo "All benchmark runs finished. Stopping server..."
+echo "All benchmark runs finished."
 [ -n "$MONITOR_PID" ] && kill "$MONITOR_PID" 2>/dev/null
-kill $SERVER_PID
-echo "Done."
+if [ -z "$KEEP_SERVER_UP" ]; then
+    echo "Stopping server..."
+    kill $SERVER_PID 2>/dev/null || true
+    rm -f "$SERVER_PID_FILE"
+    echo "Done."
+else
+    echo "Server kept running (KEEP_SERVER_UP=1, PID=${SERVER_PID})."
+fi
 
 # Parse log and generate CSV
 echo "Parsing log and generating CSV..."
