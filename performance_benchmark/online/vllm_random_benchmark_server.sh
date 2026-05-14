@@ -54,6 +54,7 @@ QUANT="${6:-fp8}"  # fp8=enable fp8 quantization, none=disable
 DEVICE="${7:-}"     # GPU device ID, e.g. 4; empty=use all
 OUTPUT_LEN="${8:-1024}"  # output token length; 128=realtime, 512=near-realtime, 1024=batch
 INPUT_LEN="${9:-1024}"   # input token length; 512=short prompt, 1024=standard
+FIXED_BATCH="${10:-}"    # if set, run only this single batch size (skip sweep)
 
 if [ "$MODEL_SELECT" = "4b" ]; then
     SERVER_MODEL="/llm/models/Qwen3-VL-4B-Instruct"
@@ -257,16 +258,35 @@ check_stop() {
 }
 
 
-run_benchmark 1
-check_stop
-i=1
-# STEP=$([ "$MM_ITEMS" -gt 1 ] && echo 1 || echo 2)
-STEP=10
-while [ $i -le $MAX_BSIZE ]; do
-    run_benchmark $i
+if [ -n "$FIXED_BATCH" ]; then
+    # Frames-sweep mode: run only the specified batch size
+    echo "FIXED_BATCH mode: running batch=$FIXED_BATCH"
+    run_benchmark "$FIXED_BATCH"
+else
+    # Default: dynamic sweep to find max TPS @ E2E < limit
+    run_benchmark 1
     check_stop
-    i=$((i + STEP))
-done
+
+    # Dynamic STEP: estimate from batch=1 E2E, target 10 data points
+    e2e_first=$(grep 'Benchmark duration (s):' "$LOG_FILE" | tail -1 | awk '{print $NF}')
+    e2e_limit_s=$([ "$MM_ITEMS" -gt 1 ] && echo 120 || echo 60)
+    if [ -n "$e2e_first" ]; then
+        estimated_max=$(awk -v e="$e2e_first" -v lim="$e2e_limit_s" -v maxb="$MAX_BSIZE" \
+            'BEGIN { m = int(lim / e); if (m > maxb) m = maxb; if (m < 1) m = 1; print m }')
+        STEP=$(awk -v m="$estimated_max" 'BEGIN { s = int(m / 10); if (s < 1) s = 1; print s }')
+        echo "  First-run E2E=${e2e_first}s -> estimated_max=${estimated_max} -> STEP=${STEP}"
+    else
+        STEP=10
+        echo "  Could not read first-run E2E, using default STEP=$STEP"
+    fi
+
+    i=$((1 + STEP))
+    while [ $i -le $estimated_max ]; do
+        run_benchmark $i
+        check_stop
+        i=$((i + STEP))
+    done
+fi
 
 echo "All benchmark runs finished. Stopping server..."
 [ -n "$MONITOR_PID" ] && kill "$MONITOR_PID" 2>/dev/null
