@@ -100,21 +100,20 @@ for res in "1280 720" "1920 1080"; do
 
     for input_len in 512 1024; do
         for output_len in 128 1024; do
+            # One COMBO_TS per (res × input × output) -> all imgs share one log file
+            COMBO_TS=$(date "+%Y%m%d_%H%M%S")
+            COMBO_LOG="$SCRIPT_DIR/$MODEL_DIR/${COMBO_TS}_${MODEL}_${QUANT}_${MTP_LABEL}_32768_${GPU_TYPE}_client.log"
 
             echo ""
             echo "================================================================"
             echo "Resolution: ${w}x${h}  input_len=${input_len}  output_len=${output_len}"
             echo "Dynamic batch sweep (max batch @ E2E<${E2E_LIMIT}s per frame count)"
+            echo "Log: $(basename \"$COMBO_LOG\") (shared for all frame counts)"
             echo "================================================================"
-
             for imgs in 1 4 6 8 10 12 16 20 24; do
-                # Each (imgs) gets its own COMBO_TS -> its own log (holds all batch sweep entries)
-                COMBO_TS=$(date "+%Y%m%d_%H%M%S")
-                COMBO_LOG="$SCRIPT_DIR/$MODEL_DIR/${COMBO_TS}_${MODEL}_${QUANT}_${MTP_LABEL}_32768_${GPU_TYPE}_client.log"
 
                 echo ""
                 echo "--- ${MODEL} ${w}x${h} frames=${imgs} in=${input_len} out=${output_len} quant=${QUANT} ---"
-                echo "Log: $(basename "$COMBO_LOG")"
 
                 # arg10="" -> dynamic batch sweep in vllm_random_benchmark_server.sh
                 # arg11="1" -> KEEP_SERVER_UP (server reused across combos)
@@ -128,16 +127,22 @@ for res in "1280 720" "1920 1080"; do
                 fi
 
                 # Extract max batch where E2E <= E2E_LIMIT from this combo's log
-                read MAX_BATCH MAX_E2E MAX_TPS <<< "$(awk -v lim="$E2E_LIMIT" '
+                # Extract max batch for THIS imgs where E2E <= E2E_LIMIT from shared log
+                read MAX_BATCH MAX_E2E MAX_TPS <<< "$(awk -v lim="$E2E_LIMIT" -v target_imgs="$imgs" '
                     /=== BENCHMARK batch=/ {
-                        for (i=1;i<=NF;i++) if ($i ~ /^batch=/) { sub(/batch=/,"",$i); cur_batch=$i+0 }
+                        for (i=1;i<=NF;i++) {
+                            if ($i ~ /^batch=/) { sub(/batch=/,"",$i); cur_batch=$i+0 }
+                            if ($i ~ /^imgs=/) { sub(/imgs=/,"",$i); cur_imgs=$i+0 }
+                        }
                     }
                     /Benchmark duration \(s\):/ {
-                        e2e = $NF+0
-                        if (e2e <= lim) { mb=cur_batch; me=e2e }
+                        if (cur_imgs+0 == target_imgs+0) {
+                            e2e = $NF+0
+                            if (e2e <= lim) { mb=cur_batch; me=e2e }
+                        }
                     }
                     /Output token throughput \(tok\/s\):/ {
-                        if (cur_batch+0 == mb+0) mt=$NF+0
+                        if (cur_imgs+0 == target_imgs+0 && cur_batch+0 == mb+0) mt=$NF+0
                     }
                     END { print mb+0, me+0, mt+0 }
                 ' "$COMBO_LOG" 2>/dev/null)"
