@@ -14,7 +14,7 @@ DEVICE="${2:-}"
 QUANT="${3:-fp8}"
 MTP="${4:-off}"
 FIXED_BATCH=1
-E2E_LIMIT=60   # seconds
+E2E_LIMIT=30   # seconds
 
 export VLLM_NV_CONTAINER="${VLLM_NV_CONTAINER:-vllm-nv-container}"
 export VLLM_XPU_CONTAINER="${VLLM_XPU_CONTAINER:-lsv-container-b8}"
