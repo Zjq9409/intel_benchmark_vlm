@@ -84,7 +84,7 @@ for res in "1280 720" "1920 1080"; do
     w=${res% *}; h=${res#* }
 
     for input_len in 512 1024; do
-        for output_len in 128 512 1024; do
+        for output_len in 128 1024; do
 
             echo ""
             echo "================================================================"
@@ -94,7 +94,7 @@ for res in "1280 720" "1920 1080"; do
             MAX_FRAMES_REACHED=0
             MAX_TPS_REACHED=0
 
-            for imgs in 4 6 8 10; do
+            for imgs in 1 4 6 8 10 12; do
                 echo ""
                 echo "--- ${MODEL} ${w}x${h} frames=${imgs} in=${input_len} out=${output_len} quant=${QUANT} ---"
 
