@@ -1,6 +1,6 @@
 import sys
+import re
 import os
-import json
 import unicodedata
 
 rawdatafile = sys.argv[1]
@@ -19,78 +19,104 @@ def is_number(s):
     return False
 
 def get_num(line: str, index: int = 0) -> float:
-    # 提取所有数字
     candidates = [float(i) if '.' in i else int(i) for i in line.split() if is_number(i)]
     return candidates[index] if index < len(candidates) else 0
+
+def get_field(line: str) -> str:
+    parts = line.split(':', 1)
+    return parts[1].strip() if len(parts) > 1 else ''
 
 if __name__ == '__main__':
     results = []
     current_group = {}
-    previous_line = None  # 用于检查重复
+    ctx = {}
+    previous_line = None
 
     with open(rawdatafile, encoding="UTF-8") as f:
         for dataline in f:
             dataline = dataline.strip()
-            
-            # 检查重复数据行
             if dataline == previous_line:
-                continue  # 跳过重复行
+                continue
             previous_line = dataline
 
-            if dataline.startswith('>>> Running vllm bench serve with --num-prompts='):
-                # 如果遇到新的 Batch Size 开头，保存上一组数据并开始新组
+            # ── Header block ─────────────────────────────────────────────
+            if dataline.startswith('GPU Type:'):
+                ctx['Device'] = get_field(dataline)
+            elif dataline.startswith('Server Model Name:'):
+                # Qwen3-VL-4B-Instruct → Qwen3-VL-4B
+                name = get_field(dataline)
+                name = re.sub(r'-Instruct$', '', name)
+                ctx['Model'] = name
+            elif dataline.startswith('Quantization:'):
+                ctx['Precision'] = get_field(dataline).upper()
+            elif dataline.startswith('Images per request:'):
+                ctx['Images per request'] = int(get_num(dataline))
+
+            # ── BENCHMARK marker line ─────────────────────────────────────
+            # [20260514_120104] === BENCHMARK batch=1 imgs=1 res=1280x720 in=512 out=128 quant=fp8 ===
+            elif '=== BENCHMARK' in dataline:
+                m = re.search(r'imgs=(\d+)', dataline)
+                if m:
+                    ctx['Images per request'] = int(m.group(1))
+                m = re.search(r'res=(\d+)x(\d+)', dataline)
+                if m:
+                    ctx['Image Size'] = f"{m.group(1)}*{m.group(2)}"
+                m = re.search(r'\bin=(\d+)', dataline)
+                if m:
+                    ctx['Input Text Length'] = int(m.group(1))
+                m = re.search(r'\bout=(\d+)', dataline)
+                if m:
+                    ctx['Output Length'] = int(m.group(1))
+
+            # ── Start of a benchmark run ──────────────────────────────────
+            elif dataline.startswith('>>> Running vllm bench serve with --num-prompts='):
                 if current_group:
                     results.append(current_group)
                 bsize = int(dataline.split('--num-prompts=')[1].split()[0])
-                current_group = {'Batch Size': bsize}
-            elif dataline.strip().lower().startswith('successful requests:'):
-                current_group['Batch Size'] = get_num(dataline)
+                current_group = {**ctx, 'num_prompts': bsize}
+
+            # ── Result metrics ────────────────────────────────────────────
             elif dataline.startswith('Benchmark duration (s):'):
                 current_group['E2E Latency (s)'] = get_num(dataline)
             elif dataline.startswith('Request throughput (req/s):'):
-                current_group['Request Throughput (req/s)'] = get_num(dataline)
+                current_group['QPS (req/s)'] = get_num(dataline)
             elif dataline.startswith('Output token throughput (tok/s):'):
-                current_group['Output Token Throughput (tok/s)'] = get_num(dataline)
+                current_group['TPS (tokens/s)'] = get_num(dataline)
             elif dataline.startswith('Mean TTFT (ms)'):
-                current_group['Mean TTFT (ms)'] = get_num(dataline)
+                current_group['TTFT (ms)'] = get_num(dataline)
             elif dataline.startswith('Mean TPOT (ms):'):
-                current_group['Mean TPOT (ms)'] = get_num(dataline)
+                current_group['TPOT (ms)'] = get_num(dataline)
             elif dataline.startswith('Mean ITL (ms):'):
-                # 遇到 ITL 时，将完整组追加到结果中
                 results.append(current_group)
-                current_group = {}  # 清空当前组
+                current_group = {}
 
-    # 确保最后一组数据被追加
     if current_group:
         results.append(current_group)
 
-    # 输出文件名
+    # ── Output ───────────────────────────────────────────────────────────
     base_filename = os.path.splitext(os.path.basename(rawdatafile))[0]
     output_dir = os.path.join(os.path.dirname(os.path.abspath(rawdatafile)), 'LOG')
     os.makedirs(output_dir, exist_ok=True)
 
-    # 定义目标列头顺序
     headers = [
-        "Batch Size", "Mean TTFT (ms)", "Mean TPOT (ms)",
-        "Output Token Throughput (tok/s)", "Request Throughput (req/s)",
-        "E2E Latency (s)"
+        "Device", "Model", "Precision",
+        "Image Size", "Images per request", "Input Text Length", "Output Length",
+        "num_prompts", "TTFT (ms)", "TPOT (ms)", "TPS (tokens/s)", "QPS (req/s)", "E2E Latency (s)"
     ]
 
-    # 写入四舍五入的 CSV 文件
-    with open(os.path.join(output_dir, f'{base_filename}.csv'), 'w', encoding="utf-8") as f:
+    outpath = os.path.join(output_dir, f'{base_filename}.csv')
+    with open(outpath, 'w', encoding="utf-8") as f:
         f.write(", ".join(headers) + '\n')
         for result_dict in results:
             if not result_dict:
                 continue
-            
             row_data = []
             for header in headers:
-                value = result_dict.get(header, 0)
+                value = result_dict.get(header, '')
                 if isinstance(value, float):
                     row_data.append(f'{value:.2f}')
                 else:
                     row_data.append(str(value))
-            
             f.write(", ".join(row_data) + '\n')
 
-    print(f"Data successfully processed! Outputs saved as {os.path.join(output_dir, base_filename)}.csv")
+    print(f"CSV saved: {outpath}")
