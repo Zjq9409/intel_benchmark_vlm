@@ -252,25 +252,31 @@ run_benchmark() {
         --seed 42 2>&1 | tee -a "$LOG_FILE" )
 }
 
+STOP_SWEEP=0
+
 check_stop() {
     # 用 Benchmark Duration (s) 作为 E2E Latency（最准确）
     local e2e_s e2e_ms e2e_limit
     e2e_s=$(grep 'Benchmark duration (s):' "$LOG_FILE" | tail -1 | awk '{print $NF}')
-    [ -z "$e2e_s" ] && return
+    [ -z "$e2e_s" ] && return 0
     e2e_ms=$(awk -v v="$e2e_s" 'BEGIN { printf "%.0f", v * 1000 }')
-    # 停止阈值：单图 60s，多图 120s
-    e2e_limit=$([ "$MM_ITEMS" -gt 1 ] && echo 120000 || echo 60000)
+    # 停止阈值：单图 60s，多图 30s（准实时）
+    e2e_limit=$([ "$MM_ITEMS" -gt 1 ] && echo 30000 || echo 60000)
     echo "  E2E: ${e2e_s}s (limit: $(( e2e_limit / 1000 ))s)"
     if awk "BEGIN { exit !(${e2e_ms} > ${e2e_limit}) }"; then
-        echo "E2E ${e2e_s}s exceeds $(( e2e_limit / 1000 ))s threshold. Stopping server..."
-        [ -n "$MONITOR_PID" ] && kill "$MONITOR_PID" 2>/dev/null
-        kill $SERVER_PID
-        echo "Done."
-        echo "Parsing log and generating CSV..."
+        echo "E2E ${e2e_s}s exceeds $(( e2e_limit / 1000 ))s threshold."
+        STOP_SWEEP=1
         python3 "$(dirname "$0")/parse_log.py" "$LOG_FILE"
-        echo "CSV saved."
-        exit 0
+        if [ -z "$KEEP_SERVER_UP" ]; then
+            # Standalone mode: kill server and exit
+            [ -n "$MONITOR_PID" ] && kill "$MONITOR_PID" 2>/dev/null
+            kill $SERVER_PID
+            exit 0
+        fi
+        # Sweep mode: server stays up, caller breaks the loop
+        return 1
     fi
+    return 0
 }
 
 
@@ -279,29 +285,32 @@ if [ -n "$FIXED_BATCH" ]; then
     echo "FIXED_BATCH mode: running batch=$FIXED_BATCH"
     run_benchmark "$FIXED_BATCH"
 else
-    # Default: dynamic sweep to find max TPS @ E2E < limit
+    # Default: dynamic sweep to find max batch @ E2E < limit
+    STOP_SWEEP=0
     run_benchmark 1
-    check_stop
+    check_stop || true  # sets STOP_SWEEP=1 if exceeded (standalone mode exits inside)
 
-    # Dynamic STEP: estimate from batch=1 E2E, target 10 data points
-    e2e_first=$(grep 'Benchmark duration (s):' "$LOG_FILE" | tail -1 | awk '{print $NF}')
-    e2e_limit_s=$([ "$MM_ITEMS" -gt 1 ] && echo 120 || echo 60)
-    if [ -n "$e2e_first" ]; then
-        estimated_max=$(awk -v e="$e2e_first" -v lim="$e2e_limit_s" -v maxb="$MAX_BSIZE" \
-            'BEGIN { m = int(lim / e); if (m > maxb) m = maxb; if (m < 1) m = 1; print m }')
-        STEP=$(awk -v m="$estimated_max" 'BEGIN { s = int(m / 10); if (s < 1) s = 1; print s }')
-        echo "  First-run E2E=${e2e_first}s -> estimated_max=${estimated_max} -> STEP=${STEP}"
-    else
-        STEP=10
-        echo "  Could not read first-run E2E, using default STEP=$STEP"
+    if [ "$STOP_SWEEP" = "0" ]; then
+        # Dynamic STEP: estimate from batch=1 E2E, target 10 data points
+        e2e_first=$(grep 'Benchmark duration (s):' "$LOG_FILE" | tail -1 | awk '{print $NF}')
+        e2e_limit_s=$([ "$MM_ITEMS" -gt 1 ] && echo 30 || echo 60)
+        if [ -n "$e2e_first" ]; then
+            estimated_max=$(awk -v e="$e2e_first" -v lim="$e2e_limit_s" -v maxb="$MAX_BSIZE" \
+                'BEGIN { m = int(lim / e); if (m > maxb) m = maxb; if (m < 1) m = 1; print m }')
+            STEP=$(awk -v m="$estimated_max" 'BEGIN { s = int(m / 10); if (s < 1) s = 1; print s }')
+            echo "  First-run E2E=${e2e_first}s -> estimated_max=${estimated_max} -> STEP=${STEP}"
+        else
+            STEP=10
+            echo "  Could not read first-run E2E, using default STEP=$STEP"
+        fi
+
+        i=$((1 + STEP))
+        while [ $i -le $estimated_max ] && [ "$STOP_SWEEP" = "0" ]; do
+            run_benchmark $i
+            check_stop || true
+            i=$((i + STEP))
+        done
     fi
-
-    i=$((1 + STEP))
-    while [ $i -le $estimated_max ]; do
-        run_benchmark $i
-        check_stop
-        i=$((i + STEP))
-    done
 fi
 
 echo "All benchmark runs finished."

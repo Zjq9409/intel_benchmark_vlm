@@ -3,7 +3,7 @@ set -e
 
 # ================================================================
 # 准实时场景扫描：一个 Server，测试所有 (分辨率 × in × out × 帧数) 组合
-# 指标：E2E < E2E_LIMIT 下的最大帧数 & 最大 TPS
+# 指标：E2E < E2E_LIMIT 下每帧数的最大并发 Batch
 #
 # 用法: bash run_nearrt_sweep.sh [model] [device] [quant] [mtp]
 # 示例: bash run_nearrt_sweep.sh 4b "" fp8
@@ -13,8 +13,7 @@ MODEL="${1:-4b}"
 DEVICE="${2:-}"
 QUANT="${3:-fp8}"
 MTP="${4:-off}"
-FIXED_BATCH=1
-E2E_LIMIT=30   # seconds
+E2E_LIMIT=30   # seconds per batch — multi-image 准实时阈值
 MAX_IMGS=24    # max frames in sweep (also server MM limit)
 
 export VLLM_NV_CONTAINER="${VLLM_NV_CONTAINER:-vllm-nv-container}"
@@ -44,7 +43,7 @@ GPU_TYPE=$(nvidia-smi --query-gpu=name --format=csv,noheader 2>/dev/null | head 
 
 RUN_START_FILE=$(date "+%Y%m%d_%H%M%S")
 SUMMARY_CSV="$SCRIPT_DIR/nearrt_summary_${RUN_START_FILE}_${MODEL}_${QUANT}_${GPU_TYPE}.csv"
-echo "Device, Model, Precision, Image Size, Input Len, Output Len, Batch, Max Frames (E2E<${E2E_LIMIT}s), E2E(s), TPS(tok/s)" > "$SUMMARY_CSV"
+echo "Device, Model, Precision, Image Size, Input Len, Output Len, Frames/Req, Max Batch (E2E<${E2E_LIMIT}s), E2E(s), TPS(tok/s)" > "$SUMMARY_CSV"
 _sweep_ref=$(mktemp)
 
 PORT=8006
@@ -53,6 +52,7 @@ echo "========================================"
 echo "Near-RT Sweep started at: $RUN_START"
 echo "Model=$MODEL  device=${DEVICE:-all}  quant=$QUANT  mtp=$MTP  E2E_LIMIT=${E2E_LIMIT}s"
 echo "Matrix: res=[720p,1080p] in=[512,1024] out=[128,512,1024] frames=[4,6,8,10,12,16,20,24]"
+echo "Mode: dynamic batch sweep per frame count (max concurrent batch @ E2E<${E2E_LIMIT}s)"
 echo "========================================"
 
 # ----------------------------------------------------------------
@@ -100,56 +100,50 @@ for res in "1280 720" "1920 1080"; do
     for input_len in 512 1024; do
         for output_len in 128 512 1024; do
 
-            # One shared timestamp per (res x in x out) combo -> one shared log file
-            COMBO_TS=$(date "+%Y%m%d_%H%M%S")
-            COMBO_LOG="$SCRIPT_DIR/$MODEL_DIR/${COMBO_TS}_${MODEL}_${QUANT}_${MTP_LABEL}_32768_${GPU_TYPE}_client.log"
-
             echo ""
             echo "================================================================"
             echo "Resolution: ${w}x${h}  input_len=${input_len}  output_len=${output_len}"
-            echo "Log: $(basename "$COMBO_LOG")"
+            echo "Dynamic batch sweep (max batch @ E2E<${E2E_LIMIT}s per frame count)"
             echo "================================================================"
 
-            MAX_FRAMES_REACHED=0
-            MAX_TPS_REACHED=0
-            MAX_E2E_REACHED=0
-
             for imgs in 4 6 8 10 12 16 20 24; do
+                # Each (imgs) gets its own COMBO_TS -> its own log (holds all batch sweep entries)
+                COMBO_TS=$(date "+%Y%m%d_%H%M%S")
+                COMBO_LOG="$SCRIPT_DIR/$MODEL_DIR/${COMBO_TS}_${MODEL}_${QUANT}_${MTP_LABEL}_32768_${GPU_TYPE}_client.log"
+
                 echo ""
                 echo "--- ${MODEL} ${w}x${h} frames=${imgs} in=${input_len} out=${output_len} quant=${QUANT} ---"
+                echo "Log: $(basename "$COMBO_LOG")"
 
-                # arg11="1"       -> KEEP_SERVER_UP (server reused across all combos)
-                # arg12=MAX_IMGS  -> server allows up to MAX_IMGS imgs/req
-                # arg13=COMBO_TS  -> all frames in this combo share one log file
+                # arg10="" -> dynamic batch sweep in vllm_random_benchmark_server.sh
+                # arg11="1" -> KEEP_SERVER_UP (server reused across combos)
+                # arg12=MAX_IMGS -> server allows up to MAX_IMGS imgs/req
+                # arg13=COMBO_TS -> log filename key
                 if ! bash "$SCRIPT_DIR/vllm_random_benchmark_server.sh" \
                     "$MODEL" "$w" "$h" "$imgs" "$MTP" "$QUANT" "$DEVICE" \
-                    "$output_len" "$input_len" "$FIXED_BATCH" "1" "$MAX_IMGS" "$COMBO_TS"; then
+                    "$output_len" "$input_len" "" "1" "$MAX_IMGS" "$COMBO_TS"; then
                     echo "  ERROR: benchmark failed (OOM / Bad Request) — stopping frames sweep"
                     break
                 fi
 
-                E2E=$(grep 'Benchmark duration (s):' "$COMBO_LOG" 2>/dev/null | tail -1 | awk '{print $NF}')
-                TPS=$(grep 'Output token throughput (tok/s):' "$COMBO_LOG" 2>/dev/null | tail -1 | awk '{print $NF}')
+                # Extract max batch where E2E <= E2E_LIMIT from this combo's log
+                read MAX_BATCH MAX_E2E MAX_TPS <<< "$(awk -v lim="$E2E_LIMIT" '
+                    /=== BENCHMARK batch=/ {
+                        for (i=1;i<=NF;i++) if ($i ~ /^batch=/) { sub(/batch=/,"",$i); cur_batch=$i+0 }
+                    }
+                    /Benchmark duration \(s\):/ {
+                        e2e = $NF+0
+                        if (e2e <= lim) { mb=cur_batch; me=e2e }
+                    }
+                    /Output token throughput \(tok\/s\):/ {
+                        if (cur_batch+0 == mb+0) mt=$NF+0
+                    }
+                    END { print mb+0, me+0, mt+0 }
+                ' "$COMBO_LOG" 2>/dev/null)"
 
-                echo "  frames=${imgs}  E2E=${E2E}s  TPS=${TPS} tok/s"
-
-                OVER=$(awk -v e="${E2E:-0}" -v lim="$E2E_LIMIT" 'BEGIN { print (e > lim) ? 1 : 0 }')
-                if [ "$OVER" = "1" ]; then
-                    echo "  E2E ${E2E}s > ${E2E_LIMIT}s limit — stopping frames sweep for this config"
-                    break
-                fi
-
-                MAX_FRAMES_REACHED=$imgs
-                MAX_TPS_REACHED=$TPS
-                MAX_E2E_REACHED=$E2E
+                echo "  frames=${imgs}  MaxBatch=${MAX_BATCH}  E2E=${MAX_E2E}s  TPS=${MAX_TPS} tok/s"
+                echo "$GPU_TYPE, $MODEL_LABEL, ${QUANT^^}, ${w}x${h}, $input_len, $output_len, $imgs, $MAX_BATCH, $MAX_E2E, $MAX_TPS" >> "$SUMMARY_CSV"
             done
-
-            echo ""
-            echo "  >> Result: ${w}x${h} in=${input_len} out=${output_len}"
-            echo "     Max frames @ E2E<${E2E_LIMIT}s : $MAX_FRAMES_REACHED"
-            echo "     E2E at max frames              : ${MAX_E2E_REACHED}s"
-            echo "     TPS at max frames              : $MAX_TPS_REACHED tok/s"
-            echo "$GPU_TYPE, $MODEL_LABEL, ${QUANT^^}, ${w}x${h}, $input_len, $output_len, $FIXED_BATCH, $MAX_FRAMES_REACHED, $MAX_E2E_REACHED, $MAX_TPS_REACHED" >> "$SUMMARY_CSV"
         done
     done
 done
