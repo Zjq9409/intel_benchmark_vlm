@@ -86,7 +86,7 @@ MAX_MODEL_LEN=32768
 #     MAX_BATCHED_TOKENS=8192
 #     MAX_MODEL_LEN=16384
 # fi
-GPU_MEM_UTIL=0.8
+GPU_MEM_UTIL=0.9
 MM_W="${2:-1280}"
 MM_H="${3:-720}"
 
@@ -232,7 +232,7 @@ run_benchmark() {
     local bsize=$1
     echo "[$(date +%Y%m%d_%H%M%S)] === BENCHMARK batch=$bsize imgs=${MM_ITEMS} res=${MM_W}x${MM_H} in=${INPUT_LEN} out=${OUTPUT_LEN} quant=${QUANT} ===" | tee -a "$LOG_FILE"
     echo ">>> Running vllm bench serve with --num-prompts=$bsize" | tee -a "$LOG_FILE"
-    vllm bench serve \
+    ( set -o pipefail; vllm bench serve \
         --model "$SERVER_MODEL" \
         --served-model-name "$SERVER_MODEL_NAME" \
         --endpoint /v1/chat/completions \
@@ -249,7 +249,7 @@ run_benchmark() {
         --backend openai-chat \
         --ignore-eos \
         --port=$PORT \
-        --seed 42 2>&1 | tee -a "$LOG_FILE"
+        --seed 42 2>&1 | tee -a "$LOG_FILE" )
 }
 
 check_stop() {
