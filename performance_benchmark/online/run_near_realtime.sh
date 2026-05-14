@@ -40,30 +40,43 @@ echo "XPU Container: $VLLM_XPU_CONTAINER"
 
 # 30B-A3B MoE 模型
 # imgs=1: 单帧基线；imgs=4: 30s片段4帧；imgs=8: 30s片段8帧（时序理解）
+# for input_len in 512 1024; do
+#     for output_len in 128 1024; do
+#         for res in "1280 720" "1920 1080"; do
+#             w=${res% *}; h=${res#* }
+#             for imgs in 1 4 8 10; do
+#                 echo "--- 30b ${w}x${h} imgs=${imgs} quant=${QUANT} in=${input_len} out=${output_len} ---"
+#                 bash vllm_random_benchmark_server.sh 30b $w $h $imgs off $QUANT "$DEVICE" $output_len $input_len
+#             done
+#         done
+#     done
+# done
+
+# 4B 模型（单卡 TP=1，FP8）
 for input_len in 512 1024; do
     for output_len in 128 1024; do
         for res in "1280 720" "1920 1080"; do
             w=${res% *}; h=${res#* }
             for imgs in 1 4 8 10; do
-                echo "--- 30b ${w}x${h} imgs=${imgs} quant=${QUANT} in=${input_len} out=${output_len} ---"
-                bash vllm_random_benchmark_server.sh 30b $w $h $imgs off $QUANT $DEVICE $output_len $input_len
+                echo "--- 4b ${w}x${h} imgs=${imgs} quant=${QUANT} in=${input_len} out=${output_len} ---"
+                bash vllm_random_benchmark_server.sh 4b $w $h $imgs off $QUANT "$DEVICE" $output_len $input_len
             done
         done
     done
 done
 
 # 32B Dense 模型（仅 fp8）
-for input_len in 512 1024; do
-    for output_len in 128 1024; do
-        for res in "1280 720" "1920 1080"; do
-            w=${res% *}; h=${res#* }
-            for imgs in 1 4 8 10; do
-                echo "--- 32b ${w}x${h} imgs=${imgs} quant=fp8 in=${input_len} out=${output_len} ---"
-                bash vllm_random_benchmark_server.sh 32b $w $h $imgs off fp8 $DEVICE $output_len $input_len
-            done
-        done
-    done
-done
+# for input_len in 512 1024; do
+#     for output_len in 128 1024; do
+#         for res in "1280 720" "1920 1080"; do
+#             w=${res% *}; h=${res#* }
+#             for imgs in 1 4 8 10; do
+#                 echo "--- 32b ${w}x${h} imgs=${imgs} quant=fp8 in=${input_len} out=${output_len} ---"
+#                 bash vllm_random_benchmark_server.sh 32b $w $h $imgs off fp8 "$DEVICE" $output_len $input_len
+#             done
+#         done
+#     done
+# done
 
 # ================================================================
 echo "========================================"
