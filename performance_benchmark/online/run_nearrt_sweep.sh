@@ -42,7 +42,8 @@ GPU_TYPE=$(nvidia-smi --query-gpu=name --format=csv,noheader 2>/dev/null | head 
 [ -z "$GPU_TYPE" ] && GPU_TYPE="XPU"
 
 RUN_START_FILE=$(date "+%Y%m%d_%H%M%S")
-SUMMARY_CSV="$SCRIPT_DIR/nearrt_summary_${RUN_START_FILE}_${MODEL}_${QUANT}_${GPU_TYPE}.csv"
+mkdir -p "$SCRIPT_DIR/$MODEL_DIR/LOG"
+SUMMARY_CSV="$SCRIPT_DIR/$MODEL_DIR/LOG/nearrt_summary_${RUN_START_FILE}_${MODEL}_${QUANT}_${GPU_TYPE}.csv"
 echo "Device, Model, Precision, Image Size, Input Len, Output Len, Frames/Req, Max Batch (E2E<${E2E_LIMIT}s), E2E(s), TPS(tok/s)" > "$SUMMARY_CSV"
 _sweep_ref=$(mktemp)
 
