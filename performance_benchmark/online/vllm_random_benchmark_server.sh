@@ -240,7 +240,7 @@ check_stop() {
     local e2e_s e2e_ms e2e_limit
     e2e_s=$(grep 'Benchmark duration (s):' "$LOG_FILE" | tail -1 | awk '{print $NF}')
     [ -z "$e2e_s" ] && return
-    e2e_ms=$(awk "BEGIN { printf "%.0f", ${e2e_s} * 1000 }")
+    e2e_ms=$(awk -v v="$e2e_s" 'BEGIN { printf "%.0f", v * 1000 }')
     # 停止阈值：单图 60s，多图 120s
     e2e_limit=$([ "$MM_ITEMS" -gt 1 ] && echo 120000 || echo 60000)
     echo "  E2E: ${e2e_s}s (limit: $(( e2e_limit / 1000 ))s)"
@@ -259,7 +259,7 @@ check_stop() {
 
 run_benchmark 1
 check_stop
-i=2
+i=4
 STEP=$([ "$MM_ITEMS" -gt 1 ] && echo 1 || echo 2)
 while [ $i -le $MAX_BSIZE ]; do
     run_benchmark $i

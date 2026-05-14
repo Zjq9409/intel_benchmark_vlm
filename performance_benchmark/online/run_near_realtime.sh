@@ -9,6 +9,7 @@ trap "kill $_SUDO_KEEPALIVE_PID 2>/dev/null" EXIT
 
 RUN_START=$(date "+%Y-%m-%d %H:%M:%S")
 RUN_START_TS=$(date +%s)
+RUN_START_FILE=$(date "+%Y%m%d_%H%M%S")
 echo "========================================"
 echo "Run started at: $RUN_START"
 echo "========================================"
@@ -77,6 +78,10 @@ done
 #         done
 #     done
 # done
+
+# Combine all CSVs from this run into one file
+echo "Combining CSVs generated since $RUN_START_FILE ..."
+python3 "$(dirname "$0")/combine_csv.py" --since "$RUN_START_FILE" --dir "$(dirname "$0")"
 
 # ================================================================
 echo "========================================"
