@@ -16,7 +16,7 @@ QUANT="${4:-fp8}"
 E2E_LIMIT=60   # seconds
 
 export VLLM_NV_CONTAINER="${VLLM_NV_CONTAINER:-vllm-nv-container}"
-export VLLM_XPU_CONTAINER="${VLLM_XPU_CONTAINER:-lsv-container-0428}"
+export VLLM_XPU_CONTAINER="${VLLM_XPU_CONTAINER:-lsv-container-b8.1}"
 
 RUN_START=$(date "+%Y-%m-%d %H:%M:%S")
 RUN_START_TS=$(date +%s)
