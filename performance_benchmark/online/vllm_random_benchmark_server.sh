@@ -284,10 +284,11 @@ else
         e2e_first=$(grep 'Benchmark duration (s):' "$LOG_FILE" | tail -1 | awk '{print $NF}')
         e2e_limit_s=$([ "$MM_ITEMS" -gt 1 ] && echo 30 || echo 60)
         if [ -n "$e2e_first" ]; then
-            estimated_max=$(awk -v e="$e2e_first" -v lim="$e2e_limit_s" -v maxb="$MAX_BSIZE" \
-                'BEGIN { m = int(lim / e); if (m > maxb) m = maxb; if (m < 1) m = 1; print m }')
-            STEP=$(awk -v m="$estimated_max" 'BEGIN { s = int(m / 10); if (s < 1) s = 1; print s }')
-            echo "  First-run E2E=${e2e_first}s -> estimated_max=${estimated_max} -> STEP=${STEP}"
+            # Use MAX_BSIZE as upper bound, rely on check_stop() E2E threshold to stop sweep
+            estimated_max=$MAX_BSIZE
+            STEP=$(awk -v e="$e2e_first" -v lim="$e2e_limit_s" \
+                'BEGIN { s = int(lim / e / 10); if (s < 1) s = 1; if (s > 5) s = 5; print s }')
+            echo "  First-run E2E=${e2e_first}s -> using MAX_BSIZE=${MAX_BSIZE} -> STEP=${STEP}"
         else
             STEP=10
             echo "  Could not read first-run E2E, using default STEP=$STEP"
