@@ -102,8 +102,8 @@ echo "All tests will be logged to: $(basename "$COMBO_LOG")"
 # ----------------------------------------------------------------
 for res in "1280 720" "1920 1080"; do
     w=${res% *}; h=${res#* }
-    for input_len in 1024; do
-        for output_len in 1024; do
+    for input_len in 512 1024; do
+        for output_len in 128 1024; do
 
             echo ""
             echo "================================================================"
