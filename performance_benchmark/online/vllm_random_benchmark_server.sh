@@ -77,7 +77,7 @@ else
     TP=4
 fi
 
-PORT=8006
+PORT=8008
 # Scale token limits with images-per-request (720P ≈576 visual tokens/image)
 # if [ "$MM_ITEMS" -gt 1 ]; then
 MAX_BATCHED_TOKENS=32768
