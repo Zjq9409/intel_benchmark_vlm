@@ -4,7 +4,7 @@ from PIL import Image
 from transformers import AutoTokenizer
 
 # ── 模型参数 (Qwen3-VL-2B) ──────────────────────────────────────────
-MODEL_PATH     = "/data1/models/Qwen3-VL-4B-Instruct/"
+MODEL_PATH     = "/DISK0/weights/Qwen3-VL-4B-Instruct/"
 PATCH_SIZE     = 16
 TEMPORAL_PATCH = 2
 MERGE_SIZE     = 2
@@ -100,9 +100,20 @@ def calc_visual_tokens(image_path=None, prompt="Describe this image.", tokenizer
     return total
 
 
+
 if __name__ == "__main__":
     import re
-    arg = sys.argv[1] if len(sys.argv) > 1 else "/home/intel/zjq/Qwen/demo.jpeg"
+    import argparse
+    parser = argparse.ArgumentParser()
+    parser.add_argument("input", help="Image path or WxH size")
+    parser.add_argument("--prompt_path", help="Path to prompt file")
+    args = parser.parse_args()
+    
+    arg = args.input
+    prompt = "Describe this image."
+    if args.prompt_path:
+        with open(args.prompt_path, "r") as f:
+            prompt = f.read().strip()
 
     # 判断参数是 WxH 尺寸 还是 文件路径
     m = re.fullmatch(r'(\d+)[xX](\d+)', arg)
@@ -120,5 +131,6 @@ if __name__ == "__main__":
     print(f"加载完成\n")
     print(f"{'='*55}")
     print(f"  {label}")
+    print(f"  Prompt length: {len(prompt)}")
     print(f"{'='*55}\n")
-    calc_visual_tokens(image_path=use_path, tokenizer=tok, size=use_size)
+    calc_visual_tokens(image_path=use_path, tokenizer=tok, size=use_size, prompt=prompt)

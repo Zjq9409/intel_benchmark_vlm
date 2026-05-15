@@ -7,11 +7,16 @@
 ```bash
 cd performance_benchmark/online
 
-# 关闭 FP8 量化（纯 FP16）
+# 单次测试：关闭 FP8 量化（纯 FP16）
+
 bash vllm_random_benchmark_server.sh 4b 1280 720 1 off none
 
-# 指定 GPU device 4 运行
+# 单次测试：指定 GPU device 4 运行
+
 bash vllm_random_benchmark_server.sh 4b 1280 720 1 off fp8 4
+
+# 批量测试：准实时场景扫描（自动 batch sweep）
+bash run_nearrt_sweep.sh 4b 4 fp8      # 4B模型，GPU 4，FP8量化
 
 # 批量运行多个组合（见 run_both.sh）
 bash run_both.sh
@@ -59,9 +64,9 @@ bash run_both.sh none 4
 | `GPU_MEM_UTIL` | `0.8` | `0.8` | GPU 显存利用率 |
 | `INPUT_LEN` | `1024` | `1024` | 随机输入 token 长度 |
 | `OUTPUT_LEN` | `1024` | `1024` | 随机输出 token 长度 |
-| `MAX_BSIZE` | `200` | `20` | num-prompts 最大值 |
-| TTFT 阈值 | `5000 ms` | `10000 ms` | 超过此值时自动停止 |
-| 步长 | `2` | `1` | num-prompts 递增步长 |
+| `MAX_BSIZE` | `200` | `20` | batch sweep 上限 |
+| E2E 阈值 | `30s` | `30s` | 超过此值时停止 batch sweep |
+| 步长 | 动态计算 | 动态计算 | 根据 batch=1 的 E2E 自动调整（1~5） |
 
 MTP（Speculative Decoding）配置：`{"method":"qwen3_next_mtp","num_speculative_tokens":2}`，通过 `$5=on` 追加到服务端启动参数，仅 Qwen3.5 系列支持。
 
@@ -102,6 +107,32 @@ LOG/<MODEL_NAME>/<YYYYMMDD_HHMMSS>_[mm<N>_][mtp_|nomtp_]monitor_...log
 - **Total Token throughput**: 总 token 吞吐量（输入+输出）
 - **Acceptance rate**: MTP 投机解码接受率（仅 `$5=on` 时输出）
 
+
+## Batch Sweep 自动测试
+
+使用 `run_nearrt_sweep.sh` 进行准实时场景的批量测试，会自动扫描多种配置组合：
+
+```bash
+bash run_nearrt_sweep.sh [model] [device] [quant] [mtp]
+
+# 示例
+bash run_nearrt_sweep.sh 4b 4 fp8 off    # 4B模型，GPU 4，FP8量化，MTP关闭
+bash run_nearrt_sweep.sh 4b "" fp8       # 使用所有GPU
+```
+
+**测试矩阵**：
+- 分辨率：`720p (1280x720)`、`1080p (1920x1080)`
+- 输入长度：`1024 tokens`
+- 输出长度：`1024 tokens`
+- 每请求图片数：`1, 4, 6, 8, 10, 14, 16` 张
+- Batch 大小：动态扫描至 E2E 超过 30 秒
+
+**自动化特性**：
+1. 单次启动服务器，复用测试所有组合
+2. 每个图片数量自动寻找最大 batch（E2E < 30s）
+3. 自动修复 docker 创建的文件权限
+4. 统一输出到单个日志文件，便于对比
+
 ## 解析测试日志
 
 测试完成后脚本会自动调用 `parse_log.py` 生成 CSV，也可手动解析：
@@ -110,6 +141,15 @@ LOG/<MODEL_NAME>/<YYYYMMDD_HHMMSS>_[mm<N>_][mtp_|nomtp_]monitor_...log
 python3 parse_log.py LOG/<MODEL_NAME>/xxx_client_xxx.log
 # 生成同名 .csv 文件，包含各并发点的 TTFT/TPOT/ITL/throughput 等指标
 ```
+
+**CSV 字段说明**：
+- `batch_size`: 并发批次大小（同时处理的请求数）
+- `Images per request`: 每个请求包含的图片数量
+- `TTFT (ms)`: Time to First Token（首 token 延迟）
+- `TPOT (ms)`: Time per Output Token（每个输出 token 平均时间）
+- `TPS (tokens/s)`: 输出 token 吞吐量
+- `QPS (req/s)`: 请求吞吐量
+- `E2E Latency (s)`: 端到端延迟（Benchmark duration）
 
 ## NarratoAI 真实负载场景
 

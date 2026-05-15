@@ -53,6 +53,7 @@ MTP="${5:-off}"   # on=enable speculative decoding, off=disable
 QUANT="${6:-fp8}"  # fp8=enable fp8 quantization, none=disable
 DEVICE="${7:-}"     # GPU device ID, e.g. 4; empty=use all
 OUTPUT_LEN="${8:-1024}"  # output token length; 128=realtime, 512=near-realtime, 1024=batch
+E2E_LIMIT_SEC=30  # E2E threshold in seconds for batch sweep
 INPUT_LEN="${9:-1024}"   # input token length; 512=short prompt, 1024=standard
 FIXED_BATCH="${10:-}"    # if set, run only this single batch size (skip sweep)
 KEEP_SERVER_UP="${11:-}"  # if "1", keep server running after benchmark (multi-combo sweep)
@@ -250,8 +251,8 @@ check_stop() {
     e2e_s=$(grep 'Benchmark duration (s):' "$LOG_FILE" | tail -1 | awk '{print $NF}')
     [ -z "$e2e_s" ] && return 0
     e2e_ms=$(awk -v v="$e2e_s" 'BEGIN { printf "%.0f", v * 1000 }')
-    # 停止阈值：单图 60s，多图 30s（准实时）
-    e2e_limit=$([ "$MM_ITEMS" -gt 1 ] && echo 30000 || echo 60000)
+    # 停止阈值：统一阈值（准实时场景）
+    e2e_limit=$((E2E_LIMIT_SEC * 1000))  # Convert to milliseconds
     echo "  E2E: ${e2e_s}s (limit: $(( e2e_limit / 1000 ))s)"
     if awk "BEGIN { exit !(${e2e_ms} > ${e2e_limit}) }"; then
         echo "E2E ${e2e_s}s exceeds $(( e2e_limit / 1000 ))s threshold."
@@ -282,7 +283,7 @@ else
     if [ "$STOP_SWEEP" = "0" ]; then
         # Dynamic STEP: estimate from batch=1 E2E, target 10 data points
         e2e_first=$(grep 'Benchmark duration (s):' "$LOG_FILE" | tail -1 | awk '{print $NF}')
-        e2e_limit_s=$([ "$MM_ITEMS" -gt 1 ] && echo 30 || echo 60)
+        e2e_limit_s=$E2E_LIMIT_SEC
         if [ -n "$e2e_first" ]; then
             # Use MAX_BSIZE as upper bound, rely on check_stop() E2E threshold to stop sweep
             estimated_max=$MAX_BSIZE

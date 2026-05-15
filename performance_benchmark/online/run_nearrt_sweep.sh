@@ -13,7 +13,7 @@ MODEL="${1:-4b}"
 DEVICE="${2:-}"
 QUANT="${3:-fp8}"
 MTP="${4:-off}"
-E2E_LIMIT=30   # seconds per batch — multi-image 准实时阈值
+E2E_LIMIT=60   # seconds per batch — multi-image 准实时阈值
 MAX_IMGS=24    # max frames in sweep (also server MM limit)
 
 export VLLM_NV_CONTAINER="${VLLM_NV_CONTAINER:-vllm-nv-container}"
@@ -42,9 +42,9 @@ GPU_TYPE=$(nvidia-smi --query-gpu=name --format=csv,noheader 2>/dev/null | head 
 [ -z "$GPU_TYPE" ] && GPU_TYPE="XPU"
 
 RUN_START_FILE=$(date "+%Y%m%d_%H%M%S")
-mkdir -p "$SCRIPT_DIR/$MODEL_DIR/LOG"
-SUMMARY_CSV="$SCRIPT_DIR/$MODEL_DIR/LOG/nearrt_summary_${RUN_START_FILE}_${MODEL}_${QUANT}_${GPU_TYPE}.csv"
-echo "Device, Model, Precision, Image Size, Input Len, Output Len, Frames/Req, Max Batch (E2E<${E2E_LIMIT}s), E2E(s), TPS(tok/s)" > "$SUMMARY_CSV"
+# mkdir -p "$SCRIPT_DIR/$MODEL_DIR/LOG"
+# SUMMARY_CSV="$SCRIPT_DIR/$MODEL_DIR/LOG/nearrt_summary_${RUN_START_FILE}_${MODEL}_${QUANT}_${GPU_TYPE}.csv"
+# echo "Device, Model, Precision, Image Size, Input Len, Output Len, Frames/Req, Max Batch (E2E<${E2E_LIMIT}s), E2E(s), TPS(tok/s)" > "$SUMMARY_CSV"
 _sweep_ref=$(mktemp)
 
 PORT=8008
@@ -95,22 +95,23 @@ trap 'echo ""; echo "Interrupted — stopping server..."; stop_server; rm -f "$_
 # ----------------------------------------------------------------
 # Main sweep
 # ----------------------------------------------------------------
+# One timestamp for all configs -> single shared log file
+COMBO_TS=$(date "+%Y%m%d_%H%M%S")
+COMBO_LOG="$SCRIPT_DIR/$MODEL_DIR/${COMBO_TS}_${MODEL}_${QUANT}_${MTP_LABEL}_32768_${GPU_TYPE}_client.log"
+echo "All tests will be logged to: $(basename "$COMBO_LOG")"
+# ----------------------------------------------------------------
 for res in "1280 720" "1920 1080"; do
     w=${res% *}; h=${res#* }
-
     for input_len in 1024; do
         for output_len in 1024; do
-            # One COMBO_TS per (res × input × output) -> all imgs share one log file
-            COMBO_TS=$(date "+%Y%m%d_%H%M%S")
-            COMBO_LOG="$SCRIPT_DIR/$MODEL_DIR/${COMBO_TS}_${MODEL}_${QUANT}_${MTP_LABEL}_32768_${GPU_TYPE}_client.log"
 
             echo ""
             echo "================================================================"
             echo "Resolution: ${w}x${h}  input_len=${input_len}  output_len=${output_len}"
             echo "Dynamic batch sweep (max batch @ E2E<${E2E_LIMIT}s per frame count)"
-            echo "Log: $(basename \"$COMBO_LOG\") (shared for all frame counts)"
+            # Log file already announced above
             echo "================================================================"
-            for imgs in 4 6 8 10 12; do
+            for imgs in 1 4 6 8 10 14 16; do
 
                 echo ""
                 echo "--- ${MODEL} ${w}x${h} frames=${imgs} in=${input_len} out=${output_len} quant=${QUANT} ---"
@@ -148,7 +149,7 @@ for res in "1280 720" "1920 1080"; do
                 ' "$COMBO_LOG" 2>/dev/null)"
 
                 echo "  frames=${imgs}  MaxBatch=${MAX_BATCH}  E2E=${MAX_E2E}s  TPS=${MAX_TPS} tok/s"
-                echo "$GPU_TYPE, $MODEL_LABEL, ${QUANT^^}, ${w}x${h}, $input_len, $output_len, $imgs, $MAX_BATCH, $MAX_E2E, $MAX_TPS" >> "$SUMMARY_CSV"
+#                 echo "$GPU_TYPE, $MODEL_LABEL, ${QUANT^^}, ${w}x${h}, $input_len, $output_len, $imgs, $MAX_BATCH, $MAX_E2E, $MAX_TPS" >> "$SUMMARY_CSV"
             done
         done
     done
@@ -169,6 +170,10 @@ printf "Run finished at: %s\n" "$RUN_END"
 printf "Total elapsed:   %02dh %02dm %02ds\n" $((ELAPSED/3600)) $(((ELAPSED%3600)/60)) $((ELAPSED%60))
 echo "========================================"
 
+# Fix file permissions BEFORE parsing (files created by docker are owned by root)
+echo "Fixing file permissions..."
+sudo chown -R intel:intel "$SCRIPT_DIR/$MODEL_DIR" 2>/dev/null || echo "  (Skip permission fix - not critical)"
+echo ""
 # Parse all combo logs generated in this sweep -> per-combo CSV
 echo "Parsing logs..."
 find "$SCRIPT_DIR/$MODEL_DIR" -name "*_client.log" \
@@ -179,5 +184,5 @@ done
 rm -f "$_sweep_ref"
 
 echo ""
-echo "Summary CSV: $SUMMARY_CSV"
+# echo "Summary CSV: $SUMMARY_CSV"
 echo "All done."

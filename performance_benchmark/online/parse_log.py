@@ -49,6 +49,8 @@ if __name__ == '__main__':
                 ctx['Model'] = name
             elif dataline.startswith('Quantization:'):
                 ctx['Precision'] = get_field(dataline).upper()
+            elif dataline.startswith('TP:'):
+                ctx['TP'] = int(get_num(dataline))
             elif dataline.startswith('Images per request:'):
                 ctx['Images per request'] = int(get_num(dataline))
 
@@ -73,7 +75,7 @@ if __name__ == '__main__':
                 if current_group:
                     results.append(current_group)
                 bsize = int(dataline.split('--num-prompts=')[1].split()[0])
-                current_group = {**ctx, 'num_prompts': bsize}
+                current_group = {**ctx, 'batch_size': bsize, 'DP': 1, 'PP': 1}
 
             # ── Result metrics ────────────────────────────────────────────
             elif dataline.startswith('Benchmark duration (s):'):
@@ -95,13 +97,12 @@ if __name__ == '__main__':
 
     # ── Output ───────────────────────────────────────────────────────────
     base_filename = os.path.splitext(os.path.basename(rawdatafile))[0]
-    output_dir = os.path.join(os.path.dirname(os.path.abspath(rawdatafile)), 'LOG')
-    os.makedirs(output_dir, exist_ok=True)
+    output_dir = os.path.dirname(os.path.abspath(rawdatafile))
 
     headers = [
-        "Device", "Model", "Precision",
-        "Image Size", "Images per request", "Input Text Length", "Output Length",
-        "num_prompts", "TTFT (ms)", "TPOT (ms)", "TPS (tokens/s)", "QPS (req/s)", "E2E Latency (s)"
+        "Device", "Model", "Precision", "TP", "DP", "PP",
+        "Image Size", "Input Text Length", "Output Length",
+        "Images per request", "batch_size", "TTFT (ms)", "TPOT (ms)", "TPS (tokens/s)", "QPS (req/s)", "E2E Latency (s)"
     ]
 
     outpath = os.path.join(output_dir, f'{base_filename}.csv')
