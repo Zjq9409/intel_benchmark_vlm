@@ -59,6 +59,7 @@ FIXED_BATCH="${10:-}"    # if set, run only this single batch size (skip sweep)
 KEEP_SERVER_UP="${11:-}"  # if "1", keep server running after benchmark (multi-combo sweep)
 SERVER_MM_LIMIT="${12:-$MM_ITEMS}"  # server --limit-mm-per-prompt max (set to sweep max for KEEP_SERVER_UP mode)
 SWEEP_TS="${13:-}"            # timestamp passed from sweep wrapper (survives docker exec)
+PORT="${14:-8008}"           # vllm server port (passed from sweep wrapper)
 
 if [ "$MODEL_SELECT" = "4b" ]; then
     SERVER_MODEL="/llm/models/Qwen3-VL-4B-Instruct"
@@ -78,7 +79,6 @@ else
     TP=4
 fi
 
-PORT=8008
 # Scale token limits with images-per-request (720P ≈576 visual tokens/image)
 # if [ "$MM_ITEMS" -gt 1 ]; then
 MAX_BATCHED_TOKENS=32768

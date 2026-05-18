@@ -134,9 +134,10 @@ for res in "1280 720" "1920 1080"; do
                 # arg11="1" -> KEEP_SERVER_UP (server reused across combos)
                 # arg12=MAX_IMGS -> server allows up to MAX_IMGS imgs/req
                 # arg13=COMBO_TS -> log filename key
+                # arg14=PORT     -> vllm server port
                 if ! bash "$SCRIPT_DIR/vllm_random_benchmark_server.sh" \
                     "$MODEL" "$w" "$h" "$imgs" "$MTP" "$QUANT" "$DEVICE" \
-                    "$output_len" "$input_len" "" "1" "$MAX_IMGS" "$COMBO_TS"; then
+                    "$output_len" "$input_len" "" "1" "$MAX_IMGS" "$COMBO_TS" "$PORT"; then
                     echo "  ERROR: benchmark failed (OOM / Bad Request) — stopping frames sweep"
                     break
                 fi
