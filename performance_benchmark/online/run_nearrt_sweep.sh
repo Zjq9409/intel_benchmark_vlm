@@ -23,6 +23,17 @@ RUN_START=$(date "+%Y-%m-%d %H:%M:%S")
 RUN_START_TS=$(date +%s)
 SCRIPT_DIR="$(dirname "$(realpath "$0")")"
 
+# ----------------------------------------------------------------
+# Request sudo password once at the beginning
+# ----------------------------------------------------------------
+echo "Requesting sudo access (needed for docker exec and file permissions)..."
+sudo -v
+
+# Keep sudo timestamp updated in the background
+(while true; do sleep 50; sudo -n true 2>/dev/null; done) &
+SUDO_KEEPER_PID=$!
+
+
 if [ "$MODEL" = "4b" ]; then
     MODEL_DIR="Qwen3-VL-4B-Instruct"
     MODEL_LABEL="Qwen3-VL-4B"
@@ -90,7 +101,7 @@ stop_server() {
     fi
 }
 
-trap 'echo ""; echo "Interrupted — stopping server..."; stop_server; rm -f "$_sweep_ref"; exit 1' INT TERM
+trap 'echo ""; echo "Interrupted — stopping server..."; stop_server; rm -f "$_sweep_ref"; [ -n "$SUDO_KEEPER_PID" ] && kill "$SUDO_KEEPER_PID" 2>/dev/null || true; exit 1' INT TERM
 
 # ----------------------------------------------------------------
 # Main sweep
@@ -186,3 +197,8 @@ rm -f "$_sweep_ref"
 echo ""
 # echo "Summary CSV: $SUMMARY_CSV"
 echo "All done."
+
+# Cleanup sudo keeper background process
+if [ -n "$SUDO_KEEPER_PID" ]; then
+    kill "$SUDO_KEEPER_PID" 2>/dev/null || true
+fi
