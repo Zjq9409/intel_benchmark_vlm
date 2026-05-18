@@ -135,7 +135,6 @@ VLLM_SERVER_ARGS=(
     --no-enable-prefix-caching
     --gpu-memory-util=$GPU_MEM_UTIL
     --max-num-batched-tokens=$MAX_BATCHED_TOKENS
-    --limit-mm-per-prompt '{"image": '"${SERVER_MM_LIMIT}"'}'
     --max-model-len=$MAX_MODEL_LEN
     --block-size 64
     --mm-processor-cache-gb 0
