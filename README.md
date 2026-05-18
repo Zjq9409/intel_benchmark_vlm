@@ -17,10 +17,10 @@
 ```bash
 
 # 指定 Intel Docker 镜像（完整镜像名）
-bash setup_env.sh --weights-dir /data/weights/ --script-dir /data/intel_benchmark_vlm/ --co --intel-image intel/llm-scaler-vllm:0.18.0-xpu
+bash setup_env.sh --weights-dir /data/weights/ --script-dir /data/intel_benchmark_vlm/ --intel-image intel/llm-scaler-vllm:0.18.0-xpu
 
 # 指定 NV Docker 镜像
-bash setup_env.sh --weights-dir /data/weights/ --script-dir /data/intel_benchmark_vlm/ --co --nv-image vllm/vllm-openai:v0.19.1-cu130
+bash setup_env.sh --weights-dir /data/weights/ --script-dir /data/intel_benchmark_vlm/ --nv-image vllm/vllm-openai:v0.19.1-cu130
 
 # 可通过 --container-name 自定义容器名（默认：NV=vllm-nv-container，XPU=lsv-container-<suffix>）
 bash setup_env.sh --weights-dir /data/weights/ --script-dir /data/intel_benchmark_vlm/ --container-name my-container
