@@ -7,15 +7,7 @@
 ```bash
 cd performance_benchmark/online
 
-# 单次测试：关闭 FP8 量化（纯 FP16）
-
-bash vllm_random_benchmark_server.sh 4b 1280 720 1 off none
-
-# 单次测试：指定 GPU device 4 运行
-
-bash vllm_random_benchmark_server.sh 4b 1280 720 1 off fp8 4
-
-# 批量测试：准实时场景扫描（自动 batch sweep）
+# 准实时场景扫描（自动 batch sweep）
 bash run_nearrt_sweep.sh 4b 4 fp8      # 4B模型，GPU 4，FP8量化
 
 # 批量运行多个组合（见 run_both.sh）
