@@ -53,7 +53,7 @@ MTP="${5:-off}"   # on=enable speculative decoding, off=disable
 QUANT="${6:-fp8}"  # fp8=enable fp8 quantization, none=disable
 DEVICE="${7:-}"     # GPU device ID, e.g. 4; empty=use all
 OUTPUT_LEN="${8:-1024}"  # output token length; 128=realtime, 512=near-realtime, 1024=batch
-E2E_LIMIT_SEC=60  # E2E threshold in seconds for batch sweep
+E2E_LIMIT_SEC=30  # E2E threshold in seconds for batch sweep
 INPUT_LEN="${9:-1024}"   # input token length; 512=short prompt, 1024=standard
 FIXED_BATCH="${10:-}"    # if set, run only this single batch size (skip sweep)
 KEEP_SERVER_UP="${11:-}"  # if "1", keep server running after benchmark (multi-combo sweep)
