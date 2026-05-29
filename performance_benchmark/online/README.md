@@ -17,17 +17,30 @@ bash run_both.sh
 bash run_both.sh none 4
 ```
 
-### 脚本参数
+### run_nearrt_sweep.sh 参数
 
 | 位置参数 | 可选值 | 默认值 | 说明 |
 |---------|--------|--------|------|
-| `$1` 模型规格 | `4b` / `q35-4b` / `30b` | `30b` | 选择测试模型（详见下表） |
+| `$1` 模型规格 | `4b` / `q35-4b` / `30b` / `32b` / `q36-35b` | `4b` | 选择测试模型（详见下表） |
+| `$2` GPU Device | 设备 ID，如 `4` | 空（全部） | 指定 `CUDA_VISIBLE_DEVICES`，空则使用全部可见 GPU |
+| `$3` 量化 | `fp8` / `none` | `fp8` | FP8 量化（RTX 4090/Ada Lovelace 有效）；`none` 为纯 FP16 |
+| `$4` MTP | `on` / `off` | `off` | 是否启用 Speculative Decoding（仅 Qwen3.5 系列支持） |
+
+### vllm_random_benchmark_server.sh 参数
+
+内层脚本可独立调用，参数如下：
+
+| 位置参数 | 可选值 | 默认值 | 说明 |
+|---------|--------|--------|------|
+| `$1` 模型规格 | `4b` / `q35-4b` / `30b` 等 | `30b` | 选择测试模型 |
 | `$2` 图片宽度 | 任意整数 | `1280` | 随机生成图片的宽度（像素） |
 | `$3` 图片高度 | 任意整数 | `720` | 随机生成图片的高度（像素） |
 | `$4` 每请求图片数 | 任意正整数 | `1` | 单图测试填 `1`；模拟 NarratoAI 真实负载填 `10` |
-| `$5` MTP | `on` / `off` | `off` | 是否启用 Speculative Decoding（仅 Qwen3.5 系列支持） |
-| `$6` 量化 | `fp8` / `none` | `fp8` | FP8 量化（RTX 4090/Ada Lovelace 有效）；`none` 为纯 FP16 |
-| `$7` GPU Device | 设备 ID，如 `4` | 空（全部） | 指定 `CUDA_VISIBLE_DEVICES`，空则使用全部可见 GPU |
+| `$5` MTP | `on` / `off` | `off` | 是否启用 Speculative Decoding |
+| `$6` 量化 | `fp8` / `none` | `fp8` | FP8 量化 |
+| `$7` GPU Device | 设备 ID，如 `4` | 空（全部） | 指定 `CUDA_VISIBLE_DEVICES` |
+| `$8` 输出长度 | 整数 | `1024` | 随机输出 token 长度 |
+| `$9` 输入长度 | 整数 | `1024` | 随机输入 token 长度 |
 
 ### 环境变量
 
@@ -38,26 +51,40 @@ bash run_both.sh none 4
 
 可在 `run_both.sh` 开头修改，或在 shell 中 `export` 后执行脚本。
 
+### 可调参数（run_nearrt_sweep.sh 顶部）
+
+以下参数集中在 `run_nearrt_sweep.sh` 脚本顶部，修改一处即可同步到内层脚本：
+
+| 变量 | 默认值 | 说明 |
+|------|--------|------|
+| `E2E_LIMIT` | `40` | E2E 阈值（秒），超过时停止 batch sweep |
+| `PORT` | `8008` | vllm 服务端口 |
+| `MAX_BATCHED_TOKENS` | `32768` | 最大批处理 token 数 |
+| `MAX_MODEL_LEN` | `32768` | 最大模型上下文长度 |
+| `GPU_MEM_UTIL` | `0.9` | GPU 显存利用率 |
+
 ### 支持的模型
 
-| `$1` 值 | 模型名称 | TP |
-|---------|---------|-----|
-| `30b`（默认） | Qwen3-VL-30B-A3B-Instruct | 4 |
-| `4b` | Qwen3-VL-4B-Instruct | 1 |
-| `q35-4b` | Qwen3.5-4B | 1 |
+| `$1` 值 | 模型名称 | TP | 权重路径（容器内） |
+|---------|---------|-----|-------------------|
+| `30b`（默认） | Qwen3-VL-30B-A3B-Instruct | 4 | `/llm/models/Qwen3-VL-30B-A3B-Instruct` |
+| `4b` | Qwen3-VL-4B-Instruct | 1 | `/llm/models/Qwen3-VL-4B-Instruct` |
+| `q35-4b` | Qwen3.5-4B | 1 | `/llm/models/Qwen3.5-4B` |
+| `32b` | Qwen3-VL-32B-Instruct | 4 | `/llm/models/Qwen3-VL-32B-Instruct` |
+| `q36-35b` | Qwen3.6-35B-A3B | 4 | `/DISK0/Qwen3.6-35B-A3B` |
 
 ### 服务端配置
 
 | 参数 | 单图模式（`$4=1`） | 多图模式（`$4>1`） | 说明 |
 |------|-----------------|-----------------|------|
-| `PORT` | `8006` | `8006` | 服务端口 |
-| `MAX_BATCHED_TOKENS` | `8192` | `32768` | 最大批处理 token 数 |
-| `MAX_MODEL_LEN` | `16384` | `32768` | 最大模型上下文长度 |
-| `GPU_MEM_UTIL` | `0.8` | `0.8` | GPU 显存利用率 |
+| `PORT` | `8008` | `8008` | 服务端口（可在脚本顶部调） |
+| `MAX_BATCHED_TOKENS` | `32768` | `32768` | 最大批处理 token 数（可在脚本顶部调） |
+| `MAX_MODEL_LEN` | `32768` | `32768` | 最大模型上下文长度（可在脚本顶部调） |
+| `GPU_MEM_UTIL` | `0.9` | `0.9` | GPU 显存利用率（可在脚本顶部调） |
 | `INPUT_LEN` | `1024` | `1024` | 随机输入 token 长度 |
 | `OUTPUT_LEN` | `1024` | `1024` | 随机输出 token 长度 |
 | `MAX_BSIZE` | `200` | `20` | batch sweep 上限 |
-| E2E 阈值 | `30s` | `30s` | 超过此值时停止 batch sweep |
+| E2E 阈值 | `40s` | `40s` | 超过此值时停止 batch sweep（`E2E_LIMIT` 变量） |
 | 步长 | 动态计算 | 动态计算 | 根据 batch=1 的 E2E 自动调整（1~5） |
 
 MTP（Speculative Decoding）配置：`{"method":"qwen3_next_mtp","num_speculative_tokens":2}`，通过 `$5=on` 追加到服务端启动参数，仅 Qwen3.5 系列支持。
@@ -117,11 +144,11 @@ bash run_nearrt_sweep.sh 4b "" fp8       # 使用所有GPU
 - 输入长度：`1024 tokens`
 - 输出长度：`1024 tokens`
 - 每请求图片数：`1, 4, 6, 8, 10, 14, 16` 张
-- Batch 大小：动态扫描至 E2E 超过 30 秒
+- Batch 大小：动态扫描至 E2E 超过 40 秒
 
 **自动化特性**：
 1. 单次启动服务器，复用测试所有组合
-2. 每个图片数量自动寻找最大 batch（E2E < 30s）
+2. 每个图片数量自动寻找最大 batch（E2E < 40s）
 3. 自动修复 docker 创建的文件权限
 4. 统一输出到单个日志文件，便于对比
 
@@ -163,16 +190,17 @@ bash vllm_random_benchmark_server.sh q35-4b 1280 720 10 on
 
 ## 测试其他模型
 
-在 `vllm_random_benchmark_server.sh` 的模型选择分支中添加新条目：
+所有模型配置集中在 `model_config.sh`，只需在 `case` 中新增一条：
 
 ```bash
-elif [ "$MODEL_SELECT" = "8b" ]; then
+8b)
+    MODEL_DIR="Qwen3-VL-8B-Instruct"
     SERVER_MODEL="/llm/models/Qwen3-VL-8B-Instruct"
-    SERVER_MODEL_NAME="Qwen3-VL-8B-Instruct"
     TP=2
+    ;;
 ```
 
 确认：
-1. 模型权重已放置在宿主机 `weights/` 目录（容器内映射为 `/llm/models/`）
+1. 模型权重已放置在容器可访问的路径，`SERVER_MODEL` 填容器内绝对路径
 2. `TP` 值与可用 GPU 卡数匹配
 3. MTP 仅适用于 Qwen3.5 系列，其他模型请使用 `$5=off`（默认）

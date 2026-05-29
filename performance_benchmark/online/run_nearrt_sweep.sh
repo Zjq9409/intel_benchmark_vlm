@@ -13,11 +13,27 @@ MODEL="${1:-4b}"
 DEVICE="${2:-}"
 QUANT="${3:-fp8}"
 MTP="${4:-off}"
-E2E_LIMIT=60   # seconds per batch — multi-image 准实时阈值
-MAX_IMGS=24    # max frames in sweep (also server MM limit)
+# ----------------------------------------------------------------
+# Tunable parameters
+# ----------------------------------------------------------------
+E2E_LIMIT=40          # E2E threshold in seconds (passed to inner benchmark script)
+PORT=8008             # vllm server port
+MAX_BATCHED_TOKENS=32768  # max batched tokens
+MAX_MODEL_LEN=32768       # max model context length
+GPU_MEM_UTIL=0.9          # GPU memory utilization fraction
 
-export VLLM_NV_CONTAINER="${VLLM_NV_CONTAINER:-vllm-nv-container}"
-export VLLM_XPU_CONTAINER="${VLLM_XPU_CONTAINER:-lsv-container-b8}"
+# Auto-detect running vllm NV container if not explicitly set
+if [ -z "${VLLM_NV_CONTAINER:-}" ]; then
+    VLLM_NV_CONTAINER=$(docker ps --filter "ancestor=vllm/vllm-openai" --format "{{.Names}}" 2>/dev/null | head -1)
+    [ -z "$VLLM_NV_CONTAINER" ] && VLLM_NV_CONTAINER="vllm-nv-container"
+fi
+export VLLM_NV_CONTAINER
+# Auto-detect running vllm XPU container if not explicitly set
+if [ -z "${VLLM_XPU_CONTAINER:-}" ]; then
+    VLLM_XPU_CONTAINER=$(docker ps --filter "ancestor=intelanalytics/ipex-llm-inference-xpu-ubuntu20" --format "{{.Names}}" 2>/dev/null | head -1)
+    [ -z "$VLLM_XPU_CONTAINER" ] && VLLM_XPU_CONTAINER="lsv-container-b8"
+fi
+export VLLM_XPU_CONTAINER
 
 RUN_START=$(date "+%Y-%m-%d %H:%M:%S")
 RUN_START_TS=$(date +%s)
@@ -51,8 +67,6 @@ RUN_START_FILE=$(date "+%Y%m%d_%H%M%S")
 # echo "Device, Model, Precision, Image Size, Input Len, Output Len, Frames/Req, Max Batch (E2E<${E2E_LIMIT}s), E2E(s), TPS(tok/s)" > "$SUMMARY_CSV"
 _sweep_ref=$(mktemp)
 
-PORT=8008
-
 echo "========================================"
 echo "Near-RT Sweep started at: $RUN_START"
 echo "Model=$MODEL  device=${DEVICE:-all}  quant=$QUANT  mtp=$MTP  E2E_LIMIT=${E2E_LIMIT}s"
@@ -66,9 +80,9 @@ echo "========================================"
 stop_server() {
     if [ ! -f "/.dockerenv" ] && ! grep -q 'docker\|containerd' /proc/1/cgroup 2>/dev/null; then
         if nvidia-smi &>/dev/null; then
-            C="${VLLM_NV_CONTAINER:-vllm-nv-container}"
+            C="$VLLM_NV_CONTAINER"
         else
-            C="${VLLM_XPU_CONTAINER:-lsv-container-b8}"
+            C="$VLLM_XPU_CONTAINER"
         fi
         echo "Stopping vllm server in container $C..."
         sudo docker exec "$C" bash -c "
@@ -101,8 +115,9 @@ trap 'echo ""; echo "Interrupted — stopping server..."; stop_server; rm -f "$_
 # ----------------------------------------------------------------
 # One timestamp for all configs -> single shared log file
 COMBO_TS=$(date "+%Y%m%d_%H%M%S")
-COMBO_LOG="$SCRIPT_DIR/$MODEL_DIR/${COMBO_TS}_${MODEL}_${QUANT}_${MTP_LABEL}_32768_${GPU_TYPE}_client.log"
-echo "All tests will be logged to: $(basename "$COMBO_LOG")"
+mkdir -p "$SCRIPT_DIR/$MODEL_DIR"
+COMBO_LOG="$SCRIPT_DIR/$MODEL_DIR/${COMBO_TS}_${MODEL}_${QUANT}_${MTP_LABEL}_${MAX_BATCHED_TOKENS}_${GPU_TYPE}_client.log"
+echo "All tests will be logged to: $MODEL_DIR/$(basename "$COMBO_LOG")"
 # ----------------------------------------------------------------
 for res in "1280 720" "1920 1080"; do
     w=${res% *}; h=${res#* }
@@ -122,12 +137,17 @@ for res in "1280 720" "1920 1080"; do
 
                 # arg10="" -> dynamic batch sweep in vllm_random_benchmark_server.sh
                 # arg11="1" -> KEEP_SERVER_UP (server reused across combos)
-                # arg12=MAX_IMGS -> server allows up to MAX_IMGS imgs/req
-                # arg13=COMBO_TS -> log filename key
-                # arg14=PORT     -> vllm server port
+                # arg12=""  -> SERVER_MM_LIMIT unused, pass empty
+                # arg13=COMBO_TS          -> log filename key
+                # arg14=PORT              -> vllm server port
+                # arg15=E2E_LIMIT         -> E2E threshold
+                # arg16=MAX_BATCHED_TOKENS -> max batched tokens
+                # arg17=MAX_MODEL_LEN      -> max model context length
+                # arg18=GPU_MEM_UTIL       -> GPU memory utilization fraction
                 if ! bash "$SCRIPT_DIR/vllm_random_benchmark_server.sh" \
                     "$MODEL" "$w" "$h" "$imgs" "$MTP" "$QUANT" "$DEVICE" \
-                    "$output_len" "$input_len" "" "1" "$MAX_IMGS" "$COMBO_TS" "$PORT"; then
+                    "$output_len" "$input_len" "" "1" "" "$COMBO_TS" "$PORT" "$E2E_LIMIT" \
+                    "$MAX_BATCHED_TOKENS" "$MAX_MODEL_LEN" "$GPU_MEM_UTIL"; then
                     echo "  ERROR: benchmark failed (OOM / Bad Request) — stopping frames sweep"
                     break
                 fi

@@ -10,7 +10,7 @@ if [ ! -f "/.dockerenv" ] && ! grep -q 'docker\|containerd' /proc/1/cgroup 2>/de
         CONTAINER_NAME="${VLLM_XPU_CONTAINER:-lsv-container-b8}"
     fi
 
-    SCRIPT_IN_CONTAINER="/llm/performance_benchmark/online/$(basename "$0")"
+    SCRIPT_IN_CONTAINER="$(realpath "$0")"
 
     _SELF_DIR="$(dirname "$(realpath "$0")")"
     _WEIGHTS_DIR="${WEIGHTS_DIR:-$(dirname "$(dirname "$(dirname "$_SELF_DIR")")")/weights}"
@@ -53,27 +53,20 @@ MTP="${5:-off}"   # on=enable speculative decoding, off=disable
 QUANT="${6:-fp8}"  # fp8=enable fp8 quantization, none=disable
 DEVICE="${7:-}"     # GPU device ID, e.g. 4; empty=use all
 OUTPUT_LEN="${8:-1024}"  # output token length; 128=realtime, 512=near-realtime, 1024=batch
-E2E_LIMIT_SEC=30  # E2E threshold in seconds for batch sweep
+E2E_LIMIT_SEC="${15:-60}"  # E2E threshold passed from sweep wrapper (run_nearrt_sweep.sh E2E_LIMIT)
 INPUT_LEN="${9:-1024}"   # input token length; 512=short prompt, 1024=standard
 FIXED_BATCH="${10:-}"    # if set, run only this single batch size (skip sweep)
 KEEP_SERVER_UP="${11:-}"  # if "1", keep server running after benchmark (multi-combo sweep)
 SERVER_MM_LIMIT="${12:-$MM_ITEMS}"  # server --limit-mm-per-prompt max (set to sweep max for KEEP_SERVER_UP mode)
 SWEEP_TS="${13:-}"            # timestamp passed from sweep wrapper (survives docker exec)
 PORT="${14:-8008}"           # vllm server port (passed from sweep wrapper)
+MAX_BATCHED_TOKENS="${16:-32768}"  # max batched tokens (passed from sweep wrapper)
+MAX_MODEL_LEN="${17:-32768}"       # max model context length (passed from sweep wrapper)
+GPU_MEM_UTIL="${18:-0.9}"          # GPU memory utilization (passed from sweep wrapper)
 
 # shellcheck source=model_config.sh
 source "$(dirname "$(realpath "$0")")/model_config.sh"
 resolve_model "$MODEL_SELECT"
-
-# Scale token limits with images-per-request (720P ≈576 visual tokens/image)
-# if [ "$MM_ITEMS" -gt 1 ]; then
-MAX_BATCHED_TOKENS=32768
-MAX_MODEL_LEN=32768
-# else
-#     MAX_BATCHED_TOKENS=8192
-#     MAX_MODEL_LEN=16384
-# fi
-GPU_MEM_UTIL=0.9
 MM_W="${2:-1280}"
 MM_H="${3:-720}"
 
