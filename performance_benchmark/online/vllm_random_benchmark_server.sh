@@ -61,23 +61,9 @@ SERVER_MM_LIMIT="${12:-$MM_ITEMS}"  # server --limit-mm-per-prompt max (set to s
 SWEEP_TS="${13:-}"            # timestamp passed from sweep wrapper (survives docker exec)
 PORT="${14:-8008}"           # vllm server port (passed from sweep wrapper)
 
-if [ "$MODEL_SELECT" = "4b" ]; then
-    SERVER_MODEL="/llm/models/Qwen3-VL-4B-Instruct"
-    SERVER_MODEL_NAME="Qwen3-VL-4B-Instruct"
-    TP=1
-elif [ "$MODEL_SELECT" = "q35-4b" ]; then
-    SERVER_MODEL="/llm/models/Qwen3.5-4B"
-    SERVER_MODEL_NAME="Qwen3.5-4B"
-    TP=1
-elif [ "$MODEL_SELECT" = "32b" ]; then
-    SERVER_MODEL="/llm/models/Qwen3-VL-32B-Instruct"
-    SERVER_MODEL_NAME="Qwen3-VL-32B-Instruct"
-    TP=4
-else
-    SERVER_MODEL="/llm/models/Qwen3-VL-30B-A3B-Instruct"
-    SERVER_MODEL_NAME="Qwen3-VL-30B-A3B-Instruct"
-    TP=4
-fi
+# shellcheck source=model_config.sh
+source "$(dirname "$(realpath "$0")")/model_config.sh"
+resolve_model "$MODEL_SELECT"
 
 # Scale token limits with images-per-request (720P ≈576 visual tokens/image)
 # if [ "$MM_ITEMS" -gt 1 ]; then

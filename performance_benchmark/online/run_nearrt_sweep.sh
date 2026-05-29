@@ -34,19 +34,9 @@ sudo -v
 SUDO_KEEPER_PID=$!
 
 
-if [ "$MODEL" = "4b" ]; then
-    MODEL_DIR="Qwen3-VL-4B-Instruct"
-    MODEL_LABEL="Qwen3-VL-4B"
-elif [ "$MODEL" = "q35-4b" ]; then
-    MODEL_DIR="Qwen3.5-4B"
-    MODEL_LABEL="Qwen3.5-4B"
-elif [ "$MODEL" = "32b" ]; then
-    MODEL_DIR="Qwen3-VL-32B-Instruct"
-    MODEL_LABEL="Qwen3-VL-32B"
-else
-    MODEL_DIR="Qwen3-VL-30B-A3B-Instruct"
-    MODEL_LABEL="Qwen3-VL-30B-A3B"
-fi
+# shellcheck source=model_config.sh
+source "$SCRIPT_DIR/model_config.sh"
+resolve_model "$MODEL"
 
 MTP_LABEL=$([ "$MTP" = "on" ] && echo "mtp" || echo "nomtp")
 
