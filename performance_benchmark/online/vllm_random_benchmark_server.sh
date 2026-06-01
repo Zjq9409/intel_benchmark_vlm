@@ -13,7 +13,12 @@ if [ ! -f "/.dockerenv" ] && ! grep -q 'docker\|containerd' /proc/1/cgroup 2>/de
     SCRIPT_IN_CONTAINER="$(realpath "$0")"
 
     _SELF_DIR="$(dirname "$(realpath "$0")")"
-    _WEIGHTS_DIR="${WEIGHTS_DIR:-$(dirname "$(dirname "$(dirname "$_SELF_DIR")")")/weights}"
+    _HOST_REPO_BASE="$(dirname "$(dirname "$_SELF_DIR")")"
+    # Translate host script path to container path (e.g. /home/intel/jane/intel_benchmark_vlm -> /llm)
+    if [[ "$SCRIPT_IN_CONTAINER" == "$_HOST_REPO_BASE"* ]]; then
+        SCRIPT_IN_CONTAINER="/llm${SCRIPT_IN_CONTAINER#$_HOST_REPO_BASE}"
+    fi
+    _WEIGHTS_DIR="${WEIGHTS_DIR:-$(dirname "$_HOST_REPO_BASE")/weights}"
     _WEIGHTS_DIR="$(realpath "$_WEIGHTS_DIR" 2>/dev/null || echo "${_WEIGHTS_DIR%/}")"
 
     TRANSLATED_ARGS=()
