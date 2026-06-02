@@ -84,8 +84,10 @@ MTP_TAG=$([ "$MTP" = "on" ] && echo "mtp_" || echo "nomtp_")
 MTP_LABEL=$([ "$MTP" = "on" ] && echo "mtp" || echo "nomtp")
 QUANT_TAG=$([ "$QUANT" = "none" ] && echo "fp16_" || echo "${QUANT}_")
 DEV_TAG=$([ -n "$DEVICE" ] && echo "dev${DEVICE}_" || echo "")
-LOG_FILE="${SERVER_MODEL_NAME}/${CURRENT_TIME}_${MODEL_SELECT}_${QUANT}_${MTP_LABEL}_${MAX_BATCHED_TOKENS}_${GPU_TYPE}_client.log"
-SERVER_LOG="${SERVER_MODEL_NAME}/${CURRENT_TIME}_${MODEL_SELECT}_${QUANT}_${MTP_LABEL}_${MAX_BATCHED_TOKENS}_${GPU_TYPE}_server.log"
+MODEL_TAG="$SERVER_MODEL_NAME"
+MODEL_TAG="${MODEL_TAG//\//_}"
+LOG_FILE="${SERVER_MODEL_NAME}/${CURRENT_TIME}_${MODEL_TAG}_${QUANT}_${MTP_LABEL}_${MAX_BATCHED_TOKENS}_${GPU_TYPE}_client.log"
+SERVER_LOG="${SERVER_MODEL_NAME}/${CURRENT_TIME}_${MODEL_TAG}_${QUANT}_${MTP_LABEL}_${MAX_BATCHED_TOKENS}_${GPU_TYPE}_server.log"
 
 
 {
@@ -111,7 +113,6 @@ echo "Starting vllm server..."
 VLLM_SERVER_ARGS=(
     --model "$SERVER_MODEL"
     --served-model-name "$SERVER_MODEL_NAME"
-    --allowed-local-media-path /llm/models
     --dtype=float16
     --port $PORT
     --host 0.0.0.0

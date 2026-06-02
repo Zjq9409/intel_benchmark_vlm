@@ -53,14 +53,6 @@ export VLLM_NV_CONTAINER=my-container
 
 其中 `--container-name` 与 `VLLM_NV_CONTAINER` 保持一致，后续脚本会直接复用这个容器名。
 
-当你显式设置了 `VLLM_NV_CONTAINER`（或 `VLLM_XPU_CONTAINER`）时，`run_nearrt_sweep.sh` 会在测试开始前自动把 `performance_benchmark/online/` 下的脚本同步到容器 `/llm/performance_benchmark/online/`（默认每次执行都同步一次，可通过 `SCRIPT_SYNC_MODE` 调整）。
-
-日志回传策略可通过环境变量 `LOG_SYNC_MODE` 控制（在 `run_nearrt_sweep.sh` 中读取）：
-
-- `on`（默认）：每次测试结束都尝试从容器回传日志到宿主机
-- `auto`：仅在你显式设置容器名时，测试结束后尝试回传
-- `off`：关闭回传（仅依赖挂载目录）
-
 
 ### 环境变量
 
@@ -68,8 +60,6 @@ export VLLM_NV_CONTAINER=my-container
 |------|--------|------|
 | `VLLM_NV_CONTAINER` | `vllm-nv-container` | NVIDIA 路径使用的 Docker 容器名 |
 | `VLLM_XPU_CONTAINER` | `lsv-container-b8` | Intel XPU 路径使用的 Docker 容器名 |
-| `SCRIPT_SYNC_MODE` | `on` | 脚本同步策略：`on` 每次执行前同步脚本，`auto` 仅显式容器名时同步，`off` 关闭同步 |
-| `LOG_SYNC_MODE` | `on` | 日志回传策略：`on` 每次执行后回传，`auto` 仅显式容器名时回传，`off` 关闭回传 |
 
 可在 `run_both.sh` 开头修改，或在 shell 中 `export` 后执行脚本。
 
