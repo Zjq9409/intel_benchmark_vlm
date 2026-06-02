@@ -13,6 +13,12 @@ MODEL="${1:-4b}"
 DEVICE="${2:-}"
 QUANT="${3:-fp8}"
 MTP="${4:-off}"
+
+# Remember whether container names were explicitly provided by user
+USER_SET_NV_CONTAINER=0
+USER_SET_XPU_CONTAINER=0
+[ -n "${VLLM_NV_CONTAINER:-}" ] && USER_SET_NV_CONTAINER=1
+[ -n "${VLLM_XPU_CONTAINER:-}" ] && USER_SET_XPU_CONTAINER=1
 # ----------------------------------------------------------------
 # Tunable parameters
 # ----------------------------------------------------------------
@@ -21,17 +27,19 @@ PORT=8008             # vllm server port
 MAX_BATCHED_TOKENS=32768  # max batched tokens
 MAX_MODEL_LEN=32768       # max model context length
 GPU_MEM_UTIL=0.9          # GPU memory utilization fraction
+SCRIPT_SYNC_MODE="${SCRIPT_SYNC_MODE:-on}"  # on|auto|off: sync benchmark scripts to container before run
+LOG_SYNC_MODE="${LOG_SYNC_MODE:-on}"  # on|auto|off: sync logs from container to host at end
 
 # Auto-detect running vllm NV container if not explicitly set
 if [ -z "${VLLM_NV_CONTAINER:-}" ]; then
     VLLM_NV_CONTAINER=$(docker ps --filter "ancestor=vllm/vllm-openai" --format "{{.Names}}" 2>/dev/null | head -1)
-    [ -z "$VLLM_NV_CONTAINER" ] && VLLM_NV_CONTAINER="vllm-nv-container"
+    [ -z "$VLLM_NV_CONTAINER" ] && VLLM_NV_CONTAINER="36"
 fi
 export VLLM_NV_CONTAINER
 # Auto-detect running vllm XPU container if not explicitly set
 if [ -z "${VLLM_XPU_CONTAINER:-}" ]; then
     VLLM_XPU_CONTAINER=$(docker ps --filter "ancestor=intelanalytics/ipex-llm-inference-xpu-ubuntu20" --format "{{.Names}}" 2>/dev/null | head -1)
-    [ -z "$VLLM_XPU_CONTAINER" ] && VLLM_XPU_CONTAINER="lsv-container-b8"
+    [ -z "$VLLM_XPU_CONTAINER" ] && VLLM_XPU_CONTAINER="36"
 fi
 export VLLM_XPU_CONTAINER
 
@@ -39,11 +47,103 @@ RUN_START=$(date "+%Y-%m-%d %H:%M:%S")
 RUN_START_TS=$(date +%s)
 SCRIPT_DIR="$(dirname "$(realpath "$0")")"
 
+sync_bench_scripts_to_container() {
+    local container_name="$1"
+
+    [ -z "$container_name" ] && return 0
+
+    echo "Syncing benchmark scripts to container '$container_name'..."
+    if ! sudo docker exec "$container_name" bash -c "mkdir -p /llm/performance_benchmark/online"; then
+        echo "ERROR: failed to prepare /llm/performance_benchmark/online in container '$container_name'"
+        return 1
+    fi
+
+    if ! sudo docker cp "$SCRIPT_DIR/." "$container_name:/llm/performance_benchmark/online/"; then
+        echo "ERROR: failed to copy benchmark scripts into container '$container_name'"
+        return 1
+    fi
+
+    echo "  Synced: $SCRIPT_DIR -> $container_name:/llm/performance_benchmark/online/"
+}
+
+sync_logs_from_container() {
+    local mode="${LOG_SYNC_MODE,,}"
+    local container_name=""
+    local should_sync=0
+
+    # Only meaningful on host side; inside container there is nothing to pull from.
+    if [ -f "/.dockerenv" ] || grep -q 'docker\|containerd' /proc/1/cgroup 2>/dev/null; then
+        return 0
+    fi
+
+    case "$mode" in
+        on)
+            should_sync=1
+            ;;
+        off)
+            should_sync=0
+            ;;
+        auto|*)
+            if nvidia-smi &>/dev/null; then
+                [ "$USER_SET_NV_CONTAINER" -eq 1 ] && should_sync=1
+            else
+                [ "$USER_SET_XPU_CONTAINER" -eq 1 ] && should_sync=1
+            fi
+            ;;
+    esac
+
+    [ "$should_sync" -eq 1 ] || return 0
+
+    if nvidia-smi &>/dev/null; then
+        container_name="$VLLM_NV_CONTAINER"
+    else
+        container_name="$VLLM_XPU_CONTAINER"
+    fi
+
+    [ -n "$container_name" ] || return 0
+
+    local container_log_dir="/llm/performance_benchmark/online/$MODEL_DIR"
+    local host_log_dir="$SCRIPT_DIR/$MODEL_DIR"
+
+    echo "Syncing logs from container '$container_name'..."
+    mkdir -p "$host_log_dir"
+
+    if sudo docker cp "$container_name:$container_log_dir/." "$host_log_dir/" 2>/dev/null; then
+        echo "  Synced logs: $container_name:$container_log_dir -> $host_log_dir"
+    else
+        echo "  WARN: log sync skipped or failed (container path may be bind-mounted or empty): $container_name:$container_log_dir"
+    fi
+}
+
 # ----------------------------------------------------------------
 # Request sudo password once at the beginning
 # ----------------------------------------------------------------
 echo "Requesting sudo access (needed for docker exec and file permissions)..."
 sudo -v
+
+# Proactively sync benchmark scripts into container.
+case "${SCRIPT_SYNC_MODE,,}" in
+    off)
+        ;;
+    auto)
+        if nvidia-smi &>/dev/null; then
+            if [ "$USER_SET_NV_CONTAINER" -eq 1 ]; then
+                sync_bench_scripts_to_container "$VLLM_NV_CONTAINER"
+            fi
+        else
+            if [ "$USER_SET_XPU_CONTAINER" -eq 1 ]; then
+                sync_bench_scripts_to_container "$VLLM_XPU_CONTAINER"
+            fi
+        fi
+        ;;
+    *)
+        if nvidia-smi &>/dev/null; then
+            sync_bench_scripts_to_container "$VLLM_NV_CONTAINER"
+        else
+            sync_bench_scripts_to_container "$VLLM_XPU_CONTAINER"
+        fi
+        ;;
+esac
 
 # Keep sudo timestamp updated in the background
 (while true; do sleep 50; sudo -n true 2>/dev/null; done) &
@@ -184,6 +284,9 @@ done
 # Stop server
 # ----------------------------------------------------------------
 stop_server
+
+# Optional fallback: sync logs out from container to host.
+sync_logs_from_container
 
 echo ""
 echo "========================================"

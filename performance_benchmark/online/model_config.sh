@@ -27,7 +27,7 @@ resolve_model() {
         q36-35b)
             MODEL_DIR="Qwen3.6-35B-A3B"
             SERVER_MODEL="/DISK0/Qwen3.6-35B-A3B"
-            TP=4
+            TP=2
             ;;
         q30-a3b)
             MODEL_DIR="Qwen3-VL-30B-A3B-Instruct"
