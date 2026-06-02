@@ -29,11 +29,17 @@ resolve_model() {
             SERVER_MODEL="/DISK0/Qwen3.6-35B-A3B"
             TP=4
             ;;
-        *)
+        q30-a3b)
             MODEL_DIR="Qwen3-VL-30B-A3B-Instruct"
             SERVER_MODEL="/llm/models/Qwen3-VL-30B-A3B-Instruct"
             TP=4
             ;;
+        q36-27b)
+            MODEL_DIR="Qwen3.6-27B"
+            SERVER_MODEL="/llm/models/Qwen3.6-27B/"
+            TP=4
+            ;;
+        
     esac
     SERVER_MODEL_NAME="$MODEL_DIR"
 }
