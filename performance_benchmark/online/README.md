@@ -11,7 +11,7 @@
 **NVIDIA GPU**
 ```bash
 bash ../../setup_env.sh \
-    --container-name vllm-${USER} \
+    --container-name vllm-{USER}-nv \
     --weights-dir /DISK0 \
     --script-dir $(realpath ../..) \
     --nv-image vllm/vllm-openai:v0.19.1-cu130
@@ -35,18 +35,13 @@ bash ../../setup_env.sh \
 - `--intel-image`：Intel XPU 镜像（可选，默认 `intel/llm-scaler-vllm:0.17.0-xpu`）
 - `--nv-image`：NV 镜像（可选，默认 `vllm/vllm-openai:v0.19.1-cu130`）
 
-查看容器是否起来：
-```bash
-sudo docker ps | grep vllm-${USER}
-```
-
 ---
 
 ## 2. 跑脚本
 
 ```bash
 # 默认参数（4B 模型 + FP8 量化）
-VLLM_NV_CONTAINER=vllm-nv-container bash run_nearrt_sweep.sh 4b
+VLLM_NV_CONTAINER=vllm-{USER}-nv bash run_nearrt_sweep.sh 4b
 
 # XPU
 VLLM_XPU_CONTAINER=vllm-${USER}-xpu bash run_nearrt_sweep.sh 4b
