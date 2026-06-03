@@ -56,7 +56,7 @@ MODEL_SELECT="${1:-30b}"
 MM_ITEMS="${4:-1}"
 MTP="${5:-off}"   # on=enable speculative decoding, off=disable
 QUANT="${6:-fp8}"  # fp8=enable fp8 quantization, none=disable
-# arg 7 reserved (was DEVICE; removed)
+DEVICE="${7:-}"     # GPU device ID(s), e.g. 4 or 0,1,2,3; empty=use all
 OUTPUT_LEN="${8:-1024}"  # output token length; 128=realtime, 512=near-realtime, 1024=batch
 E2E_LIMIT_SEC="${15:-60}"  # E2E threshold passed from sweep wrapper (run_nearrt_sweep.sh E2E_LIMIT)
 INPUT_LEN="${9:-1024}"   # input token length; 512=short prompt, 1024=standard
@@ -103,8 +103,15 @@ echo "GPU Mem Util:       $GPU_MEM_UTIL"
 echo "GPU Type:           $GPU_TYPE"
 echo "Images per request: $MM_ITEMS"
 echo "Quantization:       $QUANT"
+echo "GPU Device:         ${DEVICE:-all}"
 echo "---------------------------------------------------"
 } | tee -a "$LOG_FILE"
+
+# Apply CUDA_VISIBLE_DEVICES if DEVICE is set (must be exported BEFORE vllm starts)
+if [ -n "$DEVICE" ]; then
+    export CUDA_VISIBLE_DEVICES="$DEVICE"
+    echo "Using GPU device(s): $DEVICE (CUDA_VISIBLE_DEVICES=$DEVICE)"
+fi
 
 # Start vllm server
 echo "Starting vllm server..."
