@@ -56,7 +56,7 @@ MODEL_SELECT="${1:-30b}"
 MM_ITEMS="${4:-1}"
 MTP="${5:-off}"   # on=enable speculative decoding, off=disable
 QUANT="${6:-fp8}"  # fp8=enable fp8 quantization, none=disable
-DEVICE="${7:-}"     # GPU device ID, e.g. 4; empty=use all
+# arg 7 reserved (was DEVICE; removed)
 OUTPUT_LEN="${8:-1024}"  # output token length; 128=realtime, 512=near-realtime, 1024=batch
 E2E_LIMIT_SEC="${15:-60}"  # E2E threshold passed from sweep wrapper (run_nearrt_sweep.sh E2E_LIMIT)
 INPUT_LEN="${9:-1024}"   # input token length; 512=short prompt, 1024=standard
@@ -83,7 +83,6 @@ GPU_TYPE=$(nvidia-smi --query-gpu=name --format=csv,noheader 2>/dev/null | head 
 MTP_TAG=$([ "$MTP" = "on" ] && echo "mtp_" || echo "nomtp_")
 MTP_LABEL=$([ "$MTP" = "on" ] && echo "mtp" || echo "nomtp")
 QUANT_TAG=$([ "$QUANT" = "none" ] && echo "fp16_" || echo "${QUANT}_")
-DEV_TAG=$([ -n "$DEVICE" ] && echo "dev${DEVICE}_" || echo "")
 MODEL_TAG="$SERVER_MODEL_NAME"
 MODEL_TAG="${MODEL_TAG//\//_}"
 LOG_FILE="${SERVER_MODEL_NAME}/${CURRENT_TIME}_${MODEL_TAG}_${QUANT}_${MTP_LABEL}_${MAX_BATCHED_TOKENS}_${GPU_TYPE}_client.log"
@@ -104,7 +103,6 @@ echo "GPU Mem Util:       $GPU_MEM_UTIL"
 echo "GPU Type:           $GPU_TYPE"
 echo "Images per request: $MM_ITEMS"
 echo "Quantization:       $QUANT"
-echo "GPU Device:         ${DEVICE:-all}"
 echo "---------------------------------------------------"
 } | tee -a "$LOG_FILE"
 
@@ -152,10 +150,6 @@ else
     export NCCL_P2P_LEVEL=SYS
 fi
 
-if [ -n "$DEVICE" ]; then
-    export CUDA_VISIBLE_DEVICES=$DEVICE
-    echo "Using GPU device: $DEVICE"
-fi
 
 SERVER_PID_FILE="/tmp/vllm_server_${PORT}.pid"
 SERVER_ALREADY_UP=0
