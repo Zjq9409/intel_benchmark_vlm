@@ -68,10 +68,13 @@ PORT="${14:-8008}"           # vllm server port (passed from sweep wrapper)
 MAX_BATCHED_TOKENS="${16:-32768}"  # max batched tokens (passed from sweep wrapper)
 MAX_MODEL_LEN="${17:-32768}"       # max model context length (passed from sweep wrapper)
 GPU_MEM_UTIL="${18:-0.9}"          # GPU memory utilization (passed from sweep wrapper)
+MAX_NUM_SEQS="${19:-32}"           # max number of sequences (passed from sweep wrapper)
+TP_OVERRIDE="${20:-}"              # tensor parallelism override (empty=use model default)
 
 # shellcheck source=model_config.sh
 source "$(dirname "$(realpath "$0")")/model_config.sh"
 resolve_model "$MODEL_SELECT"
+[ -n "$TP_OVERRIDE" ] && TP="$TP_OVERRIDE"
 MM_W="${2:-1280}"
 MM_H="${3:-720}"
 
@@ -127,9 +130,9 @@ VLLM_SERVER_ARGS=(
     --gpu-memory-util=$GPU_MEM_UTIL
     --max-num-batched-tokens=$MAX_BATCHED_TOKENS
     --max-model-len=$MAX_MODEL_LEN
-    --block-size 64
     --mm-processor-cache-gb 0
     --async-scheduling 
+    --max-num-seqs $MAX_NUM_SEQS
     -tp=$TP
 )
 
@@ -149,6 +152,7 @@ if [ "$GPU_TYPE" = "XPU" ]; then
     export VLLM_ALLOW_LONG_MAX_MODEL_LEN=1
     export VLLM_WORKER_MULTIPROC_METHOD=spawn
     export VLLM_USE_V1=1   
+    VLLM_SERVER_ARGS+=(--block-size 64)
     if [ "$QUANT" != "none" ]; then
         VLLM_SERVER_ARGS+=(--enforce-eager)
     fi

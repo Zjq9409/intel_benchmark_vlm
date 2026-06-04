@@ -20,8 +20,10 @@ MTP="${4:-off}"
 E2E_LIMIT=40          # E2E threshold in seconds (passed to inner benchmark script)
 PORT=8008             # vllm server port
 MAX_BATCHED_TOKENS=8192  # max batched tokens
-MAX_MODEL_LEN=32768       # max model context length
-GPU_MEM_UTIL=0.8          # GPU memory utilization fraction
+MAX_MODEL_LEN=16384       # max model context length
+GPU_MEM_UTIL=0.9          # GPU memory utilization fraction
+MAX_NUM_SEQS=32           # max number of sequences
+TP=2                       # tensor parallelism
 
 # Auto-detect running vllm NV container if not explicitly set
 if [ -z "${VLLM_NV_CONTAINER:-}" ]; then
@@ -85,7 +87,7 @@ _sweep_ref=$(mktemp)
 echo "========================================"
 echo "Near-RT Sweep started at: $RUN_START"
 echo "Model=$MODEL  device=${DEVICE:-all}  quant=$QUANT  mtp=$MTP  E2E_LIMIT=${E2E_LIMIT}s"
-echo "Matrix: res=[720p,1080p] in=[512,1024] out=[128,512,1024] frames=[4,6,8,10,12,16,20,24]"
+echo "Matrix: res=[720p,1080p] in=[512,1024] out=[128,512,1024] frames=[1~16]"
 echo "Mode: dynamic batch sweep per frame count (max concurrent batch @ E2E<${E2E_LIMIT}s)"
 echo "========================================"
 
@@ -159,10 +161,12 @@ for res in "1280 720" "1920 1080"; do
                 # arg16=MAX_BATCHED_TOKENS -> max batched tokens
                 # arg17=MAX_MODEL_LEN      -> max model context length
                 # arg18=GPU_MEM_UTIL       -> GPU memory utilization fraction
+                # arg19=MAX_NUM_SEQS       -> max number of sequences
+                # arg20=TP                -> tensor parallelism (empty=use model default)
                 if ! bash "$SCRIPT_DIR/vllm_random_benchmark_server.sh" \
                     "$MODEL" "$w" "$h" "$imgs" "$MTP" "$QUANT" "$DEVICE" \
                     "$output_len" "$input_len" "" "1" "" "$COMBO_TS" "$PORT" "$E2E_LIMIT" \
-                    "$MAX_BATCHED_TOKENS" "$MAX_MODEL_LEN" "$GPU_MEM_UTIL"; then
+                    "$MAX_BATCHED_TOKENS" "$MAX_MODEL_LEN" "$GPU_MEM_UTIL" "$MAX_NUM_SEQS" "$TP"; then
                     echo "  ERROR: benchmark failed (OOM / Bad Request) — stopping frames sweep"
                     break
                 fi
