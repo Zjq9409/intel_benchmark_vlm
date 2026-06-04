@@ -17,12 +17,12 @@ MTP="${4:-off}"
 # ----------------------------------------------------------------
 # Tunable parameters
 # ----------------------------------------------------------------
-E2E_LIMIT=40          # E2E threshold in seconds (passed to inner benchmark script)
-PORT=8008             # vllm server port
+E2E_LIMIT=30          # E2E threshold in seconds (passed to inner benchmark script)
+PORT=8010             # vllm server port
 MAX_BATCHED_TOKENS=8192  # max batched tokens
-MAX_MODEL_LEN=16384       # max model context length
+MAX_MODEL_LEN=32768       # max model context length
 GPU_MEM_UTIL=0.9          # GPU memory utilization fraction
-MAX_NUM_SEQS=32           # max number of sequences
+MAX_NUM_SEQS=             # max number of sequences (empty=use vllm default)
 TP=2                       # tensor parallelism
 
 # Auto-detect running vllm NV container if not explicitly set

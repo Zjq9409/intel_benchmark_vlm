@@ -68,7 +68,7 @@ PORT="${14:-8008}"           # vllm server port (passed from sweep wrapper)
 MAX_BATCHED_TOKENS="${16:-32768}"  # max batched tokens (passed from sweep wrapper)
 MAX_MODEL_LEN="${17:-32768}"       # max model context length (passed from sweep wrapper)
 GPU_MEM_UTIL="${18:-0.9}"          # GPU memory utilization (passed from sweep wrapper)
-MAX_NUM_SEQS="${19:-32}"           # max number of sequences (passed from sweep wrapper)
+MAX_NUM_SEQS="${19:-}"             # max number of sequences (empty=use vllm default)
 TP_OVERRIDE="${20:-}"              # tensor parallelism override (empty=use model default)
 
 # shellcheck source=model_config.sh
@@ -132,9 +132,10 @@ VLLM_SERVER_ARGS=(
     --max-model-len=$MAX_MODEL_LEN
     --mm-processor-cache-gb 0
     --async-scheduling 
-    --max-num-seqs $MAX_NUM_SEQS
+
     -tp=$TP
 )
+[ -n "$MAX_NUM_SEQS" ] && VLLM_SERVER_ARGS+=(--max-num-seqs "$MAX_NUM_SEQS")
 
 # Quantization (6th arg: fp8/none, default fp8)
 if [ "$QUANT" != "none" ]; then
