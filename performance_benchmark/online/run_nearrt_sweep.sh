@@ -22,7 +22,7 @@ PORT=8010             # vllm server port
 MAX_BATCHED_TOKENS=8192  # max batched tokens
 MAX_MODEL_LEN=32768       # max model context length
 GPU_MEM_UTIL=0.9          # GPU memory utilization fraction
-MAX_NUM_SEQS=             # max number of sequences (empty=use vllm default)
+MAX_NUM_SEQS=32             # max number of sequences (empty=use vllm default)
 TP=2                       # tensor parallelism
 
 # Auto-detect running vllm NV container if not explicitly set
