@@ -272,21 +272,12 @@ else
     check_stop || true  # sets STOP_SWEEP=1 if exceeded (standalone mode exits inside)
 
     if [ "$STOP_SWEEP" = "0" ]; then
-        # Dynamic STEP: estimate from batch=1 E2E, target 10 data points
-        e2e_first=$(grep 'Benchmark duration (s):' "$LOG_FILE" | tail -1 | awk '{print $NF}')
-        e2e_limit_s=$E2E_LIMIT_SEC
-        if [ -n "$e2e_first" ]; then
-            # Use MAX_BSIZE as upper bound, rely on check_stop() E2E threshold to stop sweep
-            estimated_max=$MAX_BSIZE
-            STEP=$(awk -v e="$e2e_first" -v lim="$e2e_limit_s" \
-                'BEGIN { s = int(lim / e / 10); if (s < 1) s = 1; if (s > 5) s = 5; print s }')
-            echo "  First-run E2E=${e2e_first}s -> using MAX_BSIZE=${MAX_BSIZE} -> STEP=${STEP}"
-        else
-            STEP=10
-            echo "  Could not read first-run E2E, using default STEP=$STEP"
-        fi
+        # Sweep batch 1,2,4,6,8,... up to MAX_BSIZE (after batch=1, step by 2 from 2)
+        estimated_max=$MAX_BSIZE
+        STEP=2
+        echo "  Using STEP=${STEP} starting from 2 (MAX_BSIZE=${MAX_BSIZE})"
 
-        i=$((1 + STEP))
+        i=2
         while [ $i -le $estimated_max ] && [ "$STOP_SWEEP" = "0" ]; do
             run_benchmark $i
             check_stop || true
