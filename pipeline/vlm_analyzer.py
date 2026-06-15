@@ -38,38 +38,47 @@ def _time_range_from_batch(batch_files: List[str]) -> str:
     return f"{start}-{end}"
 
 
-def _encode_image_b64(image_path: str) -> str:
+def _encode_image_b64(image_path: str, max_edge: int = 0) -> str:
+    if max_edge > 0:
+        from PIL import Image
+        import io
+        with Image.open(image_path) as img:
+            w, h = img.size
+            if max(w, h) > max_edge:
+                scale = max_edge / max(w, h)
+                img = img.resize((int(w * scale), int(h * scale)), Image.LANCZOS)
+            buf = io.BytesIO()
+            img.save(buf, format="JPEG", quality=85)
+            return base64.b64encode(buf.getvalue()).decode("utf-8")
     with open(image_path, "rb") as f:
         return base64.b64encode(f.read()).decode("utf-8")
 
 
-def _build_messages(frame_paths: List[str], prompt: str) -> List[dict]:
+def _build_messages(frame_paths: List[str], prompt: str, max_edge: int = 0) -> List[dict]:
     content: List[dict] = [{"type": "text", "text": prompt}]
     for fp in frame_paths:
-        b64 = _encode_image_b64(fp)
+        b64 = _encode_image_b64(fp, max_edge=max_edge)
         content.append({"type": "image_url", "image_url": {"url": f"data:image/jpeg;base64,{b64}"}})
-    return [{"role": "user", "content": content}]
+    return [
+        {"role": "system", "content": "You are a JSON-only assistant. Output ONLY the raw JSON object, no markdown fences, no reasoning, no extra text."},
+        {"role": "user", "content": content},
+    ]
 
 
 DEFAULT_PROMPT_TEMPLATE = """
-我提供了 {frame_count} 张视频帧，它们按时间顺序排列，代表一个连续的视频片段。
-首先，请详细描述每一帧的关键视觉信息（主要内容、人物、动作、场景）。
-然后，基于所有帧，用简洁的语言总结整个视频片段发生的主要活动或事件流程。
-请以 JSON 格式输出，结构如下：
+你将看到 {frame_count} 张按时间顺序排列的视频帧。请用简体中文分析画面内容，并只输出一个 JSON 对象。
+JSON 结构如下：
 {{
-  "frame_observations": [
-    {{"timestamp": "HH:MM:SS,mmm", "observation": "帧描述"}}
-  ],
-  "overall_activity_summary": "整体活动总结"
+  "frame_observations": [{{"timestamp": "HH:MM:SS,mmm", "observation": "该帧画面的中文描述"}}],
+  "overall_activity_summary": "整个片段的一句话中文总结"
 }}
-frame_observations 长度必须等于 {frame_count}。
-只输出 JSON，不要附加任何说明文字。
+要求：所有描述必须使用简体中文；frame_observations 必须正好包含 {frame_count} 项；只输出原始 JSON，不要 markdown 代码块，不要额外说明文字。
 """.strip()
 
 
 async def _call_vlm_api(messages, model, base_url, timeout=120):
     headers = {"Content-Type": "application/json"}
-    payload = {"model": model, "messages": messages, "max_tokens": 4096, "temperature": 0.2}
+    payload = {"model": model, "messages": messages, "max_tokens": 4096, "temperature": 0.2, "chat_template_kwargs": {"enable_thinking": False}}
     url = base_url.rstrip("/") + "/chat/completions"
     async with httpx.AsyncClient(timeout=timeout) as client:
         resp = await client.post(url, headers=headers, json=payload)
@@ -78,8 +87,32 @@ async def _call_vlm_api(messages, model, base_url, timeout=120):
 
 
 def _clean_json_response(text: str) -> str:
-    text = re.sub(r"^```(?:json)?\s*", "", text.strip(), flags=re.MULTILINE)
-    text = re.sub(r"```\s*$", "", text.strip(), flags=re.MULTILINE)
+    """从模型输出中稳健地提取 JSON 对象。
+
+    模型可能先输出思考文本（含 </think> 标签、markdown 围栏，文本中可能带 { }），
+    再输出真正的 JSON。这里去掉 </think> 之前内容和围栏后，
+    从每个 '{' 起点尝试 raw_decode，选出能成功解析且跨度最大的 JSON 块。
+    """
+    text = text.strip()
+    if "</think>" in text:
+        text = text.rsplit("</think>", 1)[1]
+    text = re.sub(r"```(?:json)?", "", text)
+    decoder = json.JSONDecoder()
+    idx = 0
+    best = None
+    while True:
+        start = text.find("{", idx)
+        if start == -1:
+            break
+        try:
+            _obj, end = decoder.raw_decode(text, start)
+            if best is None or (end - start) > (best[1] - best[0]):
+                best = (start, end)
+            idx = end
+        except json.JSONDecodeError:
+            idx = start + 1
+    if best is not None:
+        return text[best[0]:best[1]].strip()
     return text.strip()
 
 

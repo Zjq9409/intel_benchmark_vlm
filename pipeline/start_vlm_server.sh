@@ -15,7 +15,7 @@ if [ "$ENABLE_FP8" = "1" ]; then
 fi
 
 export TP=2
-export MODEL_PATH="/llm/models/Qwen3.5-35B-A3B/"
+export MODEL_PATH="/DISK0/Qwen3.5-35B-A3B/"
 export MODEL_NAME="Qwen3.5-35B-A3B"
 
 if [ "$GPU_TYPE" = "XPU" ]; then
@@ -53,6 +53,6 @@ else
     --max-model-len 12768 \
     --block-size 64 \
     --quantization fp8 \
-    -tp=2   \
+    -tp=2   
     # --enforce-eager 
 fi
