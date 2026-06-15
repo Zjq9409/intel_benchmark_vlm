@@ -14,15 +14,15 @@ if [ "$ENABLE_FP8" = "1" ]; then
     FP8_FLAG="--quantization fp8"
 fi
 
-export TP=1
-export MODEL_PATH="/llm/models/Qwen3-VL-4B-Instruct"
-export MODEL_NAME="Qwen3-VL-4B-Instruct"
+export TP=2
+export MODEL_PATH="/llm/models/Qwen3.5-35B-A3B/"
+export MODEL_NAME="Qwen3.5-35B-A3B"
 
 if [ "$GPU_TYPE" = "XPU" ]; then
     export VLLM_ALLOW_LONG_MAX_MODEL_LEN=1
     export VLLM_WORKER_MULTIPROC_METHOD=spawn
     export VLLM_USE_V1=1  
-    CUDA_VISIBLE_DEVICES=4 python3 -m vllm.entrypoints.openai.api_server \
+    python3 -m vllm.entrypoints.openai.api_server \
     --model "$MODEL_PATH" \
     --served-model-name "$MODEL_NAME" \
     --dtype=float16 \
@@ -37,9 +37,10 @@ if [ "$GPU_TYPE" = "XPU" ]; then
     $FP8_FLAG \
     -tp=$TP   
 else
+    export PYTORCH_ALLOC_CONF="expandable_segments:True"
     export LD_LIBRARY_PATH=/usr/lib/x86_64-linux-gnu:$LD_LIBRARY_PATH
     export NCCL_P2P_LEVEL=SYS
-    CUDA_VISIBLE_DEVICES=4  python3 -m vllm.entrypoints.openai.api_server \
+    python3 -m vllm.entrypoints.openai.api_server \
     --model "$MODEL_PATH" \
     --served-model-name "$MODEL_NAME" \
     --dtype=float16 \
@@ -48,9 +49,10 @@ else
     --trust-remote-code \
     --gpu-memory-util=0.9 \
     --max-num-batched-tokens=8192 \
+    --max-num-seqs 32 \
     --max-model-len 12768 \
     --block-size 64 \
-    $FP8_FLAG \
-    -tp=$TP   \
+    --quantization fp8 \
+    -tp=2   \
     # --enforce-eager 
 fi

@@ -132,7 +132,6 @@ VLLM_SERVER_ARGS=(
     --max-model-len=$MAX_MODEL_LEN
     --mm-processor-cache-gb 0
     --async-scheduling 
-
     -tp=$TP
 )
 [ -n "$MAX_NUM_SEQS" ] && VLLM_SERVER_ARGS+=(--max-num-seqs "$MAX_NUM_SEQS")
@@ -277,7 +276,7 @@ else
         STEP=2
         echo "  Using STEP=${STEP} starting from 2 (MAX_BSIZE=${MAX_BSIZE})"
 
-        i=2
+        i=1
         while [ $i -le $estimated_max ] && [ "$STOP_SWEEP" = "0" ]; do
             run_benchmark $i
             check_stop || true

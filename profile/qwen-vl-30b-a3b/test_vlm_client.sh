@@ -2,9 +2,9 @@ export SERVER_MODEL="/llm/models/Qwen3-VL-30B-A3B-Instruct"
 export SERVER_MODEL_NAME="Qwen3-VL-30B-A3B-Instruct"
 export bsize=1
 export NUM_PROMPTS=1
-export OUTPUT_LEN=1024
-export INPUT_LEN=200
-export PORT=8000
+export OUTPUT_LEN=128
+export INPUT_LEN=512
+export PORT=8007
 
 # Usage: bash test_vlm_client.sh [--profile|--bench]
 #   --profile : torch profiler, bsize=1, output=20 tokens  (compare kernel breakdown)
@@ -22,7 +22,7 @@ done
 PROFILE_FLAG=""
 if [ "$ENABLE_PROFILE" = "1" ]; then
     PROFILE_FLAG="--profile"
-    OUTPUT_LEN=20
+    OUTPUT_LEN=128
 elif [ "$ENABLE_BENCH" = "1" ]; then
     bsize=4
     NUM_PROMPTS=20
@@ -40,9 +40,12 @@ vllm bench serve \
             --random-output-len $OUTPUT_LEN \
             --random-mm-base-items-per-request 1 \
             --random-mm-limit-mm-per-prompt '{"image": 1, "video": 0}' \
-            --random-mm-bucket-config '{ (448, 448, 1): 1}' \
+            --random-mm-bucket-config '{ (720, 1280, 1): 1}' \
             --request-rate inf \
             --ignore-eos \
             --port=$PORT \
             --seed 42 \
             $PROFILE_FLAG
+
+
+# random-mm-bucket-config explanation: (Height, Width, Num_Images) : Ratio

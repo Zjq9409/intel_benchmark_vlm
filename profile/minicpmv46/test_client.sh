@@ -1,0 +1,18 @@
+vllm bench serve \
+        --model /DISK0/MiniCPM-V-4.6 \
+        --served-model-name MiniCPM-V-4.6 \
+        --endpoint /v1/chat/completions \
+        --dataset-name random-mm \
+        --num-prompts 1 \
+        --max-concurrency 1 \
+        --ready-check-timeout-sec 1 --num-warmups 1 \
+        --random-input-len 10 \
+        --random-output-len 10 \
+        --random-mm-base-items-per-request 1 \
+        --random-mm-limit-mm-per-prompt '{"image": 1, "video": 0}' \
+        --random-mm-bucket-config "{(1080, 1920, 1): 1.0}" \
+        --request-rate inf \
+        --backend openai-chat \
+        --ignore-eos \
+        --port=8009 \
+        --seed 42  \

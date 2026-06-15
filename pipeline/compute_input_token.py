@@ -4,7 +4,7 @@ from PIL import Image
 from transformers import AutoTokenizer
 
 # ── 模型参数 (Qwen3-VL-2B) ──────────────────────────────────────────
-MODEL_PATH     = "/DISK0/weights/Qwen3-VL-4B-Instruct/"
+MODEL_PATH     = "/DISK0/Qwen3.5-35B-A3B/"
 PATCH_SIZE     = 16
 TEMPORAL_PATCH = 2
 MERGE_SIZE     = 2

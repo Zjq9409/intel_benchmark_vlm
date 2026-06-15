@@ -38,11 +38,11 @@ pip install -r requirements.txt
 ### 完整流程：解码 → 抽帧 → VLM 分析
 
 \`\`\`bash
-python main.py run \
-  --videos /home/intel/jane/intel_benchmark_vlm/pipeline/beijing_1080p.mp4 \
+python3 main.py run \
+  --videos /home/intel/jane/intel_benchmark_vlm/pipeline/video/beijing_1080p.mp4 \
   --output ./output \
   --vlm-url http://localhost:8006/v1 \
-  --vlm-model Qwen3-VL-4B-Instruct \
+  --vlm-model Qwen3.5-35B-A3B \
   --interval 5 \
   --batch-size 3 \
   --concurrency 1
