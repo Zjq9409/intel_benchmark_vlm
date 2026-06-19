@@ -3,7 +3,7 @@ GPU_TYPE=$(nvidia-smi --query-gpu=name --format=csv,noheader 2>/dev/null | head 
 
 # Usage: bash torch_start_server.sh [--fp8]
 #   --fp8 : enable fp8 quantization (GPU only, ignored on XPU)
-ENABLE_FP8=0
+ENABLE_FP8=1
 for arg in "$@"; do
     case "$arg" in
         --fp8) ENABLE_FP8=1 ;;
@@ -15,13 +15,13 @@ if [ "$ENABLE_FP8" = "1" ]; then
 fi
 
 export TP=2
-export MODEL_PATH="/DISK0/Qwen3.5-35B-A3B/"
-export MODEL_NAME="Qwen3.5-35B-A3B"
 
 if [ "$GPU_TYPE" = "XPU" ]; then
     export VLLM_ALLOW_LONG_MAX_MODEL_LEN=1
     export VLLM_WORKER_MULTIPROC_METHOD=spawn
     export VLLM_USE_V1=1  
+    export MODEL_PATH="/DISK0/Qwen3.6-35B-A3B/"
+    export MODEL_NAME="Qwen3.6-35B-A3B"
     python3 -m vllm.entrypoints.openai.api_server \
     --model "$MODEL_PATH" \
     --served-model-name "$MODEL_NAME" \
@@ -33,6 +33,8 @@ if [ "$GPU_TYPE" = "XPU" ]; then
     --max-num-batched-tokens=8192 \
     --max-model-len 12768 \
     --async-scheduling \
+    --mm-processor-cache-gb 0 \
+    --no-enable-prefix-caching \
     --block-size 64 \
     $FP8_FLAG \
     -tp=$TP   
@@ -40,6 +42,8 @@ else
     export PYTORCH_ALLOC_CONF="expandable_segments:True"
     export LD_LIBRARY_PATH=/usr/lib/x86_64-linux-gnu:$LD_LIBRARY_PATH
     export NCCL_P2P_LEVEL=SYS
+    export MODEL_PATH="/DISK0/Qwen3.6-35B-A3B/"
+    export MODEL_NAME="Qwen3.6-35B-A3B"
     python3 -m vllm.entrypoints.openai.api_server \
     --model "$MODEL_PATH" \
     --served-model-name "$MODEL_NAME" \
@@ -51,8 +55,10 @@ else
     --max-num-batched-tokens=8192 \
     --max-num-seqs 32 \
     --max-model-len 12768 \
+    --mm-processor-cache-gb 0 \
+    --no-enable-prefix-caching \
     --block-size 64 \
-    --quantization fp8 \
-    -tp=2   
+    $FP8_FLAG \
+    -tp=$TP
     # --enforce-eager 
 fi
