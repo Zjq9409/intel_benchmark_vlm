@@ -37,7 +37,7 @@ if [ "$GPU_TYPE" = "XPU" ]; then
     --no-enable-prefix-caching \
     --block-size 64 \
     $FP8_FLAG \
-    -tp=$TP   
+    -tp=$TP   | tee  vlm_server.log
 else
     export PYTORCH_ALLOC_CONF="expandable_segments:True"
     export LD_LIBRARY_PATH=/usr/lib/x86_64-linux-gnu:$LD_LIBRARY_PATH
@@ -59,6 +59,5 @@ else
     --no-enable-prefix-caching \
     --block-size 64 \
     $FP8_FLAG \
-    -tp=$TP
-    # --enforce-eager 
+    -tp=$TP | tee  vlm_server.log
 fi
