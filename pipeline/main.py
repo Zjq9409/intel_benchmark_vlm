@@ -34,6 +34,7 @@ from vlm_analyzer import (
     save_analysis_artifact,
     generate_video_summary,
 )
+from video_vl import main as customer_index_main
 
 
 def _setup_logging(log_dir: Optional[str] = None) -> None:
@@ -55,6 +56,7 @@ def run_pipeline(
     vlm_model: str,
     interval_seconds: float = 5.0,
     batch_size: int = 8,
+    vlm_mode: str = "single",
     max_concurrency: int = 2,
     custom_prompt: str = "",
     vlm_timeout: int = 120,
@@ -134,6 +136,7 @@ def run_pipeline(
                 max_concurrency=max_concurrency,
                 custom_prompt=custom_prompt,
                 timeout=vlm_timeout,
+                mode=vlm_mode,
             )
             artifact = build_analysis_artifact(batch_results, vp, interval_seconds, vlm_model, vlm_url)
             save_analysis_artifact(artifact, analysis_path)
@@ -193,6 +196,7 @@ def _cmd_run(args: argparse.Namespace) -> None:
         vlm_model=args.vlm_model,
         interval_seconds=args.interval,
         batch_size=args.batch_size,
+        vlm_mode=args.vlm_mode,
         max_concurrency=args.concurrency,
         custom_prompt=args.prompt or "",
         vlm_timeout=args.timeout,
@@ -229,6 +233,7 @@ def _build_parser() -> argparse.ArgumentParser:
     run_p.add_argument("--vlm-model", required=True, help="VLM 模型名称")
     run_p.add_argument("--interval", type=float, default=5.0, help="抽帧间隔秒数（默认 5）")
     run_p.add_argument("--batch-size", type=int, default=8, help="每批帧数（默认 8）")
+    run_p.add_argument("--vlm-mode", choices=["single", "batch"], default="single", help="VLM 输入模式：single=单图逐帧（默认），batch=多图批处理")
     run_p.add_argument("--concurrency", type=int, default=2, help="VLM 并发批次数（默认 2）")
     run_p.add_argument("--prompt", default="", help="自定义 VLM 提示词（可选）")
     run_p.add_argument("--timeout", type=int, default=120, help="VLM 请求超时秒数（默认 120）")
@@ -258,4 +263,7 @@ def main() -> None:
 
 
 if __name__ == "__main__":
-    main()
+    if len(sys.argv) > 1 and sys.argv[1] in {"run", "extract"}:
+        main()
+    else:
+        customer_index_main()
