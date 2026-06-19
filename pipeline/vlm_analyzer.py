@@ -194,10 +194,21 @@ async def _analyze_batches_async(batches: List[List[str]], model: str, base_url:
         prompt = _render_prompt(custom_prompt or DEFAULT_BATCH_PROMPT_TEMPLATE, len(batch_files))
         messages = _build_messages(batch_files, prompt, max_edge=max_edge)
         async with semaphore:
+            import time
+            started = time.perf_counter()
             try:
                 raw = await _call_vlm_api(messages, model, base_url, timeout)
-                return _parse_batch_response(raw, batch_files, time_range, batch_idx)
+                result = _parse_batch_response(raw, batch_files, time_range, batch_idx)
+                elapsed = round(time.perf_counter() - started, 3)
+                return {
+                    **result,
+                    "vlm_mode": "batch",
+                    "vlm_image_count": len(batch_files),
+                    "vlm_request_elapsed_sec": elapsed,
+                    "vlm_per_image_elapsed_sec": round(elapsed / len(batch_files), 3),
+                }
             except Exception as e:
+                elapsed = round(time.perf_counter() - started, 3)
                 logger.error(f"批次 {batch_idx} VLM 调用失败: {e}")
                 return {
                     "batch_index": batch_idx,
@@ -209,6 +220,10 @@ async def _analyze_batches_async(batches: List[List[str]], model: str, base_url:
                     "fallback_summary": f"分析失败: {e}",
                     "raw_response": "",
                     "error_message": str(e),
+                    "vlm_mode": "batch",
+                    "vlm_image_count": len(batch_files),
+                    "vlm_request_elapsed_sec": elapsed,
+                    "vlm_per_image_elapsed_sec": round(elapsed / len(batch_files), 3) if batch_files else 0.0,
                 }
 
     tasks = [analyze_one(b, i) for i, b in enumerate(batches)]
@@ -229,10 +244,21 @@ async def _analyze_single_frames_async(frame_paths: List[str], model: str, base_
         prompt = _render_prompt(custom_prompt or DEFAULT_SINGLE_PROMPT_TEMPLATE, 1)
         messages = _build_messages([frame_path], prompt, max_edge=max_edge, single_image=True)
         async with semaphore:
+            import time
+            started = time.perf_counter()
             try:
                 raw = await _call_vlm_api(messages, model, base_url, timeout)
-                return _parse_batch_response(raw, [frame_path], time_range, frame_idx)
+                result = _parse_batch_response(raw, [frame_path], time_range, frame_idx)
+                elapsed = round(time.perf_counter() - started, 3)
+                return {
+                    **result,
+                    "vlm_mode": "single",
+                    "vlm_image_count": 1,
+                    "vlm_request_elapsed_sec": elapsed,
+                    "vlm_per_image_elapsed_sec": elapsed,
+                }
             except Exception as e:
+                elapsed = round(time.perf_counter() - started, 3)
                 logger.error(f"帧 {frame_idx} VLM 调用失败: {e}")
                 return {
                     "batch_index": frame_idx,
@@ -244,6 +270,10 @@ async def _analyze_single_frames_async(frame_paths: List[str], model: str, base_
                     "fallback_summary": f"分析失败: {e}",
                     "raw_response": "",
                     "error_message": str(e),
+                    "vlm_mode": "single",
+                    "vlm_image_count": 1,
+                    "vlm_request_elapsed_sec": elapsed,
+                    "vlm_per_image_elapsed_sec": elapsed,
                 }
 
     tasks = [analyze_one(fp, i) for i, fp in enumerate(frame_paths)]
@@ -296,6 +326,10 @@ def build_analysis_artifact(batch_results: List[dict], video_path: str, frame_in
             "picture": picture,
             "narration": "",
             "OST": 2,
+            "vlm_mode": batch.get("vlm_mode", ""),
+            "vlm_image_count": batch.get("vlm_image_count", 0),
+            "vlm_request_elapsed_sec": batch.get("vlm_request_elapsed_sec", 0.0),
+            "vlm_per_image_elapsed_sec": batch.get("vlm_per_image_elapsed_sec", 0.0),
         })
     return {
         "artifact_version": "pipeline-vlm-v1",
@@ -304,6 +338,10 @@ def build_analysis_artifact(batch_results: List[dict], video_path: str, frame_in
         "frame_interval_seconds": frame_interval_seconds,
         "vision_model": model,
         "vision_base_url": base_url,
+        "timing_fields": {
+            "vlm_request_elapsed_sec": "单次 VLM 请求耗时（秒）",
+            "vlm_per_image_elapsed_sec": "平均到每张图片的 VLM 耗时（秒）；single 模式下即单张图真实耗时",
+        },
         "batches": batch_results,
         "video_clip_json": clips,
     }
