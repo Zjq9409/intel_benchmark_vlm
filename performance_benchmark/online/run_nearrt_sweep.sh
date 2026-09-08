@@ -17,13 +17,18 @@ MTP="${4:-off}"
 # ----------------------------------------------------------------
 # Tunable parameters
 # ----------------------------------------------------------------
-E2E_LIMIT=30          # E2E threshold in seconds (passed to inner benchmark script)
+E2E_LIMIT="${E2E_LIMIT:-30}"          # stop sweep after this E2E threshold is exceeded
+E2E_THRESHOLDS="${E2E_THRESHOLDS:-5 10 20 30}"  # thresholds used for plotting/refinement
+REFINE_BATCH_STEP="${REFINE_BATCH_STEP:-4}"  # batch step used when refining E2E threshold boundaries
 PORT=8010             # vllm server port
 MAX_BATCHED_TOKENS=8192  # max batched tokens
 MAX_MODEL_LEN=32768       # max model context length
 GPU_MEM_UTIL=0.9          # GPU memory utilization fraction
 MAX_NUM_SEQS=32             # max number of sequences (empty=use vllm default)
-TP=2                       # tensor parallelism
+TP=4                       # tensor parallelism
+MAX_SWEEP_BATCH="${MAX_SWEEP_BATCH:-512}"   # safety cap; sweep stops earlier once E2E exceeds E2E_LIMIT
+BATCH_SWEEP_STEP="${BATCH_SWEEP_STEP:-4}"   # fallback coarse batch sweep step; refined by 1 near the E2E limit
+BATCH_SWEEP_LIST="${BATCH_SWEEP_LIST:-1 2 4 8 16 24 32 48 64 96 128 160 192 224 256 320 384 448 512}"  # aligned batch candidates across hardware
 
 # Auto-detect running vllm NV container if not explicitly set
 if [ -z "${VLLM_NV_CONTAINER:-}" ]; then
@@ -87,8 +92,10 @@ _sweep_ref=$(mktemp)
 echo "========================================"
 echo "Near-RT Sweep started at: $RUN_START"
 echo "Model=$MODEL  device=${DEVICE:-all}  quant=$QUANT  mtp=$MTP  E2E_LIMIT=${E2E_LIMIT}s"
-echo "Matrix: res=[720p,1080p] in=[512,1024] out=[128,512,1024] frames=[1~16]"
+echo "E2E plot thresholds: [${E2E_THRESHOLDS}], refine_batch_step=${REFINE_BATCH_STEP}"
+echo "Matrix: res=[720p,1080p] in=[512,1024] out=[128,1024] frames=[1]"
 echo "Mode: dynamic batch sweep per frame count (max concurrent batch @ E2E<${E2E_LIMIT}s)"
+echo "Batch sweep: candidates=[${BATCH_SWEEP_LIST}], safety_max=${MAX_SWEEP_BATCH}, stop_after_E2E>${E2E_LIMIT}s, refine_batch_step=${REFINE_BATCH_STEP}"
 echo "========================================"
 
 # ----------------------------------------------------------------
@@ -133,12 +140,14 @@ trap 'echo ""; echo "Interrupted — stopping server..."; stop_server; rm -f "$_
 # One timestamp for all configs -> single shared log file
 COMBO_TS=$(date "+%Y%m%d_%H%M%S")
 mkdir -p "$SCRIPT_DIR/$MODEL_DIR"
-COMBO_LOG="$SCRIPT_DIR/$MODEL_DIR/${COMBO_TS}_${MODEL}_${QUANT}_${MTP_LABEL}_${MAX_BATCHED_TOKENS}_${GPU_TYPE}_client.log"
+MODEL_TAG="$SERVER_MODEL_NAME"
+MODEL_TAG="${MODEL_TAG//\//_}"
+COMBO_LOG="$SCRIPT_DIR/$MODEL_DIR/${COMBO_TS}_${MODEL_TAG}_${QUANT}_${MTP_LABEL}_${MAX_BATCHED_TOKENS}_${GPU_TYPE}_client.log"
 echo "All tests will be logged to: $MODEL_DIR/$(basename "$COMBO_LOG")"
 # ----------------------------------------------------------------
 for res in "1280 720" "1920 1080"; do
     w=${res% *}; h=${res#* }
-    for input_len in 512 1024; do
+    for input_len in 512; do
         for output_len in 128 1024; do
 
             echo ""
@@ -147,7 +156,7 @@ for res in "1280 720" "1920 1080"; do
             echo "Dynamic batch sweep (max batch @ E2E<${E2E_LIMIT}s per frame count)"
             # Log file already announced above
             echo "================================================================"
-            for imgs in 1 4 6 8 10 14 16; do
+            for imgs in 1; do
 
                 echo ""
                 echo "--- ${MODEL} ${w}x${h} frames=${imgs} in=${input_len} out=${output_len} quant=${QUANT} ---"
@@ -163,31 +172,40 @@ for res in "1280 720" "1920 1080"; do
                 # arg18=GPU_MEM_UTIL       -> GPU memory utilization fraction
                 # arg19=MAX_NUM_SEQS       -> max number of sequences
                 # arg20=TP                -> tensor parallelism (empty=use model default)
+                # arg21=MAX_SWEEP_BATCH   -> cap dynamic batch sweep for faster runs
+                # arg22=BATCH_SWEEP_STEP  -> fallback dynamic batch sweep step for faster runs
+                # arg23=BATCH_SWEEP_LIST  -> aligned batch candidates across hardware
+                # arg24=E2E_THRESHOLDS    -> E2E thresholds to refine for plotting
+                # arg25=REFINE_BATCH_STEP -> batch step used when refining threshold boundaries
                 if ! bash "$SCRIPT_DIR/vllm_random_benchmark_server.sh" \
                     "$MODEL" "$w" "$h" "$imgs" "$MTP" "$QUANT" "$DEVICE" \
                     "$output_len" "$input_len" "" "1" "" "$COMBO_TS" "$PORT" "$E2E_LIMIT" \
-                    "$MAX_BATCHED_TOKENS" "$MAX_MODEL_LEN" "$GPU_MEM_UTIL" "$MAX_NUM_SEQS" "$TP"; then
+                    "$MAX_BATCHED_TOKENS" "$MAX_MODEL_LEN" "$GPU_MEM_UTIL" "$MAX_NUM_SEQS" "$TP" \
+                    "$MAX_SWEEP_BATCH" "$BATCH_SWEEP_STEP" "$BATCH_SWEEP_LIST" "$E2E_THRESHOLDS" "$REFINE_BATCH_STEP"; then
                     echo "  ERROR: benchmark failed (OOM / Bad Request) — stopping frames sweep"
                     break
                 fi
 
                 # Extract max batch where E2E <= E2E_LIMIT from this combo's log
                 # Extract max batch for THIS imgs where E2E <= E2E_LIMIT from shared log
-                read MAX_BATCH MAX_E2E MAX_TPS <<< "$(awk -v lim="$E2E_LIMIT" -v target_imgs="$imgs" '
+                read MAX_BATCH MAX_E2E MAX_TPS <<< "$(awk -v lim="$E2E_LIMIT" -v target_imgs="$imgs" -v target_res="${w}x${h}" -v target_in="$input_len" -v target_out="$output_len" '
                     /=== BENCHMARK batch=/ {
                         for (i=1;i<=NF;i++) {
                             if ($i ~ /^batch=/) { sub(/batch=/,"",$i); cur_batch=$i+0 }
                             if ($i ~ /^imgs=/) { sub(/imgs=/,"",$i); cur_imgs=$i+0 }
+                            if ($i ~ /^res=/) { sub(/res=/,"",$i); cur_res=$i }
+                            if ($i ~ /^in=/) { sub(/in=/,"",$i); cur_in=$i+0 }
+                            if ($i ~ /^out=/) { sub(/out=/,"",$i); cur_out=$i+0 }
                         }
                     }
                     /Benchmark duration \(s\):/ {
-                        if (cur_imgs+0 == target_imgs+0) {
+                        if (cur_imgs+0 == target_imgs+0 && cur_res == target_res && cur_in+0 == target_in+0 && cur_out+0 == target_out+0) {
                             e2e = $NF+0
                             if (e2e <= lim) { mb=cur_batch; me=e2e }
                         }
                     }
                     /Output token throughput \(tok\/s\):/ {
-                        if (cur_imgs+0 == target_imgs+0 && cur_batch+0 == mb+0) mt=$NF+0
+                        if (cur_imgs+0 == target_imgs+0 && cur_res == target_res && cur_in+0 == target_in+0 && cur_out+0 == target_out+0 && cur_batch+0 == mb+0) mt=$NF+0
                     }
                     END { print mb+0, me+0, mt+0 }
                 ' "$COMBO_LOG" 2>/dev/null)"
@@ -217,7 +235,17 @@ echo "========================================"
 
 # Fix file permissions BEFORE parsing (files created by docker are owned by root)
 echo "Fixing file permissions..."
-sudo chown -R intel:intel "$SCRIPT_DIR/$MODEL_DIR" 2>/dev/null || echo "  (Skip permission fix - not critical)"
+if [ "${FIX_PERMISSIONS:-1}" = "0" ]; then
+    echo "  Skip permission fix (FIX_PERMISSIONS=0)."
+else
+    CHOWN_USER="${CHOWN_USER:-${SUDO_USER:-$(id -un)}}"
+    CHOWN_GROUP="${CHOWN_GROUP:-$(id -gn "$CHOWN_USER" 2>/dev/null || id -gn)}"
+    if [ "$IN_CONTAINER" = "0" ]; then
+        sudo chown -R "${CHOWN_USER}:${CHOWN_GROUP}" "$SCRIPT_DIR/$MODEL_DIR" 2>/dev/null || echo "  (Skip permission fix - not critical)"
+    else
+        chown -R "${CHOWN_USER}:${CHOWN_GROUP}" "$SCRIPT_DIR/$MODEL_DIR" 2>/dev/null || echo "  (Skip permission fix - not critical)"
+    fi
+fi
 echo ""
 # Parse all combo logs generated in this sweep -> per-combo CSV
 echo "Parsing logs..."

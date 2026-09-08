@@ -70,6 +70,11 @@ MAX_MODEL_LEN="${17:-32768}"       # max model context length (passed from sweep
 GPU_MEM_UTIL="${18:-0.9}"          # GPU memory utilization (passed from sweep wrapper)
 MAX_NUM_SEQS="${19:-}"             # max number of sequences (empty=use vllm default)
 TP_OVERRIDE="${20:-}"              # tensor parallelism override (empty=use model default)
+MAX_SWEEP_BATCH_OVERRIDE="${21:-${MAX_SWEEP_BATCH:-}}"  # safety cap; sweep stops earlier once E2E exceeds E2E_LIMIT_SEC
+BATCH_SWEEP_STEP="${22:-${BATCH_SWEEP_STEP:-4}}"        # fallback coarse batch sweep step; refined by 1 near the E2E limit
+BATCH_SWEEP_LIST="${23:-${BATCH_SWEEP_LIST:-}}"          # aligned batch candidates across hardware
+E2E_THRESHOLDS="${24:-${E2E_THRESHOLDS:-5 10 20 30}}"  # thresholds used for plotting/refinement
+REFINE_BATCH_STEP="${25:-${REFINE_BATCH_STEP:-4}}"  # batch step used when refining threshold boundaries
 
 # shellcheck source=model_config.sh
 source "$(dirname "$(realpath "$0")")/model_config.sh"
@@ -119,6 +124,7 @@ fi
 # Start vllm server
 echo "Starting vllm server..."
 
+#--max-num-batched-tokens=$MAX_BATCHED_TOKENS
 VLLM_SERVER_ARGS=(
     --model "$SERVER_MODEL"
     --served-model-name "$SERVER_MODEL_NAME"
@@ -128,7 +134,6 @@ VLLM_SERVER_ARGS=(
     --trust-remote-code
     --no-enable-prefix-caching
     --gpu-memory-util=$GPU_MEM_UTIL
-    --max-num-batched-tokens=$MAX_BATCHED_TOKENS
     --max-model-len=$MAX_MODEL_LEN
     --mm-processor-cache-gb 0
     --async-scheduling 
@@ -200,11 +205,20 @@ fi
 fi  # SERVER_ALREADY_UP
 
 # Run benchmarks
-# Multi-image: narrow range (1~20); single-image: full sweep (1~200)
+# Keep a safety cap for pathological cases; normal sweep stops once E2E exceeds E2E_LIMIT_SEC.
 if [ "$MM_ITEMS" -gt 1 ]; then
-    MAX_BSIZE=20
+    MAX_BSIZE=64
 else
-    MAX_BSIZE=200
+    MAX_BSIZE=512
+fi
+if [ -n "$MAX_SWEEP_BATCH_OVERRIDE" ] && [ "$MAX_SWEEP_BATCH_OVERRIDE" -gt 0 ] 2>/dev/null; then
+    MAX_BSIZE="$MAX_SWEEP_BATCH_OVERRIDE"
+fi
+if ! [ "$BATCH_SWEEP_STEP" -gt 0 ] 2>/dev/null; then
+    BATCH_SWEEP_STEP=4
+fi
+if ! [ "$REFINE_BATCH_STEP" -gt 0 ] 2>/dev/null; then
+    REFINE_BATCH_STEP=4
 fi
 
 MM_BUCKET_CONFIG="{(${MM_H},${MM_W}, 1): 1.0}"
@@ -259,6 +273,83 @@ check_stop() {
     return 0
 }
 
+find_threshold_bounds() {
+    local threshold=$1
+    awk -v lim="$threshold" -v target_imgs="$MM_ITEMS" -v target_res="${MM_W}x${MM_H}" -v target_in="$INPUT_LEN" -v target_out="$OUTPUT_LEN" '
+        /=== BENCHMARK batch=/ {
+            is_target=0
+            for (i=1;i<=NF;i++) {
+                if ($i ~ /^batch=/) { sub(/batch=/,"",$i); cur_batch=$i+0 }
+                if ($i ~ /^imgs=/) { sub(/imgs=/,"",$i); cur_imgs=$i+0 }
+                if ($i ~ /^res=/) { sub(/res=/,"",$i); cur_res=$i }
+                if ($i ~ /^in=/) { sub(/in=/,"",$i); cur_in=$i+0 }
+                if ($i ~ /^out=/) { sub(/out=/,"",$i); cur_out=$i+0 }
+            }
+            if (cur_imgs+0 == target_imgs+0 && cur_res == target_res && cur_in+0 == target_in+0 && cur_out+0 == target_out+0) is_target=1
+        }
+        is_target && /Benchmark duration \(s\):/ {
+            e2e=$NF+0
+            if (e2e <= lim && cur_batch > ok) ok=cur_batch
+            if (e2e > lim && (fail == 0 || cur_batch < fail)) fail=cur_batch
+        }
+        END { print ok+0, fail+0 }
+    ' "$LOG_FILE" 2>/dev/null
+}
+
+batch_already_run() {
+    local target_batch=$1
+    awk -v target_batch="$target_batch" -v target_imgs="$MM_ITEMS" -v target_res="${MM_W}x${MM_H}" -v target_in="$INPUT_LEN" -v target_out="$OUTPUT_LEN" '
+        /=== BENCHMARK batch=/ {
+            batch=imgs=inlen=outlen=0; res=""
+            for (i=1;i<=NF;i++) {
+                if ($i ~ /^batch=/) { sub(/batch=/,"",$i); batch=$i+0 }
+                if ($i ~ /^imgs=/) { sub(/imgs=/,"",$i); imgs=$i+0 }
+                if ($i ~ /^res=/) { sub(/res=/,"",$i); res=$i }
+                if ($i ~ /^in=/) { sub(/in=/,"",$i); inlen=$i+0 }
+                if ($i ~ /^out=/) { sub(/out=/,"",$i); outlen=$i+0 }
+            }
+            if (batch == target_batch && imgs == target_imgs && res == target_res && inlen == target_in && outlen == target_out) found=1
+        }
+        END { exit(found ? 0 : 1) }
+    ' "$LOG_FILE" 2>/dev/null
+}
+
+refine_thresholds() {
+    local threshold low high fine_start fine_end b
+    echo "  Refining E2E thresholds for plotting: ${E2E_THRESHOLDS}"
+    for threshold in $E2E_THRESHOLDS; do
+        if ! awk -v t="$threshold" -v max="$E2E_LIMIT_SEC" 'BEGIN { exit !(t > 0 && t <= max) }'; then
+            echo "  Skip invalid/out-of-range E2E threshold: ${threshold}s"
+            continue
+        fi
+
+        read low high <<< "$(find_threshold_bounds "$threshold")"
+        if [ "$high" -gt 0 ] && [ "$low" -gt 0 ]; then
+            fine_start=$((low + 1))
+            fine_end=$((high - 1))
+            if [ "$fine_start" -le "$fine_end" ]; then
+                echo "  Refining E2E<=${threshold}s batch range ${fine_start}..${fine_end} with STEP=${REFINE_BATCH_STEP}"
+                STOP_SWEEP=0
+                b=$((low + REFINE_BATCH_STEP))
+                while [ $b -le $fine_end ]; do
+                    if ! batch_already_run "$b"; then
+                        run_benchmark "$b"
+                        check_stop || break
+                    fi
+                    b=$((b + REFINE_BATCH_STEP))
+                done
+            fi
+        fi
+
+        read low high <<< "$(find_threshold_bounds "$threshold")"
+        if [ "$high" -gt 0 ]; then
+            echo "  E2E<=${threshold}s max batch: ${low} (first >${threshold}s batch=${high})"
+        else
+            echo "  E2E<=${threshold}s max batch: ${low} (not crossed within tested range)"
+        fi
+    done
+}
+
 
 if [ -n "$FIXED_BATCH" ]; then
     # Frames-sweep mode: run only the specified batch size
@@ -267,21 +358,73 @@ if [ -n "$FIXED_BATCH" ]; then
 else
     # Default: dynamic sweep to find max batch @ E2E < limit
     STOP_SWEEP=0
+    last_ok=0
+    failed_batch=0
     run_benchmark 1
-    check_stop || true  # sets STOP_SWEEP=1 if exceeded (standalone mode exits inside)
+    if check_stop; then
+        last_ok=1
+    else
+        failed_batch=1
+    fi
 
     if [ "$STOP_SWEEP" = "0" ]; then
-        # Sweep batch 1,2,4,6,8,... up to MAX_BSIZE (after batch=1, step by 2 from 2)
         estimated_max=$MAX_BSIZE
-        STEP=2
-        echo "  Using STEP=${STEP} starting from 2 (MAX_BSIZE=${MAX_BSIZE})"
 
-        i=1
-        while [ $i -le $estimated_max ] && [ "$STOP_SWEEP" = "0" ]; do
-            run_benchmark $i
-            check_stop || true
-            i=$((i + STEP))
-        done
+        if [ -n "$BATCH_SWEEP_LIST" ]; then
+            echo "  Using aligned batch candidates: ${BATCH_SWEEP_LIST} (MAX_BSIZE=${MAX_BSIZE}); refine STEP=1 near E2E limit"
+            for b in $BATCH_SWEEP_LIST; do
+                if ! [ "$b" -gt 0 ] 2>/dev/null; then
+                    echo "  Skip invalid batch candidate: $b"
+                    continue
+                fi
+                if [ "$b" -le "$last_ok" ]; then
+                    continue
+                fi
+                if [ "$b" -gt "$estimated_max" ]; then
+                    continue
+                fi
+
+                run_benchmark $b
+                if check_stop; then
+                    last_ok=$b
+                else
+                    failed_batch=$b
+                    break
+                fi
+            done
+        else
+            # Fallback coarse sweep batch 1,2,6,10,... up to MAX_BSIZE.
+            STEP=$BATCH_SWEEP_STEP
+            echo "  Using fallback coarse STEP=${STEP} starting from 2 (MAX_BSIZE=${MAX_BSIZE}); refine STEP=1 near E2E limit"
+
+            i=2
+            while [ $i -le $estimated_max ] && [ "$STOP_SWEEP" = "0" ]; do
+                run_benchmark $i
+                if check_stop; then
+                    last_ok=$i
+                else
+                    failed_batch=$i
+                    break
+                fi
+                i=$((i + STEP))
+            done
+            if [ "$STOP_SWEEP" = "0" ] && [ "$last_ok" -lt "$estimated_max" ]; then
+                run_benchmark $estimated_max
+                if check_stop; then
+                    last_ok=$estimated_max
+                else
+                    failed_batch=$estimated_max
+                fi
+            fi
+        fi
+
+        refine_thresholds
+        read last_ok failed_batch <<< "$(find_threshold_bounds "$E2E_LIMIT_SEC")"
+        if [ "$failed_batch" -gt 0 ]; then
+            echo "  Max batch candidate with E2E<=${E2E_LIMIT_SEC}s: ${last_ok} (first failed batch=${failed_batch})"
+        else
+            echo "  Max batch candidate with E2E<=${E2E_LIMIT_SEC}s: ${last_ok} (WARNING: reached safety cap without exceeding E2E limit)"
+        fi
     fi
 fi
 
