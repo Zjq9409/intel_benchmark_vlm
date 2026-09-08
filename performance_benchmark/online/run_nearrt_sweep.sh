@@ -142,7 +142,7 @@ COMBO_TS=$(date "+%Y%m%d_%H%M%S")
 mkdir -p "$SCRIPT_DIR/$MODEL_DIR"
 MODEL_TAG="$SERVER_MODEL_NAME"
 MODEL_TAG="${MODEL_TAG//\//_}"
-COMBO_LOG="$SCRIPT_DIR/$MODEL_DIR/${COMBO_TS}_${MODEL_TAG}_${QUANT}_${MTP_LABEL}_${MAX_BATCHED_TOKENS}_${GPU_TYPE}_client.log"
+COMBO_LOG="$SCRIPT_DIR/$MODEL_DIR/${COMBO_TS}_${MODEL}_TP${TP}_${QUANT}_${MTP_LABEL}_${MAX_BATCHED_TOKENS}_${GPU_TYPE}_client.log
 echo "All tests will be logged to: $MODEL_DIR/$(basename "$COMBO_LOG")"
 # ----------------------------------------------------------------
 for res in "1280 720" "1920 1080"; do
