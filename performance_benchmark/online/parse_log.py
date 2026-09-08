@@ -1,6 +1,7 @@
 import sys
 import re
 import os
+import csv
 import unicodedata
 
 rawdatafile = sys.argv[1]
@@ -105,19 +106,41 @@ if __name__ == '__main__':
         "Images per request", "batch_size", "TTFT (ms)", "TPOT (ms)", "TPS (tokens/s)", "QPS (req/s)", "E2E Latency (s)"
     ]
 
+    def _int_value(row, key, default=0):
+        try:
+            return int(row.get(key, default))
+        except (TypeError, ValueError):
+            return default
+
+    def _sort_key(row):
+        return (
+            row.get('Device', ''),
+            row.get('Model', ''),
+            row.get('Precision', ''),
+            _int_value(row, 'TP'),
+            _int_value(row, 'DP'),
+            _int_value(row, 'PP'),
+            row.get('Image Size', ''),
+            _int_value(row, 'Input Text Length'),
+            _int_value(row, 'Output Length'),
+            _int_value(row, 'Images per request'),
+            _int_value(row, 'batch_size'),
+        )
+
+    results = sorted((r for r in results if r), key=_sort_key)
+
     outpath = os.path.join(output_dir, f'{base_filename}.csv')
-    with open(outpath, 'w', encoding="utf-8") as f:
-        f.write(", ".join(headers) + '\n')
+    with open(outpath, 'w', encoding="utf-8", newline='') as f:
+        writer = csv.writer(f)
+        writer.writerow(headers)
         for result_dict in results:
-            if not result_dict:
-                continue
             row_data = []
             for header in headers:
                 value = result_dict.get(header, '')
                 if isinstance(value, float):
                     row_data.append(f'{value:.2f}')
                 else:
-                    row_data.append(str(value))
-            f.write(", ".join(row_data) + '\n')
+                    row_data.append(value)
+            writer.writerow(row_data)
 
     print(f"CSV saved: {outpath}")
