@@ -54,27 +54,26 @@ cd "$(dirname "$(realpath "$0")")"
 # 4th argument: images per request (default 1; set 10 to simulate NarratoAI multi-image)
 MODEL_SELECT="${1:-30b}"
 MM_ITEMS="${4:-1}"
-MTP="${5:-off}"   # on=enable speculative decoding, off=disable
-QUANT="${6:-fp8}"  # fp8=enable fp8 quantization, none=disable
-DEVICE="${7:-}"     # GPU device ID(s), e.g. 4 or 0,1,2,3; empty=use all
-OUTPUT_LEN="${8:-1024}"  # output token length; 128=realtime, 512=near-realtime, 1024=batch
-E2E_LIMIT_SEC="${15:-60}"  # E2E threshold passed from sweep wrapper (run_nearrt_sweep.sh E2E_LIMIT)
-INPUT_LEN="${9:-1024}"   # input token length; 512=short prompt, 1024=standard
-FIXED_BATCH="${10:-}"    # if set, run only this single batch size (skip sweep)
-KEEP_SERVER_UP="${11:-}"  # if "1", keep server running after benchmark (multi-combo sweep)
-SERVER_MM_LIMIT="${12:-$MM_ITEMS}"  # server --limit-mm-per-prompt max (set to sweep max for KEEP_SERVER_UP mode)
-SWEEP_TS="${13:-}"            # timestamp passed from sweep wrapper (survives docker exec)
-PORT="${14:-8008}"           # vllm server port (passed from sweep wrapper)
-MAX_BATCHED_TOKENS="${16:-32768}"  # max batched tokens (passed from sweep wrapper)
-MAX_MODEL_LEN="${17:-32768}"       # max model context length (passed from sweep wrapper)
-GPU_MEM_UTIL="${18:-0.9}"          # GPU memory utilization (passed from sweep wrapper)
-MAX_NUM_SEQS="${19:-}"             # max number of sequences (empty=use vllm default)
-TP_OVERRIDE="${20:-}"              # tensor parallelism override (empty=use model default)
-MAX_SWEEP_BATCH_OVERRIDE="${21:-${MAX_SWEEP_BATCH:-}}"  # safety cap; sweep stops earlier once E2E exceeds E2E_LIMIT_SEC
-BATCH_SWEEP_STEP="${22:-${BATCH_SWEEP_STEP:-4}}"        # fallback coarse batch sweep step; refined by 1 near the E2E limit
-BATCH_SWEEP_LIST="${23:-${BATCH_SWEEP_LIST:-}}"          # aligned batch candidates across hardware
-E2E_THRESHOLDS="${24:-${E2E_THRESHOLDS:-5 10 20 30}}"  # thresholds used for plotting/refinement
-REFINE_BATCH_STEP="${25:-${REFINE_BATCH_STEP:-4}}"  # batch step used when refining threshold boundaries
+QUANT="${5:-fp8}"  # fp8=enable fp8 quantization, none=disable
+DEVICE="${6:-}"     # GPU device ID(s), e.g. 4 or 0,1,2,3; empty=use all
+OUTPUT_LEN="${7:-1024}"  # output token length; 128=realtime, 512=near-realtime, 1024=batch
+INPUT_LEN="${8:-1024}"   # input token length; 512=short prompt, 1024=standard
+FIXED_BATCH="${9:-}"    # if set, run only this single batch size (skip sweep)
+KEEP_SERVER_UP="${10:-}"  # if "1", keep server running after benchmark (multi-combo sweep)
+SERVER_MM_LIMIT="${11:-$MM_ITEMS}"  # server --limit-mm-per-prompt max (set to sweep max for KEEP_SERVER_UP mode)
+SWEEP_TS="${12:-}"            # timestamp passed from sweep wrapper (survives docker exec)
+PORT="${13:-8008}"           # vllm server port (passed from sweep wrapper)
+E2E_LIMIT_SEC="${14:-60}"  # E2E threshold passed from sweep wrapper (run_nearrt_sweep.sh E2E_LIMIT)
+MAX_BATCHED_TOKENS="${15:-32768}"  # max batched tokens (passed from sweep wrapper)
+MAX_MODEL_LEN="${16:-32768}"       # max model context length (passed from sweep wrapper)
+GPU_MEM_UTIL="${17:-0.9}"          # GPU memory utilization (passed from sweep wrapper)
+MAX_NUM_SEQS="${18:-}"             # max number of sequences (empty=use vllm default)
+TP_OVERRIDE="${19:-}"              # tensor parallelism override (empty=use model default)
+MAX_SWEEP_BATCH_OVERRIDE="${20:-${MAX_SWEEP_BATCH:-}}"  # safety cap; sweep stops earlier once E2E exceeds E2E_LIMIT_SEC
+BATCH_SWEEP_STEP="${21:-${BATCH_SWEEP_STEP:-4}}"        # fallback coarse batch sweep step; refined by 1 near the E2E limit
+BATCH_SWEEP_LIST="${22:-${BATCH_SWEEP_LIST:-}}"          # aligned batch candidates across hardware
+E2E_THRESHOLDS="${23:-${E2E_THRESHOLDS:-5 10 20 30}}"  # thresholds used for plotting/refinement
+REFINE_BATCH_STEP="${24:-${REFINE_BATCH_STEP:-4}}"  # batch step used when refining threshold boundaries
 
 # shellcheck source=model_config.sh
 source "$(dirname "$(realpath "$0")")/model_config.sh"
@@ -88,13 +87,10 @@ mkdir -p "$SERVER_MODEL_NAME"
 CURRENT_TIME="${SWEEP_TS:-${SWEEP_TIMESTAMP:-$(date "+%Y%m%d_%H%M%S")}}"
 GPU_TYPE=$(nvidia-smi --query-gpu=name --format=csv,noheader 2>/dev/null | head -1 | sed 's/NVIDIA //g; s/GeForce //g; s/Quadro //g; s/Tesla //g' | tr -d ' \r')
 [ -z "$GPU_TYPE" ] && GPU_TYPE="XPU"
-MTP_TAG=$([ "$MTP" = "on" ] && echo "mtp_" || echo "nomtp_")
-MTP_LABEL=$([ "$MTP" = "on" ] && echo "mtp" || echo "nomtp")
-QUANT_TAG=$([ "$QUANT" = "none" ] && echo "fp16_" || echo "${QUANT}_")
 MODEL_TAG="$SERVER_MODEL_NAME"
 MODEL_TAG="${MODEL_TAG//\//_}"
-LOG_FILE="${SERVER_MODEL_NAME}/${CURRENT_TIME}_${MODEL_TAG}_TP${TP}_${QUANT}_${MTP_LABEL}_${MAX_BATCHED_TOKENS}_${GPU_TYPE}_client.log"
-SERVER_LOG="${SERVER_MODEL_NAME}/${CURRENT_TIME}_${MODEL_TAG}_TP${TP}_${QUANT}_${MTP_LABEL}_${MAX_BATCHED_TOKENS}_${GPU_TYPE}_server.log"
+LOG_FILE="${SERVER_MODEL_NAME}/${CURRENT_TIME}_${MODEL_TAG}_TP${TP}_${QUANT}_${MAX_BATCHED_TOKENS}_${GPU_TYPE}_client.log"
+SERVER_LOG="${SERVER_MODEL_NAME}/${CURRENT_TIME}_${MODEL_TAG}_TP${TP}_${QUANT}_${MAX_BATCHED_TOKENS}_${GPU_TYPE}_server.log"
 echo "Server LOG will be logged to: $SERVER_LOG"
 
 
@@ -141,14 +137,9 @@ VLLM_SERVER_ARGS=(
 )
 [ -n "$MAX_NUM_SEQS" ] && VLLM_SERVER_ARGS+=(--max-num-seqs "$MAX_NUM_SEQS")
 
-# Quantization (6th arg: fp8/none, default fp8)
+# Quantization (5th arg: fp8/none, default fp8)
 if [ "$QUANT" != "none" ]; then
     VLLM_SERVER_ARGS+=(--quantization "$QUANT")
-fi
-
-# MTP speculative decoding (5th arg: on/off)
-if [ "$MTP" = "on" ]; then
-    VLLM_SERVER_ARGS+=(--speculative-config '{"method":"qwen3_next_mtp","num_speculative_tokens":2}')
 fi
 
 # Remove the extra closing paren — restore block

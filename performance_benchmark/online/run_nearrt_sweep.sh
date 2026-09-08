@@ -5,14 +5,14 @@ set -e
 # 准实时场景扫描：一个 Server，测试所有 (分辨率 × in × out × 帧数) 组合
 # 指标：E2E < E2E_LIMIT 下每帧数的最大并发 Batch
 #
-# 用法: bash run_nearrt_sweep.sh [model] [device] [quant] [mtp]
-# 示例: bash run_nearrt_sweep.sh 4b "" fp8
-#        bash run_nearrt_sweep.sh 4b 4 fp8      # 只用 GPU 4
+# 用法: bash run_nearrt_sweep.sh [model] [tp] [device] [quant]
+# 示例: bash run_nearrt_sweep.sh 4b 4 "" fp8   # 使用全部可见 GPU，TP=4
+#        bash run_nearrt_sweep.sh 4b 1 4 fp8    # 只用 GPU 4，TP=1
 # ================================================================
 MODEL="${1:-4b}"
-DEVICE="${2:-}"
-QUANT="${3:-fp8}"
-MTP="${4:-off}"
+TP="${2:-${TP:-4}}"             # tensor parallelism
+DEVICE="${3:-}"
+QUANT="${4:-fp8}"
 
 # ----------------------------------------------------------------
 # Tunable parameters
@@ -25,7 +25,6 @@ MAX_BATCHED_TOKENS=8192  # max batched tokens
 MAX_MODEL_LEN=32768       # max model context length
 GPU_MEM_UTIL=0.9          # GPU memory utilization fraction
 MAX_NUM_SEQS=32             # max number of sequences (empty=use vllm default)
-TP=4                       # tensor parallelism
 MAX_SWEEP_BATCH="${MAX_SWEEP_BATCH:-512}"   # safety cap; sweep stops earlier once E2E exceeds E2E_LIMIT
 BATCH_SWEEP_STEP="${BATCH_SWEEP_STEP:-4}"   # fallback coarse batch sweep step; refined by 1 near the E2E limit
 BATCH_SWEEP_LIST="${BATCH_SWEEP_LIST:-1 2 4 8 16 24 32 48 64 96 128 160 192 224 256 320 384 448 512}"  # aligned batch candidates across hardware
@@ -76,8 +75,6 @@ fi
 source "$SCRIPT_DIR/model_config.sh"
 resolve_model "$MODEL"
 
-MTP_LABEL=$([ "$MTP" = "on" ] && echo "mtp" || echo "nomtp")
-
 # Detect GPU type on bare metal
 GPU_TYPE=$(nvidia-smi --query-gpu=name --format=csv,noheader 2>/dev/null | head -1 \
     | sed 's/NVIDIA //g; s/GeForce //g; s/Quadro //g; s/Tesla //g' | tr -d ' \r')
@@ -91,7 +88,7 @@ _sweep_ref=$(mktemp)
 
 echo "========================================"
 echo "Near-RT Sweep started at: $RUN_START"
-echo "Model=$MODEL  device=${DEVICE:-all}  quant=$QUANT  mtp=$MTP  E2E_LIMIT=${E2E_LIMIT}s"
+echo "Model=$MODEL  device=${DEVICE:-all}  quant=$QUANT  TP=$TP  E2E_LIMIT=${E2E_LIMIT}s"
 echo "E2E plot thresholds: [${E2E_THRESHOLDS}], refine_batch_step=${REFINE_BATCH_STEP}"
 echo "Matrix: res=[720p,1080p] in=[512,1024] out=[128,1024] frames=[1]"
 echo "Mode: dynamic batch sweep per frame count (max concurrent batch @ E2E<${E2E_LIMIT}s)"
@@ -142,7 +139,7 @@ COMBO_TS=$(date "+%Y%m%d_%H%M%S")
 mkdir -p "$SCRIPT_DIR/$MODEL_DIR"
 MODEL_TAG="$SERVER_MODEL_NAME"
 MODEL_TAG="${MODEL_TAG//\//_}"
-COMBO_LOG="$SCRIPT_DIR/$MODEL_DIR/${COMBO_TS}_${MODEL}_TP${TP}_${QUANT}_${MTP_LABEL}_${MAX_BATCHED_TOKENS}_${GPU_TYPE}_client.log
+COMBO_LOG="$SCRIPT_DIR/$MODEL_DIR/${COMBO_TS}_${MODEL_TAG}_TP${TP}_${QUANT}_${MAX_BATCHED_TOKENS}_${GPU_TYPE}_client.log"
 echo "All tests will be logged to: $MODEL_DIR/$(basename "$COMBO_LOG")"
 # ----------------------------------------------------------------
 for res in "1280 720" "1920 1080"; do
@@ -161,24 +158,24 @@ for res in "1280 720" "1920 1080"; do
                 echo ""
                 echo "--- ${MODEL} ${w}x${h} frames=${imgs} in=${input_len} out=${output_len} quant=${QUANT} ---"
 
-                # arg10="" -> dynamic batch sweep in vllm_random_benchmark_server.sh
-                # arg11="1" -> KEEP_SERVER_UP (server reused across combos)
-                # arg12=""  -> SERVER_MM_LIMIT unused, pass empty
-                # arg13=COMBO_TS          -> log filename key
-                # arg14=PORT              -> vllm server port
-                # arg15=E2E_LIMIT         -> E2E threshold
-                # arg16=MAX_BATCHED_TOKENS -> max batched tokens
-                # arg17=MAX_MODEL_LEN      -> max model context length
-                # arg18=GPU_MEM_UTIL       -> GPU memory utilization fraction
-                # arg19=MAX_NUM_SEQS       -> max number of sequences
-                # arg20=TP                -> tensor parallelism (empty=use model default)
-                # arg21=MAX_SWEEP_BATCH   -> cap dynamic batch sweep for faster runs
-                # arg22=BATCH_SWEEP_STEP  -> fallback dynamic batch sweep step for faster runs
-                # arg23=BATCH_SWEEP_LIST  -> aligned batch candidates across hardware
-                # arg24=E2E_THRESHOLDS    -> E2E thresholds to refine for plotting
-                # arg25=REFINE_BATCH_STEP -> batch step used when refining threshold boundaries
+                # arg9="" -> dynamic batch sweep in vllm_random_benchmark_server.sh
+                # arg10="1" -> KEEP_SERVER_UP (server reused across combos)
+                # arg11=""  -> SERVER_MM_LIMIT unused, pass empty
+                # arg12=COMBO_TS          -> log filename key
+                # arg13=PORT              -> vllm server port
+                # arg14=E2E_LIMIT         -> E2E threshold
+                # arg15=MAX_BATCHED_TOKENS -> max batched tokens
+                # arg16=MAX_MODEL_LEN      -> max model context length
+                # arg17=GPU_MEM_UTIL       -> GPU memory utilization fraction
+                # arg18=MAX_NUM_SEQS       -> max number of sequences
+                # arg19=TP                -> tensor parallelism (empty=use model default)
+                # arg20=MAX_SWEEP_BATCH   -> cap dynamic batch sweep for faster runs
+                # arg21=BATCH_SWEEP_STEP  -> fallback dynamic batch sweep step for faster runs
+                # arg22=BATCH_SWEEP_LIST  -> aligned batch candidates across hardware
+                # arg23=E2E_THRESHOLDS    -> E2E thresholds to refine for plotting
+                # arg24=REFINE_BATCH_STEP -> batch step used when refining threshold boundaries
                 if ! bash "$SCRIPT_DIR/vllm_random_benchmark_server.sh" \
-                    "$MODEL" "$w" "$h" "$imgs" "$MTP" "$QUANT" "$DEVICE" \
+                    "$MODEL" "$w" "$h" "$imgs" "$QUANT" "$DEVICE" \
                     "$output_len" "$input_len" "" "1" "" "$COMBO_TS" "$PORT" "$E2E_LIMIT" \
                     "$MAX_BATCHED_TOKENS" "$MAX_MODEL_LEN" "$GPU_MEM_UTIL" "$MAX_NUM_SEQS" "$TP" \
                     "$MAX_SWEEP_BATCH" "$BATCH_SWEEP_STEP" "$BATCH_SWEEP_LIST" "$E2E_THRESHOLDS" "$REFINE_BATCH_STEP"; then

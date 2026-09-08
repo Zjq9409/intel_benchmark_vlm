@@ -40,11 +40,11 @@ bash ../../setup_env.sh \
 ## 2. 跑脚本
 
 ```bash
-# NVIDIA GPU：默认参数（4B 模型 + FP8 量化 + MTP off）
+# NVIDIA GPU：默认参数（4B 模型 + FP8 量化）
 VLLM_NV_CONTAINER=vllm-{USER}-nv bash run_nearrt_sweep.sh 4b
 
 # 指定 GPU，例如只用 GPU 4
-VLLM_NV_CONTAINER=vllm-{USER}-nv bash run_nearrt_sweep.sh 4b 4 fp8 off
+VLLM_NV_CONTAINER=vllm-{USER}-nv bash run_nearrt_sweep.sh 4b 1 4 fp8
 
 # XPU
 VLLM_XPU_CONTAINER=vllm-${USER}-xpu bash run_nearrt_sweep.sh 4b
@@ -57,9 +57,9 @@ VLLM_XPU_CONTAINER=vllm-${USER}-xpu bash run_nearrt_sweep.sh 4b
 | 位置 | 默认 | 可选 | 说明 |
 |---|---|---|---|
 | `$1` 模型 | `4b` | `4b` / `q35-4b` / `32b` / `q36-35b` / `30b` / `q36-27b` | 见 `model_config.sh` |
-| `$2` GPU 设备 | 空 | 例如 `4`、`0,1,2,3` | 传给 `CUDA_VISIBLE_DEVICES`；空表示使用全部可见设备 |
-| `$3` 量化 | `fp8` | `fp8` / `none` | `fp8` 开启 FP8 量化，`none` 表示不启用量化 |
-| `$4` MTP | `off` | `on` / `off` | Speculative Decoding；按模型支持情况使用 |
+| `$2` TP | `4` | 正整数，例如 `1`、`2`、`4` | Tensor Parallelism；需要不超过可见 GPU 数量 |
+| `$3` GPU 设备 | 空 | 例如 `4`、`0,1,2,3` | 传给 `CUDA_VISIBLE_DEVICES`；空表示使用全部可见设备 |
+| `$4` 量化 | `fp8` | `fp8` / `none` | `fp8` 开启 FP8 量化，`none` 表示不启用量化 |
 
 测试矩阵（脚本自动遍历）：
 - 分辨率：`1280x720`、`1920x1080`
