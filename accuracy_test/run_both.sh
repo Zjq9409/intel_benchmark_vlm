@@ -1,0 +1,61 @@
+#!/bin/bash
+set -e
+
+# 提前请求 sudo 权限，保持 token 活跃
+sudo -v
+( while true; do sudo -v; sleep 60; done ) &
+_SUDO_KEEPALIVE_PID=$!
+trap "kill $_SUDO_KEEPALIVE_PID 2>/dev/null" EXIT
+
+RUN_START=$(date "+%Y-%m-%d %H:%M:%S")
+RUN_START_TS=$(date +%s)
+echo "========================================"
+echo "Run started at: $RUN_START"
+echo "========================================"
+
+# ================================================================
+# 参数: vllm_random_benchmark_server.sh <model> <w> <h> <mm_items> <mtp> <quant>
+#   model    : 4b | q35-4b | 30b
+#   w/h      : 图片分辨率
+#   mm_items : 每请求图片数（1=单图, 10=多图）
+#   mtp      : on | off（仅 Qwen3.5 系列支持）
+#   quant    : fp8 | none（默认 fp8）
+# 本脚本参数: bash run_both.sh [fp8|none] [device_id]（默认 fp8，全部GPU）
+# ================================================================
+QUANT="${1:-fp8}"
+DEVICE="${2:-}"
+
+# ----------------------------------------------------------------
+# 环境配置（按需修改）
+# ----------------------------------------------------------------
+export VLLM_NV_CONTAINER="${VLLM_NV_CONTAINER:-vllm-nv-container}"
+export VLLM_XPU_CONTAINER="${VLLM_XPU_CONTAINER:-lsv-container-0428}"
+# ----------------------------------------------------------------
+
+echo "Quantization:  $QUANT"
+echo "GPU Device:    ${DEVICE:-all}"
+echo "NV Container:  $VLLM_NV_CONTAINER"
+echo "XPU Container: $VLLM_XPU_CONTAINER"
+
+for res in "512 512"; do
+#for res in "1280 720" "1920 1080"; do
+    w=${res% *}; h=${res#* }
+    for imgs in 1 8 10; do
+        # echo "--- q35-4b ${w}x${h} imgs=${imgs} quant=${QUANT} ---"
+        # bash vllm_random_benchmark_server.sh q35-4b $w $h $imgs on $QUANT $DEVICE
+        # bash vllm_random_benchmark_server.sh q35-4b $w $h $imgs off $QUANT $DEVICE
+
+        echo "--- 4b ${w}x${h} imgs=${imgs} quant=${QUANT} ---"
+        bash vllm_random_benchmark_server.sh 4b $w $h $imgs off $QUANT $DEVICE
+    done
+done
+
+# ================================================================
+echo "========================================"
+RUN_END=$(date "+%Y-%m-%d %H:%M:%S")
+RUN_END_TS=$(date +%s)
+ELAPSED=$(( RUN_END_TS - RUN_START_TS ))
+printf "Run started at:  %s\n" "$RUN_START"
+printf "Run finished at: %s\n" "$RUN_END"
+printf "Total elapsed:   %02dh %02dm %02ds\n" $((ELAPSED/3600)) $(((ELAPSED%3600)/60)) $((ELAPSED%60))
+echo "========================================"

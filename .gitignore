@@ -1,0 +1,18 @@
+
+
+__pycache__/
+venv/
+dataset/
+**/output/
+**/sharegpt4v_data/
+**/LOG/
+models/
+**/*.gz
+**/*.nsys-rep
+**/*.sqlite
+**/*.json
+**/*.txt
+**/*.log
+**/*.csv
+**/*.png
+# **/*.mp4
