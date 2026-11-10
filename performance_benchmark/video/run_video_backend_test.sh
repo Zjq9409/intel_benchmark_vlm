@@ -11,8 +11,8 @@ QUANT=fp8
 HW_DECODERS=2
 MM_IPC_GPU_MEM_GB=4
 VIDEO_DIRS="/llm/performance_benchmark/video/videos_h264_30fps /llm/performance_benchmark/video/videos_h265_30fps"
-OUTPUT_LEN=32
-CONCURRENCY_LIST="1 4"
+OUTPUT_LEN=512
+CONCURRENCY_LIST="1 4 6 8 10"
 
 # Use eight requests per worker at the highest concurrency, giving multiple waves.
 MAX_CONCURRENCY=0
