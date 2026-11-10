@@ -4,12 +4,14 @@ set -e
 # 用户在 docker 组时直接用 docker，否则回退 sudo（远端机器可能没有免密 sudo）
 DOCKER="docker"
 docker info &>/dev/null || DOCKER="sudo docker"
+SERVER_PORT="${SERVER_PORT:-8012}"
 
 # ================================================================
 # 启动支持 video 输入的 vLLM server
 #
-# 用法: bash start_video_server.sh [model] [port] [tp] [device]
-#   参数都可省略，默认 4b / 8012 / 模型默认 TP / 所有卡
+# 用法: bash start_video_server.sh [model] [tp] [device]
+#   端口由文件开头的 SERVER_PORT 设置，默认 8012
+#   参数都可省略，默认模型 4b / 模型默认 TP / 所有卡
 #
 # model 可以是:
 #   bash start_video_server.sh 4b                     # ../online/model_config.sh 的预置 key
@@ -56,6 +58,7 @@ if [ ! -f "/.dockerenv" ] && ! grep -q 'docker\|containerd' /proc/1/cgroup 2>/de
         exit 1
     fi
     exec $DOCKER exec -it \
+        -e SERVER_PORT="$SERVER_PORT" \
         -e VIDEO_LIMIT="${VIDEO_LIMIT:-}" \
         -e VIDEO_NUM_FRAMES="${VIDEO_NUM_FRAMES:-}" \
         -e VIDEO_BACKEND="${VIDEO_BACKEND:-}" \
@@ -74,9 +77,8 @@ fi
 cd "$(dirname "$(realpath "$0")")"
 
 MODEL_SELECT="${1:-4b}"
-PORT="${2:-8012}"
-TP_OVERRIDE="${3:-}"
-DEVICE="${4:-}"
+TP_OVERRIDE="${2:-}"
+DEVICE="${3:-}"
 
 VIDEO_LIMIT="${VIDEO_LIMIT:-1}"          # 每请求最多几个视频
 VIDEO_NUM_FRAMES="${VIDEO_NUM_FRAMES:-16}"  # 服务端解码采样帧数
@@ -89,7 +91,7 @@ VIDEO_IO_KWARGS="${VIDEO_IO_KWARGS:-}"   # 直接给原始 JSON，设了就忽�
 MAX_MODEL_LEN="${MAX_MODEL_LEN:-32768}"
 GPU_MEM_UTIL="${GPU_MEM_UTIL:-0.9}"
 MAX_NUM_SEQS="${MAX_NUM_SEQS:-}"
-QUANT="${QUANT:-none}"
+QUANT="${QUANT:-fp8}"
 # 视频素材所在目录（容器内路径），需在 --allowed-local-media-path 之下
 MEDIA_PATH="${MEDIA_PATH:-/llm}"
 
@@ -174,7 +176,7 @@ VLLM_SERVER_ARGS=(
     --served-model-name "$SERVER_MODEL_NAME"
     --dtype float16
     --host 0.0.0.0
-    --port "$PORT"
+    --port "$SERVER_PORT"
     --trust-remote-code
     --no-enable-prefix-caching
     --gpu-memory-util "$GPU_MEM_UTIL"
@@ -203,7 +205,7 @@ fi
 echo "---------------------------------------------------"
 echo "Model:            $SERVER_MODEL"
 echo "Served name:      $SERVER_MODEL_NAME"
-echo "Port / TP:        $PORT / $TP"
+echo "Port / TP:        $SERVER_PORT / $TP"
 echo "Videos/request:   $VIDEO_LIMIT  (num_frames=$VIDEO_NUM_FRAMES)"
 echo "Decode backend:   $VIDEO_BACKEND"
 echo "media-io-kwargs:  $VIDEO_IO_KWARGS"
@@ -211,9 +213,9 @@ echo "Allowed media:    $MEDIA_PATH"
 echo "Server log:       $SERVER_LOG"
 echo "---------------------------------------------------"
 
-PID_FILE="/tmp/vllm_video_server_${PORT}.pid"
-if curl -sf "http://localhost:${PORT}/v1/models" 2>/dev/null | grep -q "$SERVER_MODEL_NAME"; then
-    echo "Server already running on port $PORT, nothing to do."
+PID_FILE="/tmp/vllm_video_server_${SERVER_PORT}.pid"
+if curl -sf "http://localhost:${SERVER_PORT}/v1/models" 2>/dev/null | grep -q "$SERVER_MODEL_NAME"; then
+    echo "Server already running on port $SERVER_PORT, nothing to do."
     exit 0
 fi
 
@@ -222,7 +224,7 @@ echo $! > "$PID_FILE"
 echo "Server PID: $(cat "$PID_FILE")"
 
 for i in $(seq 1 120); do
-    if curl -s "http://localhost:${PORT}/v1/models" | grep -q "$SERVER_MODEL_NAME"; then
+    if curl -s "http://localhost:${SERVER_PORT}/v1/models" | grep -q "$SERVER_MODEL_NAME"; then
         echo "Server ready after $((i*5))s."
         exit 0
     fi

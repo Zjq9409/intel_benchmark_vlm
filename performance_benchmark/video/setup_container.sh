@@ -43,4 +43,4 @@ done
 
 echo ""
 echo "下一步（容器名可省略，start_video_server.sh 会自动探测）:"
-echo "  VLLM_CONTAINER=$CONTAINER_NAME bash start_video_server.sh 4b 8012 2"
+echo "  VLLM_CONTAINER=$CONTAINER_NAME bash start_video_server.sh Qwen3.5-2B 2"
