@@ -6,10 +6,10 @@
 
 | 宿主机目录 | 容器内路径 | 内容 |
 |---|---|---|
-| `intel_benchmark_vlm/videos_h264/` | `/llm/videos_h264` | H.264，720p / 1080p |
-| `intel_benchmark_vlm/videos_h265/` | `/llm/videos_h265` | H.265(HEVC)，720p / 1080p |
+| `intel_benchmark_vlm/performance_benchmark/video/videos_h264_30fps/` | `/llm/performance_benchmark/video/videos_h264_30fps` | H.264，720p / 1080p，30 FPS |
+| `intel_benchmark_vlm/performance_benchmark/video/videos_h265_30fps/` | `/llm/performance_benchmark/video/videos_h265_30fps` | H.265(HEVC)，720p / 1080p，30 FPS |
 
-> 仓库根目录被挂载到容器内 `/llm`，所以视频在容器里就是 `/llm/videos_h26x/*.mp4`。
+> 仓库根目录挂载到容器内 `/llm`；无需额外挂载目录，基准脚本默认使用以上两个 30-FPS 视频目录。
 
 ---
 
@@ -105,7 +105,7 @@ VIDEO_IO_KWARGS='{"video":{"backend":"opencv","num_frames":32}}' bash start_vide
 ```bash
 bash run_video_bench_serve.sh                      # 模型自动探测，并发 1 4 8，16 条
 bash run_video_bench_serve.sh "" 8012 "1 8 16" 32
-VIDEO_DIRS=/llm/videos_h265 bash run_video_bench_serve.sh
+VIDEO_DIRS=/llm/performance_benchmark/video/videos_h265_30fps bash run_video_bench_serve.sh
 ```
 
 原理：vLLM 的 ShareGPT dataset loader 支持条目里的 `"video"` 字段，`process_video()`
@@ -122,7 +122,7 @@ JSON，再交给官方 `vllm bench serve`，所以输出就是原生的
 
 | 环境变量 | 默认 | 说明 |
 |---|---|---|
-| `VIDEO_DIRS` | `/llm/videos_h264 /llm/videos_h265` | 视频目录，空格分隔 |
+| `VIDEO_DIRS` | `/llm/performance_benchmark/video/videos_h264_30fps /llm/performance_benchmark/video/videos_h265_30fps` | 视频目录，空格分隔 |
 | `PROMPT` | `Describe what happens in this video in detail.` | |
 | `OUTPUT_LEN` | `128` | `--sharegpt-output-len` |
 | `TOKENIZER` | 自动 `/llm/models/<model>` | served name 不是路径时需要 |
@@ -155,7 +155,7 @@ bash run_video_benchmark.sh "" 8012 "1 4 8" 128
 
 | 环境变量 | 默认 | 说明 |
 |---|---|---|
-| `VIDEO_DIRS` | `/llm/videos_h264 /llm/videos_h265` | |
+| `VIDEO_DIRS` | `/llm/performance_benchmark/video/videos_h264_30fps /llm/performance_benchmark/video/videos_h265_30fps` | |
 | `NUM_REQUESTS` | = 并发度 | 每轮请求总数 |
 | `IGNORE_EOS` | `true` | 固定输出长度，吞吐数据才可比 |
 | `WARMUP` | `1` | `0` 关闭预热 |
@@ -194,7 +194,7 @@ sudo docker exec <容器名> bash -c 'kill $(cat /tmp/vllm_video_server_8012.pid
 - **`Couldn't instantiate the backend tokenizer`**：`vllm bench serve` 的 `--tokenizer`
   需要指到权重目录而不是 served name，脚本已自动处理。
 - **HTTP 400 / 解码失败**：H.265 需要容器内解码器带 HEVC 支持，不支持就设
-  `VIDEO_DIRS=/llm/videos_h264` 只测 H.264。
+  `VIDEO_DIRS=/llm/performance_benchmark/video/videos_h264_30fps` 只测 H.264。
 - **`local media path not allowed`**：`MEDIA_PATH` 必须是视频目录的父路径（默认 `/llm`）。
 - **输入 token 比预期多很多**：Qwen3-VL 的 transformers 实现默认不做 per-frame pixel cap，
   可加 `--mm-processor-kwargs '{"cap_pixels_per_frame": true}'` 对齐 qwen-vl-utils 行为，
@@ -208,6 +208,6 @@ sudo docker exec <容器名> bash -c 'kill $(cat /tmp/vllm_video_server_8012.pid
 从任意 mp4 转出 720p / 1080p 两种分辨率：
 
 ```bash
-ffmpeg -i src.mp4 -vf scale=1280:720  -c:v libx264 -preset medium -crf 23 videos_h264/src_720p_h264.mp4
-ffmpeg -i src.mp4 -vf scale=1920:1080 -c:v libx265 -preset medium -crf 23 -tag:v hvc1 videos_h265/src_1080p_h265.mp4
+ffmpeg -i src.mp4 -vf scale=1280:720  -c:v libx264 -preset medium -crf 23 performance_benchmark/video/videos_h264_30fps/src_720p_h264.mp4
+ffmpeg -i src.mp4 -vf scale=1920:1080 -c:v libx265 -preset medium -crf 23 -tag:v hvc1 performance_benchmark/video/videos_h265_30fps/src_1080p_h265.mp4
 ```

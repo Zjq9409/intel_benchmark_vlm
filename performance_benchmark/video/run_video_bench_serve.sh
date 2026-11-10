@@ -49,7 +49,7 @@ CONCURRENCY_LIST="${3:-1 4 8}"
 NUM_PROMPTS="${4:-16}"
 
 HOST="${HOST:-localhost}"
-VIDEO_DIRS="${VIDEO_DIRS:-/llm/videos_h264 /llm/videos_h265}"
+VIDEO_DIRS="${VIDEO_DIRS:-/llm/performance_benchmark/video/videos_h264_30fps /llm/performance_benchmark/video/videos_h265_30fps}"
 PROMPT="${PROMPT:-Describe what happens in this video in detail.}"
 OUTPUT_LEN="${OUTPUT_LEN:-128}"
 EXTRA_ARGS="${EXTRA_ARGS:-}"
