@@ -38,6 +38,8 @@ if [ ! -f "/.dockerenv" ] && ! grep -q 'docker\|containerd' /proc/1/cgroup 2>/de
         -e PROMPT="${PROMPT:-}" -e OUTPUT_LEN="${OUTPUT_LEN:-}" \
         -e TOKENIZER="${TOKENIZER:-}" \
         -e EXTRA_ARGS="${EXTRA_ARGS:-}" \
+        -e RESULT_DIR="${RESULT_DIR:-}" \
+        -e BENCH_LABEL="${BENCH_LABEL:-}" \
         "$CONTAINER_NAME" bash "$SELF" "$@"
 fi
 
@@ -81,9 +83,10 @@ fi
 RUN_TS=$(date +%Y%m%d_%H%M%S)
 LOG_DIR="${LOG_DIR:-$(pwd)/${MODEL//\//_}}"
 mkdir -p "$LOG_DIR"; chmod 777 "$LOG_DIR" 2>/dev/null || true
-RESULT_DIR="$LOG_DIR/${RUN_TS}_bench"
+RESULT_DIR="${RESULT_DIR:-$LOG_DIR/${RUN_TS}_bench}"
 mkdir -p "$RESULT_DIR"; chmod 777 "$RESULT_DIR" 2>/dev/null || true
-DATASET_JSON="$RESULT_DIR/local_videos_sharegpt.json"
+BENCH_LABEL="${BENCH_LABEL:-bench}"
+DATASET_JSON="$RESULT_DIR/${BENCH_LABEL}_videos_sharegpt.json"
 
 python3 - "$DATASET_JSON" "$PROMPT" $VIDEO_DIRS <<'PY'
 import json, os, sys
@@ -106,7 +109,7 @@ json.dump(data, open(out, "w"))
 print(f"{len(data)} videos -> {out}")
 PY
 
-LOG_FILE="$RESULT_DIR/bench_serve.log"
+LOG_FILE="$RESULT_DIR/${BENCH_LABEL}_bench_serve.log"
 
 for conc in $CONCURRENCY_LIST; do
     echo "" | tee -a "$LOG_FILE"
@@ -124,6 +127,7 @@ for conc in $CONCURRENCY_LIST; do
         --max-concurrency "$conc" \
         --ignore-eos \
         --save-result --result-dir "$RESULT_DIR" \
+        --result-filename "${BENCH_LABEL}-concurrency${conc}.json" \
         $EXTRA_ARGS 2>&1 | tee -a "$LOG_FILE"
 done
 
